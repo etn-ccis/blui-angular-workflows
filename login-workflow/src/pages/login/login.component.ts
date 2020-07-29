@@ -12,7 +12,7 @@ export class PxbLoginComponent implements OnInit {
     constructor(
         private readonly _login: PxbLoginService,
         private readonly _router: Router,
-        private readonly _authService: PxbAuthService,
+        private readonly _authService: PxbAuthService
     ) {}
 
     @Input() homeRoute: string;
@@ -24,11 +24,11 @@ export class PxbLoginComponent implements OnInit {
         this._router.navigate([this._login.getHomeRoute()]);
     }
 
-  forgotPassword(): void {
-      this._router.navigate(['forgot-password']);
-  }
+    forgotPassword(): void {
+        this._router.navigate(['forgot-password']);
+    }
 
-  createAccount(): void {
-      this._router.navigate(['create-account']);
-  }
+    createAccount(): void {
+        this._router.navigate(['create-account']);
+    }
 }

@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { PxbLoginComponent } from './pages/login/login.component';
-import { PxbForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
-import { HomeComponent } from './pages/home/home.component';
-import { PxbResetPasswordComponent } from './pages/reset-password/reset-password.component';
-import { PxbAuthGuard } from './guards/auth-guard';
-import {PxbCreateAccountComponent} from "./pages/create-account/create-account.component"; // CLI imports router
+import { PxbLoginComponent } from '@pxblue/angular-auth-workflow';
+import { PxbForgotPasswordComponent } from '@pxblue/angular-auth-workflow';
+import { HomeComponent } from './home/home.component';
+import { PxbResetPasswordComponent } from '@pxblue/angular-auth-workflow';
+import { PxbAuthGuard } from '@pxblue/angular-auth-workflow';
+import {PxbCreateAccountComponent} from '@pxblue/angular-auth-workflow'; // CLI imports router
 
 const routes: Routes = [
     { path: 'login', component: PxbLoginComponent },
