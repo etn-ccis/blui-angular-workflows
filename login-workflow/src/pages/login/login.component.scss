@@ -1,6 +1,27 @@
-.main-div{
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.main-div {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pxb-login-header {
+  margin-bottom: 30px;
+}
+
+mat-form-field {
+  width: 100%;
+  margin-bottom: 35px;
+}
+
+.pxb-login-button {
+  width: 100px;
+}
+
+.pxb-login-password-link, .pxb-login-create-account-link {
+  color: #007bc1;
+  font-weight: 600;
+  margin-bottom: 32px;
+  text-align: center;
+  cursor: pointer;
 }

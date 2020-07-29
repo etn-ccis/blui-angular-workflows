@@ -1,0 +1,15 @@
+<div class="pxb-float-card-container">
+  <mat-card class="pxb-inner-card">
+    <pxb-login *ngIf="showLogin">
+      <ng-container pxb-login-header>
+        <ng-content select="[pxb-login-header]"></ng-content>
+      </ng-container>
+      <ng-container pxb-login-footer>
+        <ng-content select="[pxb-login-footer]"></ng-content>
+      </ng-container>
+    </pxb-login>
+    <pxb-reset-password *ngIf="showResetPassword"></pxb-reset-password>
+    <pxb-create-account *ngIf="showCreateAccount"></pxb-create-account>
+    <pxb-forgot-password *ngIf="showForgotPassword"></pxb-forgot-password>
+  </mat-card>
+</div>

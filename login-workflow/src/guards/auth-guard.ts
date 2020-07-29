@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate } from '@angular/router';
-import { PxbAuthService } from '../services/auth.service';
+import { PxbAuthService } from '../auth/auth.service';
 
 @Injectable({
     providedIn: 'root',

@@ -5,6 +5,8 @@ import { Injectable } from '@angular/core';
 })
 export class PxbAuthService {
     loggedIn: boolean;
+    parentRoute: string = 'auth';
+
 
     isAuthenticated(): boolean {
         return this.loggedIn;
