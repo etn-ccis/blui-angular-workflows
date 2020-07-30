@@ -1,12 +1,12 @@
-import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, Inject, ViewChild} from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Inject, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
 import { PxbAuthApiService } from '../../services/api/api.service';
 import { PxbAuthStateService } from '../../services/state/state.service';
 import { AuthErrorStateMatcher } from '../../util/matcher';
-import {isEmptyView} from "../../util/view-utils";
-import {PXB_AUTH_CONFIG, PxbAuthConfig} from "../../config/auth-config";
-import {CREATE_ACCOUNT_ROUTE, FORGOT_PASSWORD_ROUTE} from "../../config/route-names";
+import { isEmptyView } from '../../util/view-utils';
+import { PXB_AUTH_CONFIG, PxbAuthConfig } from '../../config/auth-config';
+import { CREATE_ACCOUNT_ROUTE, FORGOT_PASSWORD_ROUTE } from '../../config/route-names';
 
 @Component({
     selector: 'pxb-login',
@@ -14,7 +14,6 @@ import {CREATE_ACCOUNT_ROUTE, FORGOT_PASSWORD_ROUTE} from "../../config/route-na
     styleUrls: ['./login.component.scss'],
 })
 export class PxbLoginComponent implements AfterViewInit {
-
     @ViewChild('header', { static: false }) headerEl: ElementRef;
     @ViewChild('footer', { static: false }) footerEl: ElementRef;
 
@@ -34,11 +33,10 @@ export class PxbLoginComponent implements AfterViewInit {
         @Inject(PXB_AUTH_CONFIG) private readonly _config: PxbAuthConfig
     ) {}
 
-
     // TODO: WRITE REMEMBER ME TO STATE
 
     ngAfterViewInit(): void {
-      this._changeDetectorRef.detectChanges();
+        this._changeDetectorRef.detectChanges();
     }
 
     login(): void {

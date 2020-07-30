@@ -36,6 +36,12 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
         RouterModule,
         MatCheckboxModule,
     ],
-    exports: [PxbAuthComponent],
+    exports: [
+        PxbAuthComponent,
+        PxbLoginComponent,
+        PxbForgotPasswordComponent,
+        PxbCreateAccountComponent,
+        PxbResetPasswordComponent,
+    ],
 })
 export class PxbAuthModule {}

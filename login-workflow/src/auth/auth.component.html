@@ -1,11 +1,23 @@
 <div class="pxb-float-card-container">
     <mat-card class="pxb-inner-card">
-        <pxb-login *ngIf="showLogin">
-            <ng-content pxb-login-header select="[pxb-login-header]"></ng-content>
-            <ng-content pxb-login-footer select="[pxb-login-footer]"></ng-content>
-        </pxb-login>
-        <pxb-reset-password *ngIf="showResetPassword"></pxb-reset-password>
-        <pxb-create-account *ngIf="showCreateAccount"></pxb-create-account>
-        <pxb-forgot-password *ngIf="showForgotPassword"></pxb-forgot-password>
+        <div #login>
+            <ng-content *ngIf="showLogin" select="pxb-login"></ng-content>
+        </div>
+        <pxb-login *ngIf="isEmpty(loginEl) && showLogin"></pxb-login>
+
+        <div #resetPassword>
+            <ng-content *ngIf="showResetPassword" select="pxb-reset-password"></ng-content>
+        </div>
+        <pxb-reset-password *ngIf="isEmpty(resetPasswordEl) && showResetPassword"></pxb-reset-password>
+
+        <div #createAccount>
+            <ng-content *ngIf="showCreateAccount" select="pxb-create-account"></ng-content>
+        </div>
+        <pxb-create-account *ngIf="isEmpty(createAccountEl) && showCreateAccount"></pxb-create-account>
+
+        <div #forgotPassword>
+            <ng-content *ngIf="showForgotPassword" select="pxb-forgot-password"></ng-content>
+        </div>
+        <pxb-forgot-password *ngIf="isEmpty(forgotPasswordEl) && showForgotPassword"></pxb-forgot-password>
     </mat-card>
 </div>

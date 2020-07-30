@@ -1,5 +1,5 @@
-import {ElementRef} from "@angular/core";
+import { ElementRef } from '@angular/core';
 
 export function isEmptyView(el: ElementRef): boolean {
-  return !el || !el.nativeElement || !el.nativeElement.children || el.nativeElement.children.length === 0;
+    return !el || !el.nativeElement || !el.nativeElement.children || el.nativeElement.children.length === 0;
 }
