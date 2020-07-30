@@ -1,4 +1,4 @@
-<div class="pxb-login-header">
+<div class="pxb-login-header" (click)="pik();">
     <div #header><ng-content select="[pxb-login-header]"></ng-content></div>
     <div *ngIf="isEmpty(headerEl)">DEFAULT HEADER</div>
 </div>
@@ -7,10 +7,13 @@
     <mat-form-field>
         <mat-label>Email</mat-label>
         <input matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher" />
-        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+        <mat-error *ngIf="emailFormControl.hasError('email')
+            && !emailFormControl.hasError('required')
+            && !emailFormControl.hasError(customErrorName)">
             Please enter a valid email address
         </mat-error>
-        <mat-error *ngIf="emailFormControl.hasError('required')"> Email is <strong>required</strong> </mat-error>
+        <mat-error *ngIf="emailFormControl.hasError(customErrorName)"> {{emailFormControl.errors[customErrorName].message}} </mat-error>
+      <mat-error *ngIf="emailFormControl.hasError('required')"> Email is <strong>required</strong> </mat-error>
     </mat-form-field>
 
     <mat-form-field>

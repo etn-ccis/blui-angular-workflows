@@ -1,12 +1,15 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Inject, ViewChild } from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, Inject, Input, ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl, Validators } from '@angular/forms';
+import {Form, FormControl, ValidatorFn, Validators} from '@angular/forms';
 import { PxbAuthApiService } from '../../services/api/api.service';
 import { PxbAuthStateService } from '../../services/state/state.service';
 import { AuthErrorStateMatcher } from '../../util/matcher';
 import { isEmptyView } from '../../util/view-utils';
 import { PXB_AUTH_CONFIG, PxbAuthConfig } from '../../config/auth-config';
 import { CREATE_ACCOUNT_ROUTE, FORGOT_PASSWORD_ROUTE } from '../../config/route-names';
+
+// TODO: Find a home for this const, perhaps config folder.
+export const PXB_LOGIN_VALIDATOR_ERROR_NAME = 'PXB_LOGIN_VALIDATOR_ERROR_NAME';
 
 @Component({
     selector: 'pxb-login',
@@ -17,8 +20,11 @@ export class PxbLoginComponent implements AfterViewInit {
     @ViewChild('header', { static: false }) headerEl: ElementRef;
     @ViewChild('footer', { static: false }) footerEl: ElementRef;
 
-    emailFormControl = new FormControl('', [Validators.required, Validators.email]);
-    passwordFormControl = new FormControl('', []);
+    customErrorName = PXB_LOGIN_VALIDATOR_ERROR_NAME;
+    @Input() customEmailValidator: ValidatorFn;
+
+    emailFormControl: FormControl;
+    passwordFormControl: FormControl;
 
     isLoading: boolean;
     rememberMe: boolean;
@@ -34,6 +40,19 @@ export class PxbLoginComponent implements AfterViewInit {
     ) {}
 
     // TODO: WRITE REMEMBER ME TO STATE
+
+  pik(): void {
+      console.log(this.emailFormControl);
+  }
+
+    ngOnInit(): void {
+      const emailValidators = [Validators.required, Validators.email ];
+      if (this.customEmailValidator) {
+        emailValidators.push(this.customEmailValidator);
+      }
+      this.emailFormControl = new FormControl('', emailValidators);
+      this.passwordFormControl = new FormControl('', []);
+    }
 
     ngAfterViewInit(): void {
         this._changeDetectorRef.detectChanges();
