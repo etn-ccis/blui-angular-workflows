@@ -11,10 +11,8 @@ export class AuthService implements IPxbAuthApiService {
     login(): Promise<boolean> {
         return new Promise((resolve) => {
             setTimeout(() => {
-                console.log('app login method called');
-                // void this._router.navigate(['home']);
                 resolve(true);
-            }, 1500);
+            }, 1000);
         });
     }
 
