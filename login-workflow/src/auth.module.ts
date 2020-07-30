@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { InjectionToken, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { PxbLoginComponent } from './pages/login/login.component';
 import { PxbForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { PxbResetPasswordComponent } from './pages/reset-password/reset-password.component';
@@ -14,13 +14,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { SpacerModule } from '@pxblue/angular-components';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-
-export type PxbAuthConfig = {
-    homeRoute: string;
-    authRoute: string;
-};
-
-export const PXB_AUTH_CONFIG = new InjectionToken<PxbAuthConfig>('');
 
 @NgModule({
     declarations: [

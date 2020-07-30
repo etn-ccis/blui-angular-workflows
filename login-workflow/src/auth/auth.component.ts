@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { CREATE_ACCOUNT_ROUTE, FORGOT_PASSWORD_ROUTE, LOGIN_ROUTE, RESET_PASSWORD_ROUTE } from './auth.routing';
-import { PXB_AUTH_CONFIG, PxbAuthConfig } from '../auth.module';
+import { PXB_AUTH_CONFIG, PxbAuthConfig } from '../config/auth-config';
+import {CREATE_ACCOUNT_ROUTE, FORGOT_PASSWORD_ROUTE, LOGIN_ROUTE, RESET_PASSWORD_ROUTE} from "../config/route-names";
 
 @Component({
     selector: 'pxb-auth',

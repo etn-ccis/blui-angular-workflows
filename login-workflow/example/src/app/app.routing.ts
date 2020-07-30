@@ -8,12 +8,14 @@ export const HOME_ROUTE = 'home';
 export const AUTH_ROUTE = 'auth';
 
 const routes: Routes = [
-    { path: AUTH_ROUTE, component: AuthComponent, children: authSubRoutes },
     { path: '', redirectTo: AUTH_ROUTE, pathMatch: 'full' },
+    { path: AUTH_ROUTE, component: AuthComponent, children: authSubRoutes },
     {
         path: '',
         canActivate: [PxbAuthGuard],
-        children: [{ path: HOME_ROUTE, component: HomeComponent }],
+        children: [
+            { path: HOME_ROUTE, component: HomeComponent },
+        ],
     },
 ];
 
