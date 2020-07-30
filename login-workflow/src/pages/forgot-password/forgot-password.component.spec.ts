@@ -7,7 +7,7 @@ describe('ChangePasswordComponent', () => {
     let fixture: ComponentFixture<PxbForgotPasswordComponent>;
 
     beforeEach(async(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             declarations: [PxbForgotPasswordComponent],
         }).compileComponents();
     }));
@@ -19,6 +19,6 @@ describe('ChangePasswordComponent', () => {
     });
 
     it('should create', () => {
-        expect(component).toBeTruthy();
+        void expect(component).toBeTruthy();
     });
 });

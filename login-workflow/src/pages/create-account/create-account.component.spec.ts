@@ -7,7 +7,7 @@ describe('CreateAccountComponent', () => {
     let fixture: ComponentFixture<PxbCreateAccountComponent>;
 
     beforeEach(async(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             declarations: [PxbCreateAccountComponent],
         }).compileComponents();
     }));
@@ -19,6 +19,6 @@ describe('CreateAccountComponent', () => {
     });
 
     it('should create', () => {
-        expect(component).toBeTruthy();
+        void expect(component).toBeTruthy();
     });
 });

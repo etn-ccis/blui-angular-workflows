@@ -7,7 +7,7 @@ describe('LoginComponent', () => {
     let fixture: ComponentFixture<PxbLoginComponent>;
 
     beforeEach(async(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             declarations: [PxbLoginComponent],
         }).compileComponents();
     }));
@@ -19,6 +19,6 @@ describe('LoginComponent', () => {
     });
 
     it('should create', () => {
-        expect(component).toBeTruthy();
+        void expect(component).toBeTruthy();
     });
 });

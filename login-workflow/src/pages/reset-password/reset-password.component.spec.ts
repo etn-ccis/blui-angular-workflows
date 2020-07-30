@@ -7,7 +7,7 @@ describe('ResetPasswordComponent', () => {
     let fixture: ComponentFixture<PxbResetPasswordComponent>;
 
     beforeEach(async(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             declarations: [PxbResetPasswordComponent],
         }).compileComponents();
     }));
@@ -19,6 +19,6 @@ describe('ResetPasswordComponent', () => {
     });
 
     it('should create', () => {
-        expect(component).toBeTruthy();
+        void expect(component).toBeTruthy();
     });
 });

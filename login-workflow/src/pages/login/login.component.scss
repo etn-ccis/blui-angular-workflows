@@ -6,22 +6,23 @@
 }
 
 .pxb-login-header {
-  margin-bottom: 30px;
+    margin-bottom: 30px;
 }
 
 mat-form-field {
-  width: 100%;
-  margin-bottom: 35px;
+    width: 100%;
+    margin-bottom: 35px;
 }
 
 .pxb-login-button {
-  width: 100px;
+    width: 100px;
 }
 
-.pxb-login-password-link, .pxb-login-create-account-link {
-  color: #007bc1;
-  font-weight: 600;
-  margin-bottom: 32px;
-  text-align: center;
-  cursor: pointer;
+.pxb-login-password-link,
+.pxb-login-create-account-link {
+    color: #007bc1;
+    font-weight: 600;
+    margin-bottom: 32px;
+    text-align: center;
+    cursor: pointer;
 }

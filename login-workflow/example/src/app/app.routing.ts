@@ -1,18 +1,20 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { authSubRoutes } from '@pxblue/angular-auth-workflow';
-import { HomeComponent } from './home/home.component';
-import { AuthComponent } from './auth/auth.component';
+import { HomeComponent } from './pages/home/home.component';
+import { AuthComponent } from './pages/auth/auth.component';
+import { PxbAuthGuard } from '@pxblue/angular-auth-workflow';
+
+export const HOME_ROUTE = 'home';
+export const AUTH_ROUTE = 'auth';
 
 const routes: Routes = [
-    { path: 'auth', component: AuthComponent, children: authSubRoutes },
+    { path: AUTH_ROUTE, component: AuthComponent, children: authSubRoutes },
+    { path: '', redirectTo: AUTH_ROUTE, pathMatch: 'full' },
     {
         path: '',
-        //   canActivate: [PxbAuthGuard],
-        children: [
-            { path: '', component: AuthComponent },
-            { path: 'home', component: HomeComponent },
-        ],
+        canActivate: [PxbAuthGuard],
+        children: [{ path: HOME_ROUTE, component: HomeComponent }],
     },
 ];
 
