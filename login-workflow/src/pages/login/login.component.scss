@@ -1,3 +1,5 @@
+@import '~@pxblue/colors/palette';
+
 .main-div {
     height: 100vh;
     display: flex;
@@ -5,24 +7,50 @@
     align-items: center;
 }
 
+.debug-button {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+}
+
+.debug-message {
+    padding: 8px;
+    margin-bottom: 16px;
+    background-color: map-get($pxb-yellow, 500);
+    text-align: center;
+}
+
 .pxb-login-header {
-    margin-bottom: 30px;
+    margin-bottom: 48px;
 }
 
 mat-form-field {
     width: 100%;
-    margin-bottom: 35px;
+    margin-bottom: 25px;
+}
+
+::ng-deep .checkbox .mat-checkbox-inner-container {
+    width: 18px;
+    height: 18px;
 }
 
 .pxb-login-button {
-    width: 100px;
+    width: 150px;
 }
 
 .pxb-login-password-link,
-.pxb-login-create-account-link {
-    color: #007bc1;
+.pxb-login-create-account-link,
+.pxb-login-contact-eaton-support-link,
+.pxb-login-test-forgot-password-email-link,
+.pxb-login-test-invite-register-link {
+    color: map-get($pxb-blue, 500);
     font-weight: 600;
-    margin-bottom: 32px;
     text-align: center;
     cursor: pointer;
+}
+
+.pxb-login-password-link,
+.pxb-login-create-account-link,
+.pxb-login-contact-eaton-support-link {
+    margin-bottom: 32px;
 }

@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Inject, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Inject, Input, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { PXB_AUTH_CONFIG, PxbAuthConfig } from '../config/auth-config';
 import { CREATE_ACCOUNT_ROUTE, FORGOT_PASSWORD_ROUTE, LOGIN_ROUTE, RESET_PASSWORD_ROUTE } from '../config/route-names';
@@ -14,6 +14,7 @@ export class PxbAuthComponent implements AfterViewInit {
     @ViewChild('resetPassword', { static: false }) resetPasswordEl: ElementRef;
     @ViewChild('createAccount', { static: false }) createAccountEl: ElementRef;
     @ViewChild('forgotPassword', { static: false }) forgotPasswordEl: ElementRef;
+    @Input() backgroundImage: string;
 
     isEmpty = (el: ElementRef): boolean => isEmptyView(el);
 

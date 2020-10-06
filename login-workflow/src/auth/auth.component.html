@@ -1,4 +1,4 @@
-<div class="pxb-float-card-container">
+<div class="pxb-float-card-container" [style.backgroundImage]="'url('+ backgroundImage +')'">
     <mat-card class="pxb-inner-card">
         <div #login>
             <ng-content *ngIf="showLogin" select="pxb-login"></ng-content>

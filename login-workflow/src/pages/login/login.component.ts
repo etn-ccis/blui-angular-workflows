@@ -30,6 +30,10 @@ export class PxbLoginComponent implements AfterViewInit {
     rememberMe: boolean;
     matcher = new AuthErrorStateMatcher();
     isEmpty = (el: ElementRef): boolean => isEmptyView(el);
+    isPasswordVisible = false;
+    enableDebugMode = true;
+    debugMode = false;
+    enableCreateAccount = false;
 
     constructor(
         private readonly _changeDetectorRef: ChangeDetectorRef,
@@ -58,6 +62,14 @@ export class PxbLoginComponent implements AfterViewInit {
         this._changeDetectorRef.detectChanges();
     }
 
+    togglePasswordVisibility(): void {
+        this.isPasswordVisible = !this.isPasswordVisible;
+    }
+
+    toggleDebugMode(): void {
+        this.debugMode = !this.debugMode;
+    }
+
     login(): void {
         this.isLoading = true;
         this._apiService
@@ -77,8 +89,20 @@ export class PxbLoginComponent implements AfterViewInit {
         void this._router.navigate([`${this._config.authRoute}/${FORGOT_PASSWORD_ROUTE}`]);
     }
 
+    testForgotPasswordEmail(): void {
+        // void this._router.navigate([`${this._config.authRoute}/${FORGOT_PASSWORD_EMAIL_ROUTE}`]);
+    }
+    
+    testInviteRegister(): void {
+        // void this._router.navigate([`${this._config.authRoute}/${CREATE_ACCOUNT_INVITE_ROUTE}`]);
+    }
+
     createAccount(): void {
         void this._router.navigate([`${this._config.authRoute}/${CREATE_ACCOUNT_ROUTE}`]);
+    }
+
+    contactEatonSupport(): void {
+        // void this._router.navigate([`${this._config.authRoute}/${CONTACT_EATON_SUPPORT_ROUTE}`]);
     }
 
     isValidFormEntries(): boolean {
