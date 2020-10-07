@@ -6,6 +6,12 @@
   flex-direction: column;
 }
 
+.chat-bubble-icon {
+  font-size: 70px;
+  color: map-get($pxb-blue, 500);
+  margin-left: -45px;
+}
+
 .content {
   padding: 0 8px;
   display: flex;
@@ -13,17 +19,10 @@
   flex: 1 1 0px;
 }
 
-::ng-deep .mat-card .mat-divider-horizontal {
-  margin-left: -24px;
-  margin-right: -24px;
-  position: static;
-  width: auto;
-}
-
 .button-container {
   padding: 8px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 
 .link {

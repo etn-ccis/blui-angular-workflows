@@ -1,6 +1,6 @@
 <div class="pxb-float-card-container" [style.backgroundImage]="'url('+ backgroundImage +')'">
     <mat-card class="pxb-inner-card">
-        <div #login>
+        <div #login [style.padding]="showLogin ? '16px 48px' : 0">
             <ng-content *ngIf="showLogin" select="pxb-login"></ng-content>
         </div>
         <pxb-login *ngIf="isEmpty(loginEl) && showLogin"></pxb-login>
@@ -19,5 +19,10 @@
             <ng-content *ngIf="showForgotPassword" select="pxb-forgot-password"></ng-content>
         </div>
         <pxb-forgot-password *ngIf="isEmpty(forgotPasswordEl) && showForgotPassword"></pxb-forgot-password>
+       
+        <div #contactSupport>
+            <ng-content *ngIf="showContactSupport" select="pxb-contact-support"></ng-content>
+        </div>
+        <pxb-contact-support *ngIf="isEmpty(contactSupportEl) && showContactSupport"></pxb-contact-support>
     </mat-card>
 </div>

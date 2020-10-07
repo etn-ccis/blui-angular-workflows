@@ -3,7 +3,7 @@
     <div *ngIf="isEmpty(headerEl)">DEFAULT HEADER</div>
 </div>
 
-<button *ngIf="enableDebugMode" mat-flat-button class="debug-button" color="primary" (click)="toggleDebugMode()">DEBUG</button>
+<button *ngIf="enableDebugMode" mat-raised-button class="debug-button" color="primary" (click)="toggleDebugMode()">DEBUG</button>
 
 <div *ngIf="debugMode" class="debug-message">
     <div class="mat-title">DEBUG MODE</div>
@@ -49,7 +49,7 @@
 <div class="pxb-login-password-link mat-body-2" (click)="forgotPassword()">Forgot your Password?</div>
 <div class="mat-body-2" style="text-align: center;">Need an account?</div>
 <div *ngIf="debugMode || enableCreateAccount" class="pxb-login-create-account-link mat-body-2" (click)="createAccount()">Create Account</div>
-<div class="pxb-login-contact-eaton-support-link mat-body-2" (click)="contactEatonSupport()">Contact an Eaton Support Representative</div>
+<div class="pxb-login-contact-eaton-support-link mat-body-2" (click)="contactSupport()">Contact an Eaton Support Representative</div>
 
 <div class="pxb-login-footer">
     <div #footer><ng-content select="[pxb-login-footer]" *ngIf="!debugMode"></ng-content></div>

@@ -15,6 +15,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { SpacerModule } from '@pxblue/angular-components';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
+import { PxbContactSupportComponent } from './pages/public-api';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
     declarations: [
@@ -23,6 +25,7 @@ import { MatIconModule } from '@angular/material/icon';
         PxbResetPasswordComponent,
         PxbCreateAccountComponent,
         PxbAuthComponent,
+        PxbContactSupportComponent,
     ],
     imports: [
         MatProgressSpinnerModule,
@@ -37,6 +40,7 @@ import { MatIconModule } from '@angular/material/icon';
         RouterModule,
         MatCheckboxModule,
         MatIconModule,
+        MatDividerModule
     ],
     exports: [
         PxbAuthComponent,
@@ -44,6 +48,7 @@ import { MatIconModule } from '@angular/material/icon';
         PxbForgotPasswordComponent,
         PxbCreateAccountComponent,
         PxbResetPasswordComponent,
+        PxbContactSupportComponent,
     ],
 })
 export class PxbAuthModule {}

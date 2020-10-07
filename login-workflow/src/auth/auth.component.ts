@@ -1,7 +1,7 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Inject, Input, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { PXB_AUTH_CONFIG, PxbAuthConfig } from '../config/auth-config';
-import { CREATE_ACCOUNT_ROUTE, FORGOT_PASSWORD_ROUTE, LOGIN_ROUTE, RESET_PASSWORD_ROUTE } from '../config/route-names';
+import { CONTACT_SUPPORT_ROUTE, CREATE_ACCOUNT_ROUTE, FORGOT_PASSWORD_ROUTE, LOGIN_ROUTE, RESET_PASSWORD_ROUTE } from '../config/route-names';
 import { isEmptyView } from '../util/view-utils';
 
 @Component({
@@ -14,6 +14,7 @@ export class PxbAuthComponent implements AfterViewInit {
     @ViewChild('resetPassword', { static: false }) resetPasswordEl: ElementRef;
     @ViewChild('createAccount', { static: false }) createAccountEl: ElementRef;
     @ViewChild('forgotPassword', { static: false }) forgotPasswordEl: ElementRef;
+    @ViewChild('contactSupport', { static: false }) contactSupportEl: ElementRef;
     @Input() backgroundImage: string;
 
     isEmpty = (el: ElementRef): boolean => isEmptyView(el);
@@ -22,6 +23,7 @@ export class PxbAuthComponent implements AfterViewInit {
     showForgotPassword: boolean;
     showCreateAccount: boolean;
     showResetPassword: boolean;
+    showContactSupport: boolean;
 
     constructor(
         router: Router,
@@ -35,6 +37,7 @@ export class PxbAuthComponent implements AfterViewInit {
                 this.showCreateAccount = this.matches(route, CREATE_ACCOUNT_ROUTE);
                 this.showForgotPassword = this.matches(route, FORGOT_PASSWORD_ROUTE);
                 this.showResetPassword = this.matches(route, RESET_PASSWORD_ROUTE);
+                this.showContactSupport = this.matches(route, CONTACT_SUPPORT_ROUTE);
             }
         });
     }
@@ -48,6 +51,7 @@ export class PxbAuthComponent implements AfterViewInit {
         this.showForgotPassword = false;
         this.showCreateAccount = false;
         this.showResetPassword = false;
+        this.showContactSupport = false;
     }
 
     matches(route: NavigationEnd, targetRoute: string): boolean {

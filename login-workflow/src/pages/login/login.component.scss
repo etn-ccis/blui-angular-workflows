@@ -1,10 +1,7 @@
 @import '~@pxblue/colors/palette';
 
-.main-div {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+:host {
+    padding: 16px 48px;
 }
 
 .debug-button {
