@@ -52,6 +52,6 @@
 <div class="pxb-login-contact-eaton-support-link mat-body-2" (click)="contactSupport()">Contact an Eaton Support Representative</div>
 
 <div class="pxb-login-footer">
-    <div #footer><ng-content select="[pxb-login-footer]" *ngIf="!debugMode"></ng-content></div>
-    <div *ngIf="isEmpty(footerEl) && !debugMode">DEFAULT FOOTER</div>
+    <div #footer><ng-content select="[pxb-login-footer]"></ng-content></div>
+    <div *ngIf="isEmpty(footerEl)">DEFAULT FOOTER</div>
 </div>
