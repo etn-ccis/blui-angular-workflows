@@ -1,6 +1,6 @@
 <div class="pxb-float-card-container" [style.backgroundImage]="'url('+ backgroundImage +')'">
     <mat-card class="pxb-inner-card">
-        <div #login [style.padding]="!isEmpty(loginEl) ? '16px 48px' : 0">
+        <div #login [style.padding]="!isEmpty(loginEl) && showLogin ? '16px 48px' : 0">
             <ng-content *ngIf="showLogin" select="pxb-login"></ng-content>
         </div>
         <pxb-login *ngIf="isEmpty(loginEl) && showLogin" [style.padding]="isEmpty(loginEl) && showLogin ? '16px 48px' : 0"></pxb-login>

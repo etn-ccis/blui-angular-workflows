@@ -38,6 +38,7 @@ export class PxbAuthComponent implements AfterViewInit {
                 this.showForgotPassword = this.matches(route, FORGOT_PASSWORD_ROUTE);
                 this.showResetPassword = this.matches(route, RESET_PASSWORD_ROUTE);
                 this.showContactSupport = this.matches(route, CONTACT_SUPPORT_ROUTE);
+                this._changeDetectorRef.detectChanges();
             }
         });
     }
