@@ -10,6 +10,8 @@ import { PXB_LOGIN_VALIDATOR_ERROR_NAME } from '@pxblue/angular-auth-workflow';
               <div pxb-login-header><img src="assets/images/eaton_stacked_logo.png" style="max-width: 100%; max-height: 80px;"/></div>
               <div pxb-login-footer style="text-align: center;"><img src="assets/images/cybersecurity_certified.png" style="max-width: 30%; align-self: center;"/></div>
             </pxb-login>
+            <pxb-contact-support contactEmail="testEmail@email.com" contactPhone="555-555-5555">  
+            </pxb-contact-support>
         </pxb-auth>
     `,
 })

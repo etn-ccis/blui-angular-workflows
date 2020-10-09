@@ -1,9 +1,9 @@
 <div class="pxb-float-card-container" [style.backgroundImage]="'url('+ backgroundImage +')'">
     <mat-card class="pxb-inner-card">
-        <div #login [style.padding]="!isEmpty(loginEl) && showLogin ? '16px 48px' : 0">
+        <div #login [ngClass]="!isEmpty(loginEl) && showLogin ? 'login' : ''">
             <ng-content *ngIf="showLogin" select="pxb-login"></ng-content>
         </div>
-        <pxb-login *ngIf="isEmpty(loginEl) && showLogin" [style.padding]="isEmpty(loginEl) && showLogin ? '16px 48px' : 0"></pxb-login>
+        <pxb-login *ngIf="isEmpty(loginEl) && showLogin" [ngClass]="isEmpty(loginEl) && showLogin ? 'login' : ''"></pxb-login>
 
         <div #resetPassword>
             <ng-content *ngIf="showResetPassword" select="pxb-reset-password"></ng-content>
@@ -20,9 +20,9 @@
         </div>
         <pxb-forgot-password *ngIf="isEmpty(forgotPasswordEl) && showForgotPassword"></pxb-forgot-password>
        
-        <div #contactSupport>
+        <div #contactSupport [ngClass]="!isEmpty(contactSupportEl) && showContactSupport ? 'contact-support' : ''">
             <ng-content *ngIf="showContactSupport" select="pxb-contact-support"></ng-content>
         </div>
-        <pxb-contact-support *ngIf="isEmpty(contactSupportEl) && showContactSupport"></pxb-contact-support>
+        <pxb-contact-support *ngIf="isEmpty(contactSupportEl) && showContactSupport" [ngClass]="isEmpty(contactSupportEl) && showContactSupport ? 'contact-support' : ''"></pxb-contact-support>
     </mat-card>
 </div>
