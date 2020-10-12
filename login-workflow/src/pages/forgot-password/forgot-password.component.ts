@@ -13,32 +13,40 @@ import { PXB_LOGIN_VALIDATOR_ERROR_NAME } from '../public-api';
 })
 export class PxbForgotPasswordComponent implements OnInit {
     @Input() contactPhone: string = '1-800-123-4567';
-
+    @Input() successTitle: string = 'Email Sent';
+    @Input() successDescription: string = 'A link to reset your password has been sent to ';
+    @Input() includeEmailInSuccessMessage = true;
     customErrorName = PXB_LOGIN_VALIDATOR_ERROR_NAME;
     @Input() customEmailValidator: ValidatorFn;
 
     emailFormControl: FormControl;
     matcher = new AuthErrorStateMatcher();
-    
+    passwordResetSuccess = false;
+
     constructor(
         private readonly _router: Router,
         @Inject(PXB_AUTH_CONFIG) private readonly _config: PxbAuthConfig
-    ) {}
+    ) { }
 
     ngOnInit(): void {
-        const emailValidators = [Validators.required, Validators.email ];
-      if (this.customEmailValidator) {
-        emailValidators.push(this.customEmailValidator);
-      }
-      this.emailFormControl = new FormControl('', emailValidators);
+        const emailValidators = [Validators.required, Validators.email];
+        if (this.customEmailValidator) {
+            emailValidators.push(this.customEmailValidator);
+        }
+        this.emailFormControl = new FormControl('', emailValidators);
     }
 
     navigateToLogin() {
         void this._router.navigate([`${this._config.authRoute}/${LOGIN_ROUTE}`]);
     }
 
-    submit() {
+    resetPassword() {
         // submit form
-        // change screen to confirmation screen
+        
+        if(this.includeEmailInSuccessMessage) {
+            this.successDescription = this.successDescription + this.emailFormControl.value + '.';
+        }
+        
+        this.passwordResetSuccess = true;
     }
 }

@@ -6,17 +6,17 @@
   flex-direction: column;
 }
 
-.chat-bubble-icon {
-  font-size: 70px;
-  color: map-get($pxb-blue, 500);
-  margin-left: -45px;
-}
-
 .content {
   padding: 0 8px;
   display: flex;
   flex-direction: column;
   flex: 1 1 0px;
+}
+
+.chat-bubble-icon {
+  font-size: 70px;
+  color: map-get($pxb-blue, 500);
+  margin-left: -45px;
 }
 
 .button-container {

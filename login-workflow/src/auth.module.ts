@@ -12,7 +12,7 @@ import { PxbAuthComponent } from './auth/auth.component';
 import { RouterModule } from '@angular/router';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
-import { SpacerModule } from '@pxblue/angular-components';
+import { EmptyStateModule, SpacerModule } from '@pxblue/angular-components';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
 import { PxbContactSupportComponent } from './pages/public-api';
@@ -40,7 +40,8 @@ import { MatDividerModule } from '@angular/material/divider';
         RouterModule,
         MatCheckboxModule,
         MatIconModule,
-        MatDividerModule
+        MatDividerModule,
+        EmptyStateModule
     ],
     exports: [
         PxbAuthComponent,

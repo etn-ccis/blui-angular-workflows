@@ -1,9 +1,9 @@
 <div class="pxb-float-card-container" [style.backgroundImage]="'url('+ backgroundImage +')'">
     <mat-card class="pxb-inner-card">
-        <div #login [ngClass]="!isEmpty(loginEl) && showLogin ? 'login' : ''">
+        <div #login [class.login]="!isEmpty(loginEl) && showLogin">
             <ng-content *ngIf="showLogin" select="pxb-login"></ng-content>
         </div>
-        <pxb-login *ngIf="isEmpty(loginEl) && showLogin" [ngClass]="isEmpty(loginEl) && showLogin ? 'login' : ''"></pxb-login>
+        <pxb-login *ngIf="isEmpty(loginEl) && showLogin" [class.login]="isEmpty(loginEl) && showLogin"></pxb-login>
 
         <div #resetPassword>
             <ng-content *ngIf="showResetPassword" select="pxb-reset-password"></ng-content>
@@ -15,14 +15,14 @@
         </div>
         <pxb-create-account *ngIf="isEmpty(createAccountEl) && showCreateAccount"></pxb-create-account>
 
-        <div #forgotPassword>
-            <ng-content *ngIf="showForgotPassword" select="pxb-forgot-password"></ng-content>
+        <div #forgotPassword [class.forgot-password]="!isEmpty(forgotPasswordEl) && showForgotPassword">
+            <ng-content *ngIf="showForgotPassword" select="pxb-forgot-password" [class.forgot-password]="!isEmpty(forgotPasswordEl) && showForgotPassword"></ng-content>
         </div>
-        <pxb-forgot-password *ngIf="isEmpty(forgotPasswordEl) && showForgotPassword"></pxb-forgot-password>
+        <pxb-forgot-password *ngIf="isEmpty(forgotPasswordEl) && showForgotPassword" [class.forgot-password]="isEmpty(forgotPasswordEl) && showForgotPassword"></pxb-forgot-password>
        
-        <div #contactSupport [ngClass]="!isEmpty(contactSupportEl) && showContactSupport ? 'contact-support' : ''">
+        <div #contactSupport [class.contact-support]="!isEmpty(contactSupportEl) && showContactSupport">
             <ng-content *ngIf="showContactSupport" select="pxb-contact-support"></ng-content>
         </div>
-        <pxb-contact-support *ngIf="isEmpty(contactSupportEl) && showContactSupport" [ngClass]="isEmpty(contactSupportEl) && showContactSupport ? 'contact-support' : ''"></pxb-contact-support>
+        <pxb-contact-support *ngIf="isEmpty(contactSupportEl) && showContactSupport" [class.contact-support]="isEmpty(contactSupportEl) && showContactSupport"></pxb-contact-support>
     </mat-card>
 </div>

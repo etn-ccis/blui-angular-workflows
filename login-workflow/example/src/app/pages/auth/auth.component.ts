@@ -12,6 +12,8 @@ import { PXB_LOGIN_VALIDATOR_ERROR_NAME } from '@pxblue/angular-auth-workflow';
             </pxb-login>
             <pxb-contact-support contactEmail="testEmail@email.com" contactPhone="555-555-5555">  
             </pxb-contact-support>
+            <pxb-forgot-password contactPhone="555-555-5555">
+            </pxb-forgot-password>
         </pxb-auth>
     `,
 })
