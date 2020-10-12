@@ -10,10 +10,10 @@
         </div>
         <pxb-reset-password *ngIf="isEmpty(resetPasswordEl) && showResetPassword"></pxb-reset-password>
 
-        <div #createAccount>
-            <ng-content *ngIf="showCreateAccount" select="pxb-create-account"></ng-content>
+        <div #createAccount [class.create-account]="!isEmpty(createAccountEl) && showCreateAccount">
+            <ng-content *ngIf="showCreateAccount" select="pxb-create-account" [class.create-account]="!isEmpty(createAccountEl) && showCreateAccount"></ng-content>
         </div>
-        <pxb-create-account *ngIf="isEmpty(createAccountEl) && showCreateAccount"></pxb-create-account>
+        <pxb-create-account *ngIf="isEmpty(createAccountEl) && showCreateAccount" [class.create-account]="isEmpty(createAccountEl) && showCreateAccount"></pxb-create-account>
 
         <div #forgotPassword [class.forgot-password]="!isEmpty(forgotPasswordEl) && showForgotPassword">
             <ng-content *ngIf="showForgotPassword" select="pxb-forgot-password" [class.forgot-password]="!isEmpty(forgotPasswordEl) && showForgotPassword"></ng-content>

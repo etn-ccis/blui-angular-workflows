@@ -17,6 +17,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
 import { PxbContactSupportComponent } from './pages/public-api';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
+import { PasswordStrengthCheckComponent } from './components/password-strength-checker/password-strength-checker.component';
 
 @NgModule({
     declarations: [
@@ -26,6 +28,7 @@ import { MatDividerModule } from '@angular/material/divider';
         PxbCreateAccountComponent,
         PxbAuthComponent,
         PxbContactSupportComponent,
+        PasswordStrengthCheckComponent
     ],
     imports: [
         MatProgressSpinnerModule,
@@ -41,7 +44,8 @@ import { MatDividerModule } from '@angular/material/divider';
         MatCheckboxModule,
         MatIconModule,
         MatDividerModule,
-        EmptyStateModule
+        EmptyStateModule,
+        MatListModule
     ],
     exports: [
         PxbAuthComponent,

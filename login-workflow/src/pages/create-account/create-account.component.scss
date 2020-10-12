@@ -1,0 +1,43 @@
+@import '~@pxblue/colors/palette';
+
+:host {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  padding: 0 8px;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 0px;
+}
+
+.license-agreement {
+  display: flex;
+  flex: 1 1 0px;
+  overflow: auto;
+}
+
+.confirm-agreement {
+  margin: 24px 0;
+}
+
+::ng-deep .checkbox .mat-checkbox-inner-container {
+  width: 18px;
+  height: 18px;
+}
+
+.validation-list mat-list-item {
+  height: auto;
+}
+
+.validation-list {
+  margin-bottom: 32px;
+}
+
+.button-container {
+  padding: 8px;
+  display: flex;
+  justify-content: space-between;
+}

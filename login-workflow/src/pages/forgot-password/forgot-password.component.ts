@@ -22,6 +22,7 @@ export class PxbForgotPasswordComponent implements OnInit {
     emailFormControl: FormControl;
     matcher = new AuthErrorStateMatcher();
     passwordResetSuccess = false;
+    successDescriptionMessage: string;
 
     constructor(
         private readonly _router: Router,
@@ -36,15 +37,24 @@ export class PxbForgotPasswordComponent implements OnInit {
         this.emailFormControl = new FormControl('', emailValidators);
     }
 
+    done() {
+        this.navigateToLogin();
+        this.passwordResetSuccess = false;
+        this.emailFormControl.reset();
+        this.successDescriptionMessage = null;
+    }
+
     navigateToLogin() {
         void this._router.navigate([`${this._config.authRoute}/${LOGIN_ROUTE}`]);
     }
 
     resetPassword() {
         // submit form
-        
+
         if(this.includeEmailInSuccessMessage) {
-            this.successDescription = this.successDescription + this.emailFormControl.value + '.';
+            this.successDescriptionMessage = this.successDescription + this.emailFormControl.value + '.';
+        } else {
+            this.successDescriptionMessage = this.successDescription;
         }
         
         this.passwordResetSuccess = true;
