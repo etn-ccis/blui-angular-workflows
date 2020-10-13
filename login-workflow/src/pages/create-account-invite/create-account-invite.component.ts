@@ -1,5 +1,5 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, ValidatorFn, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthErrorStateMatcher } from '../../util/matcher';
 import { PXB_LOGIN_VALIDATOR_ERROR_NAME } from '../public-api';
@@ -15,19 +15,17 @@ class CrossFieldErrorMatcher implements ErrorStateMatcher {
 }
 
 @Component({
-    selector: 'pxb-create-account',
-    templateUrl: './create-account.component.html',
-    styleUrls: ['./create-account.component.scss'],
+    selector: 'pxb-create-account-invite',
+    templateUrl: './create-account-invite.component.html',
+    styleUrls: ['./create-account-invite.component.scss'],
 })
-export class PxbCreateAccountComponent implements OnInit {
-    @Input() customEmailValidator: ValidatorFn;
+export class PxbCreateAccountInviteComponent implements OnInit {
+    @Input() email: string = "testemail@email.com";
     @Input() licenseAgreement: string = SAMPLE_EULA;
-    pageCount: number = 6;
+    pageCount: number = 4;
     currentPageId: number;
     customErrorName = PXB_LOGIN_VALIDATOR_ERROR_NAME;
-    emailFormControl: FormControl;
     confirmAgreement: boolean = false;
-    verificationCodeFormControl: FormControl;
     emailMatcher = new AuthErrorStateMatcher();
     passwordFormGroup: FormGroup;
     firstNameFormControl: FormControl;
@@ -49,7 +47,7 @@ export class PxbCreateAccountComponent implements OnInit {
     ) {
         this.passwordFormGroup = this._formBuilder.group(
             {
-                newPassword: ['', Validators.compose([Validators.required, Validators.minLength(8)])],
+                newPassword: ['', Validators.required],
                 confirmPassword: ['', Validators.required],
             },
             {
@@ -61,12 +59,6 @@ export class PxbCreateAccountComponent implements OnInit {
     ngOnInit(): void {
         this.currentPageId = 0;
 
-        const emailValidators = [Validators.required, Validators.email, Validators.pattern(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i)];
-        if (this.customEmailValidator) {
-            emailValidators.push(this.customEmailValidator);
-        }
-        this.emailFormControl = new FormControl('', emailValidators);
-        this.verificationCodeFormControl = new FormControl('', Validators.required);
         this.firstNameFormControl = new FormControl('', Validators.required);
         this.lastNameFormControl = new FormControl('', Validators.required);
         this.phoneNumberFormControl = new FormControl('');
@@ -87,10 +79,6 @@ export class PxbCreateAccountComponent implements OnInit {
             case 5:
                 return 'Account Created!';
         }
-    }
-
-    sendVerificationEmail() {
-        // send verification email
     }
 
     toggleNewPasswordVisibility() {
@@ -121,19 +109,15 @@ export class PxbCreateAccountComponent implements OnInit {
     }
 
     getEmptyStateDescription(): string {
-        const description = 'Your account has been successfully created with the email ' + this.emailFormControl.value + '. Your account has already been added to the organization. Press continue below to continue.';
+        const description = 'Your account has been successfully created with the email ' + this.email + '. Your account has already been added to the organization. Press continue below to continue.';
         return description;
     }
 
     canContinue(): boolean {
         switch (this.currentPageId) {
             case 0:
-                return !(this.emailFormControl.value && this.emailFormControl.valid);
-            case 1:
                 return !this.confirmAgreement;
-            case 2:
-                return !this.verificationCodeFormControl.value;
-            case 3:
+            case 1:
                 return !(
                     this.passwordFormGroup.get('newPassword').value
                     && this.passLength
@@ -144,7 +128,7 @@ export class PxbCreateAccountComponent implements OnInit {
                     && this.passwordFormGroup.get('confirmPassword').value
                     && this.passwordFormGroup.valid
                     );
-            case 4:
+            case 2:
                 return !(this.firstNameFormControl.value && this.firstNameFormControl.valid && this.lastNameFormControl.value && this.lastNameFormControl.valid);
         }
     }

@@ -6,7 +6,7 @@ import { PxbAuthStateService } from '../../services/state/state.service';
 import { AuthErrorStateMatcher } from '../../util/matcher';
 import { isEmptyView } from '../../util/view-utils';
 import { PXB_AUTH_CONFIG, PxbAuthConfig } from '../../config/auth-config';
-import { CONTACT_SUPPORT_ROUTE, CREATE_ACCOUNT_ROUTE, FORGOT_PASSWORD_ROUTE } from '../../config/route-names';
+import { CONTACT_SUPPORT_ROUTE, CREATE_ACCOUNT_INVITE_ROUTE, CREATE_ACCOUNT_ROUTE, FORGOT_PASSWORD_ROUTE, RESET_PASSWORD_ROUTE } from '../../config/route-names';
 
 // TODO: Find a home for this const, perhaps config folder.
 export const PXB_LOGIN_VALIDATOR_ERROR_NAME = 'PXB_LOGIN_VALIDATOR_ERROR_NAME';
@@ -50,7 +50,7 @@ export class PxbLoginComponent implements AfterViewInit {
   }
 
     ngOnInit(): void {
-      const emailValidators = [Validators.required, Validators.email ];
+      const emailValidators = [Validators.required, Validators.email, Validators.pattern(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i)];
       if (this.customEmailValidator) {
         emailValidators.push(this.customEmailValidator);
       }
@@ -90,11 +90,11 @@ export class PxbLoginComponent implements AfterViewInit {
     }
 
     testForgotPasswordEmail(): void {
-        // void this._router.navigate([`${this._config.authRoute}/${FORGOT_PASSWORD_EMAIL_ROUTE}`]);
+        void this._router.navigate([`${this._config.authRoute}/${RESET_PASSWORD_ROUTE}`]);
     }
     
     testInviteRegister(): void {
-        // void this._router.navigate([`${this._config.authRoute}/${CREATE_ACCOUNT_INVITE_ROUTE}`]);
+        void this._router.navigate([`${this._config.authRoute}/${CREATE_ACCOUNT_INVITE_ROUTE}`]);
     }
 
     createAccount(): void {
@@ -106,6 +106,6 @@ export class PxbLoginComponent implements AfterViewInit {
     }
 
     isValidFormEntries(): boolean {
-        return this.passwordFormControl.value && !this.emailFormControl.errors;
+        return this.passwordFormControl.value && this.emailFormControl.valid;
     }
 }

@@ -1,49 +1,14 @@
 <div class="mat-title" style="padding: 0 8px 32px;">{{getTitle()}}</div>
 
 <div class="content" *ngIf="currentPageId === 0">
-  <p class="mat-body-1" style="margin-bottom: 24px;">To register for an Eaton account, enter the required information
-    below. You will need to verify your email address to continue.</p>
-  <mat-divider style="margin-top: 16px; margin-bottom: 32px;"></mat-divider>
-  <form>
-    <mat-form-field appearance="fill" style="width: 100%;">
-      <mat-label>Email Address</mat-label>
-      <input matInput [formControl]="emailFormControl" [errorStateMatcher]="emailMatcher" />
-      <mat-error *ngIf="emailFormControl.hasError('email')
-            && !emailFormControl.hasError('required')
-            && !emailFormControl.hasError(customErrorName)">
-        Please enter a valid email address
-      </mat-error>
-      <mat-error *ngIf="emailFormControl.hasError(customErrorName)">
-        {{emailFormControl.errors[customErrorName].message}} </mat-error>
-      <mat-error *ngIf="emailFormControl.hasError('required')"> Email is <strong>required</strong> </mat-error>
-    </mat-form-field>
-  </form>
-</div>
-
-<div class="content" *ngIf="currentPageId === 1">
   <div class="license-agreement">{{licenseAgreement}}</div>
   <div class="confirm-agreement">
     <mat-checkbox class="checkbox" [(ngModel)]="confirmAgreement">I have read and agree to the Terms & Conditions</mat-checkbox>
   </div>
 </div>
 
-<div class="content" *ngIf="currentPageId === 2">
-  <p class="mat-body-1" style="margin-bottom: 24px;">A verification code has been sent to the email address you
-    provided. Click the link or enter the code below to continue. This code is valid for 30 minutes.</p>
-  <mat-divider style="margin-top: 16px; margin-bottom: 32px;"></mat-divider>
-  <form>
-    <mat-form-field appearance="fill" style="width: 100%;">
-      <mat-label>Verification Code</mat-label>
-      <input matInput [formControl]="verificationCodeFormControl" />
-      <mat-error *ngIf="verificationCodeFormControl.hasError('required')"> Verification code is
-        <strong>required</strong> </mat-error>
-    </mat-form-field>
-  </form>
-  <button mat-flat-button color="primary" style="width: 100%; margin-top: 8px;" (click)="sendVerificationEmail()">Resend
-    Verification Email</button>
-</div>
 
-<div class="content" *ngIf="currentPageId === 3">
+<div class="content" *ngIf="currentPageId === 1">
   <p class="mat-body-1" style="margin-bottom: 24px;">Please select a password. Make sure that your password meets the
     necessary complexity requirements outlined below.</p>
   <mat-divider style="margin-top: 16px; margin-bottom: 32px;"></mat-divider>
@@ -84,7 +49,7 @@
   </div>
 </div>
 
-<div class="content" *ngIf="currentPageId === 4">
+<div class="content" *ngIf="currentPageId === 2">
   <p class="mat-body-1" style="margin-bottom: 24px;">Enter your details below to complete account creation.</p>
   <mat-divider style="margin-top: 16px; margin-bottom: 32px;"></mat-divider>
   <form>
@@ -107,7 +72,7 @@
   </form>
 </div>
 
-<div class="content" *ngIf="currentPageId === 5" style="justify-content: center;">
+<div class="content" *ngIf="currentPageId === 3" style="justify-content: center;">
   <pxb-empty-state [title]="getEmptyStateTitle()" [description]="getEmptyStateDescription()">
     <mat-icon pxb-empty-icon class="empty-state-icon">check_circle</mat-icon>
   </pxb-empty-state>
@@ -115,12 +80,12 @@
 
 <mat-divider style="margin-bottom: 16px;"></mat-divider>
 <div class="button-container">
-  <pxb-spacer *ngIf="currentPageId === 5"></pxb-spacer>
-  <button *ngIf="currentPageId !== 5" mat-stroked-button color="primary" (click)="goBack()"
+  <pxb-spacer *ngIf="currentPageId === 3"></pxb-spacer>
+  <button *ngIf="currentPageId !== 3" mat-stroked-button color="primary" (click)="goBack()"
     style="width: 100px;">Back</button>
-  <pxb-dot-stepper *ngIf="currentPageId <= 4" [steps]="pageCount" [activeStepId]="currentPageId"></pxb-dot-stepper>
-  <button *ngIf="currentPageId <= 4" mat-flat-button color="primary" [disabled]="canContinue()" (click)="next()"
+  <pxb-dot-stepper *ngIf="currentPageId <= 2" [steps]="pageCount" [activeStepId]="currentPageId"></pxb-dot-stepper>
+  <button *ngIf="currentPageId <= 2" mat-flat-button color="primary" [disabled]="canContinue()" (click)="next()"
     style="width: 100px;">Next</button>
-  <button *ngIf="currentPageId === 5" mat-flat-button color="primary" (click)="navigateToLogin()"
+  <button *ngIf="currentPageId === 3" mat-flat-button color="primary" (click)="navigateToLogin()"
     style="width: 100px;">Continue</button>
 </div>

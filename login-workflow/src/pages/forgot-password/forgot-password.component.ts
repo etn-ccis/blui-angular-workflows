@@ -30,7 +30,7 @@ export class PxbForgotPasswordComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        const emailValidators = [Validators.required, Validators.email];
+        const emailValidators = [Validators.required, Validators.email, Validators.pattern(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i)];
         if (this.customEmailValidator) {
             emailValidators.push(this.customEmailValidator);
         }

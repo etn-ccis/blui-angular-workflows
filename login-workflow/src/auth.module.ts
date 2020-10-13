@@ -15,10 +15,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { EmptyStateModule, SpacerModule } from '@pxblue/angular-components';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
-import { PxbContactSupportComponent } from './pages/public-api';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { PasswordStrengthCheckComponent } from './components/password-strength-checker/password-strength-checker.component';
+import { DotStepperComponent } from './components/dot-stepper/dot-stepper.component';
+import { CommonModule } from '@angular/common';
+import { PxbContactSupportComponent } from './pages/contact-support/contact-support.component';
+import { PxbCreateAccountInviteComponent } from './pages/create-account-invite/create-account-invite.component';
 
 @NgModule({
     declarations: [
@@ -28,9 +31,12 @@ import { PasswordStrengthCheckComponent } from './components/password-strength-c
         PxbCreateAccountComponent,
         PxbAuthComponent,
         PxbContactSupportComponent,
-        PasswordStrengthCheckComponent
+        PasswordStrengthCheckComponent,
+        DotStepperComponent,
+        PxbCreateAccountInviteComponent
     ],
     imports: [
+        CommonModule,
         MatProgressSpinnerModule,
         SpacerModule,
         MatButtonModule,
@@ -54,6 +60,7 @@ import { PasswordStrengthCheckComponent } from './components/password-strength-c
         PxbCreateAccountComponent,
         PxbResetPasswordComponent,
         PxbContactSupportComponent,
+        PxbCreateAccountInviteComponent
     ],
 })
 export class PxbAuthModule {}
