@@ -33,7 +33,7 @@ import { PxbCreateAccountInviteComponent } from './pages/create-account-invite/c
         PxbContactSupportComponent,
         PasswordStrengthCheckComponent,
         DotStepperComponent,
-        PxbCreateAccountInviteComponent
+        PxbCreateAccountInviteComponent,
     ],
     imports: [
         CommonModule,
@@ -51,7 +51,7 @@ import { PxbCreateAccountInviteComponent } from './pages/create-account-invite/c
         MatIconModule,
         MatDividerModule,
         EmptyStateModule,
-        MatListModule
+        MatListModule,
     ],
     exports: [
         PxbAuthComponent,
@@ -60,7 +60,7 @@ import { PxbCreateAccountInviteComponent } from './pages/create-account-invite/c
         PxbCreateAccountComponent,
         PxbResetPasswordComponent,
         PxbContactSupportComponent,
-        PxbCreateAccountInviteComponent
+        PxbCreateAccountInviteComponent,
     ],
 })
 export class PxbAuthModule {}

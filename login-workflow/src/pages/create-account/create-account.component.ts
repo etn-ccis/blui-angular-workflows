@@ -1,5 +1,13 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, ValidatorFn, Validators } from '@angular/forms';
+import {
+    FormBuilder,
+    FormControl,
+    FormGroup,
+    FormGroupDirective,
+    NgForm,
+    ValidatorFn,
+    Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthErrorStateMatcher } from '../../util/matcher';
 import { PXB_LOGIN_VALIDATOR_ERROR_NAME } from '../public-api';
@@ -22,11 +30,11 @@ class CrossFieldErrorMatcher implements ErrorStateMatcher {
 export class PxbCreateAccountComponent implements OnInit {
     @Input() customEmailValidator: ValidatorFn;
     @Input() licenseAgreement: string = SAMPLE_EULA;
-    pageCount: number = 6;
+    pageCount = 6;
     currentPageId: number;
     customErrorName = PXB_LOGIN_VALIDATOR_ERROR_NAME;
     emailFormControl: FormControl;
-    confirmAgreement: boolean = false;
+    confirmAgreement = false;
     verificationCodeFormControl: FormControl;
     emailMatcher = new AuthErrorStateMatcher();
     passwordFormGroup: FormGroup;
@@ -56,12 +64,16 @@ export class PxbCreateAccountComponent implements OnInit {
                 validator: this.checkPasswords,
             }
         );
-     }
+    }
 
     ngOnInit(): void {
         this.currentPageId = 0;
 
-        const emailValidators = [Validators.required, Validators.email, Validators.pattern(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i)];
+        const emailValidators = [
+            Validators.required,
+            Validators.email,
+            Validators.pattern(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i),
+        ];
         if (this.customEmailValidator) {
             emailValidators.push(this.customEmailValidator);
         }
@@ -72,7 +84,7 @@ export class PxbCreateAccountComponent implements OnInit {
         this.phoneNumberFormControl = new FormControl('');
     }
 
-    getTitle() {
+    getTitle(): string {
         switch (this.currentPageId) {
             case 0:
                 return 'Create an Account';
@@ -86,18 +98,20 @@ export class PxbCreateAccountComponent implements OnInit {
                 return 'Account Details';
             case 5:
                 return 'Account Created!';
+            default:
+                return;
         }
     }
 
-    sendVerificationEmail() {
+    sendVerificationEmail(): void {
         // send verification email
     }
 
-    toggleNewPasswordVisibility() {
+    toggleNewPasswordVisibility(): void {
         this.newPasswordVisible = !this.newPasswordVisible;
     }
 
-    toggleConfirmPasswordVisibility() {
+    toggleConfirmPasswordVisibility(): void {
         this.confirmPasswordVisible = !this.confirmPasswordVisible;
     }
 
@@ -116,12 +130,12 @@ export class PxbCreateAccountComponent implements OnInit {
     }
 
     getEmptyStateTitle(): string {
-        const title = 'Welcome, ' + this.firstNameFormControl.value + ' ' + this.lastNameFormControl.value + '!';
+        const title = `Welcome, ${this.firstNameFormControl.value} ${this.lastNameFormControl.value}!`;
         return title;
     }
 
     getEmptyStateDescription(): string {
-        const description = 'Your account has been successfully created with the email ' + this.emailFormControl.value + '. Your account has already been added to the organization. Press continue below to continue.';
+        const description = `Your account has been successfully created with the email ${this.emailFormControl.value}. Your account has already been added to the organization. Press continue below to continue.`;
         return description;
     }
 
@@ -135,21 +149,28 @@ export class PxbCreateAccountComponent implements OnInit {
                 return !this.verificationCodeFormControl.value;
             case 3:
                 return !(
-                    this.passwordFormGroup.get('newPassword').value
-                    && this.passLength
-                    && this.specialFlag
-                    && this.numberFlag
-                    && this.upperFlag
-                    && this.lowerFlag
-                    && this.passwordFormGroup.get('confirmPassword').value
-                    && this.passwordFormGroup.valid
-                    );
+                    this.passwordFormGroup.get('newPassword').value &&
+                    this.passLength &&
+                    this.specialFlag &&
+                    this.numberFlag &&
+                    this.upperFlag &&
+                    this.lowerFlag &&
+                    this.passwordFormGroup.get('confirmPassword').value &&
+                    this.passwordFormGroup.valid
+                );
             case 4:
-                return !(this.firstNameFormControl.value && this.firstNameFormControl.valid && this.lastNameFormControl.value && this.lastNameFormControl.valid);
+                return !(
+                    this.firstNameFormControl.value &&
+                    this.firstNameFormControl.valid &&
+                    this.lastNameFormControl.value &&
+                    this.lastNameFormControl.valid
+                );
+            default:
+                return;
         }
     }
 
-    goBack() {
+    goBack(): void {
         if (this.currentPageId === 0) {
             this.navigateToLogin();
         } else {
@@ -157,11 +178,11 @@ export class PxbCreateAccountComponent implements OnInit {
         }
     }
 
-    next() {
+    next(): void {
         this.currentPageId = this.currentPageId + 1;
     }
 
-    navigateToLogin() {
+    navigateToLogin(): void {
         void this._router.navigate([`${this._config.authRoute}/${LOGIN_ROUTE}`]);
     }
 }

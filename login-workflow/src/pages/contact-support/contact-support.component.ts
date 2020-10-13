@@ -9,17 +9,14 @@ import { LOGIN_ROUTE } from '../../config/route-names';
     styleUrls: ['./contact-support.component.scss'],
 })
 export class PxbContactSupportComponent implements OnInit {
-    @Input() contactEmail: string = 'something@email.com';
-    @Input() contactPhone: string = '1-800-123-4567';
-    
-    constructor(
-        private readonly _router: Router,
-        @Inject(PXB_AUTH_CONFIG) private readonly _config: PxbAuthConfig
-    ) {}
+    @Input() contactEmail = 'something@email.com';
+    @Input() contactPhone = '1-800-123-4567';
+
+    constructor(private readonly _router: Router, @Inject(PXB_AUTH_CONFIG) private readonly _config: PxbAuthConfig) {}
 
     ngOnInit(): void {}
 
-    navigateToLogin() {
+    navigateToLogin(): void {
         void this._router.navigate([`${this._config.authRoute}/${LOGIN_ROUTE}`]);
     }
 }

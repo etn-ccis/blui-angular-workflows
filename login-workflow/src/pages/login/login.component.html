@@ -1,9 +1,11 @@
-<div class="pxb-login-header" (click)="pik();">
+<div class="pxb-login-header" (click)="pik()">
     <div #header><ng-content select="[pxb-login-header]"></ng-content></div>
     <div *ngIf="isEmpty(headerEl)">DEFAULT HEADER</div>
 </div>
 
-<button *ngIf="enableDebugMode" mat-raised-button class="debug-button" color="primary" (click)="toggleDebugMode()">DEBUG</button>
+<button *ngIf="enableDebugMode" mat-raised-button class="debug-button" color="primary" (click)="toggleDebugMode()">
+    DEBUG
+</button>
 
 <div *ngIf="debugMode" class="debug-message">
     <div class="mat-title">DEBUG MODE</div>
@@ -13,18 +15,30 @@
     <mat-form-field appearance="fill">
         <mat-label>Email</mat-label>
         <input matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher" autocomplete="off" />
-        <mat-error *ngIf="emailFormControl.hasError('email')
-            && !emailFormControl.hasError('required')
-            && !emailFormControl.hasError(customErrorName)">
+        <mat-error
+            *ngIf="
+                emailFormControl.hasError('email') &&
+                !emailFormControl.hasError('required') &&
+                !emailFormControl.hasError(customErrorName)
+            "
+        >
             Please enter a valid email address
         </mat-error>
-        <mat-error *ngIf="emailFormControl.hasError(customErrorName)"> {{emailFormControl.errors[customErrorName].message}} </mat-error>
-      <mat-error *ngIf="emailFormControl.hasError('required')"> Email is <strong>required</strong> </mat-error>
+        <mat-error *ngIf="emailFormControl.hasError(customErrorName)">
+            {{ emailFormControl.errors[customErrorName].message }}
+        </mat-error>
+        <mat-error *ngIf="emailFormControl.hasError('required')"> Email is <strong>required</strong> </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
         <mat-label>Password</mat-label>
-        <input matInput [type]="isPasswordVisible ? 'text' : 'password'" [formControl]="passwordFormControl" [errorStateMatcher]="matcher" autocomplete="off"/>
+        <input
+            matInput
+            [type]="isPasswordVisible ? 'text' : 'password'"
+            [formControl]="passwordFormControl"
+            [errorStateMatcher]="matcher"
+            autocomplete="off"
+        />
         <button mat-icon-button matSuffix (click)="togglePasswordVisibility()">
             <mat-icon>{{ isPasswordVisible ? 'visibility' : 'visibility_off' }}</mat-icon>
         </button>
@@ -44,12 +58,24 @@
     </button>
 </div>
 
-<div *ngIf="debugMode" class="pxb-login-test-forgot-password-email-link mat-body-2" (click)="testForgotPasswordEmail()">[Test Forgot Password Email]</div>
-<div *ngIf="debugMode" class="pxb-login-test-invite-register-link mat-body-2" (click)="testInviteRegister()">[Test Invite Register]</div>
+<div *ngIf="debugMode" class="pxb-login-test-forgot-password-email-link mat-body-2" (click)="testForgotPasswordEmail()">
+    [Test Forgot Password Email]
+</div>
+<div *ngIf="debugMode" class="pxb-login-test-invite-register-link mat-body-2" (click)="testInviteRegister()">
+    [Test Invite Register]
+</div>
 <div class="pxb-login-password-link mat-body-2" (click)="forgotPassword()">Forgot your Password?</div>
 <div class="mat-body-2" style="text-align: center;">Need an account?</div>
-<div *ngIf="debugMode || enableCreateAccount" class="pxb-login-create-account-link mat-body-2" (click)="createAccount()">Create Account</div>
-<div class="pxb-login-contact-eaton-support-link mat-body-2" (click)="contactSupport()">Contact an Eaton Support Representative</div>
+<div
+    *ngIf="debugMode || enableCreateAccount"
+    class="pxb-login-create-account-link mat-body-2"
+    (click)="createAccount()"
+>
+    Create Account
+</div>
+<div class="pxb-login-contact-eaton-support-link mat-body-2" (click)="contactSupport()">
+    Contact an Eaton Support Representative
+</div>
 
 <div class="pxb-login-footer">
     <div #footer><ng-content select="[pxb-login-footer]"></ng-content></div>

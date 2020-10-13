@@ -1,51 +1,51 @@
 @import '~@pxblue/colors/palette';
 
 :host {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .content {
-  padding: 0 8px;
-  display: flex;
-  flex-direction: column;
-  flex: 1 1 0px;
+    padding: 0 8px;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0px;
 }
 
 .license-agreement {
-  display: flex;
-  flex: 1 1 0px;
-  overflow: auto;
+    display: flex;
+    flex: 1 1 0px;
+    overflow: auto;
 }
 
 .confirm-agreement {
-  margin: 24px 0;
+    margin: 24px 0;
 }
 
 ::ng-deep .checkbox .mat-checkbox-inner-container {
-  width: 18px;
-  height: 18px;
+    width: 18px;
+    height: 18px;
 }
 
 .validation-list mat-list-item {
-  height: auto;
+    height: auto;
 }
 
 .validation-list {
-  margin-bottom: 32px;
+    margin-bottom: 32px;
 }
 
 .form-field {
-  margin-bottom: 8px;
+    margin-bottom: 8px;
 }
 
 .empty-state-icon {
-  color: map-get($pxb-blue, 500);
+    color: map-get($pxb-blue, 500);
 }
 
 .button-container {
-  padding: 8px;
-  display: flex;
-  justify-content: space-between;
+    padding: 8px;
+    display: flex;
+    justify-content: space-between;
 }

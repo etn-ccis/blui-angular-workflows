@@ -7,12 +7,14 @@ import { Component, Input } from '@angular/core';
 })
 export class DotStepperComponent {
     @Input() steps: number;
-    @Input() activeStepId: number = 0;
+    @Input() activeStepId = 0;
     stepsArray: number[] = [];
 
     constructor() {}
 
-    ngOnInit() {
-        this.stepsArray = Array(this.steps).fill(0).map((i)=>i);
+    ngOnInit(): void {
+        this.stepsArray = Array(this.steps)
+            .fill(0)
+            .map((i) => i);
     }
 }

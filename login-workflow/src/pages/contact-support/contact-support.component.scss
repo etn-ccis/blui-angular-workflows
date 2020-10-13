@@ -1,32 +1,32 @@
 @import '~@pxblue/colors/palette';
 
 :host {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .content {
-  padding: 0 8px;
-  display: flex;
-  flex-direction: column;
-  flex: 1 1 0px;
+    padding: 0 8px;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0px;
 }
 
 .chat-bubble-icon {
-  font-size: 70px;
-  color: map-get($pxb-blue, 500);
-  margin-left: -45px;
+    font-size: 70px;
+    color: map-get($pxb-blue, 500);
+    margin-left: -45px;
 }
 
 .button-container {
-  padding: 8px;
-  display: flex;
-  justify-content: flex-end;
+    padding: 8px;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .link {
-  color: map-get($pxb-blue, 500);
-  text-decoration: none;
-  font-weight: 600;
+    color: map-get($pxb-blue, 500);
+    text-decoration: none;
+    font-weight: 600;
 }

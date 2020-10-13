@@ -1,12 +1,18 @@
-import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, Inject, Input, ViewChild} from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Inject, Input, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import {Form, FormControl, ValidatorFn, Validators} from '@angular/forms';
+import { FormControl, ValidatorFn, Validators } from '@angular/forms';
 import { PxbAuthApiService } from '../../services/api/api.service';
 import { PxbAuthStateService } from '../../services/state/state.service';
 import { AuthErrorStateMatcher } from '../../util/matcher';
 import { isEmptyView } from '../../util/view-utils';
 import { PXB_AUTH_CONFIG, PxbAuthConfig } from '../../config/auth-config';
-import { CONTACT_SUPPORT_ROUTE, CREATE_ACCOUNT_INVITE_ROUTE, CREATE_ACCOUNT_ROUTE, FORGOT_PASSWORD_ROUTE, RESET_PASSWORD_ROUTE } from '../../config/route-names';
+import {
+    CONTACT_SUPPORT_ROUTE,
+    CREATE_ACCOUNT_INVITE_ROUTE,
+    CREATE_ACCOUNT_ROUTE,
+    FORGOT_PASSWORD_ROUTE,
+    RESET_PASSWORD_ROUTE,
+} from '../../config/route-names';
 
 // TODO: Find a home for this const, perhaps config folder.
 export const PXB_LOGIN_VALIDATOR_ERROR_NAME = 'PXB_LOGIN_VALIDATOR_ERROR_NAME';
@@ -45,17 +51,19 @@ export class PxbLoginComponent implements AfterViewInit {
 
     // TODO: WRITE REMEMBER ME TO STATE
 
-  pik(): void {
-      console.log(this.emailFormControl);
-  }
+    pik(): void {}
 
     ngOnInit(): void {
-      const emailValidators = [Validators.required, Validators.email, Validators.pattern(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i)];
-      if (this.customEmailValidator) {
-        emailValidators.push(this.customEmailValidator);
-      }
-      this.emailFormControl = new FormControl('', emailValidators);
-      this.passwordFormControl = new FormControl('', []);
+        const emailValidators = [
+            Validators.required,
+            Validators.email,
+            Validators.pattern(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i),
+        ];
+        if (this.customEmailValidator) {
+            emailValidators.push(this.customEmailValidator);
+        }
+        this.emailFormControl = new FormControl('', emailValidators);
+        this.passwordFormControl = new FormControl('', []);
     }
 
     ngAfterViewInit(): void {
@@ -92,7 +100,7 @@ export class PxbLoginComponent implements AfterViewInit {
     testForgotPasswordEmail(): void {
         void this._router.navigate([`${this._config.authRoute}/${RESET_PASSWORD_ROUTE}`]);
     }
-    
+
     testInviteRegister(): void {
         void this._router.navigate([`${this._config.authRoute}/${CREATE_ACCOUNT_INVITE_ROUTE}`]);
     }

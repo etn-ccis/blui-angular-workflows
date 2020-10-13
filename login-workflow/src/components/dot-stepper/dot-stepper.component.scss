@@ -1,20 +1,19 @@
 @import '~@pxblue/colors/palette';
 
 :host {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}   
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
 
 .dot {
-  height: 8px;
-  width: 8px;
-  background-color: #00000040;
-  border-radius: 100%;
-  margin: 0 4px;
+    height: 8px;
+    width: 8px;
+    background-color: #00000040;
+    border-radius: 100%;
+    margin: 0 4px;
 }
 
 .active {
-  background-color: map-get($pxb-blue, 500);
+    background-color: map-get($pxb-blue, 500);
 }
-

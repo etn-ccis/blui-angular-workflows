@@ -16,9 +16,10 @@ class CrossFieldErrorMatcher implements ErrorStateMatcher {
     styleUrls: ['./reset-password.component.scss'],
 })
 export class PxbResetPasswordComponent implements OnInit {
-    @Input() email: string = "testemail@email.com";
-    @Input() successTitle: string = 'Your password was successfully reset.';
-    @Input() successDescription: string = 'Your password was successfully updated! To ensure your account\'s security, you will need to log in to the application with your updated credentials.';
+    @Input() email = 'testemail@email.com';
+    @Input() successTitle = 'Your password was successfully reset.';
+    @Input() successDescription =
+        "Your password was successfully updated! To ensure your account's security, you will need to log in to the application with your updated credentials.";
     passwordResetSuccess = false;
     passwordFormGroup: FormGroup;
     newPasswordVisible = false;
@@ -46,15 +47,13 @@ export class PxbResetPasswordComponent implements OnInit {
         );
     }
 
-    ngOnInit(): void {
+    ngOnInit(): void {}
 
-    }
-
-    toggleNewPasswordVisibility() {
+    toggleNewPasswordVisibility(): void {
         this.newPasswordVisible = !this.newPasswordVisible;
     }
 
-    toggleConfirmPasswordVisibility() {
+    toggleConfirmPasswordVisibility(): void {
         this.confirmPasswordVisible = !this.confirmPasswordVisible;
     }
 
@@ -74,28 +73,28 @@ export class PxbResetPasswordComponent implements OnInit {
 
     isPasswordGroupValid(): boolean {
         return (
-            this.passwordFormGroup.get('newPassword').value
-            && this.passLength
-            && this.specialFlag
-            && this.numberFlag
-            && this.upperFlag
-            && this.lowerFlag
-            && this.passwordFormGroup.get('confirmPassword').value
-            && this.passwordFormGroup.valid
+            this.passwordFormGroup.get('newPassword').value &&
+            this.passLength &&
+            this.specialFlag &&
+            this.numberFlag &&
+            this.upperFlag &&
+            this.lowerFlag &&
+            this.passwordFormGroup.get('confirmPassword').value &&
+            this.passwordFormGroup.valid
         );
     }
 
-    done() {
+    done(): void {
         this.navigateToLogin();
         this.passwordResetSuccess = false;
         this.passwordFormGroup.reset();
     }
 
-    navigateToLogin() {
+    navigateToLogin(): void {
         void this._router.navigate([`${this._config.authRoute}/${LOGIN_ROUTE}`]);
     }
 
-    resetPassword() {
+    resetPassword(): void {
         // submit form
 
         this.passwordResetSuccess = true;
