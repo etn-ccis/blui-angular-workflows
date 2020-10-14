@@ -32,11 +32,11 @@ jobs:
           command: |
             cd login-workflow
             yarn lint
-      - run:
-          name: Tests
-          command: |
-            cd login-workflow
-            yarn test
+      # - run:
+      #     name: Tests
+      #     command: |
+      #       cd login-workflow
+      #       yarn test
       - run:
           name: Build
           command: |
