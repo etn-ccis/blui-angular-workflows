@@ -27,6 +27,13 @@ mat-form-field {
     height: 18px;
 }
 
+.remember-me-login-wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    align-items: center;
+}
+
 .pxb-login-button {
     width: 150px;
 }
@@ -46,4 +53,14 @@ mat-form-field {
 .pxb-login-create-account-link,
 .pxb-login-contact-eaton-support-link {
     margin-bottom: 32px;
+}
+
+@media only screen and (max-width: 600px) {
+    .remember-me-login-wrapper {
+        flex-direction: column-reverse;
+    }
+
+    .pxb-login-button {
+        margin-bottom: 8px;
+    }
 }

@@ -6,6 +6,10 @@
     flex-direction: column;
 }
 
+.title {
+    padding: 0 8px 24px;
+}
+
 .content {
     padding: 0 8px;
     display: flex;
@@ -29,4 +33,18 @@
     color: map-get($pxb-blue, 500);
     text-decoration: none;
     font-weight: 600;
+}
+
+@media only screen and (max-width: 600px) {
+    .title {
+        padding: 0 0 24px;
+    }
+
+    .content {
+        padding: 0;
+    }
+
+    .button-container {
+        padding: 0;
+    }
 }
