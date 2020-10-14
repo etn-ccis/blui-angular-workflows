@@ -28,6 +28,7 @@ export class PxbLoginComponent implements AfterViewInit {
 
     customErrorName = PXB_LOGIN_VALIDATOR_ERROR_NAME;
     @Input() customEmailValidator: ValidatorFn;
+    @Input() enableDebugMode = false;
 
     emailFormControl: FormControl;
     passwordFormControl: FormControl;
@@ -37,7 +38,6 @@ export class PxbLoginComponent implements AfterViewInit {
     matcher = new AuthErrorStateMatcher();
     isEmpty = (el: ElementRef): boolean => isEmptyView(el);
     isPasswordVisible = false;
-    enableDebugMode = true;
     debugMode = false;
     enableCreateAccount = false;
 
