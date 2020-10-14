@@ -44,6 +44,6 @@ jobs:
             yarn build
 workflows:
   version: 2
-  react_native_workflows:
+  angular_workflows:
     jobs:
       - build_login_workflow
