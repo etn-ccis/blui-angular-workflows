@@ -6,7 +6,7 @@ import { PXB_LOGIN_VALIDATOR_ERROR_NAME } from '../public-api';
 import { PXB_AUTH_CONFIG, PxbAuthConfig } from '../../config/auth-config';
 import { LOGIN_ROUTE } from '../../config/route-names';
 import { SAMPLE_EULA } from '../../constants/sampleEula';
-import { ErrorStateMatcher } from '@angular/material';
+import { ErrorStateMatcher } from '@angular/material/core';
 
 class CrossFieldErrorMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
