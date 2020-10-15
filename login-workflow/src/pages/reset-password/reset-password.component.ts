@@ -2,7 +2,8 @@ import { Component, Inject, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
-import { LOGIN_ROUTE, PxbAuthConfig, PXB_AUTH_CONFIG } from '../../public-api';
+import { PxbAuthConfig, PXB_AUTH_CONFIG } from '../../config/auth-config';
+import { LOGIN_ROUTE } from '../../config/route-names';
 
 class CrossFieldErrorMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
