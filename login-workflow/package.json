@@ -6,6 +6,7 @@
     "watch": "ng build -c demo",
     "build": "ng build",
     "test": "ng test",
+    "test:ci": "ng test --watch false",
     "lint": "eslint \"src/**/**.ts\"",
     "lint:fix": "eslint \"src/**/**.ts\" --fix",
     "prettier": "prettier \"src/**/**.{ts,js,json,css,scss,html}\" --write",
