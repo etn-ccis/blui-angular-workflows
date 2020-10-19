@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AuthErrorStateMatcher } from '../../util/matcher';
 import { PXB_AUTH_CONFIG, PxbAuthConfig } from '../../config/auth-config';
 import { LOGIN_ROUTE } from '../../config/route-names';
-import { PXB_LOGIN_VALIDATOR_ERROR_NAME } from '../public-api';
+import { PXB_LOGIN_VALIDATOR_ERROR_NAME } from '../login/login.component';
 
 @Component({
     selector: 'pxb-forgot-password',
