@@ -49,6 +49,11 @@ mat-form-field {
     cursor: pointer;
 }
 
+.pxb-login-test-forgot-password-email-link,
+.pxb-login-test-invite-register-link {
+    color: map-get($pxb-black, 500);
+}
+
 .pxb-login-password-link,
 .pxb-login-create-account-link,
 .pxb-login-contact-eaton-support-link {
