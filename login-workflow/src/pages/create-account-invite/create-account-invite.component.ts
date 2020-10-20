@@ -150,6 +150,15 @@ export class PxbCreateAccountInviteComponent implements OnInit {
         this.currentPageId = this.currentPageId + 1;
     }
 
+    resetForm(): void {
+        this.confirmAgreement = false;
+        this.passwordFormGroup.reset();
+        this.firstNameFormControl.reset();
+        this.lastNameFormControl.reset();
+        this.phoneNumberFormControl.reset();
+        this.currentPageId = 0;
+    }
+
     navigateToLogin(): void {
         void this._router.navigate([`${this._config.authRoute}/${LOGIN_ROUTE}`]);
     }

@@ -182,6 +182,17 @@ export class PxbCreateAccountComponent implements OnInit {
         this.currentPageId = this.currentPageId + 1;
     }
 
+    resetForm(): void {
+        this.emailFormControl.reset();
+        this.confirmAgreement = false;
+        this.verificationCodeFormControl.reset();
+        this.passwordFormGroup.reset();
+        this.firstNameFormControl.reset();
+        this.lastNameFormControl.reset();
+        this.phoneNumberFormControl.reset();
+        this.currentPageId = 0;
+    }
+
     navigateToLogin(): void {
         void this._router.navigate([`${this._config.authRoute}/${LOGIN_ROUTE}`]);
     }
