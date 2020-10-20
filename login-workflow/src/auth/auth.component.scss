@@ -14,6 +14,7 @@
     height: 100%;
     display: flex;
     overflow: auto;
+    overflow-x: hidden;
     position: relative;
     max-width: 450px;
     max-height: 730px;
