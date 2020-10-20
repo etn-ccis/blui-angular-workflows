@@ -8,7 +8,7 @@ describe('AuthGuard', () => {
 
     beforeEach(async(() => {
         void TestBed.configureTestingModule({
-            imports: [RouterTestingModule]
+            imports: [RouterTestingModule],
         }).compileComponents();
     }));
 
