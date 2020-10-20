@@ -22,6 +22,10 @@ import { DotStepperComponent } from './components/dot-stepper/dot-stepper.compon
 import { CommonModule } from '@angular/common';
 import { PxbContactSupportComponent } from './pages/contact-support/contact-support.component';
 import { PxbCreateAccountInviteComponent } from './pages/create-account-invite/create-account-invite.component';
+import { PxbChangePasswordComponent } from './pages/change-password/change-password.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { PxbChangePasswordModalService } from './pages/change-password/change-password-modal.service';
+import { PxbChangePasswordModalComponent } from './pages/change-password/change-password-modal.component';
 
 @NgModule({
     declarations: [
@@ -34,13 +38,15 @@ import { PxbCreateAccountInviteComponent } from './pages/create-account-invite/c
         PasswordStrengthCheckComponent,
         DotStepperComponent,
         PxbCreateAccountInviteComponent,
+        PxbChangePasswordComponent,
+        PxbChangePasswordModalComponent,
     ],
     imports: [
+        BrowserModule,
         CommonModule,
         MatProgressSpinnerModule,
         SpacerModule,
         MatButtonModule,
-        BrowserModule,
         MatFormFieldModule,
         MatInputModule,
         MatCardModule,
@@ -52,7 +58,9 @@ import { PxbCreateAccountInviteComponent } from './pages/create-account-invite/c
         MatDividerModule,
         EmptyStateModule,
         MatListModule,
+        MatDialogModule,
     ],
+    providers: [PxbChangePasswordModalService],
     exports: [
         PxbAuthComponent,
         PxbLoginComponent,
@@ -61,6 +69,8 @@ import { PxbCreateAccountInviteComponent } from './pages/create-account-invite/c
         PxbResetPasswordComponent,
         PxbContactSupportComponent,
         PxbCreateAccountInviteComponent,
+        PxbChangePasswordComponent,
     ],
+    entryComponents: [PxbChangePasswordModalComponent],
 })
 export class PxbAuthModule {}

@@ -12,6 +12,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthComponent } from './pages/auth/auth.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthService } from './services/auth.service';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+
 
 @NgModule({
     declarations: [AppComponent, HomeComponent, AuthComponent],
@@ -25,6 +28,8 @@ import { AuthService } from './services/auth.service';
         FormsModule,
         PxbAuthModule,
         AppRoutingModule,
+        MatButtonModule,
+        MatDialogModule,
     ],
     providers: [
         {
