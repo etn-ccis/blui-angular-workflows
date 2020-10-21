@@ -1,5 +1,7 @@
 <div class="pxb-login-header" (click)="pik()">
-    <div #header><ng-content select="[pxb-login-header]"></ng-content></div>
+    <div #header>
+        <ng-content select="[pxb-login-header]"></ng-content>
+    </div>
     <div *ngIf="isEmpty(headerEl)">DEFAULT HEADER</div>
 </div>
 
@@ -14,7 +16,15 @@
 <form>
     <mat-form-field appearance="fill">
         <mat-label>Email</mat-label>
-        <input matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher" autocomplete="off" />
+        <input
+            id="email"
+            name="email"
+            type="email"
+            matInput
+            [formControl]="emailFormControl"
+            [errorStateMatcher]="matcher"
+            autocomplete="off"
+        />
         <mat-error
             *ngIf="
                 emailFormControl.hasError('email') &&
@@ -33,6 +43,8 @@
     <mat-form-field appearance="fill">
         <mat-label>Password</mat-label>
         <input
+            id="password"
+            name="password"
             matInput
             [type]="isPasswordVisible ? 'text' : 'password'"
             [formControl]="passwordFormControl"
@@ -78,6 +90,8 @@
 </div>
 
 <div class="pxb-login-footer">
-    <div #footer><ng-content select="[pxb-login-footer]"></ng-content></div>
+    <div #footer>
+        <ng-content select="[pxb-login-footer]"></ng-content>
+    </div>
     <div *ngIf="isEmpty(footerEl)">DEFAULT FOOTER</div>
 </div>

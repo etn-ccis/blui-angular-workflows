@@ -10,6 +10,7 @@ import {
     RESET_PASSWORD_ROUTE,
 } from '../config/route-names';
 import { isEmptyView } from '../util/view-utils';
+import { OverlayContainer } from '@angular/cdk/overlay';
 
 @Component({
     selector: 'pxb-auth',
@@ -36,6 +37,7 @@ export class PxbAuthComponent implements AfterViewInit {
 
     constructor(
         router: Router,
+        overlayContainer: OverlayContainer,
         private readonly _changeDetectorRef: ChangeDetectorRef,
         @Inject(PXB_AUTH_CONFIG) private readonly _config: PxbAuthConfig
     ) {
@@ -51,6 +53,8 @@ export class PxbAuthComponent implements AfterViewInit {
                 this._changeDetectorRef.detectChanges();
             }
         });
+
+        overlayContainer.getContainerElement().classList.add('pxb-blue');
     }
 
     ngAfterViewInit(): void {

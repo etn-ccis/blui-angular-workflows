@@ -11,8 +11,9 @@ export class PxbChangePasswordModalService {
     openDialog(): MatDialogRef<PxbChangePasswordModalComponent> {
         return this.dialog.open(PxbChangePasswordModalComponent, {
             width: '444px',
-            height: '730px',
+            height: '710px',
             disableClose: true,
+            panelClass: 'change-password-modal',
         });
     }
 

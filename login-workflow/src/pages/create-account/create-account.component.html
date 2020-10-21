@@ -9,7 +9,14 @@
     <form>
         <mat-form-field appearance="fill" style="width: 100%;">
             <mat-label>Email Address</mat-label>
-            <input matInput [formControl]="emailFormControl" [errorStateMatcher]="emailMatcher" />
+            <input
+                id="email"
+                name="email"
+                type="email"
+                matInput
+                [formControl]="emailFormControl"
+                [errorStateMatcher]="emailMatcher"
+            />
             <mat-error
                 *ngIf="
                     emailFormControl.hasError('email') &&
@@ -45,7 +52,7 @@
     <form>
         <mat-form-field appearance="fill" style="width: 100%;">
             <mat-label>Verification Code</mat-label>
-            <input matInput [formControl]="verificationCodeFormControl" />
+            <input id="verification" name="verification" matInput [formControl]="verificationCodeFormControl" />
             <mat-error *ngIf="verificationCodeFormControl.hasError('required')">
                 Verification code is <strong>required</strong>
             </mat-error>
@@ -67,6 +74,8 @@
             <mat-form-field appearance="fill" style="width: 100%;">
                 <mat-label>Password</mat-label>
                 <input
+                    id="password"
+                    name="password"
                     matInput
                     placeholder="Password"
                     required
@@ -93,6 +102,8 @@
             <mat-form-field appearance="fill" style="width: 100%;">
                 <mat-label>Confirm Password</mat-label>
                 <input
+                    id="confirm"
+                    name="confirm"
                     matInput
                     placeholder="Confirm Password"
                     required
@@ -115,21 +126,21 @@
     <form>
         <mat-form-field appearance="fill" style="width: 100%;" class="form-field">
             <mat-label>First Name</mat-label>
-            <input matInput [formControl]="firstNameFormControl" />
+            <input id="first" name="first" matInput [formControl]="firstNameFormControl" />
             <mat-error *ngIf="firstNameFormControl.hasError('required')">
                 First Name is <strong>required</strong>
             </mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill" style="width: 100%;" class="form-field">
             <mat-label>Last Name</mat-label>
-            <input matInput [formControl]="lastNameFormControl" />
+            <input id="last" name="last" matInput [formControl]="lastNameFormControl" />
             <mat-error *ngIf="lastNameFormControl.hasError('required')">
                 Last Name is <strong>required</strong>
             </mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill" style="width: 100%;" class="form-field">
             <mat-label>Phone Number (optional)</mat-label>
-            <input matInput [formControl]="phoneNumberFormControl" />
+            <input id="phone" name="phone" matInput [formControl]="phoneNumberFormControl" />
         </mat-form-field>
     </form>
 </div>
