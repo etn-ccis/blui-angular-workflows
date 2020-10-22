@@ -1,0 +1,26 @@
+<div class="mat-title title">Contact Us</div>
+
+<div style="text-align: center; margin-bottom: 26px; margin-top: 8px;">
+    <mat-icon class="chat-bubble-icon">chat_bubble_outline</mat-icon>
+</div>
+
+<div class="content">
+    <p class="mat-body-1" style="margin-bottom: 8px;">General Questions</p>
+
+    <p class="mat-body-1" style="margin-bottom: 32px;">
+        For questions, feedback, or support please email us at
+        <a class="link" [href]="'mailto:' + contactEmail">{{ contactEmail }}</a
+        >.
+    </p>
+
+    <p class="mat-body-1" style="margin-bottom: 8px;">Emergency Support</p>
+
+    <p class="mat-body-1">
+        For 24/7 technical support, please call <a class="link" [href]="'tel:' + contactPhone">{{ contactPhone }}</a
+        >.
+    </p>
+</div>
+
+<div class="button-container">
+    <button mat-flat-button color="primary" (click)="navigateToLogin()" style="width: 100px;">Okay</button>
+</div>

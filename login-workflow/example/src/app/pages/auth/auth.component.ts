@@ -5,10 +5,10 @@ import { PXB_LOGIN_VALIDATOR_ERROR_NAME } from '@pxblue/angular-auth-workflow';
 @Component({
     selector: 'app-auth',
     template: `
-        <pxb-auth>
-            <pxb-login [customEmailValidator]="customValidator()">
-              <div pxb-login-header>Custom Login Page Header</div>
-              <div pxb-login-footer>Custom Login Page Footer</div>
+        <pxb-auth backgroundImage="assets/images/background.svg">
+            <pxb-login [customEmailValidator]="customValidator()" enableDebugMode="true">
+              <div pxb-login-header><img src="assets/images/eaton_stacked_logo.png" style="max-width: 100%; max-height: 80px;"/></div>
+              <div pxb-login-footer style="text-align: center;"><img src="assets/images/cybersecurity_certified.png" style="max-width: 30%; align-self: center;"/></div>
             </pxb-login>
         </pxb-auth>
     `,

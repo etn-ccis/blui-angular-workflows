@@ -12,8 +12,20 @@ import { PxbAuthComponent } from './auth/auth.component';
 import { RouterModule } from '@angular/router';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
-import { SpacerModule } from '@pxblue/angular-components';
+import { EmptyStateModule, SpacerModule } from '@pxblue/angular-components';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
+import { PasswordStrengthCheckComponent } from './components/password-strength-checker/password-strength-checker.component';
+import { DotStepperComponent } from './components/dot-stepper/dot-stepper.component';
+import { CommonModule } from '@angular/common';
+import { PxbContactSupportComponent } from './pages/contact-support/contact-support.component';
+import { PxbCreateAccountInviteComponent } from './pages/create-account-invite/create-account-invite.component';
+import { PxbChangePasswordComponent } from './pages/change-password/change-password.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { PxbChangePasswordModalService } from './pages/change-password/change-password-modal.service';
+import { PxbChangePasswordModalComponent } from './pages/change-password/change-password-modal.component';
 
 @NgModule({
     declarations: [
@@ -22,12 +34,19 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
         PxbResetPasswordComponent,
         PxbCreateAccountComponent,
         PxbAuthComponent,
+        PxbContactSupportComponent,
+        PasswordStrengthCheckComponent,
+        DotStepperComponent,
+        PxbCreateAccountInviteComponent,
+        PxbChangePasswordComponent,
+        PxbChangePasswordModalComponent,
     ],
     imports: [
+        BrowserModule,
+        CommonModule,
         MatProgressSpinnerModule,
         SpacerModule,
         MatButtonModule,
-        BrowserModule,
         MatFormFieldModule,
         MatInputModule,
         MatCardModule,
@@ -35,13 +54,23 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
         FormsModule,
         RouterModule,
         MatCheckboxModule,
+        MatIconModule,
+        MatDividerModule,
+        EmptyStateModule,
+        MatListModule,
+        MatDialogModule,
     ],
+    providers: [PxbChangePasswordModalService],
     exports: [
         PxbAuthComponent,
         PxbLoginComponent,
         PxbForgotPasswordComponent,
         PxbCreateAccountComponent,
         PxbResetPasswordComponent,
+        PxbContactSupportComponent,
+        PxbCreateAccountInviteComponent,
+        PxbChangePasswordComponent,
     ],
+    entryComponents: [PxbChangePasswordModalComponent],
 })
 export class PxbAuthModule {}
