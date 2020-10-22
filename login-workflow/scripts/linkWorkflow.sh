@@ -25,10 +25,6 @@ echo -e "${GREEN}Done${NC}"
 echo -en "\r\n${BLUE}Linking Components: ${NC}"
 if [ ! -f ./example/node_modules/@pxblue/angular-auth-workflow/package.json ]; then echo -e "${BRED}Not Linked${NC}" && exit 1; fi
 if [ ! -s ./example/node_modules/@pxblue/angular-auth-workflow ];
-    then
-        if [ ! -f ./example/node_modules/@pxblue/angular-auth-workflow/index.js ];
-        then echo -e "${BRED}Not Linked${NC}" && exit 1;
-        fi;
 fi
 
 echo -e "${GRAY}Complete${NC}\r\n"
