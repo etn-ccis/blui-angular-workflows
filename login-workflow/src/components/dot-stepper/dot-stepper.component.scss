@@ -9,7 +9,7 @@
 .dot {
     height: 8px;
     width: 8px;
-    background-color: #00000040;
+    background-color: map-get($pxb-gray, 200);
     border-radius: 100%;
     margin: 0 4px;
 }
