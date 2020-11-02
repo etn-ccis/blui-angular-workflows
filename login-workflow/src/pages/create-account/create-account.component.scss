@@ -45,6 +45,14 @@
     margin-bottom: 8px;
 }
 
+::ng-deep .content .empty-state .pxb-empty-state-description {
+    color: inherit;
+}
+
+::ng-deep .content .empty-state .pxb-empty-state-empty-icon-wrapper {
+    margin-bottom: 32px;
+}
+
 .empty-state-icon {
     color: map-get($pxb-blue, 500);
 }
