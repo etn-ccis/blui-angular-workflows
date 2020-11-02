@@ -18,7 +18,6 @@
   "prettier": "@pxblue/prettier-config",
   "private": true,
   "peerDependencies": {
-    "@angular/material": "^9.0.0",
     "@pxblue/angular-components": "^2.0.0"
   },
   "dependencies": {
@@ -35,7 +34,7 @@
     "@angular/compiler-cli": "^10.2.1",
     "@angular/core": "^10.2.1",
     "@angular/forms": "^10.2.1",
-    "@angular/material": "^8.2.3",
+    "@angular/material": "^10.2.6",
     "@angular/platform-browser": "^10.2.1",
     "@angular/platform-browser-dynamic": "^10.2.1",
     "@angular/router": "^10.2.1",
