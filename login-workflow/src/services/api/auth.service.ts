@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 export type IPxbAuthApiService = {};
 
 @Injectable({
