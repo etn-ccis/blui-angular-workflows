@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 
-export type IPxbRegistrationApiService = {
-    
-};
+export type IPxbRegistrationApiService = {};
 
 @Injectable({
     providedIn: 'root',

@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 
-export type IPxbAuthApiService = {
-    
-};
+export type IPxbAuthApiService = {};
 
 @Injectable({
     providedIn: 'root',

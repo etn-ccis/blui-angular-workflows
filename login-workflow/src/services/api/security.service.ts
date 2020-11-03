@@ -1,12 +1,8 @@
 import { Injectable } from '@angular/core';
 
-export type IPxbSecurityApiService = {
-    
-};
+export type IPxbSecurityApiService = {};
 
 @Injectable({
     providedIn: 'root',
 })
-export class PxbSecurityApiService implements IPxbSecurityApiService {
-    
-}
+export class PxbSecurityApiService implements IPxbSecurityApiService {}
