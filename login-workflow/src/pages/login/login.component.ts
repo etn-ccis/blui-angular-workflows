@@ -1,8 +1,6 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Inject, Input, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, ValidatorFn, Validators } from '@angular/forms';
-import { PxbAuthApiService } from '../../services/api/api.service';
-import { PxbAuthStateService } from '../../services/state/state.service';
 import { AuthErrorStateMatcher } from '../../util/matcher';
 import { isEmptyView } from '../../util/view-utils';
 import { PXB_AUTH_CONFIG, PxbAuthConfig } from '../../config/auth-config';
@@ -44,8 +42,6 @@ export class PxbLoginComponent implements AfterViewInit {
     constructor(
         private readonly _changeDetectorRef: ChangeDetectorRef,
         private readonly _router: Router,
-        private readonly _stateService: PxbAuthStateService,
-        private readonly _apiService: PxbAuthApiService,
         @Inject(PXB_AUTH_CONFIG) private readonly _config: PxbAuthConfig
     ) {}
 
@@ -79,18 +75,21 @@ export class PxbLoginComponent implements AfterViewInit {
     }
 
     login(): void {
-        this.isLoading = true;
-        this._apiService
-            .login()
-            .then((success: boolean) => {
-                this._stateService.setAuthenticated(success);
-                void this._router.navigate([this._config.homeRoute]);
-                this.isLoading = false;
-            })
-            .catch(() => {
-                this._stateService.setAuthenticated(false);
-                this.isLoading = false;
-            });
+        void this._router.navigate([this._config.homeRoute]);
+
+        // @TODO: leaving this here to use when we hook up login functionality
+        // this.isLoading = true;
+        // this._apiService
+        //     .login()
+        //     .then((success: boolean) => {
+        //         this._stateService.setAuthenticated(success);
+        //         void this._router.navigate([this._config.homeRoute]);
+        //         this.isLoading = false;
+        //     })
+        //     .catch(() => {
+        //         this._stateService.setAuthenticated(false);
+        //         this.isLoading = false;
+        //     });
     }
 
     forgotPassword(): void {

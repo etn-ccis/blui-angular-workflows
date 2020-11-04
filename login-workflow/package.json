@@ -38,7 +38,7 @@
     "@angular/platform-browser": "^10.2.1",
     "@angular/platform-browser-dynamic": "^10.2.1",
     "@angular/router": "^10.2.1",
-    "@pxblue/angular-components": "^2.0.0",
+    "@pxblue/angular-components": "^3.0.1",
     "@pxblue/colors": "^3.0.0",
     "@pxblue/eslint-config": "^2.0.1",
     "@pxblue/ng-progress-icons": "^1.1.3",
