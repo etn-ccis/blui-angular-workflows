@@ -16,7 +16,6 @@ export type PxbAuthConfig = {
     // @TODO: using this for splash screen... should we use this in place of ng-content for header in the login component? Should we have an additional prop for footerImage
     projectImage?: string;
     showSelfRegistration: boolean;
-    title?: string; //@TODO: what are we doing with this?
 };
 
 export const PXB_AUTH_CONFIG = new InjectionToken<PxbAuthConfig>('');

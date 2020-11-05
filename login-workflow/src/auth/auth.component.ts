@@ -20,7 +20,7 @@ import {
 } from '../config/route-names';
 import { isEmptyView } from '../util/view-utils';
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { PxbAuthApiService } from '../services/public-api';
+import { PxbAuthApiService, PxbAuthStateService, PxbSecurityApiService } from '../services/public-api';
 
 @Component({
     selector: 'pxb-auth',
@@ -48,10 +48,12 @@ export class PxbAuthComponent implements AfterViewInit, OnInit {
     isSecurityInitiated = false;
 
     constructor(
-        router: Router,
+        public router: Router,
         overlayContainer: OverlayContainer,
         private readonly _changeDetectorRef: ChangeDetectorRef,
         private readonly _authApiService: PxbAuthApiService,
+        private readonly _securityApiService: PxbSecurityApiService,
+        private readonly _authStateService: PxbAuthStateService,
         @Inject(PXB_AUTH_CONFIG) private readonly _config: PxbAuthConfig
     ) {
         router.events.subscribe((route) => {
@@ -74,6 +76,15 @@ export class PxbAuthComponent implements AfterViewInit, OnInit {
     ngOnInit(): void {
         this.projectImage = this._config.projectImage;
         this.initiateSecurity();
+
+        // logs user in if they are already authenticated
+        this._securityApiService.securityStateChanges().subscribe((res) => {
+            if (res.isAuthenticatedUser) {
+                this._authStateService.setAuthenticated(true);
+                void this.router.navigate([this._config.homeRoute]);
+            }
+        });
+
         this._changeDetectorRef.detectChanges();
     }
 
@@ -87,7 +98,7 @@ export class PxbAuthComponent implements AfterViewInit, OnInit {
             .then(() => {
                 this.isSecurityInitiated = true;
             })
-            .catch(() => {});
+            .catch(() => { });
     }
 
     resetSelectedRoute(): void {
