@@ -1,9 +1,14 @@
 <div class="pxb-float-card-container" [style.backgroundImage]="'url(' + backgroundImage + ')'">
-    <mat-card class="pxb-inner-card">
-        <div #login [class.login]="!isEmpty(loginEl) && showLogin">
-            <ng-content *ngIf="showLogin" select="pxb-login"></ng-content>
+    <mat-card class="pxb-inner-card" [class.splash-screen]="!isSecurityInitiated">
+        <div *ngIf="!isSecurityInitiated" class="splash-screen-content">
+            <img [src]="projectImage" style="max-width: 100%; max-height: 80px; margin-bottom: 48px;" />
+            <mat-spinner diameter="40"></mat-spinner>
         </div>
-        <pxb-login *ngIf="isEmpty(loginEl) && showLogin" [class.login]="isEmpty(loginEl) && showLogin"></pxb-login>
+
+        <div #login [class.login]="!isEmpty(loginEl) && showLogin">
+            <ng-content *ngIf="showLogin && isSecurityInitiated" select="pxb-login"></ng-content>
+        </div>
+        <pxb-login *ngIf="isEmpty(loginEl) && showLogin && isSecurityInitiated" [class.login]="isEmpty(loginEl) && showLogin"></pxb-login>
 
         <div #resetPassword [class.reset-password]="!isEmpty(resetPasswordEl) && showResetPassword">
             <ng-content

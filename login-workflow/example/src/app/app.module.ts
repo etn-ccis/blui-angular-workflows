@@ -15,7 +15,7 @@ import { AuthService } from './services/auth.service';
 import { RegistrationService } from './services/registration.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
-
+import { LocalStorageService } from './services/localStorage.service';
 
 @NgModule({
     declarations: [AppComponent, HomeComponent, AuthComponent],
@@ -33,6 +33,7 @@ import { MatDialogModule } from '@angular/material/dialog';
         MatDialogModule,
     ],
     providers: [
+        LocalStorageService,
         {
             provide: PxbAuthApiService,
             useClass: AuthService,
@@ -46,6 +47,8 @@ import { MatDialogModule } from '@angular/material/dialog';
             useValue: {
                 homeRoute: HOME_ROUTE,
                 authRoute: AUTH_ROUTE,
+                allowDebugMode: true,
+                projectImage: 'assets/images/eaton_stacked_logo.png'
             },
         },
     ],

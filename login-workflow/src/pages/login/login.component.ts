@@ -11,6 +11,7 @@ import {
     FORGOT_PASSWORD_ROUTE,
     RESET_PASSWORD_ROUTE,
 } from '../../config/route-names';
+import { PxbSecurityApiService, SecurityContext } from '../../services/api/security.service';
 
 // TODO: Find a home for this const, perhaps config folder.
 export const PXB_LOGIN_VALIDATOR_ERROR_NAME = 'PXB_LOGIN_VALIDATOR_ERROR_NAME';
@@ -26,7 +27,8 @@ export class PxbLoginComponent implements AfterViewInit {
 
     customErrorName = PXB_LOGIN_VALIDATOR_ERROR_NAME;
     @Input() customEmailValidator: ValidatorFn;
-    @Input() enableDebugMode = false;
+    enableDebugMode = false;
+    showSelfRegistration = false;
 
     emailFormControl: FormControl;
     passwordFormControl: FormControl;
@@ -37,19 +39,28 @@ export class PxbLoginComponent implements AfterViewInit {
     isEmpty = (el: ElementRef): boolean => isEmptyView(el);
     isPasswordVisible = false;
     debugMode = false;
-    enableCreateAccount = false;
+    securityState: SecurityContext;
 
     constructor(
         private readonly _changeDetectorRef: ChangeDetectorRef,
         private readonly _router: Router,
+        private readonly _securityApiService: PxbSecurityApiService,
         @Inject(PXB_AUTH_CONFIG) private readonly _config: PxbAuthConfig
     ) {}
-
-    // TODO: WRITE REMEMBER ME TO STATE
 
     pik(): void {}
 
     ngOnInit(): void {
+        this.enableDebugMode = this._config.allowDebugMode;
+        this.showSelfRegistration = this._config.showSelfRegistration;
+
+        this.securityState = this._securityApiService.getSecurityState();
+        this.rememberMe = this.securityState.rememberMeDetails.rememberMe;
+
+        // @TODO: remove this later.
+        // eslint-disable-next-line no-console
+        console.log('security state from login: ', this.securityState);
+
         const emailValidators = [
             Validators.required,
             Validators.email,
@@ -58,7 +69,10 @@ export class PxbLoginComponent implements AfterViewInit {
         if (this.customEmailValidator) {
             emailValidators.push(this.customEmailValidator);
         }
-        this.emailFormControl = new FormControl('', emailValidators);
+        this.emailFormControl = new FormControl(
+            this.rememberMe ? this.securityState.rememberMeDetails.email : '',
+            emailValidators
+        );
         this.passwordFormControl = new FormControl('', []);
     }
 
