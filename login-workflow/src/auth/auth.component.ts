@@ -98,7 +98,7 @@ export class PxbAuthComponent implements AfterViewInit, OnInit {
             .then(() => {
                 this.isSecurityInitiated = true;
             })
-            .catch(() => { });
+            .catch(() => {});
     }
 
     resetSelectedRoute(): void {

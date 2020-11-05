@@ -8,7 +8,10 @@
         <div #login [class.login]="!isEmpty(loginEl) && showLogin">
             <ng-content *ngIf="showLogin && isSecurityInitiated" select="pxb-login"></ng-content>
         </div>
-        <pxb-login *ngIf="isEmpty(loginEl) && showLogin && isSecurityInitiated" [class.login]="isEmpty(loginEl) && showLogin"></pxb-login>
+        <pxb-login
+            *ngIf="isEmpty(loginEl) && showLogin && isSecurityInitiated"
+            [class.login]="isEmpty(loginEl) && showLogin"
+        ></pxb-login>
 
         <div #resetPassword [class.reset-password]="!isEmpty(resetPasswordEl) && showResetPassword">
             <ng-content
