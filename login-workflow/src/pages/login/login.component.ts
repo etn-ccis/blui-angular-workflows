@@ -48,8 +48,6 @@ export class PxbLoginComponent implements AfterViewInit {
         @Inject(PXB_AUTH_CONFIG) private readonly _config: PxbAuthConfig
     ) {}
 
-    pik(): void {}
-
     ngOnInit(): void {
         this.enableDebugMode = this._config.allowDebugMode;
         this.showSelfRegistration = this._config.showSelfRegistration;

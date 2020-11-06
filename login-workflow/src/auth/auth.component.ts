@@ -19,7 +19,6 @@ import {
     RESET_PASSWORD_ROUTE,
 } from '../config/route-names';
 import { isEmptyView } from '../util/view-utils';
-import { OverlayContainer } from '@angular/cdk/overlay';
 import { PxbAuthApiService, PxbAuthStateService, PxbSecurityApiService } from '../services/public-api';
 
 @Component({
@@ -49,7 +48,6 @@ export class PxbAuthComponent implements AfterViewInit, OnInit {
 
     constructor(
         public router: Router,
-        overlayContainer: OverlayContainer,
         private readonly _changeDetectorRef: ChangeDetectorRef,
         private readonly _authApiService: PxbAuthApiService,
         private readonly _securityApiService: PxbSecurityApiService,
@@ -68,9 +66,6 @@ export class PxbAuthComponent implements AfterViewInit, OnInit {
                 this._changeDetectorRef.detectChanges();
             }
         });
-
-        // adds pxblue theme to overlay containers
-        overlayContainer.getContainerElement().classList.add('pxb-blue');
     }
 
     ngOnInit(): void {

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import {AbstractControl, ValidatorFn} from "@angular/forms";
-import { PXB_LOGIN_VALIDATOR_ERROR_NAME } from '@pxblue/angular-auth-workflow';
 
 @Component({
     selector: 'app-auth',
