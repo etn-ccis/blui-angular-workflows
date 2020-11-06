@@ -57,7 +57,7 @@ export type RememberMeData = {
 @Injectable({
     providedIn: 'root',
 })
-export class PxbSecurityApiService {
+export class PxbSecurityService {
     securityState: SecurityContext = {
         userId: undefined,
         email: undefined,
@@ -86,17 +86,16 @@ export class PxbSecurityApiService {
         return this.securityStateObs;
     }
 
-    onUserAuthenticated(args: { email: string; userId: string; rememberMe: boolean }): void {
+    onUserAuthenticated(email: string, userId: string, rememberMe: boolean): void {
         // @TODO: remove this later
         // eslint-disable-next-line no-console
-        console.log('user authenticated with args: ', args);
+        console.log('user authenticated with args: ', email, userId, rememberMe);
 
         const updatedSecurityState = {
-            email: args.email,
-            userId: args.userId,
+            email, userId,
             rememberMeDetails: {
-                email: args.rememberMe ? args.email : undefined,
-                rememberMe: args.rememberMe,
+                email: rememberMe ? email : undefined,
+                rememberMe,
             },
             isLoading: false,
             isSignOut: false,

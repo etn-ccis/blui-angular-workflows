@@ -19,7 +19,7 @@ import {
     RESET_PASSWORD_ROUTE,
 } from '../config/route-names';
 import { isEmptyView } from '../util/view-utils';
-import { PxbAuthApiService, PxbAuthStateService, PxbSecurityApiService } from '../services/public-api';
+import { PxbAuthUIActionsService, PxbSecurityService } from '../services/public-api';
 
 @Component({
     selector: 'pxb-auth',
@@ -49,9 +49,8 @@ export class PxbAuthComponent implements AfterViewInit, OnInit {
     constructor(
         public router: Router,
         private readonly _changeDetectorRef: ChangeDetectorRef,
-        private readonly _authApiService: PxbAuthApiService,
-        private readonly _securityApiService: PxbSecurityApiService,
-        private readonly _authStateService: PxbAuthStateService,
+        private readonly _authUIActionsService: PxbAuthUIActionsService,
+        private readonly _securityService: PxbSecurityService,
         @Inject(PXB_AUTH_CONFIG) private readonly _config: PxbAuthConfig
     ) {
         router.events.subscribe((route) => {
@@ -73,9 +72,9 @@ export class PxbAuthComponent implements AfterViewInit, OnInit {
         this.initiateSecurity();
 
         // logs user in if they are already authenticated
-        this._securityApiService.securityStateChanges().subscribe((res) => {
+        this._securityService.securityStateChanges().subscribe((res) => {
             if (res.isAuthenticatedUser) {
-                this._authStateService.setAuthenticated(true);
+             //   this._authStateService.setAuthenticated(true);
                 void this.router.navigate([this._config.homeRoute]);
             }
         });
@@ -88,7 +87,7 @@ export class PxbAuthComponent implements AfterViewInit, OnInit {
     }
 
     initiateSecurity(): void {
-        this._authApiService
+        this._authUIActionsService
             .initiateSecurity()
             .then(() => {
                 this.isSecurityInitiated = true;

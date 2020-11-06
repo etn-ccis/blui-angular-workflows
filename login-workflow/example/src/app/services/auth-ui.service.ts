@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
-import { IPxbAuthApiService, PxbSecurityApiService } from '@pxblue/angular-auth-workflow';
+import { IPxbAuthUIActionsService, PxbSecurityService } from '@pxblue/angular-auth-workflow';
 import { LocalStorageService } from './localStorage.service';
 
 const sleep = (ms: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, ms));
 @Injectable({
     providedIn: 'root',
 })
-export class AuthService implements IPxbAuthApiService {
+export class AuthUIService implements IPxbAuthUIActionsService {
 
     constructor(
         private readonly _localStorageService: LocalStorageService,
-        private readonly _securityApiService: PxbSecurityApiService
+        private readonly _securityService: PxbSecurityService
         ) {}
-    
+
      /**
      * Initialize the application security state. This will involve reading any local storage,
      * validating existing credentials (token expiration, for example). At the end of validation,
@@ -42,20 +42,27 @@ export class AuthService implements IPxbAuthApiService {
             // @TODO: remove this later
             // eslint-disable-next-line no-console
             console.log('we have an email in local storage!', authData);
-
-            this._securityApiService.onUserAuthenticated({
-                email: authData?.email,
-                userId: authData.userId ?? '',
-                rememberMe: authData?.rememberMeData.rememberMe,
-            });
+            this._securityService.onUserAuthenticated(authData?.email, authData?.userId, authData?.rememberMeData.rememberMe);
         } else {
             // @TODO: remove this later
             // eslint-disable-next-line no-console
             console.log('we have no email in local storage!', authData);
 
             const rememberMeEmail = authData?.rememberMeData.rememberMe ? authData?.rememberMeData.user : undefined;
-            this._securityApiService.onUserNotAuthenticated(false, rememberMeEmail, authData?.rememberMeData);
+            this._securityService.onUserNotAuthenticated(false, rememberMeEmail, authData?.rememberMeData);
         }
     }
-    
+
+    async login(email: string, password: string, rememberMe: boolean): Promise<void> {
+      console.log(`Performing a login with the following credentials. \n
+        email: ${email} \n password: ${password} \n rememberMe: ${rememberMe}`);
+      return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            if (password === 'fail') {
+              return reject('You\'ve failed the login on purpose!');
+            }
+            return resolve();
+          }, 1500);
+      });
+    }
 }

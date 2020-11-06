@@ -4,14 +4,14 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { AppRoutingModule, AUTH_ROUTE, HOME_ROUTE } from './app.routing';
-import { PxbAuthModule, PxbAuthApiService, PxbRegistrationApiService, PXB_AUTH_CONFIG } from '@pxblue/angular-auth-workflow';
+import { PxbAuthModule, PxbRegistrationApiService, PxbAuthUIActionsService, PXB_AUTH_CONFIG } from '@pxblue/angular-auth-workflow';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthComponent } from './pages/auth/auth.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AuthService } from './services/auth.service';
+import { AuthUIService } from './services/auth-ui.service';
 import { RegistrationService } from './services/registration.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -35,8 +35,8 @@ import { LocalStorageService } from './services/localStorage.service';
     providers: [
         LocalStorageService,
         {
-            provide: PxbAuthApiService,
-            useClass: AuthService,
+            provide: PxbAuthUIActionsService,
+            useClass: AuthUIService,
         },
         {
             provide: PxbRegistrationApiService,

@@ -11,7 +11,8 @@ import {
     FORGOT_PASSWORD_ROUTE,
     RESET_PASSWORD_ROUTE,
 } from '../../config/route-names';
-import { PxbSecurityApiService, SecurityContext } from '../../services/api/security.service';
+import { PxbSecurityService, SecurityContext } from '../../services/state/security.service';
+import {PxbAuthUIActionsService} from "../../services/api/auth-ui-actions.service";
 
 // TODO: Find a home for this const, perhaps config folder.
 export const PXB_LOGIN_VALIDATOR_ERROR_NAME = 'PXB_LOGIN_VALIDATOR_ERROR_NAME';
@@ -44,7 +45,8 @@ export class PxbLoginComponent implements AfterViewInit {
     constructor(
         private readonly _changeDetectorRef: ChangeDetectorRef,
         private readonly _router: Router,
-        private readonly _securityApiService: PxbSecurityApiService,
+        private readonly _securityService: PxbSecurityService,
+        private readonly _pxbAuthUIActionsService: PxbAuthUIActionsService,
         @Inject(PXB_AUTH_CONFIG) private readonly _config: PxbAuthConfig
     ) {}
 
@@ -52,11 +54,9 @@ export class PxbLoginComponent implements AfterViewInit {
         this.enableDebugMode = this._config.allowDebugMode;
         this.showSelfRegistration = this._config.showSelfRegistration;
 
-        this.securityState = this._securityApiService.getSecurityState();
+        this.securityState = this._securityService.getSecurityState();
         this.rememberMe = this.securityState.rememberMeDetails.rememberMe;
 
-        // @TODO: remove this later.
-        // eslint-disable-next-line no-console
         console.log('security state from login: ', this.securityState);
 
         const emailValidators = [
@@ -87,21 +87,21 @@ export class PxbLoginComponent implements AfterViewInit {
     }
 
     login(): void {
-        void this._router.navigate([this._config.homeRoute]);
-
-        // @TODO: leaving this here to use when we hook up login functionality
-        // this.isLoading = true;
-        // this._apiService
-        //     .login()
-        //     .then((success: boolean) => {
-        //         this._stateService.setAuthenticated(success);
-        //         void this._router.navigate([this._config.homeRoute]);
-        //         this.isLoading = false;
-        //     })
-        //     .catch(() => {
-        //         this._stateService.setAuthenticated(false);
-        //         this.isLoading = false;
-        //     });
+       // void this._router.navigate([this._config.homeRoute]);
+         this.isLoading = true;
+         this._pxbAuthUIActionsService
+             .login(this.emailFormControl.value, this.passwordFormControl.value, this.rememberMe)
+             .then(() => {
+               console.log('login success');
+                // this._stateService.setAuthenticated(success);
+                 void this._router.navigate([this._config.homeRoute]);
+                 this.isLoading = false;
+             })
+             .catch(() => {
+               console.log('login faild');
+               //  this._stateService.setAuthenticated(false);
+                 this.isLoading = false;
+             });
     }
 
     forgotPassword(): void {
