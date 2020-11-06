@@ -84,6 +84,7 @@ export class PxbAuthComponent implements AfterViewInit, OnInit {
 
     ngAfterViewInit(): void {
         this._changeDetectorRef.detectChanges();
+        this._changeDetectorRef.detectChanges();
     }
 
     initiateSecurity(): void {

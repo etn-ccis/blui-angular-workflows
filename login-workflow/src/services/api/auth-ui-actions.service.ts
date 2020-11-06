@@ -7,6 +7,12 @@ export type IPxbAuthUIActionsService = {
 
     // The user wants to log into the application
     login(email: string, password: string, rememberMe: boolean): Promise<void>;
+
+    // The user has forgotten their password and wants help. The application generally should call an API which will then send a password reset link to the user's email.
+    forgotPassword(email: string): Promise<void>;
+
+    // An authenticated user wants to change their password.
+    changePassword(oldPassword: string, newPassword: string): Promise<void>;
 };
 
 @Injectable({
@@ -19,6 +25,16 @@ export class PxbAuthUIActionsService implements IPxbAuthUIActionsService {
     }
 
     login(email: string, password: string, rememberMe: boolean): Promise<void> {
+      this.warn();
+      return undefined;
+    }
+
+    forgotPassword(email: string): Promise<void> {
+      this.warn();
+      return undefined;
+    }
+
+    changePassword(oldPassword: string, newPassword: string): Promise<void> {
       this.warn();
       return undefined;
     }

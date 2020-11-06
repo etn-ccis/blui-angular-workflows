@@ -58,7 +58,9 @@ export type RememberMeData = {
     providedIn: 'root',
 })
 export class PxbSecurityService {
-    securityState: SecurityContext = {
+
+  private securityStateObs = new Subject<SecurityContext>();
+    private securityState: SecurityContext = {
         userId: undefined,
         email: undefined,
         rememberMeDetails: {
@@ -70,8 +72,6 @@ export class PxbSecurityService {
         isSignOut: false,
         isShowingChangePassword: false,
     };
-
-    securityStateObs = new Subject<SecurityContext>();
 
     setSecurityState(newSecurityState: SecurityContext): void {
         this.securityState = newSecurityState;
@@ -86,64 +86,31 @@ export class PxbSecurityService {
         return this.securityStateObs;
     }
 
-    onUserAuthenticated(email: string, userId: string, rememberMe: boolean): void {
-        // @TODO: remove this later
-        // eslint-disable-next-line no-console
-        console.log('user authenticated with args: ', email, userId, rememberMe);
-
-        const updatedSecurityState = {
-            email, userId,
-            rememberMeDetails: {
+    // If the user has been authenticated, this function should be called.
+    onUserAuthenticated(email: string, password: string, rememberMe: boolean): void {
+      this.setSecurityState(
+            { email,
+              userId: email,
+              isAuthenticatedUser: true,
+              isLoading: false,
+              isSignOut: false,
+              isShowingChangePassword: false,
+              rememberMeDetails: {
                 email: rememberMe ? email : undefined,
-                rememberMe,
-            },
-            isLoading: false,
-            isSignOut: false,
-            isAuthenticatedUser: true,
-            isShowingChangePassword: false,
-        };
-
-        this.setSecurityState(updatedSecurityState);
+                rememberMe
+              },
+          });
     }
 
-    onUserNotAuthenticated(
-        clearRememberMe?: boolean,
-        overrideRememberMeEmail?: string,
-        rememberMeData?: RememberMeData
-    ): void {
-        // @TODO: remove this later
-        // eslint-disable-next-line no-console
-        console.log(
-            'user not authenticated with clearRememberMe=',
-            clearRememberMe,
-            ' and overrideRememberMeEmail=',
-            overrideRememberMeEmail
-        );
-
-        const overrideExists = (overrideRememberMeEmail?.length ?? 0) > 0;
-        let rememberEmail = rememberMeData.user;
-        let rememberMe = rememberMeData.rememberMe;
-        if (overrideExists) {
-            rememberEmail = overrideRememberMeEmail;
-            rememberMe = true;
-        } else if (clearRememberMe) {
-            rememberEmail = undefined;
-            rememberMe = false;
-        }
-
-        const updatedSecurityState = {
-            email: undefined,
-            userId: undefined,
-            rememberMeDetails: {
-                email: rememberEmail,
-                rememberMe: rememberMe,
-            },
-            isLoading: false,
-            isSignOut: true,
-            isAuthenticatedUser: false,
-            isShowingChangePassword: false,
-        };
-
-        this.setSecurityState(updatedSecurityState);
-    }
+    // If the user has been de-authenticated (either because they logged out or app started with no credentials),
+    onUserNotAuthenticated(): void {
+      const currState = this.getSecurityState();
+      this.setSecurityState(Object.assign(currState, {
+        email: currState.email,
+        isAuthenticatedUser: false,
+        isLoading: false,
+        isSignOut: true,
+        isShowingChangePassword: false
+      }));
+  }
 }

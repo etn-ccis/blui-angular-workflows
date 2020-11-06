@@ -53,7 +53,6 @@ export class PxbLoginComponent implements AfterViewInit {
     ngOnInit(): void {
         this.enableDebugMode = this._config.allowDebugMode;
         this.showSelfRegistration = this._config.showSelfRegistration;
-
         this.securityState = this._securityService.getSecurityState();
         this.rememberMe = this.securityState.rememberMeDetails.rememberMe;
 
@@ -72,9 +71,16 @@ export class PxbLoginComponent implements AfterViewInit {
             emailValidators
         );
         this.passwordFormControl = new FormControl('', []);
+
+
+      if (this._securityService.getSecurityState().isAuthenticatedUser) {
+        this.navigateToDefaultRoute();
+        return;
+      }
     }
 
     ngAfterViewInit(): void {
+        this._changeDetectorRef.detectChanges();
         this._changeDetectorRef.detectChanges();
     }
 
@@ -87,25 +93,34 @@ export class PxbLoginComponent implements AfterViewInit {
     }
 
     login(): void {
-       // void this._router.navigate([this._config.homeRoute]);
+          const email = this.emailFormControl.value;
+          const password = this.passwordFormControl.value;
+          const rememberMe = Boolean(this.rememberMe);
+
          this.isLoading = true;
-         this._pxbAuthUIActionsService
-             .login(this.emailFormControl.value, this.passwordFormControl.value, this.rememberMe)
+         this._pxbAuthUIActionsService.login(email, password, rememberMe)
              .then(() => {
                console.log('login success');
-                // this._stateService.setAuthenticated(success);
-                 void this._router.navigate([this._config.homeRoute]);
-                 this.isLoading = false;
+               this._securityService.onUserAuthenticated(email, password, rememberMe);
+               this.navigateToDefaultRoute();
+               // TODO: Where does the localstorage service get called???
              })
              .catch(() => {
-               console.log('login faild');
-               //  this._stateService.setAuthenticated(false);
-                 this.isLoading = false;
-             });
+               console.log('login failed');
+               this._securityService.onUserNotAuthenticated();
+               console.log(this._securityService.getSecurityState());
+             })
+           .then(() => {
+             this.isLoading = false;
+           })
+    }
+
+    navigateToDefaultRoute(): void {
+      void this._router.navigate([this._config.homeRoute]);
     }
 
     forgotPassword(): void {
-        void this._router.navigate([`${this._config.authRoute}/${FORGOT_PASSWORD_ROUTE}`]);
+      void this._router.navigate([`${this._config.authRoute}/${FORGOT_PASSWORD_ROUTE}`]);
     }
 
     testForgotPasswordEmail(): void {
