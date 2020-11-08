@@ -13,6 +13,11 @@ export type IPxbAuthUIActionsService = {
 
     // An authenticated user wants to change their password.
     changePassword(oldPassword: string, newPassword: string): Promise<void>;
+
+    // A user who has previously used "forgotPassword" now has a valid password reset code and has entered a new password.
+    setPassword(code: string, password: string, email?: string): Promise<void>;
+
+
 };
 
 @Injectable({
@@ -35,6 +40,11 @@ export class PxbAuthUIActionsService implements IPxbAuthUIActionsService {
     }
 
     changePassword(oldPassword: string, newPassword: string): Promise<void> {
+      this.warn();
+      return undefined;
+    }
+
+    setPassword(code: string, password: string, email?: string): Promise<void> {
       this.warn();
       return undefined;
     }

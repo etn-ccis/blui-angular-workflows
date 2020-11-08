@@ -4,6 +4,7 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { PxbAuthConfig, PXB_AUTH_CONFIG } from '../../config/auth-config';
 import { LOGIN_ROUTE } from '../../config/route-names';
+import {PxbAuthUIActionsService} from "../..";
 
 class CrossFieldErrorMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -31,10 +32,12 @@ export class PxbResetPasswordComponent implements OnInit {
     numberFlag = false;
     upperFlag = false;
     lowerFlag = false;
+  isLoading = false;
 
     constructor(
-        private readonly _router: Router,
         @Inject(PXB_AUTH_CONFIG) private readonly _config: PxbAuthConfig,
+        private readonly _router: Router,
+        private readonly _pxbAuthUIActionsService: PxbAuthUIActionsService,
         private readonly _formBuilder: FormBuilder
     ) {
         this.passwordFormGroup = this._formBuilder.group(
@@ -96,8 +99,20 @@ export class PxbResetPasswordComponent implements OnInit {
     }
 
     resetPassword(): void {
-        // submit form
-
-        this.passwordResetSuccess = true;
+      const oldPassword = '';
+      const newPassword = '';
+      console.log(this.passwordFormGroup);
+      this.isLoading = true;
+      this._pxbAuthUIActionsService.setPassword(oldPassword, newPassword)
+        .then(() => {
+          console.log('change password success');
+          this.passwordResetSuccess = true;
+        })
+        .catch(() => {
+          console.log('change password failed');
+        })
+        .then(() => {
+          this.isLoading = false;
+        });
     }
 }
