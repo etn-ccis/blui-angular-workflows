@@ -50,7 +50,7 @@ export class AuthUIService implements IPxbAuthUIActionsService {
       console.log('we have no email in local storage!', authData);
 
       const rememberMeEmail = authData?.rememberMeData.rememberMe ? authData?.rememberMeData.user : undefined;
-      this._securityService.onUserNotAuthenticated(false, rememberMeEmail, authData?.rememberMeData);
+     // this._securityService.onUserNotAuthenticated(false, rememberMeEmail, authData?.rememberMeData);
     }
   }
 
@@ -74,7 +74,7 @@ export class AuthUIService implements IPxbAuthUIActionsService {
           return reject('The ForgotPassword API request has failed.');
         }
         return resolve();
-      }, 500);
+      }, 1000);
     });
   }
 
@@ -86,7 +86,19 @@ export class AuthUIService implements IPxbAuthUIActionsService {
           return reject('The ChangePassword API request has failed.');
         }
         return resolve();
-      }, 500);
+      }, 1000);
+    });
+  }
+
+  async setPassword(code: string, password: string, email?: string): Promise<void> {
+    console.log(`Performing a sample SetPassword request with the following credentials.\n  code: ${code}\n  password: ${password}\n  email: ${email}`);
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (password === 'fail') {
+          return reject('The SetPassword API request has failed.');
+        }
+        return resolve();
+      }, 1000);
     });
   }
 }

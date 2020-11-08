@@ -4,7 +4,7 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { PxbAuthConfig, PXB_AUTH_CONFIG } from '../../config/auth-config';
 import { LOGIN_ROUTE } from '../../config/route-names';
-import {PxbAuthUIActionsService} from "../..";
+import {PxbAuthUIActionsService, PxbSecurityService} from "../..";
 
 class CrossFieldErrorMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -20,6 +20,7 @@ class CrossFieldErrorMatcher implements ErrorStateMatcher {
 export class PxbResetPasswordComponent implements OnInit {
     @Input() email = 'testemail@email.com';
     @Input() successTitle = 'Your password was successfully reset.';
+    @Input() code: string = '';
     @Input() successDescription =
         "Your password was successfully updated! To ensure your account's security, you will need to log in to the application with your updated credentials.";
     passwordResetSuccess = false;
@@ -38,6 +39,7 @@ export class PxbResetPasswordComponent implements OnInit {
         @Inject(PXB_AUTH_CONFIG) private readonly _config: PxbAuthConfig,
         private readonly _router: Router,
         private readonly _pxbAuthUIActionsService: PxbAuthUIActionsService,
+        private readonly _securityService: PxbSecurityService,
         private readonly _formBuilder: FormBuilder
     ) {
         this.passwordFormGroup = this._formBuilder.group(
@@ -98,18 +100,18 @@ export class PxbResetPasswordComponent implements OnInit {
         void this._router.navigate([`${this._config.authRoute}/${LOGIN_ROUTE}`]);
     }
 
+    // TODO: How should the email and code be supplied to this service?
+    // Two options, via securityService, Input variables, or should we parse URL (assuming info is supplied).
     resetPassword(): void {
-      const oldPassword = '';
-      const newPassword = '';
-      console.log(this.passwordFormGroup);
+      const password = this.passwordFormGroup.value.confirmPassword;
       this.isLoading = true;
-      this._pxbAuthUIActionsService.setPassword(oldPassword, newPassword)
+      this._pxbAuthUIActionsService.setPassword(this.code, password, this.email)
         .then(() => {
-          console.log('change password success');
+          console.log('reset password success');
           this.passwordResetSuccess = true;
         })
         .catch(() => {
-          console.log('change password failed');
+          console.log('reset password failed');
         })
         .then(() => {
           this.isLoading = false;
