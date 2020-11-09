@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 
-// @TODO: move these types to a more appropriate place?
-
 export type SecurityContext = {
     /**
      * Email of the authenticated user.
@@ -58,7 +56,7 @@ export type RememberMeData = {
     providedIn: 'root',
 })
 export class PxbSecurityService {
-    private securityStateObs = new Subject<SecurityContext>();
+    private readonly securityStateObs = new Subject<SecurityContext>();
     private securityState: SecurityContext = {
         userId: undefined,
         email: undefined,

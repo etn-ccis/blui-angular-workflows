@@ -20,7 +20,7 @@ class CrossFieldErrorMatcher implements ErrorStateMatcher {
 export class PxbResetPasswordComponent implements OnInit {
     @Input() email = 'testemail@email.com';
     @Input() successTitle = 'Your password was successfully reset.';
-    @Input() code: string = '';
+    @Input() code = '';
     @Input() successDescription =
         "Your password was successfully updated! To ensure your account's security, you will need to log in to the application with your updated credentials.";
     passwordResetSuccess = false;
@@ -105,16 +105,17 @@ export class PxbResetPasswordComponent implements OnInit {
     resetPassword(): void {
         const password = this.passwordFormGroup.value.confirmPassword;
         this.isLoading = true;
-        this._pxbAuthUIActionsService
+        void this._pxbAuthUIActionsService
             .setPassword(this.code, password, this.email)
             .then(() => {
+                /* eslint-disable-next-line no-console */
                 console.log('reset password success');
                 this.passwordResetSuccess = true;
+                this.isLoading = false;
             })
             .catch(() => {
+                /* eslint-disable-next-line no-console */
                 console.log('reset password failed');
-            })
-            .then(() => {
                 this.isLoading = false;
             });
     }

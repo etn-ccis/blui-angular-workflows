@@ -70,14 +70,16 @@ export class PxbForgotPasswordComponent implements OnInit {
         this._pxbAuthUIActionsService
             .forgotPassword(email)
             .then(() => {
+                /* eslint-disable-next-line no-console */
                 console.log('forgot password success');
                 this.passwordResetSuccess = true;
                 void this._router.navigate([`${this._config.authRoute}/${FORGOT_PASSWORD_ROUTE}`]);
+
+                this.loading = false;
             })
             .catch(() => {
+                /* eslint-disable-next-line no-console */
                 console.log('forgot password fail');
-            })
-            .then(() => {
                 this.loading = false;
             });
     }

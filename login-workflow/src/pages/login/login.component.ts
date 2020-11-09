@@ -56,8 +56,6 @@ export class PxbLoginComponent implements AfterViewInit {
         this.securityState = this._securityService.getSecurityState();
         this.rememberMe = this.securityState.rememberMeDetails.rememberMe;
 
-        console.log('security state from login: ', this.securityState);
-
         const emailValidators = [
             Validators.required,
             Validators.email,
@@ -100,17 +98,16 @@ export class PxbLoginComponent implements AfterViewInit {
         this._pxbAuthUIActionsService
             .login(email, password, rememberMe)
             .then(() => {
+                /* eslint-disable-next-line no-console */
                 console.log('login success');
                 this._securityService.onUserAuthenticated(email, password, rememberMe);
-                this.navigateToDefaultRoute();
-                // TODO: Where does the localstorage service get called???
+                this.navigateToDefaultRoute(); // TODO: User needs to provide this route somehow.
+                this.isLoading = false;
             })
             .catch(() => {
+                /* eslint-disable-next-line no-console */
                 console.log('login failed');
                 this._securityService.onUserNotAuthenticated();
-                console.log(this._securityService.getSecurityState());
-            })
-            .then(() => {
                 this.isLoading = false;
             });
     }

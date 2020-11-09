@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { Injectable } from '@angular/core';
 
 /* Authentication Actions to be performed based on the user's UI actions. */
