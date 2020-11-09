@@ -3,7 +3,7 @@ import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 import {HomeComponent} from './pages/home/home.component';
 import {AppRoutingModule} from './app.routing';
-import {PxbAuthModule, PxbAuthUIActionsService, PxbRegistrationApiService,} from '@pxblue/angular-auth-workflow';
+import {PxbAuthModule, PxbAuthUIService, PxbRegistrationApiService,} from '@pxblue/angular-auth-workflow';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatCardModule} from '@angular/material/card';
@@ -38,7 +38,7 @@ import {DashboardComponent} from "./pages/dashboard/dashboard.component";
             useValue: 'PXB_AUTH_DEMO_APP',
         },
         {
-            provide: PxbAuthUIActionsService,
+            provide: PxbAuthUIService,
             useClass: AuthUIService,
         },
         {

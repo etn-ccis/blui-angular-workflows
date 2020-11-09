@@ -1,16 +1,16 @@
 /* eslint-disable no-console */
 import { Injectable } from '@angular/core';
-import { IPxbAuthUIActionsService, PxbSecurityService } from '@pxblue/angular-auth-workflow';
+import { IPxbAuthUIService, PxbAuthSecurityService } from '@pxblue/angular-auth-workflow';
 import { AuthData, LocalStorageService } from './localStorage.service';
 
 const sleep = (ms: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, ms));
 @Injectable({
     providedIn: 'root',
 })
-export class AuthUIService implements IPxbAuthUIActionsService {
+export class AuthUIService implements IPxbAuthUIService {
     constructor(
         private readonly _localStorageService: LocalStorageService,
-        private readonly _pxbSecurityService: PxbSecurityService
+        private readonly _pxbSecurityService: PxbAuthSecurityService
     ) {}
 
     // This method is called at the start of the application to check if a remembered user is returning to the app and initiate pxb SecurityContext.

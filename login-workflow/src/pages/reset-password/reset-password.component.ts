@@ -2,8 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
-import { PxbSecurityService } from '../../services/state/security.service';
-import { PxbAuthUIActionsService } from '../../services/api/auth-ui-actions.service';
+import { PxbAuthSecurityService } from '../../services/state/auth-security.service';
+import { PxbAuthUIService } from '../../services/api/auth-ui.service';
 import { LOGIN_ROUTE } from '../../auth/auth.routes';
 
 import { PxbAuthConfig } from '../../services/config/auth-config';
@@ -40,8 +40,8 @@ export class PxbResetPasswordComponent implements OnInit {
     constructor(
         private readonly _authConfig: PxbAuthConfig,
         private readonly _router: Router,
-        private readonly _pxbAuthUIActionsService: PxbAuthUIActionsService,
-        private readonly _securityService: PxbSecurityService,
+        private readonly _pxbAuthUIActionsService: PxbAuthUIService,
+        private readonly _securityService: PxbAuthSecurityService,
         private readonly _formBuilder: FormBuilder
     ) {
         this.passwordFormGroup = this._formBuilder.group(

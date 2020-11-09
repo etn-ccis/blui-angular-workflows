@@ -3,7 +3,7 @@
 import { Injectable } from '@angular/core';
 
 /* Authentication Actions to be performed based on the user's UI actions. */
-export type IPxbAuthUIActionsService = {
+export type IPxbAuthUIService = {
     /**
      * Initialize the application security state. This will involve reading any local storage,
      * validating existing credentials (token expiration, for example). At the end of validation,
@@ -33,7 +33,7 @@ export type IPxbAuthUIActionsService = {
 @Injectable({
     providedIn: 'root',
 })
-export class PxbAuthUIActionsService implements IPxbAuthUIActionsService {
+export class PxbAuthUIService implements IPxbAuthUIService {
     warn(): void {
         /* eslint-disable no-console */
         console.warn('You need to provide your own PxbAuthUIActionsService');

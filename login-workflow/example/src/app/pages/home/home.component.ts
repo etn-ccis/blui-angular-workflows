@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { PxbChangePasswordModalService, PxbSecurityService } from '@pxblue/angular-auth-workflow';
+import { PxbChangePasswordModalService, PxbAuthSecurityService } from '@pxblue/angular-auth-workflow';
 
 @Component({
     selector: 'app-home',
@@ -10,7 +10,7 @@ import { PxbChangePasswordModalService, PxbSecurityService } from '@pxblue/angul
 export class HomeComponent {
     constructor(
         private readonly _router: Router,
-        private readonly _pxbSecurityService: PxbSecurityService,
+        private readonly _pxbSecurityService: PxbAuthSecurityService,
         public readonly _pxbChangePasswordModalService: PxbChangePasswordModalService
     ) {}
 

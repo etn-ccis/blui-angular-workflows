@@ -55,7 +55,7 @@ export type RememberMeData = {
 @Injectable({
     providedIn: 'root',
 })
-export class PxbSecurityService {
+export class PxbAuthSecurityService {
     private readonly securityStateObs = new Subject<SecurityContext>();
     private securityState: SecurityContext = {
         userId: undefined,

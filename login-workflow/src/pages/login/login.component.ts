@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { FormControl, ValidatorFn, Validators } from '@angular/forms';
 import { AuthErrorStateMatcher } from '../../util/matcher';
 import { isEmptyView } from '../../util/view-utils';
-import { PxbSecurityService, SecurityContext } from '../../services/state/security.service';
-import { PxbAuthUIActionsService } from '../../services/api/auth-ui-actions.service';
+import { PxbAuthSecurityService, SecurityContext } from '../../services/state/auth-security.service';
+import { PxbAuthUIService } from '../../services/api/auth-ui.service';
 import {
     CONTACT_SUPPORT_ROUTE,
     CREATE_ACCOUNT_INVITE_ROUTE,
@@ -46,8 +46,8 @@ export class PxbLoginComponent implements AfterViewInit {
     constructor(
         private readonly _changeDetectorRef: ChangeDetectorRef,
         private readonly _router: Router,
-        private readonly _securityService: PxbSecurityService,
-        private readonly _pxbAuthUIActionsService: PxbAuthUIActionsService,
+        private readonly _securityService: PxbAuthSecurityService,
+        private readonly _pxbAuthUIActionsService: PxbAuthUIService,
         private readonly _authConfig: PxbAuthConfig
     ) {}
 

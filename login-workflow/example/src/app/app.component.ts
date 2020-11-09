@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PxbSecurityService, SecurityContext } from '@pxblue/angular-auth-workflow';
+import { PxbAuthSecurityService, SecurityContext } from '@pxblue/angular-auth-workflow';
 import { LocalStorageService } from './services/localStorage.service';
 
 @Component({
@@ -7,7 +7,7 @@ import { LocalStorageService } from './services/localStorage.service';
     template: `<router-outlet></router-outlet>`,
 })
 export class AppComponent {
-    constructor(readonly pxbSecurityService: PxbSecurityService, readonly localStorageService: LocalStorageService) {
+    constructor(readonly pxbSecurityService: PxbAuthSecurityService, readonly localStorageService: LocalStorageService) {
         // App Component listens for PXB auth state changes.
         pxbSecurityService.securityStateChanges().subscribe((state: SecurityContext) => {
             if (state.isAuthenticatedUser && state.rememberMeDetails.rememberMe) {

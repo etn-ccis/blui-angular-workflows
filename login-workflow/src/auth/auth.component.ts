@@ -10,7 +10,7 @@ import {
     LOGIN_ROUTE,
     RESET_PASSWORD_ROUTE,
 } from './auth.routes';
-import { PxbAuthUIActionsService, PxbSecurityService } from '../services/public-api';
+import { PxbAuthUIService, PxbAuthSecurityService } from '../services/public-api';
 
 @Component({
     selector: 'pxb-auth',
@@ -41,8 +41,8 @@ export class PxbAuthComponent implements OnInit {
     constructor(
         public router: Router,
         private readonly _changeDetectorRef: ChangeDetectorRef,
-        private readonly _authUIActionsService: PxbAuthUIActionsService,
-        private readonly _securityService: PxbSecurityService,
+        private readonly _authUIActionsService: PxbAuthUIService,
+        private readonly _securityService: PxbAuthSecurityService,
         private readonly _authConfig: PxbAuthConfig
     ) {
         router.events.subscribe((route) => {
