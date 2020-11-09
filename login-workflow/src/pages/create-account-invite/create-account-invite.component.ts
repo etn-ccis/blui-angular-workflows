@@ -1,11 +1,11 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthErrorStateMatcher } from '../../util/matcher';
 import { SAMPLE_EULA } from '../../constants/sampleEula';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { PXB_LOGIN_VALIDATOR_ERROR_NAME } from '../login/login.component';
-import {LOGIN_ROUTE} from "../../auth/auth.routes";
+import { LOGIN_ROUTE } from '../../auth/auth.routes';
 
 import { PxbAuthConfig } from '../../services/config/auth-config';
 

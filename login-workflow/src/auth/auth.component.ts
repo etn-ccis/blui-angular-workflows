@@ -1,18 +1,16 @@
-import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild,} from '@angular/core';
-import {NavigationEnd, Router} from '@angular/router';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+import { PxbAuthConfig } from '../services/config/auth-config';
+import { isEmptyView } from '../util/view-utils';
 import {
-  PxbAuthConfig,
-} from '../services/config/auth-config';
-import {isEmptyView} from '../util/view-utils';
-import {
-  CONTACT_SUPPORT_ROUTE,
-  CREATE_ACCOUNT_INVITE_ROUTE,
-  CREATE_ACCOUNT_ROUTE,
-  FORGOT_PASSWORD_ROUTE,
-  LOGIN_ROUTE,
-  RESET_PASSWORD_ROUTE,
+    CONTACT_SUPPORT_ROUTE,
+    CREATE_ACCOUNT_INVITE_ROUTE,
+    CREATE_ACCOUNT_ROUTE,
+    FORGOT_PASSWORD_ROUTE,
+    LOGIN_ROUTE,
+    RESET_PASSWORD_ROUTE,
 } from './auth.routes';
-import {PxbAuthUIActionsService, PxbSecurityService} from '../services/public-api';
+import { PxbAuthUIActionsService, PxbSecurityService } from '../services/public-api';
 
 @Component({
     selector: 'pxb-auth',
@@ -20,7 +18,6 @@ import {PxbAuthUIActionsService, PxbSecurityService} from '../services/public-ap
     styleUrls: ['./auth.component.scss'],
 })
 export class PxbAuthComponent implements OnInit, AfterViewInit {
-
     @ViewChild('login', { static: false }) loginEl: ElementRef;
     @ViewChild('resetPassword', { static: false }) resetPasswordEl: ElementRef;
     @ViewChild('createAccount', { static: false }) createAccountEl: ElementRef;
@@ -46,7 +43,7 @@ export class PxbAuthComponent implements OnInit, AfterViewInit {
         private readonly _changeDetectorRef: ChangeDetectorRef,
         private readonly _authUIActionsService: PxbAuthUIActionsService,
         private readonly _securityService: PxbSecurityService,
-        private readonly _authConfig: PxbAuthConfig,
+        private readonly _authConfig: PxbAuthConfig
     ) {
         router.events.subscribe((route) => {
             if (route instanceof NavigationEnd) {
@@ -63,8 +60,8 @@ export class PxbAuthComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit(): void {
-      this.backgroundImage = this._authConfig.backgroundImage;
-      this.projectImage = this._authConfig.projectImage;
+        this.backgroundImage = this._authConfig.backgroundImage;
+        this.projectImage = this._authConfig.projectImage;
 
         this.initiateSecurity();
 
@@ -84,11 +81,9 @@ export class PxbAuthComponent implements OnInit, AfterViewInit {
     }
 
     initiateSecurity(): void {
-        this._authUIActionsService
-            .initiateSecurity()
-            .then(() => {
-                this.isSecurityInitiated = true;
-            });
+        void this._authUIActionsService.initiateSecurity().then(() => {
+            this.isSecurityInitiated = true;
+        });
     }
 
     resetSelectedRoute(): void {

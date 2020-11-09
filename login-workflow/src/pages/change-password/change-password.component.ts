@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { PxbChangePasswordModalService } from './change-password-modal.service';

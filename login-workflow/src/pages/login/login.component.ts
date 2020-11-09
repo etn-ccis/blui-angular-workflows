@@ -1,18 +1,17 @@
-import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, ViewChild} from '@angular/core';
-import {Router} from '@angular/router';
-import {FormControl, ValidatorFn, Validators} from '@angular/forms';
-import {AuthErrorStateMatcher} from '../../util/matcher';
-import {isEmptyView} from '../../util/view-utils';
-import {PxbSecurityService, SecurityContext} from '../../services/state/security.service';
-import {PxbAuthUIActionsService} from '../../services/api/auth-ui-actions.service';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { FormControl, ValidatorFn, Validators } from '@angular/forms';
+import { AuthErrorStateMatcher } from '../../util/matcher';
+import { isEmptyView } from '../../util/view-utils';
+import { PxbSecurityService, SecurityContext } from '../../services/state/security.service';
+import { PxbAuthUIActionsService } from '../../services/api/auth-ui-actions.service';
 import {
-  CONTACT_SUPPORT_ROUTE,
-  CREATE_ACCOUNT_INVITE_ROUTE,
-  CREATE_ACCOUNT_ROUTE,
-  FORGOT_PASSWORD_ROUTE,
-  RESET_PASSWORD_ROUTE
-} from "../../auth/auth.routes";
-
+    CONTACT_SUPPORT_ROUTE,
+    CREATE_ACCOUNT_INVITE_ROUTE,
+    CREATE_ACCOUNT_ROUTE,
+    FORGOT_PASSWORD_ROUTE,
+    RESET_PASSWORD_ROUTE,
+} from '../../auth/auth.routes';
 
 import { PxbAuthConfig } from '../../services/config/auth-config';
 
@@ -49,7 +48,7 @@ export class PxbLoginComponent implements AfterViewInit {
         private readonly _router: Router,
         private readonly _securityService: PxbSecurityService,
         private readonly _pxbAuthUIActionsService: PxbAuthUIActionsService,
-        private readonly _authConfig: PxbAuthConfig,
+        private readonly _authConfig: PxbAuthConfig
     ) {}
 
     ngOnInit(): void {

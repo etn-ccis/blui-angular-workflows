@@ -1,10 +1,10 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ValidatorFn, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthErrorStateMatcher } from '../../util/matcher';
 import { PXB_LOGIN_VALIDATOR_ERROR_NAME } from '../login/login.component';
 import { PxbAuthUIActionsService } from '../../services/api/auth-ui-actions.service';
-import {FORGOT_PASSWORD_ROUTE, LOGIN_ROUTE} from "../../auth/auth.routes";
+import { FORGOT_PASSWORD_ROUTE, LOGIN_ROUTE } from '../../auth/auth.routes';
 
 import { PxbAuthConfig } from '../../services/config/auth-config';
 
@@ -32,7 +32,7 @@ export class PxbForgotPasswordComponent implements OnInit {
     constructor(
         private readonly _router: Router,
         private readonly _pxbAuthUIActionsService: PxbAuthUIActionsService,
-        private readonly _authConfig: PxbAuthConfig,
+        private readonly _authConfig: PxbAuthConfig
     ) {}
 
     ngOnInit(): void {
