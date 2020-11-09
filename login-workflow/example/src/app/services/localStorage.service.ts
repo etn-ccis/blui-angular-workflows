@@ -18,9 +18,8 @@ export class LocalStorageService {
         this.emailKey = `${APP_NAME}_EMAIL`;
     }
 
-    async readAuthData(): Promise<AuthData> {
-        const email = window.localStorage.getItem(this.emailKey) || '';
-        return Promise.resolve({ email });
+    readAuthData(): AuthData {
+      return { email: window.localStorage.getItem(this.emailKey) || '' };
     }
 
     setAuthData(email: string): void {

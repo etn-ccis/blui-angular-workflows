@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { PxbAuthConfig } from '../services/config/auth-config';
 import { isEmptyView } from '../util/view-utils';
@@ -17,7 +17,7 @@ import { PxbAuthUIActionsService, PxbSecurityService } from '../services/public-
     templateUrl: './auth.component.html',
     styleUrls: ['./auth.component.scss'],
 })
-export class PxbAuthComponent implements OnInit, AfterViewInit {
+export class PxbAuthComponent implements OnInit {
     @ViewChild('login', { static: false }) loginEl: ElementRef;
     @ViewChild('resetPassword', { static: false }) resetPasswordEl: ElementRef;
     @ViewChild('createAccount', { static: false }) createAccountEl: ElementRef;
@@ -72,17 +72,12 @@ export class PxbAuthComponent implements OnInit, AfterViewInit {
                 void this.router.navigate([this._authConfig.homeRoute]);
             }
         });
-        this._changeDetectorRef.detectChanges();
-    }
-
-    ngAfterViewInit(): void {
-        this._changeDetectorRef.detectChanges();
-        this._changeDetectorRef.detectChanges();
     }
 
     initiateSecurity(): void {
         void this._authUIActionsService.initiateSecurity().then(() => {
             this.isSecurityInitiated = true;
+            this._changeDetectorRef.detectChanges();
         });
     }
 

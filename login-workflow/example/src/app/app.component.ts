@@ -11,7 +11,7 @@ export class AppComponent {
         // App Component listens for PXB auth state changes.
         pxbSecurityService.securityStateChanges().subscribe((state: SecurityContext) => {
             if (state.isAuthenticatedUser && state.rememberMeDetails.rememberMe) {
-                localStorageService.setAuthData(state.email);
+              localStorageService.setAuthData(state.rememberMeDetails.email);
             } else {
                 localStorageService.clearAuthData();
             }
