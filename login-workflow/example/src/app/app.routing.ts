@@ -13,9 +13,7 @@ const routes: Routes = [
     {
         path: '',
         canActivate: [PxbAuthGuard],
-        children: [
-            { path: HOME_ROUTE, component: HomeComponent },
-        ],
+        children: [{ path: HOME_ROUTE, component: HomeComponent }],
     },
 ];
 

@@ -1,5 +1,4 @@
-import {Inject, Injectable} from '@angular/core';
-import { LOCAL_USER_DATA, REMEMBER_ME_DATA } from '../constants';
+import { Inject, Injectable } from '@angular/core';
 
 export type AuthData = {
     email: string;
@@ -13,11 +12,10 @@ export type AuthData = {
     providedIn: 'root',
 })
 export class LocalStorageService {
-
     emailKey: string;
 
     constructor(@Inject('APP_NAME') APP_NAME) {
-      this.emailKey = `${APP_NAME}_EMAIL`;
+        this.emailKey = `${APP_NAME}_EMAIL`;
     }
 
     async readAuthData(): Promise<AuthData> {
@@ -26,10 +24,10 @@ export class LocalStorageService {
     }
 
     setAuthData(email: string): void {
-      window.localStorage.setItem(this.emailKey, email);
+        window.localStorage.setItem(this.emailKey, email);
     }
 
     clearAuthData(): void {
-      window.localStorage.removeItem(this.emailKey);
+        window.localStorage.removeItem(this.emailKey);
     }
 }
