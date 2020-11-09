@@ -1,10 +1,22 @@
 import { Component } from '@angular/core';
+import {PxbSecurityService, SecurityContext} from "@pxblue/angular-auth-workflow";
+import {LocalStorageService} from "./services/localStorage.service";
 
 @Component({
     selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss'],
+    template: `<router-outlet></router-outlet>`
 })
 export class AppComponent {
-    title = 'angular-auth-workflow';
+
+    constructor(readonly pxbSecurityService: PxbSecurityService,
+                readonly localStorageService: LocalStorageService) {
+
+      pxbSecurityService.securityStateChanges().subscribe((state: SecurityContext) => {
+        if (state.isAuthenticatedUser && state.rememberMeDetails.rememberMe) {
+          localStorageService.setAuthData(state.email);
+        } else {
+          localStorageService.clearAuthData();
+        }
+      })
+    }
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IPxbAuthUIActionsService, PxbSecurityService } from '@pxblue/angular-auth-workflow';
-import { LocalStorageService } from './localStorage.service';
+import {AuthData, LocalStorageService} from './localStorage.service';
 
 const sleep = (ms: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, ms));
 @Injectable({
@@ -10,48 +10,21 @@ export class AuthUIService implements IPxbAuthUIActionsService {
 
   constructor(
     private readonly _localStorageService: LocalStorageService,
-    private readonly _securityService: PxbSecurityService
-  ) {
-  }
-
-  /**
-   * Initialize the application security state. This will involve reading any local storage,
-   * validating existing credentials (token expiration, for example). At the end of validation,
-   * the [[SecurityUiService]] should be called with either:
-   * [[onUserAuthenticated]] (which will present the application), or
-   * [[onUserNotAuthenticated]] (which will present the Auth UI).
-   *
-   * Note: Until this method returns, the applications Splash screen will be presented.
-   *
-   * @returns Should always resolve. Never throw.
-   */
+    private readonly _pxbSecurityService: PxbSecurityService
+  ) {}
 
   async initiateSecurity(): Promise<any> {
-    let authData;
-
-    try {
-      await sleep(2000);
-      authData = await this._localStorageService.readAuthData();
-    } catch (e) {
-      // Restoring token failed
-    }
-
-    // After restoring token, we may need to validate it in production apps
-    // This will switch to the App screen or Auth screen.
-    // PxbSecurityApiService.onUserAuthenticated()
-    if (authData?.email !== undefined) {
-      // @TODO: remove this later
-      // eslint-disable-next-line no-console
-      console.log('we have an email in local storage!', authData);
-      this._securityService.onUserAuthenticated(authData?.email, authData?.userId, authData?.rememberMeData.rememberMe);
+    let authData: AuthData;
+    await sleep(1000);
+    authData = await this._localStorageService.readAuthData();
+    if (authData.email) {
+      console.log('We have a remembered email in local storage, authenticating the user.');
+      this._pxbSecurityService.onUserAuthenticated(authData.email, undefined, true);
     } else {
-      // @TODO: remove this later
-      // eslint-disable-next-line no-console
-      console.log('we have no email in local storage!', authData);
-
-      const rememberMeEmail = authData?.rememberMeData.rememberMe ? authData?.rememberMeData.user : undefined;
-     // this._securityService.onUserNotAuthenticated(false, rememberMeEmail, authData?.rememberMeData);
+      console.log('User is not authenticated.');
+      this._pxbSecurityService.onUserNotAuthenticated();
     }
+    return Promise.resolve();
   }
 
   async login(email: string, password: string, rememberMe: boolean): Promise<void> {

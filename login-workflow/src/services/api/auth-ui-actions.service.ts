@@ -2,8 +2,19 @@ import { Injectable } from '@angular/core';
 
 /* Authentication Actions to be performed based on the user's UI actions. */
 export type IPxbAuthUIActionsService = {
-    // Returns true if initiateSecurity was successful
-    initiateSecurity(): Promise<boolean>;  // TODO: Should this even be in this service?  This does not seem like something a user should be provindg.
+
+    /**
+     * Initialize the application security state. This will involve reading any local storage,
+     * validating existing credentials (token expiration, for example). At the end of validation,
+     * the [[SecurityUiService]] should be called with either:
+     * [[onUserAuthenticated]] (which will present the application), or
+     * [[onUserNotAuthenticated]] (which will present the Auth UI).
+     *
+     * Note: Until this method returns, the applications Splash screen will be presented.
+     *
+     * @returns Should always resolve. Never throw.
+     */
+    initiateSecurity(): Promise<void>;
 
     // The user wants to log into the application
     login(email: string, password: string, rememberMe: boolean): Promise<void>;
@@ -16,8 +27,6 @@ export type IPxbAuthUIActionsService = {
 
     // A user who has previously used "forgotPassword" now has a valid password reset code and has entered a new password.
     setPassword(code: string, password: string, email?: string): Promise<void>;
-
-
 };
 
 @Injectable({
@@ -49,7 +58,7 @@ export class PxbAuthUIActionsService implements IPxbAuthUIActionsService {
       return undefined;
     }
 
-    initiateSecurity(): Promise<boolean> {
+    initiateSecurity(): Promise<void> {
         this.warn();
         return undefined;
     }

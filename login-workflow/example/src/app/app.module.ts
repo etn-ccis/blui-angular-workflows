@@ -33,7 +33,10 @@ import { LocalStorageService } from './services/localStorage.service';
         MatDialogModule,
     ],
     providers: [
-        LocalStorageService,
+        {
+          provide: 'APP_NAME',
+          useValue: 'PXB_AUTH_DEMO_APP'
+        },
         {
             provide: PxbAuthUIActionsService,
             useClass: AuthUIService,
