@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 
 /* Authentication Actions to be performed based on the user's UI actions. */
 export type IPxbAuthUIActionsService = {
-
     /**
      * Initialize the application security state. This will involve reading any local storage,
      * validating existing credentials (token expiration, for example). At the end of validation,
@@ -39,23 +38,23 @@ export class PxbAuthUIActionsService implements IPxbAuthUIActionsService {
     }
 
     login(email: string, password: string, rememberMe: boolean): Promise<void> {
-      this.warn();
-      return undefined;
+        this.warn();
+        return undefined;
     }
 
     forgotPassword(email: string): Promise<void> {
-      this.warn();
-      return undefined;
+        this.warn();
+        return undefined;
     }
 
     changePassword(oldPassword: string, newPassword: string): Promise<void> {
-      this.warn();
-      return undefined;
+        this.warn();
+        return undefined;
     }
 
     setPassword(code: string, password: string, email?: string): Promise<void> {
-      this.warn();
-      return undefined;
+        this.warn();
+        return undefined;
     }
 
     initiateSecurity(): Promise<void> {

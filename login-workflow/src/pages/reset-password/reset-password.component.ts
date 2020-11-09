@@ -4,7 +4,7 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { PxbAuthConfig, PXB_AUTH_CONFIG } from '../../config/auth-config';
 import { LOGIN_ROUTE } from '../../config/route-names';
-import {PxbAuthUIActionsService, PxbSecurityService} from "../..";
+import { PxbAuthUIActionsService, PxbSecurityService } from '../..';
 
 class CrossFieldErrorMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -33,7 +33,7 @@ export class PxbResetPasswordComponent implements OnInit {
     numberFlag = false;
     upperFlag = false;
     lowerFlag = false;
-  isLoading = false;
+    isLoading = false;
 
     constructor(
         @Inject(PXB_AUTH_CONFIG) private readonly _config: PxbAuthConfig,
@@ -103,18 +103,19 @@ export class PxbResetPasswordComponent implements OnInit {
     // TODO: How should the email and code be supplied to this service?
     // Two options, via securityService, Input variables, or should we parse URL (assuming info is supplied).
     resetPassword(): void {
-      const password = this.passwordFormGroup.value.confirmPassword;
-      this.isLoading = true;
-      this._pxbAuthUIActionsService.setPassword(this.code, password, this.email)
-        .then(() => {
-          console.log('reset password success');
-          this.passwordResetSuccess = true;
-        })
-        .catch(() => {
-          console.log('reset password failed');
-        })
-        .then(() => {
-          this.isLoading = false;
-        });
+        const password = this.passwordFormGroup.value.confirmPassword;
+        this.isLoading = true;
+        this._pxbAuthUIActionsService
+            .setPassword(this.code, password, this.email)
+            .then(() => {
+                console.log('reset password success');
+                this.passwordResetSuccess = true;
+            })
+            .catch(() => {
+                console.log('reset password failed');
+            })
+            .then(() => {
+                this.isLoading = false;
+            });
     }
 }

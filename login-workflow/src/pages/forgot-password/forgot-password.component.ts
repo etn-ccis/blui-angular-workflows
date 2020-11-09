@@ -3,9 +3,9 @@ import { ValidatorFn, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthErrorStateMatcher } from '../../util/matcher';
 import { PXB_AUTH_CONFIG, PxbAuthConfig } from '../../config/auth-config';
-import {FORGOT_PASSWORD_ROUTE, LOGIN_ROUTE} from '../../config/route-names';
+import { FORGOT_PASSWORD_ROUTE, LOGIN_ROUTE } from '../../config/route-names';
 import { PXB_LOGIN_VALIDATOR_ERROR_NAME } from '../login/login.component';
-import {PxbAuthUIActionsService} from "../../services/api/auth-ui-actions.service";
+import { PxbAuthUIActionsService } from '../../services/api/auth-ui-actions.service';
 
 @Component({
     selector: 'pxb-forgot-password',
@@ -28,9 +28,11 @@ export class PxbForgotPasswordComponent implements OnInit {
     passwordResetSuccess = false;
     successDescriptionMessage: string;
 
-    constructor(private readonly _router: Router,
-                private readonly _pxbAuthUIActionsService: PxbAuthUIActionsService,
-                @Inject(PXB_AUTH_CONFIG) private readonly _config: PxbAuthConfig) {}
+    constructor(
+        private readonly _router: Router,
+        private readonly _pxbAuthUIActionsService: PxbAuthUIActionsService,
+        @Inject(PXB_AUTH_CONFIG) private readonly _config: PxbAuthConfig
+    ) {}
 
     ngOnInit(): void {
         const emailValidators = [
@@ -65,14 +67,18 @@ export class PxbForgotPasswordComponent implements OnInit {
 
         const email = this.emailFormControl.value;
         this.loading = true;
-        this._pxbAuthUIActionsService.forgotPassword(email).then(() => {
-          console.log('forgot password success');
-          this.passwordResetSuccess = true;
-          void this._router.navigate([`${this._config.authRoute}/${FORGOT_PASSWORD_ROUTE}`]);
-        }).catch(() => {
-          console.log('forgot password fail');
-        }).then(() => {
-          this.loading = false;
-        })
-      }
+        this._pxbAuthUIActionsService
+            .forgotPassword(email)
+            .then(() => {
+                console.log('forgot password success');
+                this.passwordResetSuccess = true;
+                void this._router.navigate([`${this._config.authRoute}/${FORGOT_PASSWORD_ROUTE}`]);
+            })
+            .catch(() => {
+                console.log('forgot password fail');
+            })
+            .then(() => {
+                this.loading = false;
+            });
+    }
 }

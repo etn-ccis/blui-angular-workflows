@@ -58,8 +58,7 @@ export type RememberMeData = {
     providedIn: 'root',
 })
 export class PxbSecurityService {
-
-  private securityStateObs = new Subject<SecurityContext>();
+    private securityStateObs = new Subject<SecurityContext>();
     private securityState: SecurityContext = {
         userId: undefined,
         email: undefined,
@@ -88,29 +87,31 @@ export class PxbSecurityService {
 
     // If the user has been authenticated, this function should be called.
     onUserAuthenticated(email: string, password: string, rememberMe: boolean): void {
-      this.setSecurityState(
-            { email,
-              userId: email,
-              isAuthenticatedUser: true,
-              isLoading: false,
-              isSignOut: false,
-              isShowingChangePassword: false,
-              rememberMeDetails: {
+        this.setSecurityState({
+            email,
+            userId: email,
+            isAuthenticatedUser: true,
+            isLoading: false,
+            isSignOut: false,
+            isShowingChangePassword: false,
+            rememberMeDetails: {
                 email: rememberMe ? email : undefined,
-                rememberMe
-              },
-          });
+                rememberMe,
+            },
+        });
     }
 
     // If the user has been de-authenticated (either because they logged out or app started with no credentials),
     onUserNotAuthenticated(): void {
-      const currState = this.getSecurityState();
-      this.setSecurityState(Object.assign(currState, {
-        email: currState.email,
-        isAuthenticatedUser: false,
-        isLoading: false,
-        isSignOut: true,
-        isShowingChangePassword: false
-      }));
-  }
+        const currState = this.getSecurityState();
+        this.setSecurityState(
+            Object.assign(currState, {
+                email: currState.email,
+                isAuthenticatedUser: false,
+                isLoading: false,
+                isSignOut: true,
+                isShowingChangePassword: false,
+            })
+        );
+    }
 }

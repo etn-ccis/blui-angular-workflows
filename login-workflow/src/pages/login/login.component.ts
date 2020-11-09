@@ -12,7 +12,7 @@ import {
     RESET_PASSWORD_ROUTE,
 } from '../../config/route-names';
 import { PxbSecurityService, SecurityContext } from '../../services/state/security.service';
-import {PxbAuthUIActionsService} from "../../services/api/auth-ui-actions.service";
+import { PxbAuthUIActionsService } from '../../services/api/auth-ui-actions.service';
 
 // TODO: Find a home for this const, perhaps config folder.
 export const PXB_LOGIN_VALIDATOR_ERROR_NAME = 'PXB_LOGIN_VALIDATOR_ERROR_NAME';
@@ -72,11 +72,10 @@ export class PxbLoginComponent implements AfterViewInit {
         );
         this.passwordFormControl = new FormControl('', []);
 
-
-      if (this._securityService.getSecurityState().isAuthenticatedUser) {
-        this.navigateToDefaultRoute();
-        return;
-      }
+        if (this._securityService.getSecurityState().isAuthenticatedUser) {
+            this.navigateToDefaultRoute();
+            return;
+        }
     }
 
     ngAfterViewInit(): void {
@@ -93,34 +92,35 @@ export class PxbLoginComponent implements AfterViewInit {
     }
 
     login(): void {
-          const email = this.emailFormControl.value;
-          const password = this.passwordFormControl.value;
-          const rememberMe = Boolean(this.rememberMe);
+        const email = this.emailFormControl.value;
+        const password = this.passwordFormControl.value;
+        const rememberMe = Boolean(this.rememberMe);
 
-         this.isLoading = true;
-         this._pxbAuthUIActionsService.login(email, password, rememberMe)
-             .then(() => {
-               console.log('login success');
-               this._securityService.onUserAuthenticated(email, password, rememberMe);
-               this.navigateToDefaultRoute();
-               // TODO: Where does the localstorage service get called???
-             })
-             .catch(() => {
-               console.log('login failed');
-               this._securityService.onUserNotAuthenticated();
-               console.log(this._securityService.getSecurityState());
-             })
-           .then(() => {
-             this.isLoading = false;
-           })
+        this.isLoading = true;
+        this._pxbAuthUIActionsService
+            .login(email, password, rememberMe)
+            .then(() => {
+                console.log('login success');
+                this._securityService.onUserAuthenticated(email, password, rememberMe);
+                this.navigateToDefaultRoute();
+                // TODO: Where does the localstorage service get called???
+            })
+            .catch(() => {
+                console.log('login failed');
+                this._securityService.onUserNotAuthenticated();
+                console.log(this._securityService.getSecurityState());
+            })
+            .then(() => {
+                this.isLoading = false;
+            });
     }
 
     navigateToDefaultRoute(): void {
-      void this._router.navigate([this._config.homeRoute]);
+        void this._router.navigate([this._config.homeRoute]);
     }
 
     forgotPassword(): void {
-      void this._router.navigate([`${this._config.authRoute}/${FORGOT_PASSWORD_ROUTE}`]);
+        void this._router.navigate([`${this._config.authRoute}/${FORGOT_PASSWORD_ROUTE}`]);
     }
 
     testForgotPasswordEmail(): void {

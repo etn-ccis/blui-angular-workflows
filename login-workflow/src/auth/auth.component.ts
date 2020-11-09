@@ -74,7 +74,7 @@ export class PxbAuthComponent implements AfterViewInit, OnInit {
         // logs user in if they are already authenticated
         this._securityService.securityStateChanges().subscribe((res) => {
             if (res.isAuthenticatedUser) {
-             //   this._authStateService.setAuthenticated(true);
+                //   this._authStateService.setAuthenticated(true);
                 void this.router.navigate([this._config.homeRoute]);
             }
         });

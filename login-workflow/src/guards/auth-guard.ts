@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate } from '@angular/router';
-import {PxbSecurityService} from "../services/state/security.service";
+import { PxbSecurityService } from '../services/state/security.service';
 
 @Injectable({
     providedIn: 'root',

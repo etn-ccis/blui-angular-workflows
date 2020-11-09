@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { Injectable } from '@angular/core';
 import { IPxbAuthUIActionsService, PxbSecurityService } from '@pxblue/angular-auth-workflow';
 import { AuthData, LocalStorageService } from './localStorage.service';
@@ -17,7 +18,8 @@ export class AuthUIService implements IPxbAuthUIActionsService {
         await sleep(1000);
         authData = await this._localStorageService.readAuthData();
         if (authData.email) {
-            console.log('We have a remembered email in local storage, authenticating the user.');
+            console.log('We have an email in local storage, authenticating the user.');
+            // Session information is normally validated via an api; this is just an example.
             this._pxbSecurityService.onUserAuthenticated(authData.email, undefined, true);
         } else {
             console.log('User is not authenticated.');
