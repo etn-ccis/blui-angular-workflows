@@ -1,18 +1,20 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Inject, Input, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
-import { FormControl, ValidatorFn, Validators } from '@angular/forms';
-import { AuthErrorStateMatcher } from '../../util/matcher';
-import { isEmptyView } from '../../util/view-utils';
-import { PXB_AUTH_CONFIG, PxbAuthConfig } from '../../config/auth-config';
+import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, ViewChild} from '@angular/core';
+import {Router} from '@angular/router';
+import {FormControl, ValidatorFn, Validators} from '@angular/forms';
+import {AuthErrorStateMatcher} from '../../util/matcher';
+import {isEmptyView} from '../../util/view-utils';
+import {PxbSecurityService, SecurityContext} from '../../services/state/security.service';
+import {PxbAuthUIActionsService} from '../../services/api/auth-ui-actions.service';
 import {
-    CONTACT_SUPPORT_ROUTE,
-    CREATE_ACCOUNT_INVITE_ROUTE,
-    CREATE_ACCOUNT_ROUTE,
-    FORGOT_PASSWORD_ROUTE,
-    RESET_PASSWORD_ROUTE,
-} from '../../config/route-names';
-import { PxbSecurityService, SecurityContext } from '../../services/state/security.service';
-import { PxbAuthUIActionsService } from '../../services/api/auth-ui-actions.service';
+  CONTACT_SUPPORT_ROUTE,
+  CREATE_ACCOUNT_INVITE_ROUTE,
+  CREATE_ACCOUNT_ROUTE,
+  FORGOT_PASSWORD_ROUTE,
+  RESET_PASSWORD_ROUTE
+} from "../../auth/auth.routes";
+
+
+import { PxbAuthConfig } from '../../services/config/auth-config';
 
 // TODO: Find a home for this const, perhaps config folder.
 export const PXB_LOGIN_VALIDATOR_ERROR_NAME = 'PXB_LOGIN_VALIDATOR_ERROR_NAME';
@@ -47,12 +49,12 @@ export class PxbLoginComponent implements AfterViewInit {
         private readonly _router: Router,
         private readonly _securityService: PxbSecurityService,
         private readonly _pxbAuthUIActionsService: PxbAuthUIActionsService,
-        @Inject(PXB_AUTH_CONFIG) private readonly _config: PxbAuthConfig
+        private readonly _authConfig: PxbAuthConfig,
     ) {}
 
     ngOnInit(): void {
-        this.enableDebugMode = this._config.allowDebugMode;
-        this.showSelfRegistration = this._config.showSelfRegistration;
+        this.enableDebugMode = this._authConfig.allowDebugMode;
+        this.showSelfRegistration = this._authConfig.showSelfRegistration;
         this.securityState = this._securityService.getSecurityState();
         this.rememberMe = this.securityState.rememberMeDetails.rememberMe;
 
@@ -113,27 +115,27 @@ export class PxbLoginComponent implements AfterViewInit {
     }
 
     navigateToDefaultRoute(): void {
-        void this._router.navigate([this._config.homeRoute]);
+        void this._router.navigate([this._authConfig.homeRoute]);
     }
 
     forgotPassword(): void {
-        void this._router.navigate([`${this._config.authRoute}/${FORGOT_PASSWORD_ROUTE}`]);
+        void this._router.navigate([`${this._authConfig.authRoute}/${FORGOT_PASSWORD_ROUTE}`]);
     }
 
     testForgotPasswordEmail(): void {
-        void this._router.navigate([`${this._config.authRoute}/${RESET_PASSWORD_ROUTE}`]);
+        void this._router.navigate([`${this._authConfig.authRoute}/${RESET_PASSWORD_ROUTE}`]);
     }
 
     testInviteRegister(): void {
-        void this._router.navigate([`${this._config.authRoute}/${CREATE_ACCOUNT_INVITE_ROUTE}`]);
+        void this._router.navigate([`${this._authConfig.authRoute}/${CREATE_ACCOUNT_INVITE_ROUTE}`]);
     }
 
     createAccount(): void {
-        void this._router.navigate([`${this._config.authRoute}/${CREATE_ACCOUNT_ROUTE}`]);
+        void this._router.navigate([`${this._authConfig.authRoute}/${CREATE_ACCOUNT_ROUTE}`]);
     }
 
     contactSupport(): void {
-        void this._router.navigate([`${this._config.authRoute}/${CONTACT_SUPPORT_ROUTE}`]);
+        void this._router.navigate([`${this._authConfig.authRoute}/${CONTACT_SUPPORT_ROUTE}`]);
     }
 
     isValidFormEntries(): boolean {

@@ -10,9 +10,10 @@ import {
     FORGOT_PASSWORD_ROUTE,
     LOGIN_ROUTE,
     RESET_PASSWORD_ROUTE,
-} from '../config/route-names';
+} from './auth.routes';
 import { PxbContactSupportComponent } from '../pages/contact-support/contact-support.component';
 import { PxbCreateAccountInviteComponent } from '../pages/create-account-invite/create-account-invite.component';
+
 
 export const authSubRoutes: Routes = [
     { path: '', redirectTo: LOGIN_ROUTE, pathMatch: 'full' },

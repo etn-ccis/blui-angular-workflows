@@ -1,39 +1,34 @@
+import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild,} from '@angular/core';
+import {NavigationEnd, Router} from '@angular/router';
 import {
-    AfterViewInit,
-    ChangeDetectorRef,
-    Component,
-    ElementRef,
-    Inject,
-    Input,
-    OnInit,
-    ViewChild,
-} from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
-import { PXB_AUTH_CONFIG, PxbAuthConfig } from '../config/auth-config';
+  PxbAuthConfig,
+} from '../services/config/auth-config';
+import {isEmptyView} from '../util/view-utils';
 import {
-    CONTACT_SUPPORT_ROUTE,
-    CREATE_ACCOUNT_INVITE_ROUTE,
-    CREATE_ACCOUNT_ROUTE,
-    FORGOT_PASSWORD_ROUTE,
-    LOGIN_ROUTE,
-    RESET_PASSWORD_ROUTE,
-} from '../config/route-names';
-import { isEmptyView } from '../util/view-utils';
-import { PxbAuthUIActionsService, PxbSecurityService } from '../services/public-api';
+  CONTACT_SUPPORT_ROUTE,
+  CREATE_ACCOUNT_INVITE_ROUTE,
+  CREATE_ACCOUNT_ROUTE,
+  FORGOT_PASSWORD_ROUTE,
+  LOGIN_ROUTE,
+  RESET_PASSWORD_ROUTE,
+} from './auth.routes';
+import {PxbAuthUIActionsService, PxbSecurityService} from '../services/public-api';
 
 @Component({
     selector: 'pxb-auth',
     templateUrl: './auth.component.html',
     styleUrls: ['./auth.component.scss'],
 })
-export class PxbAuthComponent implements AfterViewInit, OnInit {
+export class PxbAuthComponent implements OnInit, AfterViewInit {
+
     @ViewChild('login', { static: false }) loginEl: ElementRef;
     @ViewChild('resetPassword', { static: false }) resetPasswordEl: ElementRef;
     @ViewChild('createAccount', { static: false }) createAccountEl: ElementRef;
     @ViewChild('createAccountInvite', { static: false }) createAccountInviteEl: ElementRef;
     @ViewChild('forgotPassword', { static: false }) forgotPasswordEl: ElementRef;
     @ViewChild('contactSupport', { static: false }) contactSupportEl: ElementRef;
-    @Input() backgroundImage: string;
+
+    backgroundImage: string;
     projectImage: string;
 
     isEmpty = (el: ElementRef): boolean => isEmptyView(el);
@@ -51,7 +46,7 @@ export class PxbAuthComponent implements AfterViewInit, OnInit {
         private readonly _changeDetectorRef: ChangeDetectorRef,
         private readonly _authUIActionsService: PxbAuthUIActionsService,
         private readonly _securityService: PxbSecurityService,
-        @Inject(PXB_AUTH_CONFIG) private readonly _config: PxbAuthConfig
+        private readonly _authConfig: PxbAuthConfig,
     ) {
         router.events.subscribe((route) => {
             if (route instanceof NavigationEnd) {
@@ -68,17 +63,18 @@ export class PxbAuthComponent implements AfterViewInit, OnInit {
     }
 
     ngOnInit(): void {
-        this.projectImage = this._config.projectImage;
+      this.backgroundImage = this._authConfig.backgroundImage;
+      this.projectImage = this._authConfig.projectImage;
+
         this.initiateSecurity();
 
         // logs user in if they are already authenticated
-        this._securityService.securityStateChanges().subscribe((res) => {
-            if (res.isAuthenticatedUser) {
-                //   this._authStateService.setAuthenticated(true);
-                void this.router.navigate([this._config.homeRoute]);
+        this._securityService.securityStateChanges().subscribe((state) => {
+            if (state.isAuthenticatedUser) {
+                // TODO: This homeRoute has to be provided by the end user.
+                void this.router.navigate([this._authConfig.homeRoute]);
             }
         });
-
         this._changeDetectorRef.detectChanges();
     }
 
@@ -92,8 +88,7 @@ export class PxbAuthComponent implements AfterViewInit, OnInit {
             .initiateSecurity()
             .then(() => {
                 this.isSecurityInitiated = true;
-            })
-            .catch(() => {});
+            });
     }
 
     resetSelectedRoute(): void {
@@ -106,7 +101,7 @@ export class PxbAuthComponent implements AfterViewInit, OnInit {
     }
 
     matches(route: NavigationEnd, targetRoute: string): boolean {
-        const potentialAuthRoute = `/${this._config.authRoute}/${targetRoute}`;
+        const potentialAuthRoute = `/${this._authConfig.authRoute}/${targetRoute}`;
         return route.urlAfterRedirects === potentialAuthRoute;
     }
 }

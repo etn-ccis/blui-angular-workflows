@@ -3,8 +3,6 @@
  */
 
 export * from './auth.module';
-
-export * from './config/public-api';
 export * from './auth/public-api';
 export * from './guards/public-api';
 export * from './pages/public-api';

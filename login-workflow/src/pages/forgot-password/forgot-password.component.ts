@@ -2,10 +2,11 @@ import { Component, Inject, Input, OnInit } from '@angular/core';
 import { ValidatorFn, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthErrorStateMatcher } from '../../util/matcher';
-import { PXB_AUTH_CONFIG, PxbAuthConfig } from '../../config/auth-config';
-import { FORGOT_PASSWORD_ROUTE, LOGIN_ROUTE } from '../../config/route-names';
 import { PXB_LOGIN_VALIDATOR_ERROR_NAME } from '../login/login.component';
 import { PxbAuthUIActionsService } from '../../services/api/auth-ui-actions.service';
+import {FORGOT_PASSWORD_ROUTE, LOGIN_ROUTE} from "../../auth/auth.routes";
+
+import { PxbAuthConfig } from '../../services/config/auth-config';
 
 @Component({
     selector: 'pxb-forgot-password',
@@ -31,7 +32,7 @@ export class PxbForgotPasswordComponent implements OnInit {
     constructor(
         private readonly _router: Router,
         private readonly _pxbAuthUIActionsService: PxbAuthUIActionsService,
-        @Inject(PXB_AUTH_CONFIG) private readonly _config: PxbAuthConfig
+        private readonly _authConfig: PxbAuthConfig,
     ) {}
 
     ngOnInit(): void {
@@ -54,7 +55,7 @@ export class PxbForgotPasswordComponent implements OnInit {
     }
 
     navigateToLogin(): void {
-        void this._router.navigate([`${this._config.authRoute}/${LOGIN_ROUTE}`]);
+        void this._router.navigate([`${this._authConfig.authRoute}/${LOGIN_ROUTE}`]);
     }
 
     resetPassword(): void {
@@ -73,7 +74,7 @@ export class PxbForgotPasswordComponent implements OnInit {
                 /* eslint-disable-next-line no-console */
                 console.log('forgot password success');
                 this.passwordResetSuccess = true;
-                void this._router.navigate([`${this._config.authRoute}/${FORGOT_PASSWORD_ROUTE}`]);
+                void this._router.navigate([`${this._authConfig.authRoute}/${FORGOT_PASSWORD_ROUTE}`]);
 
                 this.loading = false;
             })

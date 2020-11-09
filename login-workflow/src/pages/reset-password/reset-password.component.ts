@@ -2,9 +2,11 @@ import { Component, Inject, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
-import { PxbAuthConfig, PXB_AUTH_CONFIG } from '../../config/auth-config';
-import { LOGIN_ROUTE } from '../../config/route-names';
-import { PxbAuthUIActionsService, PxbSecurityService } from '../..';
+import {PxbSecurityService} from '../../services/state/security.service';
+import {PxbAuthUIActionsService} from '../../services/api/auth-ui-actions.service';
+import {LOGIN_ROUTE } from '../../auth/auth.routes';
+
+import { PxbAuthConfig } from '../../services/config/auth-config';
 
 class CrossFieldErrorMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -36,7 +38,7 @@ export class PxbResetPasswordComponent implements OnInit {
     isLoading = false;
 
     constructor(
-        @Inject(PXB_AUTH_CONFIG) private readonly _config: PxbAuthConfig,
+      private readonly _authConfig: PxbAuthConfig,
         private readonly _router: Router,
         private readonly _pxbAuthUIActionsService: PxbAuthUIActionsService,
         private readonly _securityService: PxbSecurityService,
@@ -97,7 +99,7 @@ export class PxbResetPasswordComponent implements OnInit {
     }
 
     navigateToLogin(): void {
-        void this._router.navigate([`${this._config.authRoute}/${LOGIN_ROUTE}`]);
+        void this._router.navigate([`${this._authConfig.authRoute}/${LOGIN_ROUTE}`]);
     }
 
     // TODO: How should the email and code be supplied to this service?

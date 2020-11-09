@@ -1,7 +1,6 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { PxbAuthConfig, PXB_AUTH_CONFIG } from '../../config/auth-config';
 import { PxbChangePasswordModalService } from './change-password-modal.service';
 
 class CrossFieldErrorMatcher implements ErrorStateMatcher {
@@ -33,7 +32,6 @@ export class PxbChangePasswordComponent implements OnInit {
     lowerFlag = false;
 
     constructor(
-        @Inject(PXB_AUTH_CONFIG) private readonly _config: PxbAuthConfig,
         private readonly _formBuilder: FormBuilder,
         private readonly _changePasswordModalService: PxbChangePasswordModalService
     ) {

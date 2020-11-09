@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { AbstractControl, ValidatorFn } from '@angular/forms';
+import { PxbAuthConfig } from '@pxblue/angular-auth-workflow';
 
 @Component({
     selector: 'app-auth',
     template: `
-        <pxb-auth backgroundImage="assets/images/background.svg">
+        <pxb-auth>
             <pxb-login [customEmailValidator]="customValidator()">
                 <div pxb-login-header>
                     <img src="assets/images/eaton_stacked_logo.png" style="max-width: 100%; max-height: 80px;" />
@@ -17,7 +18,12 @@ import { AbstractControl, ValidatorFn } from '@angular/forms';
     `,
 })
 export class AuthComponent {
-    constructor() {}
+
+    constructor(pxbAuthConfig: PxbAuthConfig) {
+      pxbAuthConfig.projectImage = 'assets/images/eaton_stacked_logo.png';
+      pxbAuthConfig.backgroundImage = 'assets/images/background.svg';
+      pxbAuthConfig.allowDebugMode = true;
+    }
 
     customValidator(): ValidatorFn {
         return (control: AbstractControl): { [key: string]: any } | null => {

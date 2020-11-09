@@ -1,7 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { PxbContactSupportComponent } from './contact-support.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import { PXB_AUTH_CONFIG } from '../../config/auth-config';
 
 describe('ContactSupportComponent', () => {
     let component: PxbContactSupportComponent;
@@ -11,7 +10,6 @@ describe('ContactSupportComponent', () => {
         void TestBed.configureTestingModule({
             imports: [RouterTestingModule],
             declarations: [PxbContactSupportComponent],
-            providers: [{ provide: PXB_AUTH_CONFIG, useValue: PXB_AUTH_CONFIG }],
         }).compileComponents();
     }));
 
