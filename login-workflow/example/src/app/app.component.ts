@@ -8,6 +8,7 @@ import { LocalStorageService } from './services/localStorage.service';
 })
 export class AppComponent {
     constructor(readonly pxbSecurityService: PxbSecurityService, readonly localStorageService: LocalStorageService) {
+        // App Component listens for PXB auth state changes.
         pxbSecurityService.securityStateChanges().subscribe((state: SecurityContext) => {
             if (state.isAuthenticatedUser && state.rememberMeDetails.rememberMe) {
                 localStorageService.setAuthData(state.email);

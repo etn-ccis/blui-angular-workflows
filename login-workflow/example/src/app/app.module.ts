@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { AppRoutingModule, AUTH_ROUTE, HOME_ROUTE } from './app.routing';
@@ -20,10 +19,10 @@ import { AuthUIService } from './services/auth-ui.service';
 import { RegistrationService } from './services/registration.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
-import { LocalStorageService } from './services/localStorage.service';
+import {DashboardComponent} from "./pages/dashboard/dashboard.component";
 
 @NgModule({
-    declarations: [AppComponent, HomeComponent, AuthComponent],
+    declarations: [AppComponent, HomeComponent, AuthComponent, DashboardComponent],
     imports: [
         BrowserModule,
         MatFormFieldModule,
@@ -33,6 +32,7 @@ import { LocalStorageService } from './services/localStorage.service';
         ReactiveFormsModule,
         FormsModule,
         PxbAuthModule,
+
         AppRoutingModule,
         MatButtonModule,
         MatDialogModule,
