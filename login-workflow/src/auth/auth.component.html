@@ -1,5 +1,7 @@
 <div class="pxb-float-card-container" [style.backgroundImage]="'url(' + backgroundImage + ')'">
     <mat-card class="pxb-inner-card" [class.splash-screen]="!isSecurityInitiated">
+        <pxb-auth-loading-overlay *ngIf="isLoading"></pxb-auth-loading-overlay>
+
         <div *ngIf="!isSecurityInitiated" class="splash-screen-content">
             <img [src]="projectImage" style="max-width: 100%; max-height: 80px; margin-bottom: 48px;" />
             <mat-spinner diameter="40"></mat-spinner>

@@ -26,6 +26,7 @@ import { PxbChangePasswordComponent } from './pages/change-password/change-passw
 import { MatDialogModule } from '@angular/material/dialog';
 import { PxbChangePasswordDialogComponent } from './pages/change-password/dialog/change-password-dialog.component';
 import { PxbLoginErrorDialogComponent } from './pages/login/dialog/login-error-dialog.component';
+import {LoadingOverlayComponent} from "./components/loading-overlay/loading-overlay.component";
 
 @NgModule({
     declarations: [
@@ -35,12 +36,14 @@ import { PxbLoginErrorDialogComponent } from './pages/login/dialog/login-error-d
         PxbCreateAccountComponent,
         PxbAuthComponent,
         PxbContactSupportComponent,
-        PasswordStrengthCheckComponent,
-        DotStepperComponent,
         PxbCreateAccountInviteComponent,
         PxbChangePasswordComponent,
         PxbChangePasswordDialogComponent,
         PxbLoginErrorDialogComponent,
+
+        PasswordStrengthCheckComponent,
+        DotStepperComponent,
+        LoadingOverlayComponent
     ],
     imports: [
         BrowserModule,

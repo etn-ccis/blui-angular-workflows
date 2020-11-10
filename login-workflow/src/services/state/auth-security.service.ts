@@ -83,6 +83,10 @@ export class PxbAuthSecurityService {
         return this.securityStateObs;
     }
 
+    setLoading(isLoading: boolean): void {
+        this.setSecurityState(Object.assign(this.getSecurityState(), { isLoading }));
+    }
+
     // If the user has been authenticated, this function should be called.
     onUserAuthenticated(email: string, password: string, rememberMe: boolean): void {
         this.setSecurityState({

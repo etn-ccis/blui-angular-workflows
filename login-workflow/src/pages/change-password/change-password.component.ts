@@ -2,6 +2,11 @@ import { Component, Input } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { PxbChangePasswordDialogService } from './dialog/change-password-dialog.service';
+import { PxbAuthUIService } from '../../services/api/auth-ui.service';
+import { PxbAuthSecurityService } from '../../services/state/auth-security.service';
+import { Router } from '@angular/router';
+import { LOGIN_ROUTE } from '../../auth/auth.routes';
+import { PxbAuthConfig } from '../../services/config/auth-config';
 
 class CrossFieldErrorMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -31,9 +36,15 @@ export class PxbChangePasswordComponent {
     upperFlag = false;
     lowerFlag = false;
 
+    isLoading = false;
+
     constructor(
+        private readonly _router: Router,
+        private readonly _authConfig: PxbAuthConfig,
         private readonly _formBuilder: FormBuilder,
-        private readonly _changePasswordModalService: PxbChangePasswordDialogService
+        private readonly _pxbUIActionsService: PxbAuthUIService,
+        private readonly _pxbSecurityService: PxbAuthSecurityService,
+        private readonly _changePasswordDialogService: PxbChangePasswordDialogService
     ) {
         this.passwordFormGroup = this._formBuilder.group(
             {
@@ -87,7 +98,7 @@ export class PxbChangePasswordComponent {
     }
 
     closeDialog(): void {
-        this._changePasswordModalService.closeDialog();
+        this._changePasswordDialogService.closeDialog();
     }
 
     done(): void {
@@ -99,11 +110,24 @@ export class PxbChangePasswordComponent {
         this.numberFlag = false;
         this.upperFlag = false;
         this.lowerFlag = false;
-        // void this._router.navigate([`${this._authConfig.authRoute}/${LOGIN_ROUTE}`]);
+        void this._router.navigate([`${this._authConfig.authRoute}/${LOGIN_ROUTE}`]);
     }
 
     changePassword(): void {
-        // TODO: Submit API call
-        this.passwordChangeSuccess = true;
+        const oldPassword = this.passwordFormGroup.value.currentPassword;
+        const newPassword = this.passwordFormGroup.value.newPassword;
+        this.isLoading = true;
+        this._pxbUIActionsService
+            .changePassword(oldPassword, newPassword)
+            .then(() => {
+                this.passwordChangeSuccess = true;
+                this._pxbSecurityService.onUserNotAuthenticated();
+              this.isLoading = false;
+            })
+            .catch(() => {
+                this.passwordChangeSuccess = false;
+              this.isLoading = false;
+                // TODO: ERRORR DIALOG
+            });
     }
 }

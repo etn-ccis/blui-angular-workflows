@@ -48,13 +48,13 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
         private readonly _router: Router,
         private readonly _authConfig: PxbAuthConfig,
         private readonly _changeDetectorRef: ChangeDetectorRef,
-        private readonly _securityService: PxbAuthSecurityService,
-        private readonly _pxbAuthUIActionsService: PxbAuthUIService,
+        private readonly _pxbUIActionsService: PxbAuthUIService,
+        private readonly _pxbSecurityService: PxbAuthSecurityService,
         private readonly _pxbLoginErrorModalService: PxbLoginErrorDialogService
     ) {}
 
     ngOnInit(): void {
-        const securityState = this._securityService.getSecurityState();
+        const securityState = this._pxbSecurityService.getSecurityState();
         this.enableDebugMode = this._authConfig.allowDebugMode;
         this.showSelfRegistration = this._authConfig.showSelfRegistration;
         this.rememberMe = securityState.rememberMeDetails.rememberMe;
@@ -73,7 +73,7 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
         );
         this.passwordFormControl = new FormControl('', []);
 
-        if (this._securityService.getSecurityState().isAuthenticatedUser) {
+        if (this._pxbSecurityService.getSecurityState().isAuthenticatedUser) {
             this.navigateToDefaultRoute();
             return;
         }
@@ -95,19 +95,18 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
         const email = this.emailFormControl.value;
         const password = this.passwordFormControl.value;
         const rememberMe = Boolean(this.rememberMe);
-
-        this.isLoading = true;
-        this._pxbAuthUIActionsService
+        this._pxbSecurityService.setLoading(true);
+        this._pxbUIActionsService
             .login(email, password, rememberMe)
             .then(() => {
-                this._securityService.onUserAuthenticated(email, password, rememberMe);
+                this._pxbSecurityService.onUserAuthenticated(email, password, rememberMe);
                 this.navigateToDefaultRoute(); // TODO: User needs to provide this route somehow.
-                this.isLoading = false;
+                this._pxbSecurityService.setLoading(false);
             })
             .catch(() => {
                 this._pxbLoginErrorModalService.openDialog();
-                this._securityService.onUserNotAuthenticated();
-                this.isLoading = false;
+                this._pxbSecurityService.onUserNotAuthenticated();
+                this._pxbSecurityService.setLoading(false);
             });
     }
 

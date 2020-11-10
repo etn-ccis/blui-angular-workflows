@@ -5,7 +5,8 @@ import { PxbLoginErrorDialogComponent } from './login-error-dialog.component';
 @Injectable({
     providedIn: 'root',
 })
-export class PxbLoginErrorDialogService { // TODO: implements CustomDialog
+export class PxbLoginErrorDialogService {
+    // TODO: implements CustomDialog
     constructor(public dialog: MatDialog) {}
 
     openDialog(): MatDialogRef<PxbLoginErrorDialogComponent> {

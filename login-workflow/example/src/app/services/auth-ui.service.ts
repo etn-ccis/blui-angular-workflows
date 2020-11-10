@@ -61,7 +61,7 @@ export class AuthUIService implements IPxbAuthUIService {
         );
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                if (newPassword === 'fail') {
+                if (newPassword === 'Fail123!') {
                     return reject('The ChangePassword API request has failed.');
                 }
                 return resolve();

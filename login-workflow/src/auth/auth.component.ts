@@ -10,7 +10,8 @@ import {
     LOGIN_ROUTE,
     RESET_PASSWORD_ROUTE,
 } from './auth.routes';
-import { PxbAuthUIService, PxbAuthSecurityService } from '../services/public-api';
+import { PxbAuthUIService } from '../services/api/auth-ui.service';
+import { PxbAuthSecurityService, SecurityContext } from '../services/state/auth-security.service';
 
 @Component({
     selector: 'pxb-auth',
@@ -37,45 +38,35 @@ export class PxbAuthComponent implements OnInit {
     showResetPassword: boolean;
     showContactSupport: boolean;
     isSecurityInitiated = false;
+    isLoading = false;
 
     constructor(
-        public router: Router,
+        private readonly _router: Router,
+        private readonly _pxbAuthConfig: PxbAuthConfig,
+        private readonly _pxbAuthUIService: PxbAuthUIService,
         private readonly _changeDetectorRef: ChangeDetectorRef,
-        private readonly _authUIActionsService: PxbAuthUIService,
-        private readonly _securityService: PxbAuthSecurityService,
-        private readonly _authConfig: PxbAuthConfig
+        private readonly _pxbSecurityService: PxbAuthSecurityService
     ) {
-        router.events.subscribe((route) => {
-            if (route instanceof NavigationEnd) {
-                this.resetSelectedRoute();
-                this.showLogin = this.matches(route, LOGIN_ROUTE);
-                this.showCreateAccount = this.matches(route, CREATE_ACCOUNT_ROUTE);
-                this.showCreateAccountInvite = this.matches(route, CREATE_ACCOUNT_INVITE_ROUTE);
-                this.showForgotPassword = this.matches(route, FORGOT_PASSWORD_ROUTE);
-                this.showResetPassword = this.matches(route, RESET_PASSWORD_ROUTE);
-                this.showContactSupport = this.matches(route, CONTACT_SUPPORT_ROUTE);
-                this._changeDetectorRef.detectChanges();
-            }
-        });
+        this.listenForAuthLoadingStateChanges();
+        this.listenForAuthRouteChanges();
     }
 
     ngOnInit(): void {
-        this.backgroundImage = this._authConfig.backgroundImage;
-        this.projectImage = this._authConfig.projectImage;
-
+        this.backgroundImage = this._pxbAuthConfig.backgroundImage;
+        this.projectImage = this._pxbAuthConfig.projectImage;
         this.initiateSecurity();
 
         // logs user in if they are already authenticated
-        this._securityService.securityStateChanges().subscribe((state) => {
+        this._pxbSecurityService.securityStateChanges().subscribe((state) => {
             if (state.isAuthenticatedUser) {
                 // TODO: This homeRoute has to be provided by the end user.
-                void this.router.navigate([this._authConfig.homeRoute]);
+                void this._router.navigate([this._pxbAuthConfig.homeRoute]);
             }
         });
     }
 
     initiateSecurity(): void {
-        void this._authUIActionsService.initiateSecurity().then(() => {
+        void this._pxbAuthUIService.initiateSecurity().then(() => {
             this.isSecurityInitiated = true;
             this._changeDetectorRef.detectChanges();
         });
@@ -91,7 +82,30 @@ export class PxbAuthComponent implements OnInit {
     }
 
     matches(route: NavigationEnd, targetRoute: string): boolean {
-        const potentialAuthRoute = `/${this._authConfig.authRoute}/${targetRoute}`;
+        const potentialAuthRoute = `/${this._pxbAuthConfig.authRoute}/${targetRoute}`;
         return route.urlAfterRedirects === potentialAuthRoute;
+    }
+
+    // This will listen for auth state loading changes and show a loading screen.
+    private listenForAuthLoadingStateChanges(): void {
+        this._pxbSecurityService
+            .securityStateChanges()
+            .subscribe((state: SecurityContext) => (this.isLoading = state.isLoading));
+    }
+
+    // Observes route changes and  determines which PXB Auth page to show via route name.
+    private listenForAuthRouteChanges(): void {
+        this._router.events.subscribe((route) => {
+            if (route instanceof NavigationEnd) {
+                this.resetSelectedRoute();
+                this.showLogin = this.matches(route, LOGIN_ROUTE);
+                this.showCreateAccount = this.matches(route, CREATE_ACCOUNT_ROUTE);
+                this.showCreateAccountInvite = this.matches(route, CREATE_ACCOUNT_INVITE_ROUTE);
+                this.showForgotPassword = this.matches(route, FORGOT_PASSWORD_ROUTE);
+                this.showResetPassword = this.matches(route, RESET_PASSWORD_ROUTE);
+                this.showContactSupport = this.matches(route, CONTACT_SUPPORT_ROUTE);
+                this._changeDetectorRef.detectChanges();
+            }
+        });
     }
 }
