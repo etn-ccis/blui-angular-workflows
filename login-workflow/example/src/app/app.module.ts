@@ -17,7 +17,12 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {DashboardComponent} from "./pages/dashboard/dashboard.component";
 
 @NgModule({
-    declarations: [AppComponent, HomeComponent, AuthComponent, DashboardComponent],
+    declarations: [
+      AppComponent,
+      HomeComponent,
+      AuthComponent,
+      DashboardComponent
+    ],
     imports: [
         BrowserModule,
         MatFormFieldModule,
