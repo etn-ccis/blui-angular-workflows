@@ -16,6 +16,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatDialogModule} from '@angular/material/dialog';
 import {DashboardComponent} from "./pages/dashboard/dashboard.component";
 import {LoginErrorDialogComponent} from "./dialog/login-error-dialog.component";
+import {LoginErrorDialogService} from "./dialog/login-error-dialog.service";
 
 @NgModule({
     declarations: [
@@ -51,11 +52,11 @@ import {LoginErrorDialogComponent} from "./dialog/login-error-dialog.component";
             provide: PxbRegistrationApiService,
             useClass: RegistrationService,
         },
-       /*  // Custom error handling for Login failures
-       {
+         // Custom error handling for Login failures
+      /* {
             provide: PxbLoginErrorDialogService,
             useClass: LoginErrorDialogService
-       }  */
+       } */
     ],
   entryComponents: [
     LoginErrorDialogComponent

@@ -6,16 +6,11 @@ import {LoginErrorDialogComponent} from "./login-error-dialog.component";
     providedIn: 'root',
 })
 export class LoginErrorDialogService {
-    constructor(public dialog: MatDialog) {}
+    constructor(private dialog: MatDialog) {}
 
     openDialog(): MatDialogRef<LoginErrorDialogComponent> {
         return this.dialog.open(LoginErrorDialogComponent, {
             disableClose: false,
-            panelClass: 'app-login-error-dialog',
         });
-    }
-
-    closeDialog(): void {
-        this.dialog.closeAll();
     }
 }
