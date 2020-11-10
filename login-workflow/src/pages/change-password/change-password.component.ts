@@ -1,12 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { PxbChangePasswordDialogService } from './dialog/change-password-dialog.service';
 import { PxbAuthUIService } from '../../services/api/auth-ui.service';
 import { PxbAuthSecurityService } from '../../services/state/auth-security.service';
 import { Router } from '@angular/router';
 import { LOGIN_ROUTE } from '../../auth/auth.routes';
 import { PxbAuthConfig } from '../../services/config/auth-config';
+import { PxbChangePasswordDialogService } from './dialog/change-password-dialog.service';
+import { PxbChangePasswordErrorDialogService } from './dialog/change-password-error-dialog.service';
 
 class CrossFieldErrorMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -45,7 +46,8 @@ export class PxbChangePasswordComponent {
         private readonly _formBuilder: FormBuilder,
         private readonly _pxbUIActionsService: PxbAuthUIService,
         private readonly _pxbSecurityService: PxbAuthSecurityService,
-        private readonly _changePasswordDialogService: PxbChangePasswordDialogService
+        private readonly _pxbChangePasswordDialogService: PxbChangePasswordDialogService,
+        private readonly _pxbChangePasswordErrorDialogService: PxbChangePasswordErrorDialogService
     ) {
         this.passwordFormGroup = this._formBuilder.group(
             {
@@ -99,7 +101,7 @@ export class PxbChangePasswordComponent {
     }
 
     closeDialog(): void {
-        this._changePasswordDialogService.closeDialog();
+        this._pxbChangePasswordDialogService.closeDialog();
     }
 
     done(): void {
@@ -128,7 +130,7 @@ export class PxbChangePasswordComponent {
             .catch(() => {
                 this.passwordChangeSuccess = false;
                 this.isLoading = false;
-                // TODO: ERRORR DIALOG
+                this._pxbChangePasswordErrorDialogService.openDialog();
             });
     }
 }

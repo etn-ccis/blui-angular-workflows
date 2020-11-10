@@ -50,7 +50,7 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
         private readonly _changeDetectorRef: ChangeDetectorRef,
         private readonly _pxbUIActionsService: PxbAuthUIService,
         private readonly _pxbSecurityService: PxbAuthSecurityService,
-        private readonly _pxbLoginErrorModalService: PxbLoginErrorDialogService
+        private readonly _pxbLoginErrorDialogService: PxbLoginErrorDialogService
     ) {}
 
     ngOnInit(): void {
@@ -104,7 +104,7 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
                 this._pxbSecurityService.setLoading(false);
             })
             .catch(() => {
-                this._pxbLoginErrorModalService.openDialog();
+                this._pxbLoginErrorDialogService.openDialog();
                 this._pxbSecurityService.onUserNotAuthenticated();
                 this._pxbSecurityService.setLoading(false);
             });
