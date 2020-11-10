@@ -14,6 +14,7 @@ import {
 } from '../../auth/auth.routes';
 
 import { PxbAuthConfig } from '../../services/config/auth-config';
+import {PxbLoginErrorDialogService} from "./dialog/login-error-dialog.service";
 
 // TODO: Find a home for this const, perhaps config folder.
 export const PXB_LOGIN_VALIDATOR_ERROR_NAME = 'PXB_LOGIN_VALIDATOR_ERROR_NAME';
@@ -29,7 +30,6 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
 
     @Input() customEmailValidator: ValidatorFn;
     customErrorName = PXB_LOGIN_VALIDATOR_ERROR_NAME;
-
 
     emailFormControl: FormControl;
     passwordFormControl: FormControl;
@@ -49,7 +49,8 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
         private readonly _router: Router,
         private readonly _securityService: PxbAuthSecurityService,
         private readonly _pxbAuthUIActionsService: PxbAuthUIService,
-        private readonly _authConfig: PxbAuthConfig
+        private readonly _authConfig: PxbAuthConfig,
+        private readonly _pxbLoginErrorModalService: PxbLoginErrorDialogService
     ) {}
 
     ngOnInit(): void {
@@ -104,6 +105,7 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
                 this.isLoading = false;
             })
             .catch(() => {
+                this._pxbLoginErrorModalService.openDialog();
                 this._securityService.onUserNotAuthenticated();
                 this.isLoading = false;
             });

@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { PxbChangePasswordModalService } from './change-password-modal.service';
+import { PxbChangePasswordDialogService } from './dialog/change-password-dialog.service';
 
 class CrossFieldErrorMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -14,7 +14,7 @@ class CrossFieldErrorMatcher implements ErrorStateMatcher {
     templateUrl: './change-password.component.html',
     styleUrls: ['./change-password.component.scss'],
 })
-export class PxbChangePasswordComponent implements OnInit {
+export class PxbChangePasswordComponent {
     @Input() email = 'testemail@email.com';
     @Input() successTitle = 'Password Changed';
     @Input() successDescription =
@@ -33,7 +33,7 @@ export class PxbChangePasswordComponent implements OnInit {
 
     constructor(
         private readonly _formBuilder: FormBuilder,
-        private readonly _changePasswordModalService: PxbChangePasswordModalService
+        private readonly _changePasswordModalService: PxbChangePasswordDialogService
     ) {
         this.passwordFormGroup = this._formBuilder.group(
             {
@@ -46,8 +46,6 @@ export class PxbChangePasswordComponent implements OnInit {
             }
         );
     }
-
-    ngOnInit(): void {}
 
     toggleCurrentPasswordVisibility(): void {
         this.currentPasswordVisible = !this.currentPasswordVisible;
@@ -101,11 +99,11 @@ export class PxbChangePasswordComponent implements OnInit {
         this.numberFlag = false;
         this.upperFlag = false;
         this.lowerFlag = false;
+       // void this._router.navigate([`${this._authConfig.authRoute}/${LOGIN_ROUTE}`]);
     }
 
     changePassword(): void {
-        // submit form
-
+      // TODO: Submit API call
         this.passwordChangeSuccess = true;
     }
 }

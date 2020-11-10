@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { PxbChangePasswordModalComponent } from './change-password-modal.component';
+import {PxbLoginErrorDialogComponent} from "./login-error-dialog.component";
 
 @Injectable({
     providedIn: 'root',
 })
-export class PxbChangePasswordModalService {
+export class PxbLoginErrorDialogService {
     constructor(public dialog: MatDialog) {}
 
-    openDialog(): MatDialogRef<PxbChangePasswordModalComponent> {
-        return this.dialog.open(PxbChangePasswordModalComponent, {
+    openDialog(): MatDialogRef<PxbLoginErrorDialogComponent> {
+        return this.dialog.open(PxbLoginErrorDialogComponent, {
             width: '444px',
             height: '710px',
             disableClose: true,
-            panelClass: 'change-password-modal',
+            panelClass: 'pxb-login-error-dialog',
         });
     }
 
