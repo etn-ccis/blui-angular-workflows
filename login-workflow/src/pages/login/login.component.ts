@@ -1,9 +1,9 @@
-import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, ValidatorFn, Validators } from '@angular/forms';
 import { AuthErrorStateMatcher } from '../../util/matcher';
 import { isEmptyView } from '../../util/view-utils';
-import { PxbAuthSecurityService, SecurityContext } from '../../services/state/auth-security.service';
+import { PxbAuthSecurityService } from '../../services/state/auth-security.service';
 import { PxbAuthUIService } from '../../services/api/auth-ui.service';
 import {
     CONTACT_SUPPORT_ROUTE,
@@ -14,7 +14,7 @@ import {
 } from '../../auth/auth.routes';
 
 import { PxbAuthConfig } from '../../services/config/auth-config';
-import {PxbLoginErrorDialogService} from "./dialog/login-error-dialog.service";
+import { PxbLoginErrorDialogService } from './dialog/login-error-dialog.service';
 
 // TODO: Find a home for this const, perhaps config folder.
 export const PXB_LOGIN_VALIDATOR_ERROR_NAME = 'PXB_LOGIN_VALIDATOR_ERROR_NAME';
@@ -80,7 +80,7 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit(): void {
-      this._changeDetectorRef.detectChanges();
+        this._changeDetectorRef.detectChanges();
     }
 
     togglePasswordVisibility(): void {

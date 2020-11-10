@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import {PxbLoginErrorDialogComponent} from "./login-error-dialog.component";
+import { PxbLoginErrorDialogComponent } from './login-error-dialog.component';
 
 @Injectable({
     providedIn: 'root',

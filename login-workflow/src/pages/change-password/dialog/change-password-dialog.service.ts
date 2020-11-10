@@ -13,7 +13,7 @@ export class PxbChangePasswordDialogService {
             width: '444px',
             height: '710px',
             disableClose: true,
-          panelClass: 'pxb-change-password-dialog',
+            panelClass: 'pxb-change-password-dialog',
         });
     }
 

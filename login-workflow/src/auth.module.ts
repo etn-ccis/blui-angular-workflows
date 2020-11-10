@@ -25,7 +25,7 @@ import { PxbCreateAccountInviteComponent } from './pages/create-account-invite/c
 import { PxbChangePasswordComponent } from './pages/change-password/change-password.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { PxbChangePasswordDialogComponent } from './pages/change-password/dialog/change-password-dialog.component';
-import {PxbLoginErrorDialogComponent} from "./pages/login/dialog/login-error-dialog.component";
+import { PxbLoginErrorDialogComponent } from './pages/login/dialog/login-error-dialog.component';
 
 @NgModule({
     declarations: [
@@ -39,8 +39,8 @@ import {PxbLoginErrorDialogComponent} from "./pages/login/dialog/login-error-dia
         DotStepperComponent,
         PxbCreateAccountInviteComponent,
         PxbChangePasswordComponent,
-      PxbChangePasswordDialogComponent,
-      PxbLoginErrorDialogComponent,
+        PxbChangePasswordDialogComponent,
+        PxbLoginErrorDialogComponent,
     ],
     imports: [
         BrowserModule,
@@ -61,10 +61,7 @@ import {PxbLoginErrorDialogComponent} from "./pages/login/dialog/login-error-dia
         MatListModule,
         MatDialogModule,
     ],
-    entryComponents: [
-      PxbLoginErrorDialogComponent,
-      PxbChangePasswordDialogComponent,
-    ],
+    entryComponents: [PxbLoginErrorDialogComponent, PxbChangePasswordDialogComponent],
     exports: [
         PxbAuthComponent,
         PxbLoginComponent,

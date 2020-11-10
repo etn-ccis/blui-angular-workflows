@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { PxbChangePasswordDialogService } from './dialog/change-password-dialog.service';
@@ -99,11 +99,11 @@ export class PxbChangePasswordComponent {
         this.numberFlag = false;
         this.upperFlag = false;
         this.lowerFlag = false;
-       // void this._router.navigate([`${this._authConfig.authRoute}/${LOGIN_ROUTE}`]);
+        // void this._router.navigate([`${this._authConfig.authRoute}/${LOGIN_ROUTE}`]);
     }
 
     changePassword(): void {
-      // TODO: Submit API call
+        // TODO: Submit API call
         this.passwordChangeSuccess = true;
     }
 }
