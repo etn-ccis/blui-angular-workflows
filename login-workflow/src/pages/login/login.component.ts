@@ -45,11 +45,11 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
     isEmpty = (el: ElementRef): boolean => isEmptyView(el);
 
     constructor(
-        private readonly _changeDetectorRef: ChangeDetectorRef,
         private readonly _router: Router,
+        private readonly _authConfig: PxbAuthConfig,
+        private readonly _changeDetectorRef: ChangeDetectorRef,
         private readonly _securityService: PxbAuthSecurityService,
         private readonly _pxbAuthUIActionsService: PxbAuthUIService,
-        private readonly _authConfig: PxbAuthConfig,
         private readonly _pxbLoginErrorModalService: PxbLoginErrorDialogService
     ) {}
 
