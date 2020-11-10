@@ -1,24 +1,23 @@
 @import '~@pxblue/colors/palette';
 
-
 .pxb-auth-loading-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: map-get($pxb-black, 500);
-  z-index: 3;
-  opacity: 0.2;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: map-get($pxb-black, 500);
+    z-index: 3;
+    opacity: 0.2;
 }
 .pxb-auth-loading-spinner {
-  display: flex;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 4;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 4;
+    justify-content: center;
+    align-items: center;
 }

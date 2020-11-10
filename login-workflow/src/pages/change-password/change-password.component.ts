@@ -24,19 +24,20 @@ export class PxbChangePasswordComponent {
     @Input() successTitle = 'Password Changed';
     @Input() successDescription =
         "Your password was successfully updated! To ensure your account's security, you will need to log in to the application with your updated credentials.";
-    passwordChangeSuccess = false;
+
     passwordFormGroup: FormGroup;
-    currentPasswordVisible = false;
-    newPasswordVisible = false;
-    confirmPasswordVisible = false;
     errorMatcher = new CrossFieldErrorMatcher();
-    passLength = false;
-    specialFlag = false;
-    numberFlag = false;
+
     upperFlag = false;
     lowerFlag = false;
-
     isLoading = false;
+    passLength = false;
+    numberFlag = false;
+    specialFlag = false;
+    newPasswordVisible = false;
+    passwordChangeSuccess = false;
+    currentPasswordVisible = false;
+    confirmPasswordVisible = false;
 
     constructor(
         private readonly _router: Router,
@@ -122,11 +123,11 @@ export class PxbChangePasswordComponent {
             .then(() => {
                 this.passwordChangeSuccess = true;
                 this._pxbSecurityService.onUserNotAuthenticated();
-              this.isLoading = false;
+                this.isLoading = false;
             })
             .catch(() => {
                 this.passwordChangeSuccess = false;
-              this.isLoading = false;
+                this.isLoading = false;
                 // TODO: ERRORR DIALOG
             });
     }
