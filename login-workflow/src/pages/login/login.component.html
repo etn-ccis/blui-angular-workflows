@@ -1,4 +1,4 @@
-<div class="pxb-login-header" (click)="pik()">
+<div class="pxb-login-header">
     <div #header>
         <ng-content select="[pxb-login-header]"></ng-content>
     </div>
@@ -79,7 +79,7 @@
 <div class="pxb-login-password-link mat-body-2" (click)="forgotPassword()">Forgot your Password?</div>
 <div class="mat-body-2" style="text-align: center;">Need an account?</div>
 <div
-    *ngIf="debugMode || enableCreateAccount"
+    *ngIf="debugMode || showSelfRegistration"
     class="pxb-login-create-account-link mat-body-2"
     (click)="createAccount()"
 >

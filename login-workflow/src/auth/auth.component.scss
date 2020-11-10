@@ -21,6 +21,17 @@
     flex-direction: column;
 }
 
+.splash-screen {
+    align-items: center;
+    justify-content: center;
+}
+
+.splash-screen-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .login {
     padding: 16px 48px;
 }

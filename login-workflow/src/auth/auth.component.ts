@@ -1,6 +1,7 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Inject, Input, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { PXB_AUTH_CONFIG, PxbAuthConfig } from '../config/auth-config';
+import { PxbAuthConfig } from '../services/config/auth-config';
+import { isEmptyView } from '../util/view-utils';
 import {
     CONTACT_SUPPORT_ROUTE,
     CREATE_ACCOUNT_INVITE_ROUTE,
@@ -8,23 +9,24 @@ import {
     FORGOT_PASSWORD_ROUTE,
     LOGIN_ROUTE,
     RESET_PASSWORD_ROUTE,
-} from '../config/route-names';
-import { isEmptyView } from '../util/view-utils';
-import { OverlayContainer } from '@angular/cdk/overlay';
+} from './auth.routes';
+import { PxbAuthUIService, PxbAuthSecurityService } from '../services/public-api';
 
 @Component({
     selector: 'pxb-auth',
     templateUrl: './auth.component.html',
     styleUrls: ['./auth.component.scss'],
 })
-export class PxbAuthComponent implements AfterViewInit {
+export class PxbAuthComponent implements OnInit {
     @ViewChild('login', { static: false }) loginEl: ElementRef;
     @ViewChild('resetPassword', { static: false }) resetPasswordEl: ElementRef;
     @ViewChild('createAccount', { static: false }) createAccountEl: ElementRef;
     @ViewChild('createAccountInvite', { static: false }) createAccountInviteEl: ElementRef;
     @ViewChild('forgotPassword', { static: false }) forgotPasswordEl: ElementRef;
     @ViewChild('contactSupport', { static: false }) contactSupportEl: ElementRef;
-    @Input() backgroundImage: string;
+
+    backgroundImage: string;
+    projectImage: string;
 
     isEmpty = (el: ElementRef): boolean => isEmptyView(el);
 
@@ -34,12 +36,14 @@ export class PxbAuthComponent implements AfterViewInit {
     showCreateAccountInvite: boolean;
     showResetPassword: boolean;
     showContactSupport: boolean;
+    isSecurityInitiated = false;
 
     constructor(
-        router: Router,
-        overlayContainer: OverlayContainer,
+        public router: Router,
         private readonly _changeDetectorRef: ChangeDetectorRef,
-        @Inject(PXB_AUTH_CONFIG) private readonly _config: PxbAuthConfig
+        private readonly _authUIActionsService: PxbAuthUIService,
+        private readonly _securityService: PxbAuthSecurityService,
+        private readonly _authConfig: PxbAuthConfig
     ) {
         router.events.subscribe((route) => {
             if (route instanceof NavigationEnd) {
@@ -53,12 +57,28 @@ export class PxbAuthComponent implements AfterViewInit {
                 this._changeDetectorRef.detectChanges();
             }
         });
-
-        overlayContainer.getContainerElement().classList.add('pxb-blue');
     }
 
-    ngAfterViewInit(): void {
-        this._changeDetectorRef.detectChanges();
+    ngOnInit(): void {
+        this.backgroundImage = this._authConfig.backgroundImage;
+        this.projectImage = this._authConfig.projectImage;
+
+        this.initiateSecurity();
+
+        // logs user in if they are already authenticated
+        this._securityService.securityStateChanges().subscribe((state) => {
+            if (state.isAuthenticatedUser) {
+                // TODO: This homeRoute has to be provided by the end user.
+                void this.router.navigate([this._authConfig.homeRoute]);
+            }
+        });
+    }
+
+    initiateSecurity(): void {
+        void this._authUIActionsService.initiateSecurity().then(() => {
+            this.isSecurityInitiated = true;
+            this._changeDetectorRef.detectChanges();
+        });
     }
 
     resetSelectedRoute(): void {
@@ -71,7 +91,7 @@ export class PxbAuthComponent implements AfterViewInit {
     }
 
     matches(route: NavigationEnd, targetRoute: string): boolean {
-        const potentialAuthRoute = `/${this._config.authRoute}/${targetRoute}`;
+        const potentialAuthRoute = `/${this._authConfig.authRoute}/${targetRoute}`;
         return route.urlAfterRedirects === potentialAuthRoute;
     }
 }

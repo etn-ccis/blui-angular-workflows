@@ -4,6 +4,4 @@ import { IPxbRegistrationApiService } from '@pxblue/angular-auth-workflow';
 @Injectable({
     providedIn: 'root',
 })
-export class RegistrationService implements IPxbRegistrationApiService {
-   
-}
+export class RegistrationService implements IPxbRegistrationApiService {}

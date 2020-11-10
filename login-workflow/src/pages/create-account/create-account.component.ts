@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
     FormBuilder,
     FormControl,
@@ -10,11 +10,11 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthErrorStateMatcher } from '../../util/matcher';
-import { PXB_AUTH_CONFIG, PxbAuthConfig } from '../../config/auth-config';
-import { LOGIN_ROUTE } from '../../config/route-names';
 import { SAMPLE_EULA } from '../../constants/sampleEula';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { PXB_LOGIN_VALIDATOR_ERROR_NAME } from '../login/login.component';
+import { LOGIN_ROUTE } from '../../auth/auth.routes';
+import { PxbAuthConfig } from '../../services/config/auth-config';
 
 class CrossFieldErrorMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -52,7 +52,7 @@ export class PxbCreateAccountComponent implements OnInit {
 
     constructor(
         private readonly _router: Router,
-        @Inject(PXB_AUTH_CONFIG) private readonly _config: PxbAuthConfig,
+        private readonly _authConfig: PxbAuthConfig,
         private readonly _formBuilder: FormBuilder
     ) {
         this.passwordFormGroup = this._formBuilder.group(
@@ -194,6 +194,6 @@ export class PxbCreateAccountComponent implements OnInit {
     }
 
     navigateToLogin(): void {
-        void this._router.navigate([`${this._config.authRoute}/${LOGIN_ROUTE}`]);
+        void this._router.navigate([`${this._authConfig.authRoute}/${LOGIN_ROUTE}`]);
     }
 }

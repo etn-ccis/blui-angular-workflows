@@ -1,9 +1,12 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
-import { PxbAuthConfig, PXB_AUTH_CONFIG } from '../../config/auth-config';
-import { LOGIN_ROUTE } from '../../config/route-names';
+import { PxbAuthSecurityService } from '../../services/state/auth-security.service';
+import { PxbAuthUIService } from '../../services/api/auth-ui.service';
+import { LOGIN_ROUTE } from '../../auth/auth.routes';
+
+import { PxbAuthConfig } from '../../services/config/auth-config';
 
 class CrossFieldErrorMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -19,6 +22,7 @@ class CrossFieldErrorMatcher implements ErrorStateMatcher {
 export class PxbResetPasswordComponent implements OnInit {
     @Input() email = 'testemail@email.com';
     @Input() successTitle = 'Your password was successfully reset.';
+    @Input() code = '';
     @Input() successDescription =
         "Your password was successfully updated! To ensure your account's security, you will need to log in to the application with your updated credentials.";
     passwordResetSuccess = false;
@@ -31,10 +35,13 @@ export class PxbResetPasswordComponent implements OnInit {
     numberFlag = false;
     upperFlag = false;
     lowerFlag = false;
+    isLoading = false;
 
     constructor(
+        private readonly _authConfig: PxbAuthConfig,
         private readonly _router: Router,
-        @Inject(PXB_AUTH_CONFIG) private readonly _config: PxbAuthConfig,
+        private readonly _pxbAuthUIActionsService: PxbAuthUIService,
+        private readonly _securityService: PxbAuthSecurityService,
         private readonly _formBuilder: FormBuilder
     ) {
         this.passwordFormGroup = this._formBuilder.group(
@@ -92,12 +99,26 @@ export class PxbResetPasswordComponent implements OnInit {
     }
 
     navigateToLogin(): void {
-        void this._router.navigate([`${this._config.authRoute}/${LOGIN_ROUTE}`]);
+        void this._router.navigate([`${this._authConfig.authRoute}/${LOGIN_ROUTE}`]);
     }
 
+    // TODO: How should the email and code be supplied to this service?
+    // Two options, via securityService, Input variables, or should we parse URL (assuming info is supplied).
     resetPassword(): void {
-        // submit form
-
-        this.passwordResetSuccess = true;
+        const password = this.passwordFormGroup.value.confirmPassword;
+        this.isLoading = true;
+        void this._pxbAuthUIActionsService
+            .setPassword(this.code, password, this.email)
+            .then(() => {
+                /* eslint-disable-next-line no-console */
+                console.log('reset password success');
+                this.passwordResetSuccess = true;
+                this.isLoading = false;
+            })
+            .catch(() => {
+                /* eslint-disable-next-line no-console */
+                console.log('reset password failed');
+                this.isLoading = false;
+            });
     }
 }
