@@ -5,17 +5,12 @@ import { PxbLoginErrorDialogComponent } from './login-error-dialog.component';
 @Injectable({
     providedIn: 'root',
 })
-export class PxbLoginErrorDialogService {
+export class PxbLoginErrorDialogService { // TODO: implements CustomDialog
     constructor(public dialog: MatDialog) {}
 
     openDialog(): MatDialogRef<PxbLoginErrorDialogComponent> {
         return this.dialog.open(PxbLoginErrorDialogComponent, {
             disableClose: true,
-            panelClass: 'pxb-login-error-dialog',
         });
-    }
-
-    closeDialog(): void {
-        this.dialog.closeAll();
     }
 }
