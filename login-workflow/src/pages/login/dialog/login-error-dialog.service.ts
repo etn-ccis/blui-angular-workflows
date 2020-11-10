@@ -10,8 +10,6 @@ export class PxbLoginErrorDialogService {
 
     openDialog(): MatDialogRef<PxbLoginErrorDialogComponent> {
         return this.dialog.open(PxbLoginErrorDialogComponent, {
-            width: '444px',
-            height: '710px',
             disableClose: true,
             panelClass: 'pxb-login-error-dialog',
         });
