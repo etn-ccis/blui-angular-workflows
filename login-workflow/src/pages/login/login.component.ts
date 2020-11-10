@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, ViewChild } from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, ValidatorFn, Validators } from '@angular/forms';
 import { AuthErrorStateMatcher } from '../../util/matcher';
@@ -23,25 +23,26 @@ export const PXB_LOGIN_VALIDATOR_ERROR_NAME = 'PXB_LOGIN_VALIDATOR_ERROR_NAME';
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss'],
 })
-export class PxbLoginComponent implements AfterViewInit {
+export class PxbLoginComponent implements OnInit, AfterViewInit {
     @ViewChild('header', { static: false }) headerEl: ElementRef;
     @ViewChild('footer', { static: false }) footerEl: ElementRef;
 
-    customErrorName = PXB_LOGIN_VALIDATOR_ERROR_NAME;
     @Input() customEmailValidator: ValidatorFn;
-    enableDebugMode = false;
-    showSelfRegistration = false;
+    customErrorName = PXB_LOGIN_VALIDATOR_ERROR_NAME;
+
 
     emailFormControl: FormControl;
     passwordFormControl: FormControl;
+    matcher = new AuthErrorStateMatcher();
 
     isLoading: boolean;
     rememberMe: boolean;
-    matcher = new AuthErrorStateMatcher();
-    isEmpty = (el: ElementRef): boolean => isEmptyView(el);
     isPasswordVisible = false;
     debugMode = false;
-    securityState: SecurityContext;
+    enableDebugMode = false;
+    showSelfRegistration = false;
+
+    isEmpty = (el: ElementRef): boolean => isEmptyView(el);
 
     constructor(
         private readonly _changeDetectorRef: ChangeDetectorRef,
@@ -52,10 +53,10 @@ export class PxbLoginComponent implements AfterViewInit {
     ) {}
 
     ngOnInit(): void {
+        const securityState = this._securityService.getSecurityState();
         this.enableDebugMode = this._authConfig.allowDebugMode;
         this.showSelfRegistration = this._authConfig.showSelfRegistration;
-        this.securityState = this._securityService.getSecurityState();
-        this.rememberMe = this.securityState.rememberMeDetails.rememberMe;
+        this.rememberMe = securityState.rememberMeDetails.rememberMe;
 
         const emailValidators = [
             Validators.required,
@@ -66,7 +67,7 @@ export class PxbLoginComponent implements AfterViewInit {
             emailValidators.push(this.customEmailValidator);
         }
         this.emailFormControl = new FormControl(
-            this.rememberMe ? this.securityState.rememberMeDetails.email : '',
+            this.rememberMe ? securityState.rememberMeDetails.email : '',
             emailValidators
         );
         this.passwordFormControl = new FormControl('', []);
@@ -78,8 +79,7 @@ export class PxbLoginComponent implements AfterViewInit {
     }
 
     ngAfterViewInit(): void {
-        this._changeDetectorRef.detectChanges();
-        this._changeDetectorRef.detectChanges();
+      this._changeDetectorRef.detectChanges();
     }
 
     togglePasswordVisibility(): void {
@@ -99,15 +99,11 @@ export class PxbLoginComponent implements AfterViewInit {
         this._pxbAuthUIActionsService
             .login(email, password, rememberMe)
             .then(() => {
-                /* eslint-disable-next-line no-console */
-                console.log('login success');
                 this._securityService.onUserAuthenticated(email, password, rememberMe);
                 this.navigateToDefaultRoute(); // TODO: User needs to provide this route somehow.
                 this.isLoading = false;
             })
             .catch(() => {
-                /* eslint-disable-next-line no-console */
-                console.log('login failed');
                 this._securityService.onUserNotAuthenticated();
                 this.isLoading = false;
             });
