@@ -76,11 +76,7 @@
     </button>
 </div>
 
-<div
-    *ngIf="debugMode"
-    class="pxb-login-test-forgot-password-email-link mat-body-2"
-    (click)="testForgotPasswordEmail()"
->
+<div *ngIf="debugMode" class="pxb-login-test-forgot-password-email-link mat-body-2" (click)="testForgotPasswordEmail()">
     [Test Forgot Password Email]
 </div>
 <div *ngIf="debugMode" class="pxb-login-test-invite-register-link mat-body-2" (click)="testInviteRegister()">

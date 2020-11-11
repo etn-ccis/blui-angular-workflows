@@ -1,4 +1,4 @@
-import {Injectable, Input} from '@angular/core';
+import { Injectable } from '@angular/core';
 
 export type PasswordRequirement = {
     description: string;
