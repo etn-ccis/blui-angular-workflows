@@ -17,6 +17,9 @@ import { PxbAuthSecurityService, SecurityContext } from '../services/state/auth-
     selector: 'pxb-auth',
     templateUrl: './auth.component.html',
     styleUrls: ['./auth.component.scss'],
+    host: {
+        class: 'pxb-auth',
+    },
 })
 export class PxbAuthComponent implements OnInit {
     @ViewChild('login', { static: false }) loginEl: ElementRef;
