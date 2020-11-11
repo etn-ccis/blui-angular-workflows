@@ -1,26 +1,25 @@
-<div class="mat-title title">Contact Us</div>
-
+<div class="mat-title pxb-contact-support-title">Contact Us</div>
 <div style="text-align: center; margin-bottom: 26px; margin-top: 8px;">
-    <mat-icon class="chat-bubble-icon">chat_bubble_outline</mat-icon>
+    <mat-icon class="pxb-contact-support-chat-bubble-icon">chat_bubble_outline</mat-icon>
 </div>
 
-<div class="content">
+<div class="pxb-contact-support-description">
     <p class="mat-body-1" style="margin-bottom: 8px;">General Questions</p>
 
     <p class="mat-body-1" style="margin-bottom: 32px;">
         For questions, feedback, or support please email us at
-        <a class="link" [href]="'mailto:' + contactEmail">{{ contactEmail }}</a
+        <a class="pxb-contact-support-link" [href]="'mailto:' + authConfig.contactEmail">{{ authConfig.contactEmail }}</a
         >.
     </p>
 
     <p class="mat-body-1" style="margin-bottom: 8px;">Emergency Support</p>
 
     <p class="mat-body-1">
-        For 24/7 technical support, please call <a class="link" [href]="'tel:' + contactPhone">{{ contactPhone }}</a
-        >.
+        For technical support, please call <a class="pxb-contact-support-link" [href]="'tel:' + authConfig.contactPhone">{{ authConfig.contactPhone }}</a
+    >.
     </p>
 </div>
 
-<div class="button-container">
+<div class="pxb-contact-support-button-container">
     <button mat-flat-button color="primary" (click)="navigateToLogin()" style="width: 100px;">Okay</button>
 </div>

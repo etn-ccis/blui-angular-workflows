@@ -7,14 +7,16 @@ import { PxbAuthConfig } from '../../services/config/auth-config';
     selector: 'pxb-contact-support',
     templateUrl: './contact-support.component.html',
     styleUrls: ['./contact-support.component.scss'],
+    host: {
+        class: 'pxb-contact-support',
+    },
 })
 export class PxbContactSupportComponent {
-    @Input() contactEmail = 'something@email.com';
-    @Input() contactPhone = '1-800-123-4567';
 
-    constructor(private readonly _router: Router, private readonly _authConfig: PxbAuthConfig) {}
+    constructor(private readonly _router: Router, public authConfig: PxbAuthConfig) {
+    }
 
     navigateToLogin(): void {
-        void this._router.navigate([`${this._authConfig.authRoute}/${LOGIN_ROUTE}`]);
+        void this._router.navigate([`${this.authConfig.authRoute}/${LOGIN_ROUTE}`]);
     }
 }

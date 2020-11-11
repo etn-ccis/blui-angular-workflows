@@ -59,14 +59,6 @@ export class PxbAuthComponent implements OnInit {
         this.initiateSecurity();
         this.projectImage = this._pxbAuthConfig.projectImage;
         this.backgroundImage = this._pxbAuthConfig.backgroundImage;
-
-        // logs user in if they are already authenticated
-        this._pxbSecurityService.securityStateChanges().subscribe((state) => {
-            if (state.isAuthenticatedUser) {
-                // TODO: This homeRoute has to be provided by the end user.
-                void this._router.navigate([this._pxbAuthConfig.homeRoute]);
-            }
-        });
     }
 
     initiateSecurity(): void {
@@ -81,7 +73,7 @@ export class PxbAuthComponent implements OnInit {
         return route.urlAfterRedirects === potentialAuthRoute;
     }
 
-    // This will listen for auth state loading changes and show a loading screen.
+    // This will listen for auth state loading changes and toggles the shared overlay loading screen.
     private _listenForAuthLoadingStateChanges(): void {
         this._pxbSecurityService
             .securityStateChanges()
