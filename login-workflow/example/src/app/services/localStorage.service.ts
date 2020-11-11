@@ -19,7 +19,7 @@ export class LocalStorageService {
     }
 
     readAuthData(): AuthData {
-      return { email: window.localStorage.getItem(this.emailKey) || '' };
+        return { email: window.localStorage.getItem(this.emailKey) || '' };
     }
 
     setAuthData(email: string): void {
