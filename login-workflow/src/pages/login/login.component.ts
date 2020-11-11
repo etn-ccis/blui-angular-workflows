@@ -23,6 +23,9 @@ export const PXB_LOGIN_VALIDATOR_ERROR_NAME = 'PXB_LOGIN_VALIDATOR_ERROR_NAME';
     selector: 'pxb-login',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss'],
+    host: {
+        class: 'pxb-login',
+    },
 })
 export class PxbLoginComponent implements OnInit, AfterViewInit {
     @ViewChild('header', { static: false }) headerEl: ElementRef;

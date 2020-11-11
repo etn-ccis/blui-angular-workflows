@@ -22,7 +22,6 @@ class CrossFieldErrorMatcher implements ErrorStateMatcher {
     host: {
         class: 'pxb-change-password',
     },
-
 })
 export class PxbChangePasswordComponent {
     @Input() email = 'testemail@email.com';
