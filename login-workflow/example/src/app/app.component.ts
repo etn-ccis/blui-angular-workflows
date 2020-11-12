@@ -25,7 +25,7 @@ export class AppComponent {
         this.router.events.subscribe((event) => {
             if (event instanceof NavigationStart && !this.firstRouteCaptured) {
                 this.firstRouteCaptured = true;
-                if (event.url.includes('auth')) {
+                if (event.url.includes('auth') || event.url === '/') {
                     this.pxbAuthConfig.homeRoute = 'home';
                 } else {
                     this.pxbAuthConfig.homeRoute = event.url;

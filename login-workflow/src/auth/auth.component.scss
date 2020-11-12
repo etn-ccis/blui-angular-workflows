@@ -40,7 +40,7 @@
     .pxb-auth-reset-password,
     .pxb-auth-create-account,
     .pxb-auth-create-account-invite {
-        height: 100%;
+        flex: 1 1 0px;
         display: flex;
         flex-direction: column;
         padding: 16px 24px;

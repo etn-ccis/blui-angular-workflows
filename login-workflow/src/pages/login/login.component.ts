@@ -49,7 +49,7 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
 
     constructor(
         private readonly _router: Router,
-        private readonly _authConfig: PxbAuthConfig,
+        private readonly _pxbAuthConfig: PxbAuthConfig,
         private readonly _changeDetectorRef: ChangeDetectorRef,
         private readonly _pxbUIActionsService: PxbAuthUIService,
         private readonly _pxbSecurityService: PxbAuthSecurityService,
@@ -58,8 +58,8 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
 
     ngOnInit(): void {
         const securityState = this._pxbSecurityService.getSecurityState();
-        this.enableDebugMode = this._authConfig.allowDebugMode;
-        this.showSelfRegistration = this._authConfig.showSelfRegistration;
+        this.enableDebugMode = this._pxbAuthConfig.allowDebugMode;
+        this.showSelfRegistration = this._pxbAuthConfig.showSelfRegistration;
         this.rememberMe = securityState.rememberMeDetails.rememberMe;
 
         const emailValidators = [
@@ -114,27 +114,27 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
     }
 
     navigateToDefaultRoute(): void {
-        void this._router.navigate([this._authConfig.homeRoute]);
+        void this._router.navigate([this._pxbAuthConfig.homeRoute]);
     }
 
     forgotPassword(): void {
-        void this._router.navigate([`${this._authConfig.authRoute}/${FORGOT_PASSWORD_ROUTE}`]);
+        void this._router.navigate([`${this._pxbAuthConfig.authRoute}/${FORGOT_PASSWORD_ROUTE}`]);
     }
 
     testForgotPasswordEmail(): void {
-        void this._router.navigate([`${this._authConfig.authRoute}/${RESET_PASSWORD_ROUTE}`]);
+        void this._router.navigate([`${this._pxbAuthConfig.authRoute}/${RESET_PASSWORD_ROUTE}`]);
     }
 
     testInviteRegister(): void {
-        void this._router.navigate([`${this._authConfig.authRoute}/${CREATE_ACCOUNT_INVITE_ROUTE}`]);
+        void this._router.navigate([`${this._pxbAuthConfig.authRoute}/${CREATE_ACCOUNT_INVITE_ROUTE}`]);
     }
 
     createAccount(): void {
-        void this._router.navigate([`${this._authConfig.authRoute}/${CREATE_ACCOUNT_ROUTE}`]);
+        void this._router.navigate([`${this._pxbAuthConfig.authRoute}/${CREATE_ACCOUNT_ROUTE}`]);
     }
 
     contactSupport(): void {
-        void this._router.navigate([`${this._authConfig.authRoute}/${CONTACT_SUPPORT_ROUTE}`]);
+        void this._router.navigate([`${this._pxbAuthConfig.authRoute}/${CONTACT_SUPPORT_ROUTE}`]);
     }
 
     isValidFormEntries(): boolean {
