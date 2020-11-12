@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PxbForgotPasswordComponent } from './forgot-password.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import {PxbAuthModule} from "../../auth.module";
-import {NoopAnimationsModule} from "@angular/platform-browser/animations";
+import { PxbAuthModule } from '../../auth.module';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('ForgotPasswordComponent', () => {
     let component: PxbForgotPasswordComponent;
