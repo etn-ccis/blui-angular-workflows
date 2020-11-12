@@ -5,8 +5,9 @@ import { AuthErrorStateMatcher } from '../../util/matcher';
 import { PXB_LOGIN_VALIDATOR_ERROR_NAME } from '../login/login.component';
 import { PxbAuthUIService } from '../../services/api/auth-ui.service';
 import { FORGOT_PASSWORD_ROUTE, LOGIN_ROUTE } from '../../auth/auth.routes';
-
 import { PxbAuthConfig } from '../../services/config/auth-config';
+import { PxbAuthSecurityService } from '../../services/state/auth-security.service';
+import { PxbForgotPasswordErrorDialogService } from './dialog/forgot-password-error-dialog.service';
 
 @Component({
     selector: 'pxb-forgot-password',
@@ -14,14 +15,10 @@ import { PxbAuthConfig } from '../../services/config/auth-config';
     styleUrls: ['./forgot-password.component.scss'],
 })
 export class PxbForgotPasswordComponent implements OnInit {
-    @Input() contactPhone = '1-800-123-4567';
     @Input() successTitle = 'Email Sent';
     @Input() successDescription = 'A link to reset your password has been sent to ';
     @Input() includeEmailInSuccessMessage = true;
     @Input() customEmailValidator: ValidatorFn;
-
-    loading = false;
-
     customErrorName = PXB_LOGIN_VALIDATOR_ERROR_NAME;
 
     emailFormControl: FormControl;
@@ -31,8 +28,10 @@ export class PxbForgotPasswordComponent implements OnInit {
 
     constructor(
         private readonly _router: Router,
+        public readonly pxbAuthConfig: PxbAuthConfig,
         private readonly _pxbAuthUIActionsService: PxbAuthUIService,
-        private readonly _authConfig: PxbAuthConfig
+        private readonly _pxbSecurityService: PxbAuthSecurityService,
+        private readonly _pxbForgotPasswordDialogService: PxbForgotPasswordErrorDialogService
     ) {}
 
     ngOnInit(): void {
@@ -47,15 +46,8 @@ export class PxbForgotPasswordComponent implements OnInit {
         this.emailFormControl = new FormControl('', emailValidators);
     }
 
-    done(): void {
-        this.navigateToLogin();
-        this.passwordResetSuccess = false;
-        this.emailFormControl.reset();
-        this.successDescriptionMessage = null;
-    }
-
     navigateToLogin(): void {
-        void this._router.navigate([`${this._authConfig.authRoute}/${LOGIN_ROUTE}`]);
+        void this._router.navigate([`${this.pxbAuthConfig.authRoute}/${LOGIN_ROUTE}`]);
     }
 
     resetPassword(): void {
@@ -67,21 +59,17 @@ export class PxbForgotPasswordComponent implements OnInit {
         }
 
         const email = this.emailFormControl.value;
-        this.loading = true;
+        this._pxbSecurityService.setLoading(true);
         this._pxbAuthUIActionsService
             .forgotPassword(email)
             .then(() => {
-                /* eslint-disable-next-line no-console */
-                console.log('forgot password success');
                 this.passwordResetSuccess = true;
-                void this._router.navigate([`${this._authConfig.authRoute}/${FORGOT_PASSWORD_ROUTE}`]);
-
-                this.loading = false;
+                void this._router.navigate([`${this.pxbAuthConfig.authRoute}/${FORGOT_PASSWORD_ROUTE}`]);
+                this._pxbSecurityService.setLoading(false);
             })
             .catch(() => {
-                /* eslint-disable-next-line no-console */
-                console.log('forgot password fail');
-                this.loading = false;
+                this._pxbForgotPasswordDialogService.openDialog();
+                this._pxbSecurityService.setLoading(false);
             });
     }
 }

@@ -76,22 +76,23 @@
     </button>
 </div>
 
-<div *ngIf="debugMode" class="pxb-login-test-forgot-password-email-link mat-body-2" (click)="testForgotPasswordEmail()">
+<div *ngIf="debugMode" class="pxb-auth-link mat-body-2" (click)="testForgotPasswordEmail()">
     [Test Forgot Password Email]
 </div>
-<div *ngIf="debugMode" class="pxb-login-test-invite-register-link mat-body-2" (click)="testInviteRegister()">
+<div *ngIf="debugMode" class="pxb-auth-link mat-body-2" (click)="testInviteRegister()">
     [Test Invite Register]
 </div>
-<div class="pxb-login-password-link mat-body-2" (click)="forgotPassword()">Forgot your Password?</div>
+<div class="pxb-auth-link mat-body-2" (click)="forgotPassword()" style="margin-bottom: 32px">Forgot your Password?</div>
 <div class="mat-body-2" style="text-align: center;">Need an account?</div>
 <div
     *ngIf="debugMode || showSelfRegistration"
-    class="pxb-login-create-account-link mat-body-2"
+    class="pxb-auth-link mat-body-2"
+    style="margin-bottom: 32px"
     (click)="createAccount()"
 >
     Create Account
 </div>
-<div class="pxb-login-contact-eaton-support-link mat-body-2" (click)="contactSupport()">
+<div class="pxb-auth-link mat-body-2" (click)="contactSupport()" style="margin-bottom: 32px">
     Contact an Eaton Support Representative
 </div>
 

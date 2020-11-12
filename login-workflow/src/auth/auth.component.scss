@@ -32,6 +32,7 @@
 
     .pxb-auth-login {
         padding: 32px 64px;
+        overflow-x: auto;
     }
 
     .pxb-auth-contact-support,
@@ -56,4 +57,12 @@
 ::ng-deep .mat-divider.pxb-auth-divider {
     margin-left: -24px !important;
     margin-right: -24px !important;
+}
+
+::ng-deep .pxb-auth-link {
+    color: map-get($pxb-blue, 500);
+    text-decoration: none;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
 }

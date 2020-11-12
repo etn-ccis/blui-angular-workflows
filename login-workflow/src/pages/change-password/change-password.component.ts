@@ -109,13 +109,6 @@ export class PxbChangePasswordComponent {
 
     done(): void {
         this.closeDialog();
-        this.passwordChangeSuccess = false;
-        this.passwordFormGroup.reset();
-        this.passLength = false;
-        this.specialFlag = false;
-        this.numberFlag = false;
-        this.upperFlag = false;
-        this.lowerFlag = false;
         void this._router.navigate([`${this._authConfig.authRoute}/${LOGIN_ROUTE}`]);
     }
 
