@@ -1,4 +1,11 @@
-To run test out this reusable workflow run:
+To run the example project, run:
+
+```
+yarn start:example
+```
+
+
+To run as a developer making edits:
 
 
 ```
@@ -10,3 +17,5 @@ and in a separate terminal:
 ```
 cd example && yarn start
 ```
+
+
