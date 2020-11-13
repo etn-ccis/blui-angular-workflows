@@ -19,9 +19,14 @@ export class AuthUIService implements IPxbAuthUIService {
         await sleep(1000);
         authData = await this._localStorageService.readAuthData();
         if (authData.email) {
-            console.log('We have an email in local storage, authenticating the user.');
-            // Session information is normally validated via an api; this is just an example.
-            this._pxbSecurityService.onUserAuthenticated(authData.email, undefined, true);
+            console.log('We have an email in local storage, providing Remember Me details.');
+            const state = this._pxbSecurityService.getSecurityState();
+            this._pxbSecurityService.setSecurityState(Object.assign(state, {
+              rememberMeDetails: {
+                email: authData.email,
+                rememberMe: true
+              }
+            }));
         } else {
             console.log('User is not authenticated.');
             this._pxbSecurityService.onUserNotAuthenticated();

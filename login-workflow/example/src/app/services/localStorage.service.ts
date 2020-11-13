@@ -15,7 +15,7 @@ export class LocalStorageService {
     emailKey: string;
 
     constructor(@Inject('APP_NAME') APP_NAME) {
-        this.emailKey = `${APP_NAME}_EMAIL`;
+        this.emailKey = `${APP_NAME}_REMEMBER_ME_EMAIL`;
     }
 
     readAuthData(): AuthData {
