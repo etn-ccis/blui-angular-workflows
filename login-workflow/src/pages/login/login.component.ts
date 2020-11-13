@@ -34,7 +34,6 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
     @Input() customEmailValidator: ValidatorFn;
     customErrorName = PXB_LOGIN_VALIDATOR_ERROR_NAME;
 
-
     emailFormControl: FormControl;
     passwordFormControl: FormControl;
     matcher = new AuthErrorStateMatcher();

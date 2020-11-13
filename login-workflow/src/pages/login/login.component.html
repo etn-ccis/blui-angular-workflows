@@ -23,8 +23,8 @@
     <mat-form-field appearance="fill">
         <mat-label>Email Address</mat-label>
         <input
-            (focus)="emailFormFocus=true"
-            (blur)="emailFormFocus=false"
+            (focus)="emailFormFocus = true"
+            (blur)="emailFormFocus = false"
             id="email"
             name="email"
             type="email"
@@ -34,7 +34,8 @@
             autocomplete="off"
         />
         <mat-error
-            *ngIf="!emailFormFocus &&
+            *ngIf="
+                !emailFormFocus &&
                 emailFormControl.hasError('email') &&
                 !emailFormControl.hasError('required') &&
                 !emailFormControl.hasError(customErrorName)
@@ -45,8 +46,9 @@
         <mat-error *ngIf="!emailFormFocus && emailFormControl.hasError(customErrorName)">
             {{ emailFormControl.errors[customErrorName].message }}
         </mat-error>
-        <mat-error *ngIf="!emailFormFocus &&
-                emailFormControl.dirty && emailFormControl.hasError('required')"> Email is <strong>required</strong> </mat-error>
+        <mat-error *ngIf="!emailFormFocus && emailFormControl.dirty && emailFormControl.hasError('required')">
+            Email is <strong>required</strong>
+        </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
