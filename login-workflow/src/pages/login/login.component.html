@@ -45,7 +45,8 @@
         <mat-error *ngIf="!emailFormFocus && emailFormControl.hasError(customErrorName)">
             {{ emailFormControl.errors[customErrorName].message }}
         </mat-error>
-        <mat-error *ngIf="!emailFormFocus && emailFormControl.hasError('required')"> Email is <strong>required</strong> </mat-error>
+        <mat-error *ngIf="!emailFormFocus &&
+                emailFormControl.dirty && emailFormControl.hasError('required')"> Email is <strong>required</strong> </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
