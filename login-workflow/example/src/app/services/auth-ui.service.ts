@@ -17,23 +17,25 @@ export class AuthUIService implements IPxbAuthUIService {
     async initiateSecurity(): Promise<any> {
         let authData: AuthData;
         return new Promise((resolve) => {
-          setTimeout(() => {
-            authData = this._localStorageService.readAuthData();
-            if (authData.email) {
-              console.log('We have an email in local storage, providing Remember Me details.');
-              const state = this._pxbSecurityService.getSecurityState();
-              this._pxbSecurityService.setSecurityState(Object.assign(state, {
-                rememberMeDetails: {
-                  email: authData.email,
-                  rememberMe: true
+            setTimeout(() => {
+                authData = this._localStorageService.readAuthData();
+                if (authData.email) {
+                    console.log('We have an email in local storage, providing Remember Me details.');
+                    const state = this._pxbSecurityService.getSecurityState();
+                    this._pxbSecurityService.setSecurityState(
+                        Object.assign(state, {
+                            rememberMeDetails: {
+                                email: authData.email,
+                                rememberMe: true,
+                            },
+                        })
+                    );
+                } else {
+                    console.log('User is not authenticated.');
+                    this._pxbSecurityService.onUserNotAuthenticated();
                 }
-              }));
-            } else {
-              console.log('User is not authenticated.');
-              this._pxbSecurityService.onUserNotAuthenticated();
-            }
-            return resolve();
-          }, 1000);
+                return resolve();
+            }, 1000);
         });
     }
 
