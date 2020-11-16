@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { PxbAuthSecurityService, PxbAuthConfig, SecurityContext } from '@pxblue/angular-auth-workflow';
 import { LocalStorageService } from './services/localStorage.service';
 import { NavigationStart, Router } from '@angular/router';
+import {AUTH_ROUTE} from "./app.routing";
 
 @Component({
     selector: 'app-root',
@@ -22,15 +23,12 @@ export class AppComponent {
 
     // Whenever the application loads for the first time, we may want to direct the user to their original destination, before they were redirected to the login screen.
     private listenForInitialRouteLoad(): void {
-        this.router.events.subscribe((event) => {
-            if (event instanceof NavigationStart && !this.firstRouteCaptured) {
-                this.firstRouteCaptured = true;
-                if (event.url.includes('auth') || event.url === '/') {
-                    this.pxbAuthConfig.homeRoute = 'home';
-                } else {
-                    this.pxbAuthConfig.homeRoute = event.url;
-                }
-            }
+        this.pxbSecurityService.initialRouteLoad().subscribe((event: NavigationStart) => {
+          if (event.url.includes(AUTH_ROUTE) || event.url === '/') {
+            this.pxbAuthConfig.homeRoute = 'home';
+          } else {
+            this.pxbAuthConfig.homeRoute = event.url;
+          }
         });
     }
 

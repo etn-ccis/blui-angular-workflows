@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import {Observable, Subject, Subscription} from 'rxjs';
+import {NavigationStart, Router} from "@angular/router";
 
 export type SecurityContext = {
     /**
@@ -56,7 +57,11 @@ export type RememberMeData = {
     providedIn: 'root',
 })
 export class PxbAuthSecurityService {
+
+
     private readonly securityStateObs = new Subject<SecurityContext>();
+    private readonly initialRouteLoadObs = new Subject<NavigationStart>();
+    private isFirstRouteCaptured = false;
     private securityState: SecurityContext = {
         userId: undefined,
         email: undefined,
@@ -70,6 +75,15 @@ export class PxbAuthSecurityService {
         isShowingChangePassword: false,
     };
 
+    constructor(private readonly _router: Router) {
+       _router.events.subscribe((event) => {
+            if (event instanceof NavigationStart && !this.isFirstRouteCaptured) {
+                this.isFirstRouteCaptured = true;
+                this.initialRouteLoadObs.next(event);
+            }
+        });
+    }
+
     setSecurityState(newSecurityState: SecurityContext): void {
         this.securityState = newSecurityState;
         this.securityStateObs.next(this.securityState);
@@ -81,6 +95,10 @@ export class PxbAuthSecurityService {
 
     securityStateChanges(): Observable<SecurityContext> {
         return this.securityStateObs;
+    }
+
+    initialRouteLoad(): Observable<NavigationStart> {
+        return this.initialRouteLoadObs;
     }
 
     setLoading(isLoading: boolean): void {
