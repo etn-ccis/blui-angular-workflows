@@ -30,9 +30,9 @@
         align-items: center;
     }
 
-    .pxb-auth-login div {
+    .pxb-auth-login {
         padding: 32px 64px;
-        overflow-x: auto;
+        overflow: auto;
     }
 
     .pxb-auth-contact-support,
@@ -44,6 +44,7 @@
         display: flex;
         flex-direction: column;
         padding: 32px 24px 24px 24px;
+        overflow: auto;
     }
 
     ::ng-deep .mat-card .mat-divider-horizontal {
