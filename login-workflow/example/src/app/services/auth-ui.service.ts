@@ -16,22 +16,25 @@ export class AuthUIService implements IPxbAuthUIService {
     // This method is called at the start of the application to check if a remembered user is returning to the app and initiate pxb SecurityContext.
     async initiateSecurity(): Promise<any> {
         let authData: AuthData;
-        await sleep(1000);
-        authData = await this._localStorageService.readAuthData();
-        if (authData.email) {
-            console.log('We have an email in local storage, providing Remember Me details.');
-            const state = this._pxbSecurityService.getSecurityState();
-            this._pxbSecurityService.setSecurityState(Object.assign(state, {
-              rememberMeDetails: {
-                email: authData.email,
-                rememberMe: true
-              }
-            }));
-        } else {
-            console.log('User is not authenticated.');
-            this._pxbSecurityService.onUserNotAuthenticated();
-        }
-        return Promise.resolve();
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            authData = this._localStorageService.readAuthData();
+            if (authData.email) {
+              console.log('We have an email in local storage, providing Remember Me details.');
+              const state = this._pxbSecurityService.getSecurityState();
+              this._pxbSecurityService.setSecurityState(Object.assign(state, {
+                rememberMeDetails: {
+                  email: authData.email,
+                  rememberMe: true
+                }
+              }));
+            } else {
+              console.log('User is not authenticated.');
+              this._pxbSecurityService.onUserNotAuthenticated();
+            }
+            return resolve();
+          }, 1000);
+        });
     }
 
     async login(email: string, password: string, rememberMe: boolean): Promise<void> {
