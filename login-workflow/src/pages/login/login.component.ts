@@ -38,7 +38,8 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
     passwordFormControl: FormControl;
     matcher = new AuthErrorStateMatcher();
 
-    emailFormFocus: boolean;
+    idFieldActive = false;
+    touchedIdField = false;
     isLoading: boolean;
     rememberMe: boolean;
     isPasswordVisible = false;
@@ -140,5 +141,11 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
 
     isValidFormEntries(): boolean {
         return this.passwordFormControl.value && this.emailFormControl.valid;
+    }
+
+    isLoginFormDirty(): boolean {
+        return (
+            !this.idFieldActive && this.touchedIdField && (this.emailFormControl.dirty || this.emailFormControl.touched)
+        );
     }
 }
