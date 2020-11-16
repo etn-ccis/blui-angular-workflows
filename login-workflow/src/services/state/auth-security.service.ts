@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { NavigationStart, Router } from '@angular/router';
-import {PxbAuthConfig} from "../../services/config/auth-config";
-import {AUTH_ROUTE} from "../../auth/auth.routes";
+import { PxbAuthConfig } from '../../services/config/auth-config';
+import { AUTH_ROUTE } from '../../auth/auth.routes';
 
 export type SecurityContext = {
     /**
