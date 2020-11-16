@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { NavigationStart, Router } from '@angular/router';
+import {PxbAuthConfig} from "../../services/config/auth-config";
+import {AUTH_ROUTE} from "../../auth/auth.routes";
 
 export type SecurityContext = {
     /**
@@ -58,7 +60,6 @@ export type RememberMeData = {
 })
 export class PxbAuthSecurityService {
     private readonly securityStateObs = new Subject<SecurityContext>();
-    private readonly initialRouteLoadObs = new Subject<NavigationStart>();
     private isFirstRouteCaptured = false;
     private securityState: SecurityContext = {
         userId: undefined,
@@ -73,11 +74,14 @@ export class PxbAuthSecurityService {
         isShowingChangePassword: false,
     };
 
-    constructor(private readonly _router: Router) {
+    // Whenever the application loads for the first time, we may want to direct the user to their original destination, before they were redirected to the login screen.
+    constructor(private readonly _router: Router, private readonly _pxbAuthConfig: PxbAuthConfig) {
         _router.events.subscribe((event) => {
             if (event instanceof NavigationStart && !this.isFirstRouteCaptured) {
                 this.isFirstRouteCaptured = true;
-                this.initialRouteLoadObs.next(event);
+                if (!event.url.includes(AUTH_ROUTE) && event.url === '/') {
+                    this._pxbAuthConfig.homeRoute = event.url;
+                }
             }
         });
     }
@@ -93,10 +97,6 @@ export class PxbAuthSecurityService {
 
     securityStateChanges(): Observable<SecurityContext> {
         return this.securityStateObs;
-    }
-
-    initialRouteLoad(): Observable<NavigationStart> {
-        return this.initialRouteLoadObs;
     }
 
     setLoading(isLoading: boolean): void {
