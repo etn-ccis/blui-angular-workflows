@@ -29,10 +29,15 @@
         flex-direction: column;
         align-items: center;
     }
-
     .pxb-auth-login {
         padding: 32px 64px;
         overflow: auto;
+        flex: 1 1 0px;
+        display: flex;
+        flex-direction: column;
+        > div {
+            height: 100%;
+        }
     }
 
     .pxb-auth-contact-support,

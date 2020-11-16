@@ -38,14 +38,15 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
     passwordFormControl: FormControl;
     matcher = new AuthErrorStateMatcher();
 
-    idFieldActive = false;
-    touchedIdField = false;
     isLoading: boolean;
     rememberMe: boolean;
+    enableDebugMode: boolean;
+    showSelfRegistration: boolean;
+
     isPasswordVisible = false;
     debugMode = false;
-    enableDebugMode = false;
-    showSelfRegistration = false;
+    idFieldActive = false;
+    touchedIdField = false;
 
     isEmpty = (el: ElementRef): boolean => isEmptyView(el);
 

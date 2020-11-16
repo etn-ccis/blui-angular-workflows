@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {Observable, Subject, Subscription} from 'rxjs';
-import {NavigationStart, Router} from "@angular/router";
+import { Observable, Subject } from 'rxjs';
+import { NavigationStart, Router } from '@angular/router';
 
 export type SecurityContext = {
     /**
@@ -57,8 +57,6 @@ export type RememberMeData = {
     providedIn: 'root',
 })
 export class PxbAuthSecurityService {
-
-
     private readonly securityStateObs = new Subject<SecurityContext>();
     private readonly initialRouteLoadObs = new Subject<NavigationStart>();
     private isFirstRouteCaptured = false;
@@ -76,7 +74,7 @@ export class PxbAuthSecurityService {
     };
 
     constructor(private readonly _router: Router) {
-       _router.events.subscribe((event) => {
+        _router.events.subscribe((event) => {
             if (event instanceof NavigationStart && !this.isFirstRouteCaptured) {
                 this.isFirstRouteCaptured = true;
                 this.initialRouteLoadObs.next(event);

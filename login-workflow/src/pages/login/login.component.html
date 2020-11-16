@@ -88,18 +88,21 @@
     [Test Invite Register]
 </div>
 <div class="pxb-auth-link mat-body-2" (click)="forgotPassword()" style="margin-bottom: 32px">Forgot your Password?</div>
-<div class="mat-body-2" style="text-align: center;">Need an account?</div>
-<div
-    *ngIf="debugMode || showSelfRegistration"
-    class="pxb-auth-link mat-body-2"
-    style="margin-bottom: 32px"
-    (click)="createAccount()"
->
-    Create Account
-</div>
+<ng-container *ngIf="debugMode || showSelfRegistration">
+    <div class="mat-body-2" style="text-align: center;">Need an account?</div>
+    <div
+        class="pxb-auth-link mat-body-2"
+        style="margin-bottom: 32px"
+        (click)="createAccount()"
+    >
+        Create Account
+    </div>
+</ng-container>
 <div class="pxb-auth-link mat-body-2" (click)="contactSupport()" style="margin-bottom: 32px">
     Contact an Eaton Support Representative
 </div>
+
+<pxb-spacer></pxb-spacer>
 
 <div class="pxb-login-footer">
     <div #footer>

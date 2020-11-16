@@ -22,6 +22,7 @@ export class AuthComponent {
         pxbAuthConfig.projectImage = 'assets/images/eaton_stacked_logo.png';
         pxbAuthConfig.backgroundImage = 'assets/images/background.svg';
         pxbAuthConfig.allowDebugMode = true;
+        pxbAuthConfig.showSelfRegistration = false;
     }
 
     customValidator(): ValidatorFn {
