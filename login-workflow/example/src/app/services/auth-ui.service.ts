@@ -23,10 +23,10 @@ export class AuthUIService implements IPxbAuthUIService {
                     return resolve();
                 } else if (authData.email) {
                     console.log('User is not authenticated, but we have remembered their Email.');
-                    this._pxbSecurityService.onUserNotAuthenticated({ rememberMe: true, user: authData.email});
+                    this._pxbSecurityService.onUserNotAuthenticated({ rememberMe: true, user: authData.email });
                 } else {
                     console.log('User is not authenticated and not remembered.');
-                  this._pxbSecurityService.onUserNotAuthenticated();
+                    this._pxbSecurityService.onUserNotAuthenticated();
                 }
                 return resolve();
             }, 1500);
@@ -35,7 +35,7 @@ export class AuthUIService implements IPxbAuthUIService {
 
     async login(email: string, password: string, rememberMe: boolean): Promise<void> {
         console.log(
-            `Performing a sample Login with the following credentials:\n  email: ${email} \n  password: ${password} \n  rememberMe: ${rememberMe}`
+            `Performing a sample Login request with the following credentials:\n  email: ${email} \n  password: ${password} \n  rememberMe: ${rememberMe}`
         );
         return new Promise((resolve, reject) => {
             setTimeout(() => {

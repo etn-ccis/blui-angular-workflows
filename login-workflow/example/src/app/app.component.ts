@@ -1,6 +1,6 @@
-import {Component} from '@angular/core';
-import {PxbAuthSecurityService, SecurityContext} from '@pxblue/angular-auth-workflow';
-import {LocalStorageService} from './services/localStorage.service';
+import { Component } from '@angular/core';
+import { PxbAuthSecurityService, SecurityContext } from '@pxblue/angular-auth-workflow';
+import { LocalStorageService } from './services/localStorage.service';
 
 @Component({
     selector: 'app-root',
