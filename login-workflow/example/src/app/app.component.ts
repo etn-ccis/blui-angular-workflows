@@ -15,14 +15,13 @@ export class AppComponent {
     }
 
     // When a user transitions between being logged in / logged out, update session information.
-    // This demo app stores session information in localStorage, just as a proof-of-concept.
+    // This demo app stores session information in localStorage, this is just as a proof-of-concept.
     private listenForAuthStateChanges(): void {
         this.pxbSecurityService.securityStateChanges().subscribe((state: SecurityContext) => {
-            if (state.isAuthenticatedUser && state.rememberMeDetails.rememberMe) {
-                this.localStorageService.setAuthData(state.rememberMeDetails.email);
-            } else {
-                this.localStorageService.clearAuthData();
-            }
+            const email = state.rememberMeDetails.email;
+            const rememberMe = state.rememberMeDetails.rememberMe;
+            const isAuth = state.isAuthenticatedUser;
+            this.localStorageService.setAuthData(rememberMe ? email : undefined, isAuth);
         });
     }
 }

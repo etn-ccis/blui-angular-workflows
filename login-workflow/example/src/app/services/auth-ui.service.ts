@@ -1,9 +1,8 @@
 /* eslint-disable no-console */
 import { Injectable } from '@angular/core';
 import { IPxbAuthUIService, PxbAuthSecurityService } from '@pxblue/angular-auth-workflow';
-import { AuthData, LocalStorageService } from './localStorage.service';
+import { LocalStorageService } from './localStorage.service';
 
-const sleep = (ms: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, ms));
 @Injectable({
     providedIn: 'root',
 })
@@ -17,16 +16,20 @@ export class AuthUIService implements IPxbAuthUIService {
     async initiateSecurity(): Promise<any> {
         return new Promise((resolve) => {
             setTimeout(() => {
-                let authData = this._localStorageService.readAuthData();
-                if (authData.email) {
-                    console.log('We have an email in local storage, providing Remember Me details.');
+                const authData = this._localStorageService.readAuthData();
+                if (authData.isAuthenticated) {
+                    console.log('User is authenticated.');
                     this._pxbSecurityService.onUserAuthenticated(authData.email, undefined, true);
+                    return resolve();
+                } else if (authData.email) {
+                    console.log('User is not authenticated, but we have remembered their Email.');
+                    this._pxbSecurityService.onUserNotAuthenticated({ rememberMe: true, user: authData.email});
                 } else {
-                    console.log('User is not authenticated.');
-                    this._pxbSecurityService.onUserNotAuthenticated();
+                    console.log('User is not authenticated and not remembered.');
+                  this._pxbSecurityService.onUserNotAuthenticated();
                 }
                 return resolve();
-            }, 1000);
+            }, 1500);
         });
     }
 

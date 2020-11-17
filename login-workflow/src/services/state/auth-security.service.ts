@@ -86,6 +86,10 @@ export class PxbAuthSecurityService {
         });
     }
 
+    updateSecurityState(newState: Partial<SecurityContext>) {
+        this.setSecurityState(Object.assign(this.getSecurityState(), newState));
+    }
+
     setSecurityState(newSecurityState: SecurityContext): void {
         this.securityState = newSecurityState;
         this.securityStateObs.next(this.securityState);
@@ -100,7 +104,7 @@ export class PxbAuthSecurityService {
     }
 
     setLoading(isLoading: boolean): void {
-        this.setSecurityState(Object.assign(this.getSecurityState(), { isLoading }));
+        this.updateSecurityState({ isLoading });
     }
 
     // If the user has been authenticated, this function should be called.
@@ -120,7 +124,7 @@ export class PxbAuthSecurityService {
     }
 
     // If the user has been de-authenticated (either because they logged out or app started with no credentials),
-    onUserNotAuthenticated(): void {
+    onUserNotAuthenticated(rememberMeDetails? : RememberMeData): void {
         const currState = this.getSecurityState();
         this.setSecurityState(
             Object.assign(currState, {
@@ -129,6 +133,10 @@ export class PxbAuthSecurityService {
                 isLoading: false,
                 isSignOut: true,
                 isShowingChangePassword: false,
+                rememberMeDetails: {
+                    rememberMe: rememberMeDetails?.rememberMe,
+                    email: rememberMeDetails?.user
+                }
             })
         );
     }

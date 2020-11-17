@@ -69,7 +69,7 @@
 </form>
 
 <div class="pxb-login-remember-me-login-wrapper">
-    <mat-checkbox class="pxb-login-remember-me-checkbox" [(ngModel)]="rememberMe">Remember Me</mat-checkbox>
+    <mat-checkbox class="pxb-login-remember-me-checkbox" [(ngModel)]="rememberMe" (change)="emitRememberMeChange()">Remember Me</mat-checkbox>
     <button
         mat-flat-button
         color="primary"

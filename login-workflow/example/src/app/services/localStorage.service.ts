@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 
 export type AuthData = {
     email: string;
+    isAuthenticated: boolean
 };
 
 /* This is a basic service used to demo session information stored in local storage.
@@ -13,20 +14,41 @@ export type AuthData = {
 })
 export class LocalStorageService {
     emailKey: string;
+    isAuthKey: string;
 
     constructor(@Inject('APP_NAME') APP_NAME) {
         this.emailKey = `${APP_NAME}_REMEMBER_ME_EMAIL`;
+        this.isAuthKey = `${APP_NAME}_IS_AUTH`;
     }
 
     readAuthData(): AuthData {
-        return { email: window.localStorage.getItem(this.emailKey) || '' };
+        return {
+          email: window.localStorage.getItem(this.emailKey) || '',
+          isAuthenticated: window.localStorage.getItem(this.isAuthKey) === 'true'
+        };
     }
 
-    setAuthData(email: string): void {
-        window.localStorage.setItem(this.emailKey, email);
+    setAuthData(rememberMeEmail: string, isAuth: boolean): void {
+        if (rememberMeEmail) {
+          window.localStorage.setItem(this.emailKey, rememberMeEmail);
+        } else {
+          this.clearRememberMeData();
+        }
+
+        if (isAuth) {
+          window.localStorage.setItem(this.isAuthKey, String(isAuth));
+        } else {
+          this.clearAuthenticatedData();
+        }
     }
 
-    clearAuthData(): void {
-        window.localStorage.removeItem(this.emailKey);
+    clearRememberMeData(): void {
+      window.localStorage.removeItem(this.emailKey);
+
+    }
+
+    clearAuthenticatedData(): void {
+      window.localStorage.removeItem(this.isAuthKey);
+
     }
 }
