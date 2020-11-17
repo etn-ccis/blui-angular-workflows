@@ -135,7 +135,8 @@ export class PxbAuthSecurityService {
                 isSignOut: true,
                 isShowingChangePassword: false,
                 rememberMeDetails: {
-                    rememberMe, email
+                    rememberMe,
+                    email,
                 },
             })
         );
