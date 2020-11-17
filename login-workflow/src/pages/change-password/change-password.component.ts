@@ -42,6 +42,7 @@ export class PxbChangePasswordComponent {
     passwordChangeSuccess = false;
     currentPasswordVisible = false;
     confirmPasswordVisible = false;
+    newPasswordFocus = false;
 
     constructor(
         private readonly _router: Router,
