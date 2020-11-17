@@ -54,44 +54,16 @@
         overflow: auto;
     }
 
-    ::ng-deep {
-        .mat-card .mat-divider-horizontal {
-            margin-left: -24px !important;
-            margin-right: -24px !important;
-            position: static !important;
-            width: auto !important;
-        }
-        .mat-divider.pxb-auth-divider {
-            margin-left: -24px !important;
-            margin-right: -24px !important;
-        }
-
-        .pxb-auth-link {
-            color: map-get($pxb-blue, 500);
-            text-decoration: none;
-            font-weight: 600;
-            text-align: center;
-            cursor: pointer;
-        }
-        .pxb-auth-title {
-            padding-bottom: 16px;
-        }
-        .pxb-auth-action-button-container {
-            padding-top: 8px;
-            display: flex;
-            justify-content: space-between;
-        }
-        pxb-contact-support,
-        pxb-create-account,
-        pxb-create-account-invite,
-        pxb-forgot-password,
-        pxb-login,
-        pxb-reset-password {
-            flex: 1 1 0px;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
+    pxb-contact-support,
+    pxb-create-account,
+    pxb-create-account-invite,
+    pxb-forgot-password,
+    pxb-login,
+    pxb-reset-password {
+        flex: 1 1 0px;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
     }
 
     @media only screen and (max-width: 600px) {
@@ -102,7 +74,35 @@
         .pxb-auth-create-account-invite {
             padding: 16px;
         }
-        ::ng-deep .mat-divider.pxb-auth-divider {
+    }
+}
+
+/* These styles are needed for the ChangePassword dialog too. */
+::ng-deep {
+    .pxb-auth-link {
+        color: map-get($pxb-blue, 500);
+        text-decoration: none;
+        font-weight: 600;
+        text-align: center;
+        cursor: pointer;
+    }
+    .pxb-auth-title {
+        padding-bottom: 16px;
+    }
+    .mat-divider.pxb-auth-divider {
+        margin-left: -24px !important;
+        margin-right: -24px !important;
+        position: static !important;
+        width: auto !important;
+    }
+    .pxb-auth-action-button-container {
+        padding-top: 8px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    @media only screen and (max-width: 600px) {
+        .mat-divider.pxb-auth-divider {
             margin-left: -16px !important;
             margin-right: -16px !important;
         }
