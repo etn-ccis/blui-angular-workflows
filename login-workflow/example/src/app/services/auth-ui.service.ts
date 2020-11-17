@@ -13,7 +13,7 @@ export class AuthUIService implements IPxbAuthUIService {
     ) {}
 
     // This method is called at the start of the application to check if a remembered user is returning to the app and initiate pxb SecurityContext.
-    async initiateSecurity(): Promise<any> {
+    async initiateSecurity(): Promise<void> {
         return new Promise((resolve) => {
             setTimeout(() => {
                 const authData = this._localStorageService.readAuthData();

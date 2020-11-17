@@ -32,23 +32,13 @@ export class LocalStorageService {
         if (rememberMeEmail) {
           window.localStorage.setItem(this.emailKey, rememberMeEmail);
         } else {
-          this.clearRememberMeData();
+          window.localStorage.removeItem(this.emailKey);
         }
 
         if (isAuth) {
           window.localStorage.setItem(this.isAuthKey, String(isAuth));
         } else {
-          this.clearAuthenticatedData();
+          window.localStorage.removeItem(this.isAuthKey);
         }
-    }
-
-    clearRememberMeData(): void {
-      window.localStorage.removeItem(this.emailKey);
-
-    }
-
-    clearAuthenticatedData(): void {
-      window.localStorage.removeItem(this.isAuthKey);
-
     }
 }

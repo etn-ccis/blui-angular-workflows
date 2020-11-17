@@ -15,7 +15,7 @@ import {
 
 import { PxbAuthConfig } from '../../services/config/auth-config';
 import { PxbLoginErrorDialogService } from './dialog/login-error-dialog.service';
-import {Subject, Subscription} from "rxjs";
+import { Subscription } from 'rxjs';
 
 // TODO: Find a home for this const, perhaps config folder.
 export const PXB_LOGIN_VALIDATOR_ERROR_NAME = 'PXB_LOGIN_VALIDATOR_ERROR_NAME';
@@ -49,7 +49,7 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
     idFieldActive = false;
     touchedIdField = false;
 
-    private _stateObs: Subscription;
+    stateObs: Subscription;
 
     isEmpty = (el: ElementRef): boolean => isEmptyView(el);
 
@@ -61,13 +61,11 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
         private readonly _pxbSecurityService: PxbAuthSecurityService,
         private readonly _pxbLoginErrorDialogService: PxbLoginErrorDialogService
     ) {
-        this._stateObs = this._pxbSecurityService
-            .securityStateChanges()
-            .subscribe((state: SecurityContext) => {
-                this.emailFormControl.setValue(state.rememberMeDetails.email);
-                this.rememberMe = state.rememberMeDetails.rememberMe;
-                this._stateObs.unsubscribe();
-            });
+        this.stateObs = this._pxbSecurityService.securityStateChanges().subscribe((state: SecurityContext) => {
+            this.emailFormControl.setValue(state.rememberMeDetails.email);
+            this.rememberMe = state.rememberMeDetails.rememberMe;
+            this.stateObs.unsubscribe();
+        });
     }
 
     ngOnInit(): void {
@@ -95,7 +93,7 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
     }
 
     ngOnDestroy(): void {
-        this._stateObs.unsubscribe();
+        this.stateObs.unsubscribe();
     }
 
     togglePasswordVisibility(): void {
@@ -110,7 +108,6 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
         const email = this.emailFormControl.value;
         const password = this.passwordFormControl.value;
         const rememberMe = Boolean(this.rememberMe);
-        console.log(rememberMe);
         this._pxbSecurityService.setLoading(true);
         this._pxbUIActionsService
             .login(email, password, rememberMe)
@@ -128,7 +125,7 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
 
     emitRememberMeChange(): void {
         const rememberMe = this.rememberMe;
-        this._pxbSecurityService.updateSecurityState({ rememberMeDetails: { rememberMe }});
+        this._pxbSecurityService.updateSecurityState({ rememberMeDetails: { rememberMe } });
     }
 
     navigateToDefaultRoute(): void {

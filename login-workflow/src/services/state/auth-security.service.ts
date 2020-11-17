@@ -86,7 +86,7 @@ export class PxbAuthSecurityService {
         });
     }
 
-    updateSecurityState(newState: Partial<SecurityContext>) {
+    updateSecurityState(newState: Partial<SecurityContext>): void {
         this.setSecurityState(Object.assign(this.getSecurityState(), newState));
     }
 
@@ -124,7 +124,7 @@ export class PxbAuthSecurityService {
     }
 
     // If the user has been de-authenticated (either because they logged out or app started with no credentials),
-    onUserNotAuthenticated(rememberMeDetails? : RememberMeData): void {
+    onUserNotAuthenticated(rememberMeDetails?: RememberMeData): void {
         const currState = this.getSecurityState();
         this.setSecurityState(
             Object.assign(currState, {
@@ -135,8 +135,8 @@ export class PxbAuthSecurityService {
                 isShowingChangePassword: false,
                 rememberMeDetails: {
                     rememberMe: rememberMeDetails?.rememberMe,
-                    email: rememberMeDetails?.user
-                }
+                    email: rememberMeDetails?.user,
+                },
             })
         );
     }
