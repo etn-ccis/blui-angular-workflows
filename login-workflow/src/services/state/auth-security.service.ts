@@ -126,16 +126,16 @@ export class PxbAuthSecurityService {
     // If the user has been de-authenticated (either because they logged out or app started with no credentials),
     onUserNotAuthenticated(rememberMeDetails?: RememberMeData): void {
         const currState = this.getSecurityState();
+        const rememberMe = rememberMeDetails ? rememberMeDetails.rememberMe : currState.rememberMeDetails.rememberMe;
+        const email = rememberMeDetails ? rememberMeDetails.user : currState.rememberMeDetails.email;
         this.setSecurityState(
             Object.assign(currState, {
-                email: currState.email,
                 isAuthenticatedUser: false,
                 isLoading: false,
                 isSignOut: true,
                 isShowingChangePassword: false,
                 rememberMeDetails: {
-                    rememberMe: rememberMeDetails?.rememberMe,
-                    email: rememberMeDetails?.user,
+                    rememberMe, email
                 },
             })
         );
