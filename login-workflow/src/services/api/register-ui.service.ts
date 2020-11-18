@@ -11,6 +11,7 @@ export type IPxbRegisterUIService = {
     // The user has been invited to register and has entered the necessary account and password information. The application should now complete the registration process given the user's data
     completeRegistration(): Promise<void>;
 };
+
 @Injectable({
     providedIn: 'root',
 })
