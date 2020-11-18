@@ -5,6 +5,20 @@
     flex-direction: column;
     flex: 1 1 0px;
 }
+.pxb-create-account-invite-content-error-state {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0px;
+    justify-content: center;
+    ::ng-deep {
+        .pxb-empty-state-description {
+            color: map_get($pxb-black, 500);
+        }
+        .pxb-empty-state-empty-icon-wrapper {
+            color: map_get($pxb-red, 500);
+        }
+    }
+}
 
 .pxb-create-account-invite-license-agreement {
     display: flex;
@@ -15,6 +29,7 @@
 .pxb-create-account-invite-confirm-agreement {
     margin: 24px 0;
 }
+
 .pxb-create-account-invite-validation-list {
     margin-bottom: 24px;
     margin-top: -16px;

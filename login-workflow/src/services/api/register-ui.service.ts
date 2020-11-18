@@ -9,7 +9,7 @@ export type IPxbRegisterUIService = {
     loadEULA(): Promise<string>;
 
     // The user has been invited to register and has entered the necessary account and password information. The application should now complete the registration process given the user's data
-    completeRegistration(): Promise<void>;
+    completeRegistration(firstName: string, lastName: string, phoneNumber: string, password: string): Promise<void>;
 };
 
 @Injectable({
@@ -18,7 +18,7 @@ export type IPxbRegisterUIService = {
 export class PxbRegisterUIService implements IPxbRegisterUIService {
     warn(): void {
         /* eslint-disable no-console */
-        console.warn('You need to provide your own PxbRegistrationService');
+        console.warn('You need to provide your own PxbRegisterUIService');
     }
 
     validateUserRegistrationRequest(): Promise<void> {
@@ -31,7 +31,7 @@ export class PxbRegisterUIService implements IPxbRegisterUIService {
         return undefined;
     }
 
-    completeRegistration(): Promise<void> {
+    completeRegistration(firstName: string, lastName: string, phoneNumber: string, password: string): Promise<void> {
         this.warn();
         return undefined;
     }
