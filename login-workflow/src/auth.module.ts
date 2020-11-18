@@ -24,9 +24,11 @@ import { PxbContactSupportComponent } from './pages/contact-support/contact-supp
 import { PxbCreateAccountInviteComponent } from './pages/create-account-invite/create-account-invite.component';
 import { PxbChangePasswordComponent } from './pages/change-password/change-password.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import { PxbChangePasswordModalService } from './pages/change-password/change-password-modal.service';
-import { PxbChangePasswordModalComponent } from './pages/change-password/change-password-modal.component';
-
+import { PxbChangePasswordDialogComponent } from './pages/change-password/dialog/change-password-dialog.component';
+import { PxbLoginErrorDialogComponent } from './pages/login/dialog/login-error-dialog.component';
+import { LoadingOverlayComponent } from './components/loading-overlay/loading-overlay.component';
+import { PxbChangePasswordErrorDialogComponent } from './pages/change-password/dialog/change-password-error-dialog.component';
+import { PxbForgotPasswordErrorDialogComponent } from './pages/forgot-password/dialog/forgot-password-error-dialog.component';
 @NgModule({
     declarations: [
         PxbLoginComponent,
@@ -35,11 +37,16 @@ import { PxbChangePasswordModalComponent } from './pages/change-password/change-
         PxbCreateAccountComponent,
         PxbAuthComponent,
         PxbContactSupportComponent,
-        PasswordStrengthCheckComponent,
-        DotStepperComponent,
         PxbCreateAccountInviteComponent,
         PxbChangePasswordComponent,
-        PxbChangePasswordModalComponent,
+        PxbChangePasswordDialogComponent,
+        PxbLoginErrorDialogComponent,
+        PxbChangePasswordErrorDialogComponent,
+        PxbForgotPasswordErrorDialogComponent,
+
+        PasswordStrengthCheckComponent,
+        DotStepperComponent,
+        LoadingOverlayComponent,
     ],
     imports: [
         BrowserModule,
@@ -60,7 +67,12 @@ import { PxbChangePasswordModalComponent } from './pages/change-password/change-
         MatListModule,
         MatDialogModule,
     ],
-    providers: [PxbChangePasswordModalService],
+    entryComponents: [
+        PxbForgotPasswordErrorDialogComponent,
+        PxbLoginErrorDialogComponent,
+        PxbChangePasswordErrorDialogComponent,
+        PxbChangePasswordDialogComponent,
+    ],
     exports: [
         PxbAuthComponent,
         PxbLoginComponent,
@@ -71,6 +83,5 @@ import { PxbChangePasswordModalComponent } from './pages/change-password/change-
         PxbCreateAccountInviteComponent,
         PxbChangePasswordComponent,
     ],
-    entryComponents: [PxbChangePasswordModalComponent],
 })
 export class PxbAuthModule {}

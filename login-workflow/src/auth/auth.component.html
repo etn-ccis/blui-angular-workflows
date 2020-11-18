@@ -1,75 +1,60 @@
-<div class="pxb-float-card-container" [style.backgroundImage]="'url(' + backgroundImage + ')'">
-    <mat-card class="pxb-inner-card" [class.splash-screen]="!isSecurityInitiated">
-        <div *ngIf="!isSecurityInitiated" class="splash-screen-content">
+<div class="pxb-auth-content" [style.backgroundImage]="'url(' + backgroundImage + ')'">
+    <mat-card class="pxb-auth-inner-card" [class.pxb-auth-splash-screen]="!isSecurityInitiated">
+        <pxb-auth-loading-overlay *ngIf="isLoading"></pxb-auth-loading-overlay>
+
+        <ng-container *ngIf="isSecurityInitiated">
+            <!-- Login  -->
+            <div class="pxb-auth-login" *ngIf="showLogin">
+                <div #login>
+                    <ng-content select="pxb-login"></ng-content>
+                </div>
+                <pxb-login *ngIf="isEmpty(loginEl)"></pxb-login>
+            </div>
+
+            <!-- Reset Password -->
+            <div class="pxb-auth-reset-password" *ngIf="showResetPassword">
+                <div #resetPassword>
+                    <ng-content select="pxb-reset-password"></ng-content>
+                </div>
+                <pxb-reset-password *ngIf="isEmpty(resetPasswordEl)"></pxb-reset-password>
+            </div>
+
+            <!-- Create Account (Self-Register) -->
+            <div class="pxb-auth-create-account" *ngIf="showCreateAccount">
+                <div #createAccount>
+                    <ng-content select="pxb-create-account"></ng-content>
+                </div>
+                <pxb-create-account *ngIf="isEmpty(createAccountEl)"></pxb-create-account>
+            </div>
+
+            <!-- Create Account (Invited) -->
+            <div class="pxb-auth-create-account-invite" *ngIf="showCreateAccountInvite">
+                <div #createAccountInvite>
+                    <ng-content select="pxb-create-account-invite"></ng-content>
+                </div>
+                <pxb-create-account-invite *ngIf="isEmpty(createAccountInviteEl)"></pxb-create-account-invite>
+            </div>
+
+            <!-- Forgot Password -->
+            <div class="pxb-auth-forgot-password" *ngIf="showForgotPassword">
+                <div #forgotPassword>
+                    <ng-content select="pxb-auth-pxb-forgot-password"></ng-content>
+                </div>
+                <pxb-forgot-password *ngIf="isEmpty(forgotPasswordEl)"></pxb-forgot-password>
+            </div>
+
+            <!-- Contact Support -->
+            <div class="pxb-auth-contact-support" *ngIf="showContactSupport">
+                <div #contactSupport>
+                    <ng-content select="pxb-contact-support"></ng-content>
+                </div>
+                <pxb-contact-support *ngIf="isEmpty(contactSupportEl)"></pxb-contact-support>
+            </div>
+        </ng-container>
+
+        <div *ngIf="!isSecurityInitiated" class="pxb-auth-splash-screen-content">
             <img [src]="projectImage" style="max-width: 100%; max-height: 80px; margin-bottom: 48px;" />
             <mat-spinner diameter="40"></mat-spinner>
         </div>
-
-        <div #login [class.login]="!isEmpty(loginEl) && showLogin">
-            <ng-content *ngIf="showLogin && isSecurityInitiated" select="pxb-login"></ng-content>
-        </div>
-        <pxb-login
-            *ngIf="isEmpty(loginEl) && showLogin && isSecurityInitiated"
-            [class.login]="isEmpty(loginEl) && showLogin"
-        ></pxb-login>
-
-        <div #resetPassword [class.reset-password]="!isEmpty(resetPasswordEl) && showResetPassword">
-            <ng-content
-                *ngIf="showResetPassword"
-                select="pxb-reset-password"
-                [class.reset-password]="!isEmpty(resetPasswordEl) && showResetPassword"
-            ></ng-content>
-        </div>
-        <pxb-reset-password
-            *ngIf="isEmpty(resetPasswordEl) && showResetPassword"
-            [class.reset-password]="isEmpty(resetPasswordEl) && showResetPassword"
-        ></pxb-reset-password>
-
-        <div #createAccount [class.create-account]="!isEmpty(createAccountEl) && showCreateAccount">
-            <ng-content
-                *ngIf="showCreateAccount"
-                select="pxb-create-account"
-                [class.create-account]="!isEmpty(createAccountEl) && showCreateAccount"
-            ></ng-content>
-        </div>
-        <pxb-create-account
-            *ngIf="isEmpty(createAccountEl) && showCreateAccount"
-            [class.create-account]="isEmpty(createAccountEl) && showCreateAccount"
-        ></pxb-create-account>
-
-        <div
-            #createAccountInvite
-            [class.create-account-invite]="!isEmpty(createAccountInviteEl) && showCreateAccountInvite"
-        >
-            <ng-content
-                *ngIf="showCreateAccountInvite"
-                select="pxb-create-account-invite"
-                [class.create-account-invite]="!isEmpty(createAccountInviteEl) && showCreateAccountInvite"
-            ></ng-content>
-        </div>
-        <pxb-create-account-invite
-            *ngIf="isEmpty(createAccountInviteEl) && showCreateAccountInvite"
-            [class.create-account]="isEmpty(createAccountInviteEl) && showCreateAccountInvite"
-        ></pxb-create-account-invite>
-
-        <div #forgotPassword [class.forgot-password]="!isEmpty(forgotPasswordEl) && showForgotPassword">
-            <ng-content
-                *ngIf="showForgotPassword"
-                select="pxb-forgot-password"
-                [class.forgot-password]="!isEmpty(forgotPasswordEl) && showForgotPassword"
-            ></ng-content>
-        </div>
-        <pxb-forgot-password
-            *ngIf="isEmpty(forgotPasswordEl) && showForgotPassword"
-            [class.forgot-password]="isEmpty(forgotPasswordEl) && showForgotPassword"
-        ></pxb-forgot-password>
-
-        <div #contactSupport [class.contact-support]="!isEmpty(contactSupportEl) && showContactSupport">
-            <ng-content *ngIf="showContactSupport" select="pxb-contact-support"></ng-content>
-        </div>
-        <pxb-contact-support
-            *ngIf="isEmpty(contactSupportEl) && showContactSupport"
-            [class.contact-support]="isEmpty(contactSupportEl) && showContactSupport"
-        ></pxb-contact-support>
     </mat-card>
 </div>

@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, ValidatorFn, Validators } from '@angular/forms';
 import { AuthErrorStateMatcher } from '../../util/matcher';
@@ -14,6 +14,8 @@ import {
 } from '../../auth/auth.routes';
 
 import { PxbAuthConfig } from '../../services/config/auth-config';
+import { PxbLoginErrorDialogService } from './dialog/login-error-dialog.service';
+import { Subscription } from 'rxjs';
 
 // TODO: Find a home for this const, perhaps config folder.
 export const PXB_LOGIN_VALIDATOR_ERROR_NAME = 'PXB_LOGIN_VALIDATOR_ERROR_NAME';
@@ -22,40 +24,53 @@ export const PXB_LOGIN_VALIDATOR_ERROR_NAME = 'PXB_LOGIN_VALIDATOR_ERROR_NAME';
     selector: 'pxb-login',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss'],
+    host: {
+        class: 'pxb-login',
+    },
 })
-export class PxbLoginComponent implements AfterViewInit {
+export class PxbLoginComponent implements OnInit, AfterViewInit {
     @ViewChild('header', { static: false }) headerEl: ElementRef;
     @ViewChild('footer', { static: false }) footerEl: ElementRef;
 
-    customErrorName = PXB_LOGIN_VALIDATOR_ERROR_NAME;
     @Input() customEmailValidator: ValidatorFn;
-    enableDebugMode = false;
-    showSelfRegistration = false;
+    customErrorName = PXB_LOGIN_VALIDATOR_ERROR_NAME;
 
     emailFormControl: FormControl;
     passwordFormControl: FormControl;
+    matcher = new AuthErrorStateMatcher();
 
     isLoading: boolean;
     rememberMe: boolean;
-    matcher = new AuthErrorStateMatcher();
-    isEmpty = (el: ElementRef): boolean => isEmptyView(el);
+    enableDebugMode: boolean;
+    showSelfRegistration: boolean;
+
     isPasswordVisible = false;
     debugMode = false;
-    securityState: SecurityContext;
+    idFieldActive = false;
+    touchedIdField = false;
+
+    stateObs: Subscription;
+
+    isEmpty = (el: ElementRef): boolean => isEmptyView(el);
 
     constructor(
-        private readonly _changeDetectorRef: ChangeDetectorRef,
         private readonly _router: Router,
-        private readonly _securityService: PxbAuthSecurityService,
-        private readonly _pxbAuthUIActionsService: PxbAuthUIService,
-        private readonly _authConfig: PxbAuthConfig
-    ) {}
+        private readonly _pxbAuthConfig: PxbAuthConfig,
+        private readonly _changeDetectorRef: ChangeDetectorRef,
+        private readonly _pxbUIActionsService: PxbAuthUIService,
+        private readonly _pxbSecurityService: PxbAuthSecurityService,
+        private readonly _pxbLoginErrorDialogService: PxbLoginErrorDialogService
+    ) {
+        this.stateObs = this._pxbSecurityService.securityStateChanges().subscribe((state: SecurityContext) => {
+            this.emailFormControl.setValue(state.rememberMeDetails.email);
+            this.rememberMe = state.rememberMeDetails.rememberMe;
+            this.stateObs.unsubscribe();
+        });
+    }
 
     ngOnInit(): void {
-        this.enableDebugMode = this._authConfig.allowDebugMode;
-        this.showSelfRegistration = this._authConfig.showSelfRegistration;
-        this.securityState = this._securityService.getSecurityState();
-        this.rememberMe = this.securityState.rememberMeDetails.rememberMe;
+        this.enableDebugMode = this._pxbAuthConfig.allowDebugMode;
+        this.showSelfRegistration = this._pxbAuthConfig.showSelfRegistration;
 
         const emailValidators = [
             Validators.required,
@@ -65,13 +80,9 @@ export class PxbLoginComponent implements AfterViewInit {
         if (this.customEmailValidator) {
             emailValidators.push(this.customEmailValidator);
         }
-        this.emailFormControl = new FormControl(
-            this.rememberMe ? this.securityState.rememberMeDetails.email : '',
-            emailValidators
-        );
+        this.emailFormControl = new FormControl('', emailValidators);
         this.passwordFormControl = new FormControl('', []);
-
-        if (this._securityService.getSecurityState().isAuthenticatedUser) {
+        if (this._pxbSecurityService.getSecurityState().isAuthenticatedUser) {
             this.navigateToDefaultRoute();
             return;
         }
@@ -79,7 +90,10 @@ export class PxbLoginComponent implements AfterViewInit {
 
     ngAfterViewInit(): void {
         this._changeDetectorRef.detectChanges();
-        this._changeDetectorRef.detectChanges();
+    }
+
+    ngOnDestroy(): void {
+        this.stateObs.unsubscribe();
     }
 
     togglePasswordVisibility(): void {
@@ -94,50 +108,57 @@ export class PxbLoginComponent implements AfterViewInit {
         const email = this.emailFormControl.value;
         const password = this.passwordFormControl.value;
         const rememberMe = Boolean(this.rememberMe);
-
-        this.isLoading = true;
-        this._pxbAuthUIActionsService
+        this._pxbSecurityService.setLoading(true);
+        this._pxbUIActionsService
             .login(email, password, rememberMe)
             .then(() => {
-                /* eslint-disable-next-line no-console */
-                console.log('login success');
-                this._securityService.onUserAuthenticated(email, password, rememberMe);
+                this._pxbSecurityService.onUserAuthenticated(email, password, rememberMe);
                 this.navigateToDefaultRoute(); // TODO: User needs to provide this route somehow.
-                this.isLoading = false;
+                this._pxbSecurityService.setLoading(false);
             })
             .catch(() => {
-                /* eslint-disable-next-line no-console */
-                console.log('login failed');
-                this._securityService.onUserNotAuthenticated();
-                this.isLoading = false;
+                this._pxbLoginErrorDialogService.openDialog();
+                this._pxbSecurityService.onUserNotAuthenticated();
+                this._pxbSecurityService.setLoading(false);
             });
     }
 
+    emitRememberMeChange(): void {
+        const rememberMe = this.rememberMe;
+        this._pxbSecurityService.updateSecurityState({ rememberMeDetails: { rememberMe } });
+    }
+
     navigateToDefaultRoute(): void {
-        void this._router.navigate([this._authConfig.homeRoute]);
+        void this._router.navigate([this._pxbAuthConfig.homeRoute]);
     }
 
     forgotPassword(): void {
-        void this._router.navigate([`${this._authConfig.authRoute}/${FORGOT_PASSWORD_ROUTE}`]);
+        void this._router.navigate([`${this._pxbAuthConfig.authRoute}/${FORGOT_PASSWORD_ROUTE}`]);
     }
 
     testForgotPasswordEmail(): void {
-        void this._router.navigate([`${this._authConfig.authRoute}/${RESET_PASSWORD_ROUTE}`]);
+        void this._router.navigate([`${this._pxbAuthConfig.authRoute}/${RESET_PASSWORD_ROUTE}`]);
     }
 
     testInviteRegister(): void {
-        void this._router.navigate([`${this._authConfig.authRoute}/${CREATE_ACCOUNT_INVITE_ROUTE}`]);
+        void this._router.navigate([`${this._pxbAuthConfig.authRoute}/${CREATE_ACCOUNT_INVITE_ROUTE}`]);
     }
 
     createAccount(): void {
-        void this._router.navigate([`${this._authConfig.authRoute}/${CREATE_ACCOUNT_ROUTE}`]);
+        void this._router.navigate([`${this._pxbAuthConfig.authRoute}/${CREATE_ACCOUNT_ROUTE}`]);
     }
 
     contactSupport(): void {
-        void this._router.navigate([`${this._authConfig.authRoute}/${CONTACT_SUPPORT_ROUTE}`]);
+        void this._router.navigate([`${this._pxbAuthConfig.authRoute}/${CONTACT_SUPPORT_ROUTE}`]);
     }
 
     isValidFormEntries(): boolean {
         return this.passwordFormControl.value && this.emailFormControl.valid;
+    }
+
+    isLoginFormDirty(): boolean {
+        return (
+            !this.idFieldActive && this.touchedIdField && (this.emailFormControl.dirty || this.emailFormControl.touched)
+        );
     }
 }

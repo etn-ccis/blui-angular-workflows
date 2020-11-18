@@ -1,7 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { PxbChangePasswordModalService } from './change-password-modal.service';
+import { PxbAuthUIService } from '../../services/api/auth-ui.service';
+import { PxbAuthSecurityService } from '../../services/state/auth-security.service';
+import { Router } from '@angular/router';
+import { LOGIN_ROUTE } from '../../auth/auth.routes';
+import { PxbAuthConfig } from '../../services/config/auth-config';
+import { PxbChangePasswordDialogService } from './dialog/change-password-dialog.service';
+import { PxbChangePasswordErrorDialogService } from './dialog/change-password-error-dialog.service';
 
 class CrossFieldErrorMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -13,27 +19,39 @@ class CrossFieldErrorMatcher implements ErrorStateMatcher {
     selector: 'pxb-change-password',
     templateUrl: './change-password.component.html',
     styleUrls: ['./change-password.component.scss'],
+    host: {
+        class: 'pxb-change-password',
+    },
 })
-export class PxbChangePasswordComponent implements OnInit {
+export class PxbChangePasswordComponent {
     @Input() email = 'testemail@email.com';
     @Input() successTitle = 'Password Changed';
     @Input() successDescription =
         "Your password was successfully updated! To ensure your account's security, you will need to log in to the application with your updated credentials.";
-    passwordChangeSuccess = false;
+
     passwordFormGroup: FormGroup;
-    currentPasswordVisible = false;
-    newPasswordVisible = false;
-    confirmPasswordVisible = false;
     errorMatcher = new CrossFieldErrorMatcher();
-    passLength = false;
-    specialFlag = false;
-    numberFlag = false;
+
     upperFlag = false;
     lowerFlag = false;
+    isLoading = false;
+    passLength = false;
+    numberFlag = false;
+    specialFlag = false;
+    newPasswordVisible = false;
+    passwordChangeSuccess = false;
+    currentPasswordVisible = false;
+    confirmPasswordVisible = false;
+    newPasswordFocus = false;
 
     constructor(
+        private readonly _router: Router,
+        private readonly _authConfig: PxbAuthConfig,
         private readonly _formBuilder: FormBuilder,
-        private readonly _changePasswordModalService: PxbChangePasswordModalService
+        private readonly _pxbUIActionsService: PxbAuthUIService,
+        private readonly _pxbSecurityService: PxbAuthSecurityService,
+        private readonly _pxbChangePasswordDialogService: PxbChangePasswordDialogService,
+        private readonly _pxbChangePasswordErrorDialogService: PxbChangePasswordErrorDialogService
     ) {
         this.passwordFormGroup = this._formBuilder.group(
             {
@@ -46,8 +64,6 @@ export class PxbChangePasswordComponent implements OnInit {
             }
         );
     }
-
-    ngOnInit(): void {}
 
     toggleCurrentPasswordVisibility(): void {
         this.currentPasswordVisible = !this.currentPasswordVisible;
@@ -89,23 +105,29 @@ export class PxbChangePasswordComponent implements OnInit {
     }
 
     closeDialog(): void {
-        this._changePasswordModalService.closeDialog();
+        this._pxbChangePasswordDialogService.closeDialog();
     }
 
     done(): void {
         this.closeDialog();
-        this.passwordChangeSuccess = false;
-        this.passwordFormGroup.reset();
-        this.passLength = false;
-        this.specialFlag = false;
-        this.numberFlag = false;
-        this.upperFlag = false;
-        this.lowerFlag = false;
+        void this._router.navigate([`${this._authConfig.authRoute}/${LOGIN_ROUTE}`]);
     }
 
     changePassword(): void {
-        // submit form
-
-        this.passwordChangeSuccess = true;
+        const oldPassword = this.passwordFormGroup.value.currentPassword;
+        const newPassword = this.passwordFormGroup.value.newPassword;
+        this.isLoading = true;
+        this._pxbUIActionsService
+            .changePassword(oldPassword, newPassword)
+            .then(() => {
+                this.passwordChangeSuccess = true;
+                this._pxbSecurityService.onUserNotAuthenticated();
+                this.isLoading = false;
+            })
+            .catch(() => {
+                this.passwordChangeSuccess = false;
+                this.isLoading = false;
+                this._pxbChangePasswordErrorDialogService.openDialog();
+            });
     }
 }

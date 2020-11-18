@@ -1,4 +1,6 @@
+// TODO: These should be customizable.
 export const LOGIN_ROUTE = 'login';
+export const AUTH_ROUTE = 'auth';
 export const RESET_PASSWORD_ROUTE = 'reset-password';
 export const FORGOT_PASSWORD_ROUTE = 'forgot-password';
 export const CREATE_ACCOUNT_ROUTE = 'create-account';

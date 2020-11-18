@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { PxbChangePasswordModalService, PxbAuthSecurityService } from '@pxblue/angular-auth-workflow';
+import { PxbChangePasswordDialogService, AUTH_ROUTE, PxbAuthSecurityService } from '@pxblue/angular-auth-workflow';
 
 @Component({
     selector: 'app-home',
@@ -11,17 +11,16 @@ export class HomeComponent {
     constructor(
         private readonly _router: Router,
         private readonly _pxbSecurityService: PxbAuthSecurityService,
-        public readonly _pxbChangePasswordModalService: PxbChangePasswordModalService
+        public readonly _pxbChangePasswordService: PxbChangePasswordDialogService
     ) {}
 
     openDialog() {
-        this._pxbChangePasswordModalService.openDialog();
+        this._pxbChangePasswordService.openDialog();
     }
 
     logout(): void {
         console.log('Logging a user out of the app.');
-        const currState = this._pxbSecurityService.getSecurityState();
-        this._pxbSecurityService.setSecurityState(Object.assign(currState, { isAuthenticatedUser: false }));
-        void this._router.navigate(['auth']);
+        this._pxbSecurityService.updateSecurityState({ isAuthenticatedUser: false });
+        void this._router.navigate([AUTH_ROUTE]);
     }
 }

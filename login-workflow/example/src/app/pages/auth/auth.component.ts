@@ -18,11 +18,15 @@ import { PxbAuthConfig } from '@pxblue/angular-auth-workflow';
     `,
 })
 export class AuthComponent {
-
     constructor(pxbAuthConfig: PxbAuthConfig) {
-      pxbAuthConfig.projectImage = 'assets/images/eaton_stacked_logo.png';
-      pxbAuthConfig.backgroundImage = 'assets/images/background.svg';
-      pxbAuthConfig.allowDebugMode = true;
+        pxbAuthConfig.projectImage = 'assets/images/eaton_stacked_logo.png';
+        pxbAuthConfig.backgroundImage = 'assets/images/background.svg';
+        pxbAuthConfig.allowDebugMode = true;
+        pxbAuthConfig.showSelfRegistration = false;
+        // If the homeRoute is not pre-populated by default route inspection, provide it below.
+        if (!pxbAuthConfig.homeRoute || pxbAuthConfig.homeRoute === '/') {
+          pxbAuthConfig.homeRoute = 'home';
+        }
     }
 
     customValidator(): ValidatorFn {

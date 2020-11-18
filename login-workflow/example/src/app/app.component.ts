@@ -7,14 +7,21 @@ import { LocalStorageService } from './services/localStorage.service';
     template: `<router-outlet></router-outlet>`,
 })
 export class AppComponent {
-    constructor(readonly pxbSecurityService: PxbAuthSecurityService, readonly localStorageService: LocalStorageService) {
-        // App Component listens for PXB auth state changes.
-        pxbSecurityService.securityStateChanges().subscribe((state: SecurityContext) => {
-            if (state.isAuthenticatedUser && state.rememberMeDetails.rememberMe) {
-              localStorageService.setAuthData(state.rememberMeDetails.email);
-            } else {
-                localStorageService.clearAuthData();
-            }
+    constructor(
+        private readonly pxbSecurityService: PxbAuthSecurityService,
+        private readonly localStorageService: LocalStorageService
+    ) {
+        this.listenForAuthStateChanges();
+    }
+
+    // When a user transitions between being logged in / logged out, update session information.
+    // This demo app stores session information in localStorage, this is just as a proof-of-concept.
+    private listenForAuthStateChanges(): void {
+        this.pxbSecurityService.securityStateChanges().subscribe((state: SecurityContext) => {
+            const email = state.rememberMeDetails.email;
+            const rememberMe = state.rememberMeDetails.rememberMe;
+            const isAuth = state.isAuthenticatedUser;
+            this.localStorageService.setAuthData(rememberMe ? email : undefined, isAuth);
         });
     }
 }

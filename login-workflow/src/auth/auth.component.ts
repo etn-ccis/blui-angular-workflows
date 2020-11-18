@@ -10,88 +10,98 @@ import {
     LOGIN_ROUTE,
     RESET_PASSWORD_ROUTE,
 } from './auth.routes';
-import { PxbAuthUIService, PxbAuthSecurityService } from '../services/public-api';
+import { PxbAuthUIService } from '../services/api/auth-ui.service';
+import { PxbAuthSecurityService, SecurityContext } from '../services/state/auth-security.service';
 
 @Component({
     selector: 'pxb-auth',
     templateUrl: './auth.component.html',
     styleUrls: ['./auth.component.scss'],
+    host: {
+        class: 'pxb-auth',
+    },
 })
 export class PxbAuthComponent implements OnInit {
     @ViewChild('login', { static: false }) loginEl: ElementRef;
     @ViewChild('resetPassword', { static: false }) resetPasswordEl: ElementRef;
     @ViewChild('createAccount', { static: false }) createAccountEl: ElementRef;
-    @ViewChild('createAccountInvite', { static: false }) createAccountInviteEl: ElementRef;
     @ViewChild('forgotPassword', { static: false }) forgotPasswordEl: ElementRef;
     @ViewChild('contactSupport', { static: false }) contactSupportEl: ElementRef;
+    @ViewChild('createAccountInvite', { static: false }) createAccountInviteEl: ElementRef;
 
-    backgroundImage: string;
     projectImage: string;
+    backgroundImage: string;
 
     isEmpty = (el: ElementRef): boolean => isEmptyView(el);
 
     showLogin: boolean;
-    showForgotPassword: boolean;
     showCreateAccount: boolean;
-    showCreateAccountInvite: boolean;
     showResetPassword: boolean;
     showContactSupport: boolean;
+    showForgotPassword: boolean;
+    showCreateAccountInvite: boolean;
+
+    isLoading = false;
     isSecurityInitiated = false;
 
     constructor(
-        public router: Router,
+        private readonly _router: Router,
+        private readonly _pxbAuthConfig: PxbAuthConfig,
+        private readonly _pxbAuthUIService: PxbAuthUIService,
         private readonly _changeDetectorRef: ChangeDetectorRef,
-        private readonly _authUIActionsService: PxbAuthUIService,
-        private readonly _securityService: PxbAuthSecurityService,
-        private readonly _authConfig: PxbAuthConfig
+        private readonly _pxbSecurityService: PxbAuthSecurityService
     ) {
-        router.events.subscribe((route) => {
-            if (route instanceof NavigationEnd) {
-                this.resetSelectedRoute();
-                this.showLogin = this.matches(route, LOGIN_ROUTE);
-                this.showCreateAccount = this.matches(route, CREATE_ACCOUNT_ROUTE);
-                this.showCreateAccountInvite = this.matches(route, CREATE_ACCOUNT_INVITE_ROUTE);
-                this.showForgotPassword = this.matches(route, FORGOT_PASSWORD_ROUTE);
-                this.showResetPassword = this.matches(route, RESET_PASSWORD_ROUTE);
-                this.showContactSupport = this.matches(route, CONTACT_SUPPORT_ROUTE);
-                this._changeDetectorRef.detectChanges();
-            }
-        });
+        this._listenForAuthLoadingStateChanges();
+        this._listenForAuthRouteChanges();
     }
 
     ngOnInit(): void {
-        this.backgroundImage = this._authConfig.backgroundImage;
-        this.projectImage = this._authConfig.projectImage;
-
         this.initiateSecurity();
-
-        // logs user in if they are already authenticated
-        this._securityService.securityStateChanges().subscribe((state) => {
-            if (state.isAuthenticatedUser) {
-                // TODO: This homeRoute has to be provided by the end user.
-                void this.router.navigate([this._authConfig.homeRoute]);
-            }
-        });
+        this.projectImage = this._pxbAuthConfig.projectImage;
+        this.backgroundImage = this._pxbAuthConfig.backgroundImage;
     }
 
     initiateSecurity(): void {
-        void this._authUIActionsService.initiateSecurity().then(() => {
+        void this._pxbAuthUIService.initiateSecurity().then(() => {
             this.isSecurityInitiated = true;
             this._changeDetectorRef.detectChanges();
         });
     }
 
-    resetSelectedRoute(): void {
+    matches(route: NavigationEnd, targetRoute: string): boolean {
+        const potentialAuthRoute = `/${this._pxbAuthConfig.authRoute}/${targetRoute}`;
+        return route.urlAfterRedirects === potentialAuthRoute;
+    }
+
+    // This will listen for auth state loading changes and toggles the shared overlay loading screen.
+    private _listenForAuthLoadingStateChanges(): void {
+        this._pxbSecurityService
+            .securityStateChanges()
+            .subscribe((state: SecurityContext) => (this.isLoading = state.isLoading));
+    }
+
+    // Observes route changes and determines which PXB Auth page to show via route name.
+    private _listenForAuthRouteChanges(): void {
+        this._router.events.subscribe((route) => {
+            if (route instanceof NavigationEnd) {
+                this._resetSelectedRoute();
+                this.showLogin = this.matches(route, LOGIN_ROUTE);
+                this.showResetPassword = this.matches(route, RESET_PASSWORD_ROUTE);
+                this.showCreateAccount = this.matches(route, CREATE_ACCOUNT_ROUTE);
+                this.showForgotPassword = this.matches(route, FORGOT_PASSWORD_ROUTE);
+                this.showContactSupport = this.matches(route, CONTACT_SUPPORT_ROUTE);
+                this.showCreateAccountInvite = this.matches(route, CREATE_ACCOUNT_INVITE_ROUTE);
+                this._changeDetectorRef.detectChanges();
+            }
+        });
+    }
+
+    private _resetSelectedRoute(): void {
         this.showLogin = false;
         this.showForgotPassword = false;
         this.showCreateAccount = false;
         this.showCreateAccountInvite = false;
         this.showResetPassword = false;
         this.showContactSupport = false;
-    }
-
-    matches(route: NavigationEnd, targetRoute: string): boolean {
-        const potentialAuthRoute = `/${this._authConfig.authRoute}/${targetRoute}`;
-        return route.urlAfterRedirects === potentialAuthRoute;
     }
 }

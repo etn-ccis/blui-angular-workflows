@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
+import { NavigationStart, Router } from '@angular/router';
+import { PxbAuthConfig } from '../../services/config/auth-config';
+import { AUTH_ROUTE } from '../../auth/auth.routes';
 
 export type SecurityContext = {
     /**
@@ -57,6 +60,7 @@ export type RememberMeData = {
 })
 export class PxbAuthSecurityService {
     private readonly securityStateObs = new Subject<SecurityContext>();
+    private isFirstRouteCaptured = false;
     private securityState: SecurityContext = {
         userId: undefined,
         email: undefined,
@@ -70,6 +74,22 @@ export class PxbAuthSecurityService {
         isShowingChangePassword: false,
     };
 
+    // Whenever the application loads for the first time, we may want to direct the user to their original destination, before they were redirected to the login screen.
+    constructor(private readonly _router: Router, private readonly _pxbAuthConfig: PxbAuthConfig) {
+        _router.events.subscribe((event) => {
+            if (event instanceof NavigationStart && !this.isFirstRouteCaptured) {
+                this.isFirstRouteCaptured = true;
+                if (!event.url.includes(AUTH_ROUTE) || event.url === '/') {
+                    this._pxbAuthConfig.homeRoute = event.url;
+                }
+            }
+        });
+    }
+
+    updateSecurityState(newState: Partial<SecurityContext>): void {
+        this.setSecurityState(Object.assign(this.getSecurityState(), newState));
+    }
+
     setSecurityState(newSecurityState: SecurityContext): void {
         this.securityState = newSecurityState;
         this.securityStateObs.next(this.securityState);
@@ -81,6 +101,10 @@ export class PxbAuthSecurityService {
 
     securityStateChanges(): Observable<SecurityContext> {
         return this.securityStateObs;
+    }
+
+    setLoading(isLoading: boolean): void {
+        this.updateSecurityState({ isLoading });
     }
 
     // If the user has been authenticated, this function should be called.
@@ -100,15 +124,20 @@ export class PxbAuthSecurityService {
     }
 
     // If the user has been de-authenticated (either because they logged out or app started with no credentials),
-    onUserNotAuthenticated(): void {
+    onUserNotAuthenticated(rememberMeDetails?: RememberMeData): void {
         const currState = this.getSecurityState();
+        const rememberMe = rememberMeDetails ? rememberMeDetails.rememberMe : currState.rememberMeDetails.rememberMe;
+        const email = rememberMeDetails ? rememberMeDetails.user : currState.rememberMeDetails.email;
         this.setSecurityState(
             Object.assign(currState, {
-                email: currState.email,
                 isAuthenticatedUser: false,
                 isLoading: false,
                 isSignOut: true,
                 isShowingChangePassword: false,
+                rememberMeDetails: {
+                    rememberMe,
+                    email,
+                },
             })
         );
     }

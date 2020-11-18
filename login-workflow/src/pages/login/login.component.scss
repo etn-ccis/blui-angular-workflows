@@ -1,12 +1,11 @@
 @import '~@pxblue/colors/palette';
-
-.debug-button {
+.pxb-login-debug-button {
     position: absolute;
     top: 24px;
     right: 24px;
 }
 
-.debug-message {
+.pxb-login-debug-message {
     padding: 8px;
     margin-bottom: 16px;
     background-color: map-get($pxb-yellow, 500);
@@ -22,12 +21,12 @@ mat-form-field {
     margin-bottom: 25px;
 }
 
-::ng-deep .checkbox .mat-checkbox-inner-container {
+::ng-deep .pxb-login-remember-me-checkbox .mat-checkbox-inner-container {
     width: 18px;
     height: 18px;
 }
 
-.remember-me-login-wrapper {
+.pxb-login-remember-me-login-wrapper {
     display: flex;
     justify-content: space-between;
     margin-bottom: 40px;
@@ -38,30 +37,8 @@ mat-form-field {
     width: 150px;
 }
 
-.pxb-login-password-link,
-.pxb-login-create-account-link,
-.pxb-login-contact-eaton-support-link,
-.pxb-login-test-forgot-password-email-link,
-.pxb-login-test-invite-register-link {
-    color: map-get($pxb-blue, 500);
-    font-weight: 600;
-    text-align: center;
-    cursor: pointer;
-}
-
-.pxb-login-test-forgot-password-email-link,
-.pxb-login-test-invite-register-link {
-    color: map-get($pxb-black, 500);
-}
-
-.pxb-login-password-link,
-.pxb-login-create-account-link,
-.pxb-login-contact-eaton-support-link {
-    margin-bottom: 32px;
-}
-
 @media only screen and (max-width: 600px) {
-    .remember-me-login-wrapper {
+    .pxb-login-remember-me-login-wrapper {
         flex-direction: column-reverse;
     }
 

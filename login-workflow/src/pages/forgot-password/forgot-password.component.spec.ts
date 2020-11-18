@@ -1,17 +1,18 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PxbForgotPasswordComponent } from './forgot-password.component';
 import { RouterTestingModule } from '@angular/router/testing';
+import { PxbAuthModule } from '../../auth.module';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-describe('ChangePasswordComponent', () => {
+describe('ForgotPasswordComponent', () => {
     let component: PxbForgotPasswordComponent;
     let fixture: ComponentFixture<PxbForgotPasswordComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(() => {
         void TestBed.configureTestingModule({
-            imports: [RouterTestingModule],
-            declarations: [PxbForgotPasswordComponent],
+            imports: [PxbAuthModule, RouterTestingModule, NoopAnimationsModule],
         }).compileComponents();
-    }));
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(PxbForgotPasswordComponent);

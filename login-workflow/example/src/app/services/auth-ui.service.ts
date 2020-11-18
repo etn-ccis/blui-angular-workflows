@@ -1,9 +1,8 @@
 /* eslint-disable no-console */
 import { Injectable } from '@angular/core';
 import { IPxbAuthUIService, PxbAuthSecurityService } from '@pxblue/angular-auth-workflow';
-import { AuthData, LocalStorageService } from './localStorage.service';
+import { LocalStorageService } from './localStorage.service';
 
-const sleep = (ms: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, ms));
 @Injectable({
     providedIn: 'root',
 })
@@ -14,28 +13,33 @@ export class AuthUIService implements IPxbAuthUIService {
     ) {}
 
     // This method is called at the start of the application to check if a remembered user is returning to the app and initiate pxb SecurityContext.
-    async initiateSecurity(): Promise<any> {
-        let authData: AuthData;
-        await sleep(1000);
-        authData = await this._localStorageService.readAuthData();
-        if (authData.email) {
-            console.log('We have an email in local storage, authenticating the user.');
-            // Session information is normally validated via an api; this is just an example.
-            this._pxbSecurityService.onUserAuthenticated(authData.email, undefined, true);
-        } else {
-            console.log('User is not authenticated.');
-            this._pxbSecurityService.onUserNotAuthenticated();
-        }
-        return Promise.resolve();
+    async initiateSecurity(): Promise<void> {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                const authData = this._localStorageService.readAuthData();
+                if (authData.isAuthenticated) {
+                    console.log('User is authenticated.');
+                    this._pxbSecurityService.onUserAuthenticated(authData.email, undefined, true);
+                    return resolve();
+                } else if (authData.email) {
+                    console.log('User is not authenticated, but we have remembered their Email.');
+                    this._pxbSecurityService.onUserNotAuthenticated({ rememberMe: true, user: authData.email });
+                } else {
+                    console.log('User is not authenticated and not remembered.');
+                    this._pxbSecurityService.onUserNotAuthenticated();
+                }
+                return resolve();
+            }, 1500);
+        });
     }
 
     async login(email: string, password: string, rememberMe: boolean): Promise<void> {
         console.log(
-            `Performing a sample Login with the following credentials:\n  email: ${email} \n  password: ${password} \n  rememberMe: ${rememberMe}`
+            `Performing a sample Login request with the following credentials:\n  email: ${email} \n  password: ${password} \n  rememberMe: ${rememberMe}`
         );
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                if (password === 'fail') {
+                if (password.toLowerCase() === 'fail') {
                     return reject('The Login API request has failed.');
                 }
                 return resolve();
@@ -47,7 +51,7 @@ export class AuthUIService implements IPxbAuthUIService {
         console.log(`Performing a sample ForgotPassword request with the following credentials:\n email: ${email}`);
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                if (email === 'fail@test.com') {
+                if (email.toLowerCase() === 'fail@test.com') {
                     return reject('The ForgotPassword API request has failed.');
                 }
                 return resolve();
@@ -61,7 +65,7 @@ export class AuthUIService implements IPxbAuthUIService {
         );
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                if (newPassword === 'fail') {
+                if (newPassword.toLowerCase() === 'fail123!') {
                     return reject('The ChangePassword API request has failed.');
                 }
                 return resolve();
