@@ -3,7 +3,6 @@ import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Valida
 import { Router } from '@angular/router';
 import { AuthErrorStateMatcher } from '../../util/matcher';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { PXB_LOGIN_VALIDATOR_ERROR_NAME } from '../login/login.component';
 import { LOGIN_ROUTE } from '../../auth/auth.routes';
 
 import { PxbAuthConfig } from '../../services/config/auth-config';
@@ -26,7 +25,6 @@ export class PxbCreateAccountInviteComponent implements OnInit {
     @Input() licenseAgreement;
     pageCount = 4;
     currentPageId: number;
-    customErrorName = PXB_LOGIN_VALIDATOR_ERROR_NAME;
     confirmAgreement = false;
     emailMatcher = new AuthErrorStateMatcher();
     passwordFormGroup: FormGroup;
