@@ -79,7 +79,7 @@ export class PxbAuthSecurityService {
         _router.events.subscribe((event) => {
             if (event instanceof NavigationStart && !this.isFirstRouteCaptured) {
                 this.isFirstRouteCaptured = true;
-                if (!event.url.includes(AUTH_ROUTE) && event.url === '/') {
+                if (!event.url.includes(AUTH_ROUTE) || event.url === '/') {
                     this._pxbAuthConfig.homeRoute = event.url;
                 }
             }
