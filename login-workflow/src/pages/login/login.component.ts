@@ -141,7 +141,9 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
     }
 
     testInviteRegister(): void {
-        void this._router.navigate([`${this._pxbAuthConfig.authRoute}/${CREATE_ACCOUNT_INVITE_ROUTE}`], { queryParams: { 'code': 'DEADBEEF' }});
+        void this._router.navigate([`${this._pxbAuthConfig.authRoute}/${CREATE_ACCOUNT_INVITE_ROUTE}`], {
+            queryParams: { code: 'DEADBEEF' },
+        });
     }
 
     createAccount(): void {

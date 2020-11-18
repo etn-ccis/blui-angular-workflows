@@ -8,7 +8,7 @@ import { LOGIN_ROUTE } from '../../auth/auth.routes';
 
 import { PxbAuthConfig } from '../../services/config/auth-config';
 import { PxbRegisterUIService } from '../../services/api/register-ui.service';
-import {PxbAuthSecurityService, SecurityContext} from '../../services/state/auth-security.service';
+import { PxbAuthSecurityService, SecurityContext } from '../../services/state/auth-security.service';
 
 class CrossFieldErrorMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -95,12 +95,15 @@ export class PxbCreateAccountInviteComponent implements OnInit {
     }
 
     getEULA(): void {
-        this._pxbRegisterService.loadEULA().then((eula: string) => {
-            this.licenseAgreement = eula;
-            this._pxbSecurityService.setLoading(false);
-        }).catch(() => {
-            this._pxbSecurityService.setLoading(false);
-        });
+        this._pxbRegisterService
+            .loadEULA()
+            .then((eula: string) => {
+                this.licenseAgreement = eula;
+                this._pxbSecurityService.setLoading(false);
+            })
+            .catch(() => {
+                this._pxbSecurityService.setLoading(false);
+            });
     }
 
     registerAccount(): void {
@@ -109,15 +112,16 @@ export class PxbCreateAccountInviteComponent implements OnInit {
         const phoneNumber = this.phoneNumberFormControl.value;
         const password = this.passwordFormGroup.value.confirmPassword;
         this._pxbSecurityService.setLoading(true);
-        this._pxbRegisterService.completeRegistration(
-            firstName, lastName, phoneNumber, password
-        ).then(() => {
-            this._pxbSecurityService.setLoading(false);
-            this.next();
-        }).catch(() => {
-            this._pxbSecurityService.setLoading(false);
-            this.hasRegisterAccountError = true;
-        })
+        this._pxbRegisterService
+            .completeRegistration(firstName, lastName, phoneNumber, password)
+            .then(() => {
+                this._pxbSecurityService.setLoading(false);
+                this.next();
+            })
+            .catch(() => {
+                this._pxbSecurityService.setLoading(false);
+                this.hasRegisterAccountError = true;
+            });
     }
 
     hasSelfRegistrationError(): boolean {
@@ -166,7 +170,7 @@ export class PxbCreateAccountInviteComponent implements OnInit {
     }
 
     getEmptyStateDescription(): string {
-        return `Your account has been successfully created with the email ${this.email}. Your account has already been added to the organization. Press continue below to continue.`;
+        return `Your account has been successfully created with the email ${this.email}. Your account has already been added to the organization. Press finish below to continue.`;
     }
 
     canContinue(): boolean {
