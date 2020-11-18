@@ -5,50 +5,38 @@
         <ng-container *ngIf="isSecurityInitiated">
             <!-- Login  -->
             <div class="pxb-auth-login" *ngIf="showLogin">
-                <div #login>
-                    <ng-content select="pxb-login"></ng-content>
-                </div>
-                <pxb-login *ngIf="isEmpty(loginEl)"></pxb-login>
+                <template [ngTemplateOutlet]="loginRef"></template>
+                <pxb-login *ngIf="!loginRef"></pxb-login>
             </div>
 
             <!-- Reset Password -->
             <div class="pxb-auth-reset-password" *ngIf="showResetPassword">
-                <div #resetPassword>
-                    <ng-content select="pxb-reset-password"></ng-content>
-                </div>
-                <pxb-reset-password *ngIf="isEmpty(resetPasswordEl)"></pxb-reset-password>
+                <template [ngTemplateOutlet]="resetPasswordRef"></template>
+                <pxb-reset-password *ngIf="!resetPasswordRef"></pxb-reset-password>
             </div>
 
             <!-- Create Account (Self-Register) -->
             <div class="pxb-auth-create-account" *ngIf="showCreateAccount">
-                <div #createAccount>
-                    <ng-content select="pxb-create-account"></ng-content>
-                </div>
-                <pxb-create-account *ngIf="isEmpty(createAccountEl)"></pxb-create-account>
+                <template [ngTemplateOutlet]="createAccountRef"></template>
+                <pxb-create-account *ngIf="!createAccountRef"></pxb-create-account>
             </div>
 
             <!-- Create Account (Invited) -->
             <div class="pxb-auth-create-account-invite" *ngIf="showCreateAccountInvite">
-                <div #createAccountInvite>
-                    <ng-content select="pxb-create-account-invite"></ng-content>
-                </div>
-                <pxb-create-account-invite *ngIf="isEmpty(createAccountInviteEl)"></pxb-create-account-invite>
+                <template [ngTemplateOutlet]="createAccountInviteRef"></template>
+                <pxb-create-account-invite *ngIf="!createAccountInviteRef"></pxb-create-account-invite>
             </div>
 
             <!-- Forgot Password -->
             <div class="pxb-auth-forgot-password" *ngIf="showForgotPassword">
-                <div #forgotPassword>
-                    <ng-content select="pxb-auth-pxb-forgot-password"></ng-content>
-                </div>
-                <pxb-forgot-password *ngIf="isEmpty(forgotPasswordEl)"></pxb-forgot-password>
+                <template [ngTemplateOutlet]="forgotPasswordRef"></template>
+                <pxb-forgot-password *ngIf="!forgotPasswordRef"></pxb-forgot-password>
             </div>
 
             <!-- Contact Support -->
             <div class="pxb-auth-contact-support" *ngIf="showContactSupport">
-                <div #contactSupport>
-                    <ng-content select="pxb-contact-support"></ng-content>
-                </div>
-                <pxb-contact-support *ngIf="isEmpty(contactSupportEl)"></pxb-contact-support>
+                <template [ngTemplateOutlet]="contactSupportRef"></template>
+                <pxb-contact-support *ngIf="!contactSupportRef"></pxb-contact-support>
             </div>
         </ng-container>
 

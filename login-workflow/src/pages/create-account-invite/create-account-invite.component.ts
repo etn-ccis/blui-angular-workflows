@@ -8,6 +8,8 @@ import { PXB_LOGIN_VALIDATOR_ERROR_NAME } from '../login/login.component';
 import { LOGIN_ROUTE } from '../../auth/auth.routes';
 
 import { PxbAuthConfig } from '../../services/config/auth-config';
+import { PxbRegisterUIService } from '../../services/api/register-ui.service';
+import { PxbAuthSecurityService } from '../../services/state/auth-security.service';
 
 class CrossFieldErrorMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -44,7 +46,9 @@ export class PxbCreateAccountInviteComponent implements OnInit {
     constructor(
         private readonly _router: Router,
         private readonly _authConfig: PxbAuthConfig,
-        private readonly _formBuilder: FormBuilder
+        private readonly _formBuilder: FormBuilder,
+        private readonly _pxbRegisterService: PxbRegisterUIService,
+        private readonly _pxbSecurityService: PxbAuthSecurityService
     ) {
         this.passwordFormGroup = this._formBuilder.group(
             {
@@ -63,6 +67,19 @@ export class PxbCreateAccountInviteComponent implements OnInit {
         this.firstNameFormControl = new FormControl('', Validators.required);
         this.lastNameFormControl = new FormControl('', Validators.required);
         this.phoneNumberFormControl = new FormControl('');
+        this.validateRegistrationLink();
+    }
+
+    validateRegistrationLink(): void {
+        this._pxbSecurityService.setLoading(true);
+        this._pxbRegisterService
+            .validateUserRegistrationRequest()
+            .then(() => {
+                this._pxbSecurityService.setLoading(false);
+            })
+            .catch(() => {
+                this._pxbSecurityService.setLoading(false);
+            });
     }
 
     getTitle(): string {
