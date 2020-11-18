@@ -1,78 +1,45 @@
 @import '~@pxblue/colors/palette';
 
-:host {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
-.title {
-    padding: 0 8px 32px;
-}
-
-.content {
-    padding: 0 8px;
+.pxb-create-account-invite-content {
     display: flex;
     flex-direction: column;
     flex: 1 1 0px;
 }
 
-.license-agreement {
+.pxb-create-account-invite-license-agreement {
     display: flex;
     flex: 1 1 0px;
     overflow: auto;
 }
 
-.confirm-agreement {
+.pxb-create-account-invite-confirm-agreement {
     margin: 24px 0;
 }
-
-::ng-deep .checkbox .mat-checkbox-inner-container {
-    width: 18px;
-    height: 18px;
-}
-
-.validation-list mat-list-item {
-    height: auto;
-}
-
-.validation-list {
+.pxb-create-account-invite-validation-list {
     margin-bottom: 24px;
     margin-top: -16px;
+    mat-list-item {
+        height: auto;
+    }
 }
 
-.form-field {
+.pxb-create-account-invite-form-field {
     margin-bottom: 8px;
 }
 
-::ng-deep .content .empty-state .pxb-empty-state-description {
-    color: inherit;
-}
-
-::ng-deep .content .empty-state .pxb-empty-state-empty-icon-wrapper {
-    margin-bottom: 32px;
-}
-
-.empty-state-icon {
+.pxb-create-account-invite-empty-state-icon {
     color: map-get($pxb-blue, 500);
 }
 
-.button-container {
-    padding: 8px;
-    display: flex;
-    justify-content: space-between;
+::ng-deep .pxb-create-account-invite-content .pxb-empty-state-description {
+    color: inherit;
 }
 
-@media only screen and (max-width: 600px) {
-    .title {
-        padding: 0 0 32px;
-    }
+::ng-deep .pxb-create-account-invite-content .pxb-empty-state-empty-icon-wrapper {
+    margin-bottom: 32px;
+}
 
-    .content {
-        padding: 0;
-    }
-
-    .button-container {
-        padding: 0;
-    }
+::ng-deep .pxb-create-account-invite-checkbox .mat-checkbox-inner-container {
+    width: 18px;
+    height: 18px;
 }

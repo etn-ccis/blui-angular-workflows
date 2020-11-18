@@ -5,15 +5,20 @@ import { PxbAuthConfig } from '@pxblue/angular-auth-workflow';
 @Component({
     selector: 'app-auth',
     template: `
-        <pxb-auth>
+        <pxb-auth [loginRef]="loginPage" [createAccountInviteRef]="createAccountViaInvite">
+          <ng-template #loginPage>
             <pxb-login [customEmailValidator]="customValidator()">
-                <div pxb-login-header>
-                    <img src="assets/images/eaton_stacked_logo.png" style="max-width: 100%; max-height: 80px;" />
-                </div>
-                <div pxb-login-footer style="text-align: center;">
-                    <img src="assets/images/cybersecurity_certified.png" style="max-width: 30%; align-self: center;" />
-                </div>
+              <div pxb-login-header>
+                <img src="assets/images/eaton_stacked_logo.png" style="max-width: 100%; max-height: 80px;" />
+              </div>
+              <div pxb-login-footer style="text-align: center;">
+                <img src="assets/images/cybersecurity_certified.png" style="max-width: 30%; align-self: center;" />
+              </div>
             </pxb-login>
+          </ng-template>
+          <ng-template #createAccountViaInvite>
+            <pxb-create-account-invite></pxb-create-account-invite>
+          </ng-template>
         </pxb-auth>
     `,
 })
