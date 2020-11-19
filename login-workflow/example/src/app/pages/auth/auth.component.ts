@@ -5,7 +5,7 @@ import { PxbAuthConfig } from '@pxblue/angular-auth-workflow';
 @Component({
     selector: 'app-auth',
     template: `
-        <pxb-auth [loginRef]="loginPage" [createAccountInviteRef]="createAccountViaInvite">
+        <pxb-auth [loginRef]="loginPage">
             <ng-template #loginPage>
                 <pxb-login [customEmailValidator]="customValidator()">
                     <div pxb-login-header>
@@ -18,9 +18,6 @@ import { PxbAuthConfig } from '@pxblue/angular-auth-workflow';
                         />
                     </div>
                 </pxb-login>
-            </ng-template>
-            <ng-template #createAccountViaInvite>
-                <pxb-create-account-invite></pxb-create-account-invite>
             </ng-template>
         </pxb-auth>
     `,
