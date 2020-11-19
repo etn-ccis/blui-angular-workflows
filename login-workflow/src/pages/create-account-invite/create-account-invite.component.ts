@@ -1,15 +1,14 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthErrorStateMatcher } from '../../util/matcher';
-import { SAMPLE_EULA } from '../../constants/sampleEula';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { PXB_LOGIN_VALIDATOR_ERROR_NAME } from '../login/login.component';
 import { LOGIN_ROUTE } from '../../auth/auth.routes';
 
 import { PxbAuthConfig } from '../../services/config/auth-config';
 import { PxbRegisterUIService } from '../../services/api/register-ui.service';
-import { PxbAuthSecurityService } from '../../services/state/auth-security.service';
+import { PxbAuthSecurityService, SecurityContext } from '../../services/state/auth-security.service';
+import { PxbCreateAccountInviteErrorDialogService } from './dialog/create-account-invite-error-dialog.service';
 
 class CrossFieldErrorMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -23,33 +22,45 @@ class CrossFieldErrorMatcher implements ErrorStateMatcher {
     styleUrls: ['./create-account-invite.component.scss'],
 })
 export class PxbCreateAccountInviteComponent implements OnInit {
-    @Input() email = 'testemail@email.com';
-    @Input() licenseAgreement = SAMPLE_EULA;
     pageCount = 4;
     currentPageId: number;
-    customErrorName = PXB_LOGIN_VALIDATOR_ERROR_NAME;
-    confirmAgreement = false;
+
     emailMatcher = new AuthErrorStateMatcher();
+    errorMatcher = new CrossFieldErrorMatcher();
+
     passwordFormGroup: FormGroup;
     firstNameFormControl: FormControl;
     lastNameFormControl: FormControl;
     phoneNumberFormControl: FormControl;
-    newPasswordVisible = false;
-    confirmPasswordVisible = false;
-    errorMatcher = new CrossFieldErrorMatcher();
+
     passLength = false;
     specialFlag = false;
     numberFlag = false;
     upperFlag = false;
     lowerFlag = false;
+    confirmAgreement = false;
+    confirmPasswordFocused = false;
+    newPasswordVisible = false;
+    confirmPasswordVisible = false;
+
+    isValidRegistrationLink = false;
+    hasEulaLoadError = false;
+    isLoading = true;
+
+    licenseAgreement: string;
 
     constructor(
         private readonly _router: Router,
-        private readonly _authConfig: PxbAuthConfig,
+        private readonly _pxbAuthConfig: PxbAuthConfig,
         private readonly _formBuilder: FormBuilder,
         private readonly _pxbRegisterService: PxbRegisterUIService,
-        private readonly _pxbSecurityService: PxbAuthSecurityService
+        private readonly _pxbSecurityService: PxbAuthSecurityService,
+        private readonly _pxbErrorDialogService: PxbCreateAccountInviteErrorDialogService
     ) {
+        this._pxbSecurityService.securityStateChanges().subscribe((state: SecurityContext) => {
+            this.isLoading = state.isLoading;
+        });
+
         this.passwordFormGroup = this._formBuilder.group(
             {
                 newPassword: ['', Validators.required],
@@ -75,10 +86,47 @@ export class PxbCreateAccountInviteComponent implements OnInit {
         this._pxbRegisterService
             .validateUserRegistrationRequest()
             .then(() => {
+                this.isValidRegistrationLink = true;
+                this.getEULA();
+            })
+            .catch(() => {
+                this.isValidRegistrationLink = false;
                 this._pxbSecurityService.setLoading(false);
+            });
+    }
+
+    getEULA(): void {
+        if (this._pxbAuthConfig.eula) {
+            this.licenseAgreement = this._pxbAuthConfig.eula;
+        } else {
+            this._pxbRegisterService
+                .loadEULA()
+                .then((eula: string) => {
+                    this.licenseAgreement = eula;
+                    this._pxbSecurityService.setLoading(false);
+                })
+                .catch(() => {
+                    this.hasEulaLoadError = true;
+                    this._pxbSecurityService.setLoading(false);
+                });
+        }
+    }
+
+    registerAccount(): void {
+        const firstName = this.firstNameFormControl.value;
+        const lastName = this.lastNameFormControl.value;
+        const phoneNumber = this.phoneNumberFormControl.value;
+        const password = this.passwordFormGroup.value.confirmPassword;
+        this._pxbSecurityService.setLoading(true);
+        this._pxbRegisterService
+            .completeRegistration(firstName, lastName, phoneNumber, password)
+            .then(() => {
+                this._pxbSecurityService.setLoading(false);
+                this.next();
             })
             .catch(() => {
                 this._pxbSecurityService.setLoading(false);
+                this._pxbErrorDialogService.openDialog();
             });
     }
 
@@ -119,14 +167,14 @@ export class PxbCreateAccountInviteComponent implements OnInit {
         return pass === confirmPass ? null : { passwordsDoNotMatch: true };
     }
 
-    getEmptyStateTitle(): string {
-        const title = `Welcome, ${this.firstNameFormControl.value} ${this.lastNameFormControl.value}!`;
-        return title;
+    getSuccessEmptyStateTitle(): string {
+        return `Welcome, ${this.firstNameFormControl.value} ${this.lastNameFormControl.value}!`;
     }
 
-    getEmptyStateDescription(): string {
-        const description = `Your account has been successfully created with the email ${this.email}. Your account has already been added to the organization. Press continue below to continue.`;
-        return description;
+    getSuccessEmptyStateDescription(): string {
+        return `Your account has been successfully created with the email ${
+            this._pxbSecurityService.getSecurityState().email
+        }. Your account has already been added to the organization. Press Continue below to finish.`;
     }
 
     canContinue(): boolean {
@@ -168,16 +216,7 @@ export class PxbCreateAccountInviteComponent implements OnInit {
         this.currentPageId = this.currentPageId + 1;
     }
 
-    resetForm(): void {
-        this.confirmAgreement = false;
-        this.passwordFormGroup.reset();
-        this.firstNameFormControl.reset();
-        this.lastNameFormControl.reset();
-        this.phoneNumberFormControl.reset();
-        this.currentPageId = 0;
-    }
-
     navigateToLogin(): void {
-        void this._router.navigate([`${this._authConfig.authRoute}/${LOGIN_ROUTE}`]);
+        void this._router.navigate([`${this._pxbAuthConfig.authRoute}/${LOGIN_ROUTE}`]);
     }
 }

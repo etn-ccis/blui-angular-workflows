@@ -18,6 +18,7 @@ export class PxbAuthConfig implements PxbAuthConfig {
 
     passwordRequirements?: PasswordRequirement[]; //TODO: Add default here.
 
+    eula: string;
     htmlEula = false;
     allowDebugMode = false;
     showSelfRegistration = true;
