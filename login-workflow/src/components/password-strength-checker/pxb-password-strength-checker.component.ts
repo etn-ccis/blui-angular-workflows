@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input, NgZone, Output, ViewEncapsulation } from '@angular/core';
 
 export type PasswordRequirement = {
     description: string;
@@ -42,12 +42,16 @@ export class PxbPasswordStrengthCheckerComponent {
     @Input() meetsRequirements: boolean;
     @Output() meetsRequirementsChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
+    constructor(private readonly _zone: NgZone) {}
+
     ngOnChanges(): void {
         let passwordMeetsRequirements = true;
         for (const requirement of this.requirements) {
             requirement.success = requirement.regex.test(this.formValue);
             passwordMeetsRequirements = passwordMeetsRequirements && requirement.success;
         }
-        this.meetsRequirementsChange.emit(passwordMeetsRequirements);
+        setTimeout(() => {
+            this.meetsRequirementsChange.emit(passwordMeetsRequirements);
+        });
     }
 }
