@@ -9,6 +9,7 @@ import { PxbAuthConfig } from '../../services/config/auth-config';
 import { PxbRegisterUIService } from '../../services/api/register-ui.service';
 import { PxbAuthSecurityService, SecurityContext } from '../../services/state/auth-security.service';
 import { PxbCreateAccountInviteErrorDialogService } from './dialog/create-account-invite-error-dialog.service';
+import { PasswordRequirement } from '../../components/password-strength-checker/pxb-password-strength-checker.component';
 
 class CrossFieldErrorMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -33,21 +34,18 @@ export class PxbCreateAccountInviteComponent implements OnInit {
     lastNameFormControl: FormControl;
     phoneNumberFormControl: FormControl;
 
-    passLength = false;
-    specialFlag = false;
-    numberFlag = false;
-    upperFlag = false;
-    lowerFlag = false;
     confirmAgreement = false;
     confirmPasswordFocused = false;
     newPasswordVisible = false;
     confirmPasswordVisible = false;
-
+    passesStrengthCheck = false;
     isValidRegistrationLink = false;
     hasEulaLoadError = false;
     isLoading = true;
 
     licenseAgreement: string;
+
+    passwordRequirements: PasswordRequirement[];
 
     constructor(
         private readonly _router: Router,
@@ -74,11 +72,11 @@ export class PxbCreateAccountInviteComponent implements OnInit {
 
     ngOnInit(): void {
         this.currentPageId = 0;
-
         this.firstNameFormControl = new FormControl('', Validators.required);
         this.lastNameFormControl = new FormControl('', Validators.required);
         this.phoneNumberFormControl = new FormControl('');
         this.validateRegistrationLink();
+        this.passwordRequirements = this._pxbAuthConfig.passwordRequirements;
     }
 
     validateRegistrationLink(): void {
@@ -153,14 +151,6 @@ export class PxbCreateAccountInviteComponent implements OnInit {
         this.confirmPasswordVisible = !this.confirmPasswordVisible;
     }
 
-    checkPasswordStrength(password: string): void {
-        this.passLength = /^.{8,16}$/.test(password);
-        this.specialFlag = /[!"#$%&'()*+,-./:;<=>?@[\]^`{|}~]+/.test(password);
-        this.numberFlag = /[0-9]/.test(password);
-        this.upperFlag = /[A-Z]/.test(password);
-        this.lowerFlag = /[a-z]/.test(password);
-    }
-
     checkPasswords(group: FormGroup): any {
         const pass = group.get('newPassword').value;
         const confirmPass = group.get('confirmPassword').value;
@@ -184,11 +174,7 @@ export class PxbCreateAccountInviteComponent implements OnInit {
             case 1:
                 return !(
                     this.passwordFormGroup.get('newPassword').value &&
-                    this.passLength &&
-                    this.specialFlag &&
-                    this.numberFlag &&
-                    this.upperFlag &&
-                    this.lowerFlag &&
+                    this.passesStrengthCheck &&
                     this.passwordFormGroup.get('confirmPassword').value &&
                     this.passwordFormGroup.valid
                 );
