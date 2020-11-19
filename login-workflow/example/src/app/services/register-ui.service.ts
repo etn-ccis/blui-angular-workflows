@@ -17,7 +17,7 @@ export class RegisterUIService implements IPxbRegisterUIService {
         );
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                if (!registrationCode || registrationCode.toLowerCase() === 'fail') {
+                if (!registrationCode || registrationCode.toUpperCase() === 'INVALID_LINK') {
                     return reject();
                 }
                 return resolve();
@@ -26,9 +26,14 @@ export class RegisterUIService implements IPxbRegisterUIService {
     }
 
     loadEULA(): Promise<string> {
+        const urlParams = new URLSearchParams(window.location.search);
+        const registrationCode = urlParams.get('code');
         console.log(`Performing a sample loadEULA request.`);
-        return new Promise((resolve) => {
+        return new Promise((resolve, reject) => {
             setTimeout(() => {
+                if (registrationCode.toUpperCase() === 'EULA_FAIL') {
+                    return reject();
+                }
                 return resolve(SAMPLE_EULA);
             }, 500);
         });
@@ -40,9 +45,10 @@ export class RegisterUIService implements IPxbRegisterUIService {
         );
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                if (firstName.toLowerCase() === 'fail' || lastName.toLowerCase() === 'fail') {
+                if (firstName.toUpperCase() === 'FAIL' || lastName.toUpperCase() === 'FAIL') {
                     return reject();
                 }
+                this._pxbSecurityService.updateSecurityState({ email: 'sample-email@test.com' });
                 return resolve();
             }, 2000);
         });

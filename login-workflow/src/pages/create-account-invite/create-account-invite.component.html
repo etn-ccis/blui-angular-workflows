@@ -1,7 +1,7 @@
 <div class="mat-title pxb-auth-title">{{ getTitle() }}</div>
 
 <!-- Error State -->
-<ng-container *ngIf="hasSelfRegistrationError() && !isLoading">
+<ng-container *ngIf="(!isValidRegistrationLink || hasEulaLoadError) && !isLoading">
     <div class="pxb-create-account-invite-content-error-state">
         <!-- TODO: How should we handle error states? -->
         <pxb-empty-state title="Error" description="There was an error during account registration.">
@@ -14,16 +14,18 @@
     </div>
 </ng-container>
 
-<ng-container *ngIf="!hasSelfRegistrationError()">
+<ng-container *ngIf="isValidRegistrationLink && !hasEulaLoadError && !isLoading">
     <div class="pxb-create-account-invite-content" *ngIf="currentPageId === 0">
-        <ng-container *ngIf="licenseAgreement">
-            <div class="pxb-create-account-invite-license-agreement">{{ licenseAgreement }}</div>
-            <div class="pxb-create-account-invite-confirm-agreement">
-                <mat-checkbox class="pxb-create-account-invite-checkbox" [(ngModel)]="confirmAgreement" ngDefaultControl
-                    >I have read and agree to the Terms & Conditions</mat-checkbox
-                >
-            </div>
-        </ng-container>
+        <div *ngIf="licenseAgreement" class="pxb-create-account-invite-license-agreement">{{ licenseAgreement }}</div>
+        <div class="pxb-create-account-invite-confirm-agreement">
+            <mat-checkbox
+                class="pxb-create-account-invite-checkbox"
+                [disabled]="!licenseAgreement"
+                [(ngModel)]="confirmAgreement"
+                ngDefaultControl
+                >I have read and agree to the Terms & Conditions</mat-checkbox
+            >
+        </div>
     </div>
 
     <div class="pxb-create-account-invite-content" *ngIf="currentPageId === 1">
@@ -113,7 +115,7 @@
     </div>
 
     <div class="pxb-create-account-invite-content" *ngIf="currentPageId === 3" style="justify-content: center;">
-        <pxb-empty-state [title]="getEmptyStateTitle()" [description]="getEmptyStateDescription()">
+        <pxb-empty-state class="pxb-create-account-invite-success" [title]="getSuccessEmptyStateTitle()" [description]="getSuccessEmptyStateDescription()">
             <mat-icon pxb-empty-icon class="pxb-create-account-invite-empty-state-icon">check_circle</mat-icon>
         </pxb-empty-state>
     </div>
@@ -142,6 +144,7 @@
             *ngIf="currentPageId === 2"
             mat-flat-button
             color="primary"
+            [disabled]="canContinue()"
             (click)="registerAccount()"
             style="width: 100px"
         >

@@ -6,19 +6,22 @@ import { PxbAuthConfig } from '@pxblue/angular-auth-workflow';
     selector: 'app-auth',
     template: `
         <pxb-auth [loginRef]="loginPage" [createAccountInviteRef]="createAccountViaInvite">
-          <ng-template #loginPage>
-            <pxb-login [customEmailValidator]="customValidator()">
-              <div pxb-login-header>
-                <img src="assets/images/eaton_stacked_logo.png" style="max-width: 100%; max-height: 80px;" />
-              </div>
-              <div pxb-login-footer style="text-align: center;">
-                <img src="assets/images/cybersecurity_certified.png" style="max-width: 30%; align-self: center;" />
-              </div>
-            </pxb-login>
-          </ng-template>
-          <ng-template #createAccountViaInvite>
-            <pxb-create-account-invite></pxb-create-account-invite>
-          </ng-template>
+            <ng-template #loginPage>
+                <pxb-login [customEmailValidator]="customValidator()">
+                    <div pxb-login-header>
+                        <img src="assets/images/eaton_stacked_logo.png" style="max-width: 100%; max-height: 80px;" />
+                    </div>
+                    <div pxb-login-footer style="text-align: center;">
+                        <img
+                            src="assets/images/cybersecurity_certified.png"
+                            style="max-width: 30%; align-self: center;"
+                        />
+                    </div>
+                </pxb-login>
+            </ng-template>
+            <ng-template #createAccountViaInvite>
+                <pxb-create-account-invite></pxb-create-account-invite>
+            </ng-template>
         </pxb-auth>
     `,
 })
@@ -30,7 +33,7 @@ export class AuthComponent {
         pxbAuthConfig.showSelfRegistration = false;
         // If the homeRoute is not pre-populated by default route inspection, provide it below.
         if (!pxbAuthConfig.homeRoute || pxbAuthConfig.homeRoute === '/') {
-          pxbAuthConfig.homeRoute = 'home';
+            pxbAuthConfig.homeRoute = 'home';
         }
     }
 

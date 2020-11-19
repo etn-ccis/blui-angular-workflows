@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthErrorStateMatcher } from '../../util/matcher';
@@ -8,6 +8,7 @@ import { LOGIN_ROUTE } from '../../auth/auth.routes';
 import { PxbAuthConfig } from '../../services/config/auth-config';
 import { PxbRegisterUIService } from '../../services/api/register-ui.service';
 import { PxbAuthSecurityService, SecurityContext } from '../../services/state/auth-security.service';
+import { PxbCreateAccountInviteErrorDialogService } from './dialog/create-account-invite-error-dialog.service';
 
 class CrossFieldErrorMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -21,36 +22,41 @@ class CrossFieldErrorMatcher implements ErrorStateMatcher {
     styleUrls: ['./create-account-invite.component.scss'],
 })
 export class PxbCreateAccountInviteComponent implements OnInit {
-    @Input() email = 'testemail@email.com';
-    @Input() licenseAgreement;
     pageCount = 4;
     currentPageId: number;
-    confirmAgreement = false;
+
+
     emailMatcher = new AuthErrorStateMatcher();
+    errorMatcher = new CrossFieldErrorMatcher();
+
     passwordFormGroup: FormGroup;
     firstNameFormControl: FormControl;
     lastNameFormControl: FormControl;
     phoneNumberFormControl: FormControl;
-    newPasswordVisible = false;
-    confirmPasswordVisible = false;
-    errorMatcher = new CrossFieldErrorMatcher();
+
     passLength = false;
     specialFlag = false;
     numberFlag = false;
     upperFlag = false;
     lowerFlag = false;
+    confirmAgreement = false;
     confirmPasswordFocused = false;
+    newPasswordVisible = false;
+    confirmPasswordVisible = false;
 
-    isInvalidRegistrationLink = false;
-    hasRegisterAccountError = false;
-    isLoading = false;
+    isValidRegistrationLink = false;
+    hasEulaLoadError = false;
+    isLoading = true;
+
+    licenseAgreement: string;
 
     constructor(
         private readonly _router: Router,
-        private readonly _authConfig: PxbAuthConfig,
+        private readonly _pxbAuthConfig: PxbAuthConfig,
         private readonly _formBuilder: FormBuilder,
         private readonly _pxbRegisterService: PxbRegisterUIService,
-        private readonly _pxbSecurityService: PxbAuthSecurityService
+        private readonly _pxbSecurityService: PxbAuthSecurityService,
+        private readonly _pxbErrorDialogService: PxbCreateAccountInviteErrorDialogService
     ) {
         this._pxbSecurityService.securityStateChanges().subscribe((state: SecurityContext) => {
             this.isLoading = state.isLoading;
@@ -81,27 +87,30 @@ export class PxbCreateAccountInviteComponent implements OnInit {
         this._pxbRegisterService
             .validateUserRegistrationRequest()
             .then(() => {
-                this.isInvalidRegistrationLink = true;
-                if (!this.licenseAgreement) {
-                    this.getEULA();
-                }
+                this.isValidRegistrationLink = true;
+                this.getEULA();
             })
             .catch(() => {
-                this.isInvalidRegistrationLink = false;
+                this.isValidRegistrationLink = false;
                 this._pxbSecurityService.setLoading(false);
             });
     }
 
     getEULA(): void {
-        this._pxbRegisterService
-            .loadEULA()
-            .then((eula: string) => {
-                this.licenseAgreement = eula;
-                this._pxbSecurityService.setLoading(false);
-            })
-            .catch(() => {
-                this._pxbSecurityService.setLoading(false);
-            });
+        if (this._pxbAuthConfig.eula) {
+            this.licenseAgreement = this._pxbAuthConfig.eula;
+        } else {
+            this._pxbRegisterService
+                .loadEULA()
+                .then((eula: string) => {
+                    this.licenseAgreement = eula;
+                    this._pxbSecurityService.setLoading(false);
+                })
+                .catch(() => {
+                    this.hasEulaLoadError = true;
+                    this._pxbSecurityService.setLoading(false);
+                });
+        }
     }
 
     registerAccount(): void {
@@ -118,12 +127,8 @@ export class PxbCreateAccountInviteComponent implements OnInit {
             })
             .catch(() => {
                 this._pxbSecurityService.setLoading(false);
-                this.hasRegisterAccountError = true;
+                this._pxbErrorDialogService.openDialog();
             });
-    }
-
-    hasSelfRegistrationError(): boolean {
-        return !this.isInvalidRegistrationLink || this.hasRegisterAccountError;
     }
 
     getTitle(): string {
@@ -163,12 +168,14 @@ export class PxbCreateAccountInviteComponent implements OnInit {
         return pass === confirmPass ? null : { passwordsDoNotMatch: true };
     }
 
-    getEmptyStateTitle(): string {
+    getSuccessEmptyStateTitle(): string {
         return `Welcome, ${this.firstNameFormControl.value} ${this.lastNameFormControl.value}!`;
     }
 
-    getEmptyStateDescription(): string {
-        return `Your account has been successfully created with the email ${this.email}. Your account has already been added to the organization. Press finish below to continue.`;
+    getSuccessEmptyStateDescription(): string {
+        return `Your account has been successfully created with the email ${
+            this._pxbSecurityService.getSecurityState().email
+        }. Your account has already been added to the organization. Press Continue below to finish.`;
     }
 
     canContinue(): boolean {
@@ -211,6 +218,6 @@ export class PxbCreateAccountInviteComponent implements OnInit {
     }
 
     navigateToLogin(): void {
-        void this._router.navigate([`${this._authConfig.authRoute}/${LOGIN_ROUTE}`]);
+        void this._router.navigate([`${this._pxbAuthConfig.authRoute}/${LOGIN_ROUTE}`]);
     }
 }
