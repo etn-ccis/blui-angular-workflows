@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { IPxbRegisterUIService, PxbAuthSecurityService } from '@pxblue/angular-auth-workflow';
 import { SAMPLE_EULA } from '../constants/sampleEula';
 
+const TIMEOUT_MS = 1500;
+
 @Injectable({
     providedIn: 'root',
 })
@@ -21,7 +23,7 @@ export class RegisterUIService implements IPxbRegisterUIService {
                     return reject();
                 }
                 return resolve();
-            }, 1000);
+            }, TIMEOUT_MS);
         });
     }
 
@@ -35,7 +37,7 @@ export class RegisterUIService implements IPxbRegisterUIService {
                     return reject();
                 }
                 return resolve(SAMPLE_EULA);
-            }, 500);
+            }, TIMEOUT_MS);
         });
     }
 
@@ -50,7 +52,7 @@ export class RegisterUIService implements IPxbRegisterUIService {
                 }
                 this._pxbSecurityService.updateSecurityState({ email: 'sample-email@test.com' });
                 return resolve();
-            }, 2000);
+            }, TIMEOUT_MS);
         });
     }
 }

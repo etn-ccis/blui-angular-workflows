@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { IPxbAuthUIService, PxbAuthSecurityService } from '@pxblue/angular-auth-workflow';
 import { LocalStorageService } from './localStorage.service';
 
+const TIMEOUT_MS = 1500;
+
 @Injectable({
     providedIn: 'root',
 })
@@ -29,7 +31,7 @@ export class AuthUIService implements IPxbAuthUIService {
                     this._pxbSecurityService.onUserNotAuthenticated();
                 }
                 return resolve();
-            }, 1500);
+            }, TIMEOUT_MS);
         });
     }
 
@@ -43,7 +45,7 @@ export class AuthUIService implements IPxbAuthUIService {
                     return reject('The Login API request has failed.');
                 }
                 return resolve();
-            }, 1500);
+            }, TIMEOUT_MS);
         });
     }
 
@@ -55,7 +57,7 @@ export class AuthUIService implements IPxbAuthUIService {
                     return reject('The ForgotPassword API request has failed.');
                 }
                 return resolve();
-            }, 1000);
+            }, TIMEOUT_MS);
         });
     }
 
@@ -69,7 +71,7 @@ export class AuthUIService implements IPxbAuthUIService {
                     return reject('The ChangePassword API request has failed.');
                 }
                 return resolve();
-            }, 1000);
+            }, TIMEOUT_MS);
         });
     }
 
@@ -83,7 +85,7 @@ export class AuthUIService implements IPxbAuthUIService {
                     return reject('The SetPassword API request has failed.');
                 }
                 return resolve();
-            }, 1000);
+            }, TIMEOUT_MS);
         });
     }
 }
