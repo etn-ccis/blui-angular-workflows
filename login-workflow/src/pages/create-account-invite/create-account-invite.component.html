@@ -115,7 +115,11 @@
     </div>
 
     <div class="pxb-create-account-invite-content" *ngIf="currentPageId === 3" style="justify-content: center;">
-        <pxb-empty-state class="pxb-create-account-invite-success" [title]="getSuccessEmptyStateTitle()" [description]="getSuccessEmptyStateDescription()">
+        <pxb-empty-state
+            class="pxb-create-account-invite-success"
+            [title]="getSuccessEmptyStateTitle()"
+            [description]="getSuccessEmptyStateDescription()"
+        >
             <mat-icon pxb-empty-icon class="pxb-create-account-invite-empty-state-icon">check_circle</mat-icon>
         </pxb-empty-state>
     </div>

@@ -31,6 +31,7 @@ export class PxbRegisterUIService implements IPxbRegisterUIService {
         return undefined;
     }
 
+    /* eslint-disable @typescript-eslint/no-unused-vars */
     completeRegistration(firstName: string, lastName: string, phoneNumber: string, password: string): Promise<void> {
         this.warn();
         return undefined;

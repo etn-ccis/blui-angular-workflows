@@ -25,7 +25,6 @@ export class PxbCreateAccountInviteComponent implements OnInit {
     pageCount = 4;
     currentPageId: number;
 
-
     emailMatcher = new AuthErrorStateMatcher();
     errorMatcher = new CrossFieldErrorMatcher();
 
