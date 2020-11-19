@@ -71,7 +71,10 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
         if (this.customEmailValidator) {
             emailValidators.push(this.customEmailValidator);
         }
-        this.emailFormControl = new FormControl(this._pxbSecurityService.getSecurityState().rememberMeDetails.email, emailValidators);
+        this.emailFormControl = new FormControl(
+            this._pxbSecurityService.getSecurityState().rememberMeDetails.email,
+            emailValidators
+        );
         this.passwordFormControl = new FormControl('', []);
         this.rememberMe = this._pxbSecurityService.getSecurityState().rememberMeDetails.rememberMe;
         if (this._pxbSecurityService.getSecurityState().isAuthenticatedUser) {
