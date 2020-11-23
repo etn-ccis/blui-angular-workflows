@@ -2,7 +2,8 @@
 
 pxb-create-account-eula-step,
 pxb-create-account-create-password-step,
-pxb-create-account-account-details-step {
+pxb-create-account-account-details-step,
+pxb-create-account-account-created-step {
     display: flex;
     flex: 1 1 0px;
     flex-direction: column;
@@ -21,35 +22,4 @@ pxb-create-account-account-details-step {
             color: map_get($pxb-red, 500);
         }
     }
-}
-
-.pxb-create-account-invite-license-agreement {
-    display: flex;
-    flex: 1 1 0px;
-    overflow: auto;
-}
-
-.pxb-create-account-invite-confirm-agreement {
-    margin: 24px 0;
-}
-
-.pxb-create-account-invite-form-field {
-    margin-bottom: 8px;
-}
-
-.pxb-create-account-invite-empty-state-icon {
-    color: map-get($pxb-blue, 500);
-}
-
-::ng-deep .pxb-create-account-invite-success .pxb-empty-state-description {
-    color: inherit !important;
-}
-
-::ng-deep .pxb-create-account-invite-content .pxb-empty-state-empty-icon-wrapper {
-    margin-bottom: 32px;
-}
-
-::ng-deep .pxb-create-account-invite-checkbox .mat-checkbox-inner-container {
-    width: 18px;
-    height: 18px;
 }

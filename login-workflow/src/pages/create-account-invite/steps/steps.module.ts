@@ -12,12 +12,15 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { PxbCreateAccountEulaComponent } from './eula/eula.component';
 import { PxbCreateAccountCreatePasswordComponent } from './create-password/create-password.component';
 import { PxbCreateAccountAccountDetailsComponent } from './account-details/account-details.component';
+import { PxbAccountCreatedComponent } from './account-created/account-created.component';
+import { EmptyStateModule } from '@pxblue/angular-components';
 
 @NgModule({
     declarations: [
         PxbCreateAccountEulaComponent,
         PxbCreateAccountCreatePasswordComponent,
         PxbCreateAccountAccountDetailsComponent,
+        PxbAccountCreatedComponent,
     ],
     imports: [
         BrowserModule,
@@ -28,6 +31,7 @@ import { PxbCreateAccountAccountDetailsComponent } from './account-details/accou
         FormsModule,
         MatFormFieldModule,
         MatInputModule,
+        EmptyStateModule,
         MatDividerModule,
         ReactiveFormsModule,
         MatIconModule,
@@ -38,6 +42,7 @@ import { PxbCreateAccountAccountDetailsComponent } from './account-details/accou
         PxbCreateAccountEulaComponent,
         PxbCreateAccountCreatePasswordComponent,
         PxbCreateAccountAccountDetailsComponent,
+        PxbAccountCreatedComponent,
     ],
 })
 export class PxbCreateAccountStepsModule {}

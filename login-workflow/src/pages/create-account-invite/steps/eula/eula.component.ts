@@ -5,9 +5,9 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
     template: `
         <div class="mat-title pxb-auth-title">License Agreement</div>
         <div class="pxb-auth-full-height" style="overflow: auto">{{ eula }}</div>
-        <div class="pxb-create-account-invite-confirm-agreement">
+        <div class="pxb-eula-confirm-agreement">
             <mat-checkbox
-                class="pxb-create-account-invite-checkbox"
+                class="pxb-eula-checkbox"
                 [(ngModel)]="userAcceptsEula"
                 (change)="userAcceptsEulaChange.emit(userAcceptsEula)"
                 ngDefaultControl
@@ -18,8 +18,12 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
     `,
     styles: [
         `
-            .pxb-create-account-invite-confirm-agreement {
+            .pxb-eula-confirm-agreement {
                 margin: 24px 0;
+            }
+            ::ng-deep .pxb-eula-checkbox .mat-checkbox-inner-container {
+                width: 18px;
+                height: 18px;
             }
         `,
     ],

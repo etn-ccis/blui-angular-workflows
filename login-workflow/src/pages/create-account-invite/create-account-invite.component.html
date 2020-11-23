@@ -34,45 +34,24 @@
     >
     </pxb-create-account-account-details-step>
 
-    <div class="pxb-create-account-invite-content" *ngIf="currentPageId === 3" style="justify-content: center;">
-        <pxb-empty-state
-            class="pxb-create-account-invite-success"
-            [title]="getSuccessEmptyStateTitle()"
-            [description]="getSuccessEmptyStateDescription()"
-        >
-            <mat-icon pxb-empty-icon class="pxb-create-account-invite-empty-state-icon">check_circle</mat-icon>
-        </pxb-empty-state>
-    </div>
+    <pxb-create-account-account-created-step *ngIf="currentPageId === 3" [firstName]="firstName" [lastName]="lastName">
+    </pxb-create-account-account-created-step>
+
     <mat-divider class="pxb-auth-divider" style="margin-bottom: 16px;"></mat-divider>
     <div class="pxb-auth-action-button-container">
-        <button *ngIf="currentPageId !== 3" mat-stroked-button color="primary" (click)="goBack()" style="width: 100px;">
-            Back
-        </button>
-        <pxb-dot-stepper
-            *ngIf="currentPageId <= 2"
-            [steps]="pageCount"
-            [activeStepId]="currentPageId"
-        ></pxb-dot-stepper>
-        <button
-            *ngIf="currentPageId <= 1"
-            mat-flat-button
-            color="primary"
-            [disabled]="!canContinue()"
-            (click)="next()"
-            style="width: 100px;"
-        >
-            Next
-        </button>
-        <button
-            *ngIf="currentPageId === 2"
-            mat-flat-button
-            color="primary"
-            [disabled]="!canContinue()"
-            (click)="registerAccount()"
-            style="width: 100px"
-        >
-            Next
-        </button>
+        <ng-container *ngIf="currentPageId <= 2">
+            <button mat-stroked-button color="primary" (click)="goBack()" style="width: 100px;">Back</button>
+            <pxb-dot-stepper [steps]="4" [activeStepId]="currentPageId"></pxb-dot-stepper>
+            <button
+                mat-flat-button
+                color="primary"
+                [disabled]="!canContinue()"
+                (click)="goNext()"
+                style="width: 100px;"
+            >
+                Next
+            </button>
+        </ng-container>
         <button
             *ngIf="currentPageId === 3"
             mat-flat-button

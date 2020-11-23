@@ -3,6 +3,14 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 
 @Component({
     selector: 'pxb-create-account-account-details-step',
+    styles: [
+        `
+            .pxb-account-details-form-field {
+                width: 100%;
+                margin-bottom: 8px;
+            }
+        `,
+    ],
     template: `
         <div class="mat-title pxb-auth-title">Create Password</div>
         <div class="pxb-auth-full-height">
@@ -11,7 +19,7 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
             </p>
             <mat-divider class="pxb-auth-divider" style="margin-top: 16px; margin-bottom: 32px;"></mat-divider>
             <form>
-                <mat-form-field appearance="fill" style="width: 100%;" class="pxb-create-account-invite-form-field">
+                <mat-form-field appearance="fill" class="pxb-account-details-form-field">
                     <mat-label>First Name</mat-label>
                     <input
                         id="first"
@@ -24,7 +32,7 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
                         First Name is <strong>required</strong>
                     </mat-error>
                 </mat-form-field>
-                <mat-form-field appearance="fill" style="width: 100%;" class="pxb-create-account-invite-form-field">
+                <mat-form-field appearance="fill" class="pxb-account-details-form-field">
                     <mat-label>Last Name</mat-label>
                     <input
                         id="last"
@@ -37,7 +45,7 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
                         Last Name is <strong>required</strong>
                     </mat-error>
                 </mat-form-field>
-                <mat-form-field appearance="fill" style="width: 100%;" class="pxb-create-account-invite-form-field">
+                <mat-form-field appearance="fill" class="pxb-account-details-form-field">
                     <mat-label>Phone Number (optional)</mat-label>
                     <input
                         id="phone"

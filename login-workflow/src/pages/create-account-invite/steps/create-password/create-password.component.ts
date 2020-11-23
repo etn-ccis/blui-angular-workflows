@@ -97,7 +97,7 @@ export class PxbCreateAccountCreatePasswordComponent {
                 confirmPassword: ['', Validators.required],
             },
             {
-                validator: this.checkPasswords,
+                validator: this._checkPasswords,
             }
         );
     }
@@ -113,15 +113,15 @@ export class PxbCreateAccountCreatePasswordComponent {
     updatePassword(newPassword: string): void {
         this.password = newPassword;
         this.passwordChange.emit(newPassword);
-        this.passwordMeetsRequirements = this.passwordValid();
-        this.passwordMeetsRequirementsChange.emit(this.passwordValid());
+        this.passwordMeetsRequirements = this._passwordValid();
+        this.passwordMeetsRequirementsChange.emit(this._passwordValid());
     }
 
-    private passwordValid(): boolean {
+    private _passwordValid(): boolean {
         return this.passesStrengthCheck && this.passwordFormGroup.valid;
     }
 
-    private checkPasswords(group: FormGroup): any {
+    private _checkPasswords(group: FormGroup): any {
         const pass = group.get('newPassword').value;
         const confirmPass = group.get('confirmPassword').value;
         return pass === confirmPass ? null : { passwordsDoNotMatch: true };

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LOGIN_ROUTE } from '../../auth/auth.routes';
 
+import { LOGIN_ROUTE } from '../../auth/auth.routes';
 import { PxbAuthConfig } from '../../services/config/auth-config';
 import { PxbRegisterUIService } from '../../services/api/register-ui.service';
 import { PxbAuthSecurityService, SecurityContext } from '../../services/state/auth-security.service';
@@ -14,7 +14,6 @@ import { PxbCreateAccountInviteErrorDialogService } from './dialog/create-accoun
     styleUrls: ['./create-account-invite.component.scss'],
 })
 export class PxbCreateAccountInviteComponent implements OnInit {
-    pageCount = 4;
     currentPageId = 0;
 
     isLoading = true;
@@ -37,8 +36,8 @@ export class PxbCreateAccountInviteComponent implements OnInit {
 
     constructor(
         private readonly _router: Router,
-        private readonly _pxbAuthConfig: PxbAuthConfig,
         private readonly _formBuilder: FormBuilder,
+        private readonly _pxbAuthConfig: PxbAuthConfig,
         private readonly _pxbRegisterService: PxbRegisterUIService,
         private readonly _pxbSecurityService: PxbAuthSecurityService,
         private readonly _pxbErrorDialogService: PxbCreateAccountInviteErrorDialogService
@@ -89,7 +88,7 @@ export class PxbCreateAccountInviteComponent implements OnInit {
             .completeRegistration(this.firstName, this.lastName, this.phoneNumber, this.password)
             .then(() => {
                 this._pxbSecurityService.setLoading(false);
-                this.currentPageId += 1;
+                this.currentPageId++;
             })
             .catch(() => {
                 this._pxbSecurityService.setLoading(false);
@@ -97,30 +96,6 @@ export class PxbCreateAccountInviteComponent implements OnInit {
             });
     }
 
-    getTitle(): string {
-        switch (this.currentPageId) {
-            case 0:
-                return 'License Agreement';
-            case 1:
-                return 'Create Password';
-            case 2:
-                return 'Account Details';
-            case 3:
-                return 'Account Created!';
-            default:
-                return;
-        }
-    }
-
-    getSuccessEmptyStateTitle(): string {
-        return `Welcome, ${this.firstName} ${this.lastName}!`;
-    }
-
-    getSuccessEmptyStateDescription(): string {
-        return `Your account has been successfully created with the email ${
-            this._pxbSecurityService.getSecurityState().email
-        }. Your account has already been added to the organization. Press Continue below to finish.`;
-    }
     canContinue(): boolean {
         switch (this.currentPageId) {
             case 0:
@@ -135,15 +110,11 @@ export class PxbCreateAccountInviteComponent implements OnInit {
     }
 
     goBack(): void {
-        if (this.currentPageId === 0) {
-            this.navigateToLogin();
-        } else {
-            this.currentPageId = this.currentPageId - 1;
-        }
+        this.currentPageId === 0 ? this.navigateToLogin() : this.currentPageId--;
     }
 
-    next(): void {
-        this.currentPageId = this.currentPageId + 1;
+    goNext(): void {
+        this.currentPageId === 2 ? this.registerAccount() : this.currentPageId++;
     }
 
     navigateToLogin(): void {
