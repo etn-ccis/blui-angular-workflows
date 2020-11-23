@@ -89,8 +89,6 @@ export class PxbCreateAccountCreatePasswordComponent {
 
     ngOnInit(): void {
         this.passwordRequirements = this._pxbAuthConfig.passwordRequirements;
-        this.passwordMeetsRequirements = false;
-        this.passwordMeetsRequirementsChange.emit(false);
         this.passwordFormGroup = this._formBuilder.group(
             {
                 newPassword: ['', Validators.required],
@@ -100,6 +98,10 @@ export class PxbCreateAccountCreatePasswordComponent {
                 validator: this._checkPasswords,
             }
         );
+        setTimeout(() => {
+            this.passwordMeetsRequirements = false;
+            this.passwordMeetsRequirementsChange.emit(false);
+        });
     }
 
     toggleNewPasswordVisibility(): void {
