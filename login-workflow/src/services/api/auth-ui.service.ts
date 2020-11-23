@@ -26,8 +26,16 @@ export type IPxbAuthUIService = {
     // An authenticated user wants to change their password.
     changePassword(oldPassword: string, newPassword: string): Promise<void>;
 
+    /**
+     * The user has tapped on an email with a password reset link, which they received after
+     * requesting help for forgetting their password.
+     * The application should take the password reset code and then verify that it is still
+     * valid.
+     */
+    verifyResetCode(): Promise<void>;
+
     // A user who has previously used "forgotPassword" now has a valid password reset code and has entered a new password.
-    setPassword(code: string, password: string, email?: string): Promise<void>;
+    setPassword(password: string): Promise<void>;
 };
 
 @Injectable({
@@ -54,7 +62,12 @@ export class PxbAuthUIService implements IPxbAuthUIService {
         return undefined;
     }
 
-    setPassword(code: string, password: string, email?: string): Promise<void> {
+    verifyResetCode(): Promise<void> {
+        this.warn();
+        return undefined;
+    }
+
+    setPassword(password: string): Promise<void> {
         this.warn();
         return undefined;
     }

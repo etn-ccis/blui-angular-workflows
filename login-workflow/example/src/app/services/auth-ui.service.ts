@@ -15,7 +15,7 @@ export class AuthUIService implements IPxbAuthUIService {
     ) {}
 
     // This method is called at the start of the application to check if a remembered user is returning to the app and initiate pxb SecurityContext.
-    async initiateSecurity(): Promise<void> {
+    initiateSecurity(): Promise<void> {
         return new Promise((resolve) => {
             setTimeout(() => {
                 const authData = this._localStorageService.readAuthData();
@@ -35,7 +35,7 @@ export class AuthUIService implements IPxbAuthUIService {
         });
     }
 
-    async login(email: string, password: string, rememberMe: boolean): Promise<void> {
+    login(email: string, password: string, rememberMe: boolean): Promise<void> {
         console.log(
             `Performing a sample Login request with the following credentials:\n  email: ${email} \n  password: ${password} \n  rememberMe: ${rememberMe}`
         );
@@ -49,7 +49,7 @@ export class AuthUIService implements IPxbAuthUIService {
         });
     }
 
-    async forgotPassword(email: string): Promise<void> {
+    forgotPassword(email: string): Promise<void> {
         console.log(`Performing a sample ForgotPassword request with the following credentials:\n email: ${email}`);
         return new Promise((resolve, reject) => {
             setTimeout(() => {
@@ -61,7 +61,7 @@ export class AuthUIService implements IPxbAuthUIService {
         });
     }
 
-    async changePassword(oldPassword: string, newPassword: string): Promise<void> {
+    changePassword(oldPassword: string, newPassword: string): Promise<void> {
         console.log(
             `Performing a sample ChangePassword request with the following credentials.\n  oldPassword: ${oldPassword}\n  newPassword: ${newPassword}`
         );
@@ -75,13 +75,34 @@ export class AuthUIService implements IPxbAuthUIService {
         });
     }
 
-    async setPassword(code: string, password: string, email?: string): Promise<void> {
+    verifyResetCode(): Promise<void> {
+        const urlParams = new URLSearchParams(window.location.search);
+        const resetCode = urlParams.get('code');
         console.log(
-            `Performing a sample SetPassword request with the following credentials.\n  code: ${code}\n  password: ${password}\n  email: ${email}`
+            `Performing a sample verifyResetCode request with the following credentials:\n code: ${resetCode}`
         );
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                if (password === 'fail') {
+                if (!resetCode || resetCode.toUpperCase() === 'INVALID_LINK') {
+                    return reject();
+                }
+                return resolve();
+            }, 1000);
+        });
+    }
+
+    setPassword(password: string): Promise<void> {
+        const urlParams = new URLSearchParams(window.location.search);
+        const code = urlParams.get('code');
+        const email = urlParams.get('email');
+
+        console.log(
+            `Performing a sample SetPassword request with the following credentials.\n  code: ${code}\n  password: ${password}\n  email: ${email}`
+        );
+        
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                if (password.toLowerCase() === 'fail123!') {
                     return reject('The SetPassword API request has failed.');
                 }
                 return resolve();

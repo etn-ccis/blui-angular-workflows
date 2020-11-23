@@ -30,6 +30,7 @@ import { LoadingOverlayComponent } from './components/loading-overlay/loading-ov
 import { PxbChangePasswordErrorDialogComponent } from './pages/change-password/dialog/change-password-error-dialog.component';
 import { PxbForgotPasswordErrorDialogComponent } from './pages/forgot-password/dialog/forgot-password-error-dialog.component';
 import { PxbCreateAccountInviteDialogComponent } from './pages/create-account-invite/dialog/create-account-invite-error-dialog.component';
+import { PxbResetPasswordDialogComponent } from './pages/reset-password/dialog/reset-password-error-dialog.component';
 import { PxbPasswordStrengthCheckerComponent } from './components/password-strength-checker/pxb-password-strength-checker.component';
 
 @NgModule({
@@ -47,7 +48,7 @@ import { PxbPasswordStrengthCheckerComponent } from './components/password-stren
         PxbChangePasswordErrorDialogComponent,
         PxbForgotPasswordErrorDialogComponent,
         PxbCreateAccountInviteDialogComponent,
-
+        PxbResetPasswordDialogComponent,
         PxbPasswordStrengthCheckerComponent,
         PasswordStrengthCheckComponent,
         DotStepperComponent,
@@ -78,6 +79,7 @@ import { PxbPasswordStrengthCheckerComponent } from './components/password-stren
         PxbChangePasswordErrorDialogComponent,
         PxbChangePasswordDialogComponent,
         PxbCreateAccountInviteDialogComponent,
+        PxbResetPasswordDialogComponent,
     ],
     exports: [
         PxbAuthComponent,
