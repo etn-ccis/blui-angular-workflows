@@ -6,6 +6,7 @@ import { PxbAuthSecurityService, SecurityContext } from '../../services/state/au
 import { PxbAuthUIService } from '../../services/api/auth-ui.service';
 import { LOGIN_ROUTE } from '../../auth/auth.routes';
 import { PxbAuthConfig } from '../../services/config/auth-config';
+import { PxbResetPasswordErrorDialogService } from './dialog/reset-password-error-dialog.service';
 
 class CrossFieldErrorMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -40,7 +41,8 @@ export class PxbResetPasswordComponent implements OnInit {
         private readonly _router: Router,
         private readonly _pxbAuthUIService: PxbAuthUIService,
         private readonly _pxbSecurityService: PxbAuthSecurityService,
-        private readonly _formBuilder: FormBuilder
+        private readonly _formBuilder: FormBuilder,
+        private readonly _pxbErrorDialogService: PxbResetPasswordErrorDialogService
     ) {
         this._pxbSecurityService.securityStateChanges().subscribe((state: SecurityContext) => {
             this.isLoading = state.isLoading;
@@ -126,15 +128,12 @@ export class PxbResetPasswordComponent implements OnInit {
         void this._pxbAuthUIService
             .setPassword(password)
             .then(() => {
-                /* eslint-disable-next-line no-console */
-                console.log('reset password success');
                 this.passwordResetSuccess = true;
                 this._pxbSecurityService.setLoading(false);
             })
             .catch(() => {
-                /* eslint-disable-next-line no-console */
-                console.log('reset password failed');
                 this._pxbSecurityService.setLoading(false);
+                this._pxbErrorDialogService.openDialog();
             });
     }
 }
