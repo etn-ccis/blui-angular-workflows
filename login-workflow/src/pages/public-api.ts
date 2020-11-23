@@ -11,3 +11,5 @@ export * from './change-password/dialog/change-password-dialog.component';
 export * from './change-password/dialog/change-password-dialog.service';
 
 export * from './create-account-invite/public-api';
+export * from './create-account/steps/public-api';
+

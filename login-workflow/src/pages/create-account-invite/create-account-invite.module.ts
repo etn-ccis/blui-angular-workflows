@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
 import { PxbCreateAccountInviteComponent } from './create-account-invite.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { PxbCreateAccountInviteDialogComponent } from './dialog/create-account-invite-error-dialog.component';
-import { PxbCreateAccountStepsModule } from './steps/steps.module';
+import { PxbCreateAccountStepsModule } from '../create-account/steps/steps.module';
 import { PxbCommonComponentsModule } from '../../components/auth-common.module';
 
 @NgModule({
