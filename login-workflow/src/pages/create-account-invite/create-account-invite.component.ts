@@ -109,6 +109,10 @@ export class PxbCreateAccountInviteComponent implements OnInit {
         }
     }
 
+    hasEmptyStateError(): boolean {
+        return this.hasEulaLoadError || !this.isValidRegistrationLink;
+    }
+
     goBack(): void {
         this.currentPageId === 0 ? this.navigateToLogin() : this.currentPageId--;
     }

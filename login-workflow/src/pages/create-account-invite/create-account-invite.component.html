@@ -1,5 +1,9 @@
+<!--
+What should loading state page titles be?
+<div *ngIf="hasEmptyStateError() || (currentPageId === 0 && isLoading)" class="mat-title pxb-auth-title">License Agreement</div>-->
+
 <!-- Error State -->
-<ng-container *ngIf="(!isValidRegistrationLink || hasEulaLoadError) && !isLoading">
+<ng-container *ngIf="hasEmptyStateError() && !isLoading">
     <div class="pxb-create-account-invite-content-error-state">
         <!-- TODO: How should we handle error states? -->
         <pxb-empty-state title="Error" description="There was an error during account registration.">
@@ -12,7 +16,7 @@
     </div>
 </ng-container>
 
-<ng-container *ngIf="isValidRegistrationLink && !hasEulaLoadError && !isLoading">
+<ng-container *ngIf="!hasEmptyStateError() && !isLoading">
     <pxb-create-account-eula-step
         *ngIf="currentPageId === 0"
         [eula]="licenseAgreement"
