@@ -16,7 +16,28 @@ export class PxbAuthConfig implements PxbAuthConfig {
     projectImage: string;
     backgroundImage: string;
 
-    passwordRequirements?: PasswordRequirement[]; //TODO: Add default here.
+    passwordRequirements?: PasswordRequirement[] = [
+        {
+            description: '8-16 Characters',
+            regex: /^.{8,16}$/,
+        },
+        {
+            description: 'One number',
+            regex: /[0-9]/,
+        },
+        {
+            description: 'One uppercase letter',
+            regex: /[A-Z]/,
+        },
+        {
+            description: 'One lowercase letter',
+            regex: /[a-z]/,
+        },
+        {
+            description: 'One special character',
+            regex: /[!"#$%&'()*+,-./:;<=>?@[\]^`{|}~]+/,
+        },
+    ];
 
     eula: string;
     htmlEula = false;
