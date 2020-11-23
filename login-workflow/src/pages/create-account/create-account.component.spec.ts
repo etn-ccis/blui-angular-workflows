@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PxbCreateAccountComponent } from './create-account.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { PxbCreateAccountModule } from './create-account.module';
-import {NoopAnimationsModule} from "@angular/platform-browser/animations";
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('CreateAccountComponent', () => {
     let component: PxbCreateAccountComponent;
