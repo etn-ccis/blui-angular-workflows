@@ -2,11 +2,12 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
-import { PxbAuthSecurityService } from '../../services/state/auth-security.service';
+import { PxbAuthSecurityService, SecurityContext } from '../../services/state/auth-security.service';
 import { PxbAuthUIService } from '../../services/api/auth-ui.service';
 import { LOGIN_ROUTE } from '../../auth/auth.routes';
-
 import { PxbAuthConfig } from '../../services/config/auth-config';
+import { PxbResetPasswordErrorDialogService } from './dialog/reset-password-error-dialog.service';
+import { PasswordRequirement } from '../../components/password-strength-checker/pxb-password-strength-checker.component';
 
 class CrossFieldErrorMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -20,30 +21,31 @@ class CrossFieldErrorMatcher implements ErrorStateMatcher {
     styleUrls: ['./reset-password.component.scss'],
 })
 export class PxbResetPasswordComponent implements OnInit {
-    @Input() email = 'testemail@email.com';
     @Input() successTitle = 'Your password was successfully reset.';
-    @Input() code = '';
     @Input() successDescription =
         "Your password was successfully updated! To ensure your account's security, you will need to log in to the application with your updated credentials.";
+    isValidResetCode = false;
     passwordResetSuccess = false;
     passwordFormGroup: FormGroup;
     newPasswordVisible = false;
     confirmPasswordVisible = false;
     errorMatcher = new CrossFieldErrorMatcher();
-    passLength = false;
-    specialFlag = false;
-    numberFlag = false;
-    upperFlag = false;
-    lowerFlag = false;
-    isLoading = false;
+    isLoading = true;
+    passesStrengthCheck = false;
+    passwordRequirements: PasswordRequirement[];
 
     constructor(
-        private readonly _authConfig: PxbAuthConfig,
+        private readonly _pxbAuthConfig: PxbAuthConfig,
         private readonly _router: Router,
-        private readonly _pxbAuthUIActionsService: PxbAuthUIService,
-        private readonly _securityService: PxbAuthSecurityService,
-        private readonly _formBuilder: FormBuilder
+        private readonly _pxbAuthUIService: PxbAuthUIService,
+        private readonly _pxbSecurityService: PxbAuthSecurityService,
+        private readonly _formBuilder: FormBuilder,
+        private readonly _pxbErrorDialogService: PxbResetPasswordErrorDialogService
     ) {
+        this._pxbSecurityService.securityStateChanges().subscribe((state: SecurityContext) => {
+            this.isLoading = state.isLoading;
+        });
+
         this.passwordFormGroup = this._formBuilder.group(
             {
                 newPassword: ['', Validators.compose([Validators.required, Validators.minLength(8)])],
@@ -55,7 +57,24 @@ export class PxbResetPasswordComponent implements OnInit {
         );
     }
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.verifyResetCode();
+        this.passwordRequirements = this._pxbAuthConfig.passwordRequirements;
+    }
+
+    verifyResetCode(): void {
+        this._pxbSecurityService.setLoading(true);
+        this._pxbAuthUIService
+            .verifyResetCode()
+            .then(() => {
+                this.isValidResetCode = true;
+                this._pxbSecurityService.setLoading(false);
+            })
+            .catch(() => {
+                this.isValidResetCode = false;
+                this._pxbSecurityService.setLoading(false);
+            });
+    }
 
     toggleNewPasswordVisibility(): void {
         this.newPasswordVisible = !this.newPasswordVisible;
@@ -63,14 +82,6 @@ export class PxbResetPasswordComponent implements OnInit {
 
     toggleConfirmPasswordVisibility(): void {
         this.confirmPasswordVisible = !this.confirmPasswordVisible;
-    }
-
-    checkPasswordStrength(password: string): void {
-        this.passLength = /^.{8,16}$/.test(password);
-        this.specialFlag = /[!"#$%&'()*+,-./:;<=>?@[\]^`{|}~]+/.test(password);
-        this.numberFlag = /[0-9]/.test(password);
-        this.upperFlag = /[A-Z]/.test(password);
-        this.lowerFlag = /[a-z]/.test(password);
     }
 
     checkPasswords(group: FormGroup): any {
@@ -82,11 +93,7 @@ export class PxbResetPasswordComponent implements OnInit {
     isPasswordGroupValid(): boolean {
         return (
             this.passwordFormGroup.get('newPassword').value &&
-            this.passLength &&
-            this.specialFlag &&
-            this.numberFlag &&
-            this.upperFlag &&
-            this.lowerFlag &&
+            this.passesStrengthCheck &&
             this.passwordFormGroup.get('confirmPassword').value &&
             this.passwordFormGroup.valid
         );
@@ -99,26 +106,21 @@ export class PxbResetPasswordComponent implements OnInit {
     }
 
     navigateToLogin(): void {
-        void this._router.navigate([`${this._authConfig.authRoute}/${LOGIN_ROUTE}`]);
+        void this._router.navigate([`${this._pxbAuthConfig.authRoute}/${LOGIN_ROUTE}`]);
     }
 
-    // TODO: How should the email and code be supplied to this service?
-    // Two options, via securityService, Input variables, or should we parse URL (assuming info is supplied).
     resetPassword(): void {
         const password = this.passwordFormGroup.value.confirmPassword;
-        this.isLoading = true;
-        void this._pxbAuthUIActionsService
-            .setPassword(this.code, password, this.email)
+        this._pxbSecurityService.setLoading(true);
+        void this._pxbAuthUIService
+            .setPassword(password)
             .then(() => {
-                /* eslint-disable-next-line no-console */
-                console.log('reset password success');
                 this.passwordResetSuccess = true;
-                this.isLoading = false;
+                this._pxbSecurityService.setLoading(false);
             })
             .catch(() => {
-                /* eslint-disable-next-line no-console */
-                console.log('reset password failed');
-                this.isLoading = false;
+                this._pxbSecurityService.setLoading(false);
+                this._pxbErrorDialogService.openDialog();
             });
     }
 }

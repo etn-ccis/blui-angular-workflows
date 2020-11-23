@@ -29,6 +29,8 @@ import { PxbForgotPasswordErrorDialogComponent } from './pages/forgot-password/d
 import { PxbCreateAccountInviteDialogComponent } from './pages/create-account-invite/dialog/create-account-invite-error-dialog.component';
 import { PxbCreateAccountInviteModule } from './pages/create-account-invite/create-account-invite.module';
 import { PxbCommonComponentsModule } from './components/auth-common.module';
+import { PxbResetPasswordDialogComponent } from './pages/reset-password/dialog/reset-password-error-dialog.component';
+import { PxbPasswordStrengthCheckerComponent } from './components/password-strength-checker/pxb-password-strength-checker.component';
 
 @NgModule({
     declarations: [
@@ -43,6 +45,9 @@ import { PxbCommonComponentsModule } from './components/auth-common.module';
         PxbLoginErrorDialogComponent,
         PxbChangePasswordErrorDialogComponent,
         PxbForgotPasswordErrorDialogComponent,
+        PxbCreateAccountInviteDialogComponent,
+        PxbResetPasswordDialogComponent,
+        PxbPasswordStrengthCheckerComponent,
     ],
     imports: [
         BrowserModule,
@@ -71,6 +76,7 @@ import { PxbCommonComponentsModule } from './components/auth-common.module';
         PxbChangePasswordErrorDialogComponent,
         PxbChangePasswordDialogComponent,
         PxbCreateAccountInviteDialogComponent,
+        PxbResetPasswordDialogComponent,
     ],
     exports: [
         PxbAuthComponent,

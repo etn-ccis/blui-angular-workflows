@@ -88,6 +88,10 @@
         position: static !important;
         width: auto !important;
     }
+    .mat-divider.pxb-auth-divider-32 {
+        margin-left: -32px !important;
+        margin-right: -32px !important;
+    }
     .pxb-auth-action-button-container {
         padding-top: 8px;
         display: flex;

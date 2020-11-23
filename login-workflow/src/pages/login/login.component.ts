@@ -128,7 +128,9 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
     }
 
     testForgotPasswordEmail(): void {
-        void this._router.navigate([`${this._pxbAuthConfig.authRoute}/${RESET_PASSWORD_ROUTE}`]);
+        void this._router.navigate([`${this._pxbAuthConfig.authRoute}/${RESET_PASSWORD_ROUTE}`], {
+            queryParams: { code: 'DEADBEEF', email: 'resetPassword@email.com' },
+        });
     }
 
     testInviteRegister(): void {
