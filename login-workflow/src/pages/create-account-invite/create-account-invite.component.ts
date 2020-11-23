@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { LOGIN_ROUTE } from '../../auth/auth.routes';
@@ -15,10 +14,9 @@ import { PxbCreateAccountInviteErrorDialogService } from './dialog/create-accoun
 })
 export class PxbCreateAccountInviteComponent implements OnInit {
     currentPageId = 0;
-
     isLoading = true;
     hasEulaLoadError = false;
-    isValidRegistrationLink = false;
+    isValidRegistrationLink = true;
 
     // EULA Page
     licenseAgreement: string;
@@ -36,7 +34,6 @@ export class PxbCreateAccountInviteComponent implements OnInit {
 
     constructor(
         private readonly _router: Router,
-        private readonly _formBuilder: FormBuilder,
         private readonly _pxbAuthConfig: PxbAuthConfig,
         private readonly _pxbRegisterService: PxbRegisterUIService,
         private readonly _pxbSecurityService: PxbAuthSecurityService,
