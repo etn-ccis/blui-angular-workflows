@@ -14,6 +14,8 @@ import { PxbCreateAccountCreatePasswordComponent } from './create-password/creat
 import { PxbCreateAccountAccountDetailsComponent } from './account-details/account-details.component';
 import { PxbAccountCreatedComponent } from './account-created/account-created.component';
 import { EmptyStateModule } from '@pxblue/angular-components';
+import { PxbCreateAccountProvideEmailComponent } from './provide-email/provide-email.component';
+import { PxbCreateAccountVerifyEmailComponent } from './verify-email/verify-email.component';
 
 @NgModule({
     declarations: [
@@ -21,6 +23,8 @@ import { EmptyStateModule } from '@pxblue/angular-components';
         PxbCreateAccountCreatePasswordComponent,
         PxbCreateAccountAccountDetailsComponent,
         PxbAccountCreatedComponent,
+        PxbCreateAccountProvideEmailComponent,
+        PxbCreateAccountVerifyEmailComponent,
     ],
     imports: [
         BrowserModule,
@@ -43,6 +47,8 @@ import { EmptyStateModule } from '@pxblue/angular-components';
         PxbCreateAccountCreatePasswordComponent,
         PxbCreateAccountAccountDetailsComponent,
         PxbAccountCreatedComponent,
+        PxbCreateAccountProvideEmailComponent,
+        PxbCreateAccountVerifyEmailComponent,
     ],
 })
 export class PxbCreateAccountStepsModule {}

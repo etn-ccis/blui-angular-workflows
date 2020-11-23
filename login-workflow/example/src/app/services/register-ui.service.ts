@@ -11,15 +11,17 @@ const TIMEOUT_MS = 1500;
 export class RegisterUIService implements IPxbRegisterUIService {
     constructor(private readonly _pxbSecurityService: PxbAuthSecurityService) {}
 
-    validateUserRegistrationRequest(): Promise<void> {
+    validateUserRegistrationRequest(code?: string): Promise<void> {
         const urlParams = new URLSearchParams(window.location.search);
-        const registrationCode = urlParams.get('code');
+        const registrationCode = code || urlParams.get('code');
         console.log(
             `Performing a sample ValidateUserRegistration request with the following credentials:\n code: ${registrationCode}`
         );
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                if (!registrationCode || registrationCode.toUpperCase() === 'INVALID_LINK') {
+                if (!registrationCode
+                  || registrationCode.toUpperCase() === 'INVALID_LINK'
+                  || registrationCode.toUpperCase() === 'FAIL') {
                     return reject();
                 }
                 return resolve();
@@ -33,7 +35,7 @@ export class RegisterUIService implements IPxbRegisterUIService {
         console.log(`Performing a sample loadEULA request.`);
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                if (registrationCode.toUpperCase() === 'EULA_FAIL') {
+                if (registrationCode && registrationCode.toUpperCase() === 'EULA_FAIL') {
                     return reject();
                 }
                 return resolve(SAMPLE_EULA);

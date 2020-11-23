@@ -28,13 +28,13 @@ import { PxbForgotPasswordErrorDialogComponent } from './pages/forgot-password/d
 import { PxbCreateAccountInviteModule } from './pages/create-account-invite/create-account-invite.module';
 import { PxbCommonComponentsModule } from './components/auth-common.module';
 import { PxbResetPasswordDialogComponent } from './pages/reset-password/dialog/reset-password-error-dialog.component';
+import { PxbCreateAccountModule } from './pages/create-account/create-account.module';
 
 @NgModule({
     declarations: [
         PxbLoginComponent,
         PxbForgotPasswordComponent,
         PxbResetPasswordComponent,
-        PxbCreateAccountComponent,
         PxbAuthComponent,
         PxbContactSupportComponent,
         PxbChangePasswordComponent,
@@ -62,6 +62,7 @@ import { PxbResetPasswordDialogComponent } from './pages/reset-password/dialog/r
         EmptyStateModule,
         MatListModule,
         MatDialogModule,
+        PxbCreateAccountModule,
         PxbCreateAccountInviteModule,
         PxbCommonComponentsModule,
     ],
@@ -80,6 +81,7 @@ import { PxbResetPasswordDialogComponent } from './pages/reset-password/dialog/r
         PxbResetPasswordComponent,
         PxbContactSupportComponent,
         PxbChangePasswordComponent,
+        PxbCreateAccountModule,
         PxbCreateAccountInviteModule,
     ],
 })
