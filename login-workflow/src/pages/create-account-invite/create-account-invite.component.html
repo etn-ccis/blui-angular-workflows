@@ -1,5 +1,3 @@
-<div class="mat-title pxb-auth-title">{{ getTitle() }}</div>
-
 <!-- Error State -->
 <ng-container *ngIf="(!isValidRegistrationLink || hasEulaLoadError) && !isLoading">
     <div class="pxb-create-account-invite-content-error-state">
@@ -15,97 +13,26 @@
 </ng-container>
 
 <ng-container *ngIf="isValidRegistrationLink && !hasEulaLoadError && !isLoading">
-    <div class="pxb-create-account-invite-content" *ngIf="currentPageId === 0">
-        <div *ngIf="licenseAgreement" class="pxb-create-account-invite-license-agreement">{{ licenseAgreement }}</div>
-        <div class="pxb-create-account-invite-confirm-agreement">
-            <mat-checkbox
-                class="pxb-create-account-invite-checkbox"
-                [disabled]="!licenseAgreement"
-                [(ngModel)]="confirmAgreement"
-                ngDefaultControl
-                >I have read and agree to the Terms & Conditions</mat-checkbox
-            >
-        </div>
-    </div>
+    <pxb-create-account-eula-step
+        *ngIf="currentPageId === 0"
+        [eula]="licenseAgreement"
+        [(userAcceptsEula)]="userAcceptsEula"
+    ></pxb-create-account-eula-step>
 
-    <div class="pxb-create-account-invite-content" *ngIf="currentPageId === 1">
-        <p class="mat-body-1" style="margin-bottom: 24px;">
-            Please select a password. Make sure that your password meets the necessary complexity requirements outlined
-            below.
-        </p>
-        <mat-divider class="pxb-auth-divider" style="margin-top: 16px; margin-bottom: 32px;"></mat-divider>
-        <div>
-            <form [formGroup]="passwordFormGroup">
-                <mat-form-field appearance="fill" style="width: 100%;">
-                    <mat-label>Password</mat-label>
-                    <input
-                        id="password"
-                        name="password"
-                        matInput
-                        placeholder="Password"
-                        required
-                        formControlName="newPassword"
-                        [type]="newPasswordVisible ? 'text' : 'password'"
-                    />
-                    <button mat-icon-button matSuffix (click)="toggleNewPasswordVisibility()">
-                        <mat-icon>{{ newPasswordVisible ? 'visibility' : 'visibility_off' }}</mat-icon>
-                    </button>
-                </mat-form-field>
-                <pxb-password-strength-checker
-                    [(meetsRequirements)]="passesStrengthCheck"
-                    [formValue]="passwordFormGroup.value.newPassword"
-                    [requirements]="passwordRequirements"
-                >
-                </pxb-password-strength-checker>
-                <mat-form-field appearance="fill" style="width: 100%;">
-                    <mat-label>Confirm Password</mat-label>
-                    <input
-                        id="confirm"
-                        name="confirm"
-                        matInput
-                        placeholder="Confirm Password"
-                        required
-                        formControlName="confirmPassword"
-                        [type]="confirmPasswordVisible ? 'text' : 'password'"
-                        (focus)="confirmPasswordFocused = true"
-                        (blur)="confirmPasswordFocused = false"
-                        [errorStateMatcher]="errorMatcher"
-                    />
-                    <button mat-icon-button matSuffix (click)="toggleConfirmPasswordVisibility()">
-                        <mat-icon>{{ confirmPasswordVisible ? 'visibility' : 'visibility_off' }}</mat-icon>
-                    </button>
-                    <mat-error *ngIf="!confirmPasswordFocused && passwordFormGroup.hasError('passwordsDoNotMatch')"
-                        >Passwords do not match
-                    </mat-error>
-                </mat-form-field>
-            </form>
-        </div>
-    </div>
+    <pxb-create-account-create-password-step
+        *ngIf="currentPageId === 1"
+        [(password)]="password"
+        [(passwordMeetsRequirements)]="passwordMeetsRequirements"
+    ></pxb-create-account-create-password-step>
 
-    <div class="pxb-create-account-invite-content" *ngIf="currentPageId === 2">
-        <p class="mat-body-1" style="margin-bottom: 24px;">Enter your details below to complete account creation.</p>
-        <mat-divider class="pxb-auth-divider" style="margin-top: 16px; margin-bottom: 32px;"></mat-divider>
-        <form>
-            <mat-form-field appearance="fill" style="width: 100%;" class="pxb-create-account-invite-form-field">
-                <mat-label>First Name</mat-label>
-                <input id="first" name="first" matInput [formControl]="firstNameFormControl" />
-                <mat-error *ngIf="firstNameFormControl.hasError('required')">
-                    First Name is <strong>required</strong>
-                </mat-error>
-            </mat-form-field>
-            <mat-form-field appearance="fill" style="width: 100%;" class="pxb-create-account-invite-form-field">
-                <mat-label>Last Name</mat-label>
-                <input id="last" name="last" matInput [formControl]="lastNameFormControl" />
-                <mat-error *ngIf="lastNameFormControl.hasError('required')">
-                    Last Name is <strong>required</strong>
-                </mat-error>
-            </mat-form-field>
-            <mat-form-field appearance="fill" style="width: 100%;" class="pxb-create-account-invite-form-field">
-                <mat-label>Phone Number (optional)</mat-label>
-                <input id="phone" name="phone" matInput [formControl]="phoneNumberFormControl" />
-            </mat-form-field>
-        </form>
-    </div>
+    <pxb-create-account-account-details-step
+        *ngIf="currentPageId === 2"
+        [(firstName)]="firstName"
+        [(lastName)]="lastName"
+        [(phoneNumber)]="phoneNumber"
+        [(validAccountDetails)]="validAccountDetails"
+    >
+    </pxb-create-account-account-details-step>
 
     <div class="pxb-create-account-invite-content" *ngIf="currentPageId === 3" style="justify-content: center;">
         <pxb-empty-state
@@ -116,7 +43,6 @@
             <mat-icon pxb-empty-icon class="pxb-create-account-invite-empty-state-icon">check_circle</mat-icon>
         </pxb-empty-state>
     </div>
-
     <mat-divider class="pxb-auth-divider" style="margin-bottom: 16px;"></mat-divider>
     <div class="pxb-auth-action-button-container">
         <button *ngIf="currentPageId !== 3" mat-stroked-button color="primary" (click)="goBack()" style="width: 100px;">
@@ -131,7 +57,7 @@
             *ngIf="currentPageId <= 1"
             mat-flat-button
             color="primary"
-            [disabled]="canContinue()"
+            [disabled]="!canContinue()"
             (click)="next()"
             style="width: 100px;"
         >
@@ -141,7 +67,7 @@
             *ngIf="currentPageId === 2"
             mat-flat-button
             color="primary"
-            [disabled]="canContinue()"
+            [disabled]="!canContinue()"
             (click)="registerAccount()"
             style="width: 100px"
         >

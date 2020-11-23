@@ -1,21 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthErrorStateMatcher } from '../../util/matcher';
-import { ErrorStateMatcher } from '@angular/material/core';
 import { LOGIN_ROUTE } from '../../auth/auth.routes';
 
 import { PxbAuthConfig } from '../../services/config/auth-config';
 import { PxbRegisterUIService } from '../../services/api/register-ui.service';
 import { PxbAuthSecurityService, SecurityContext } from '../../services/state/auth-security.service';
 import { PxbCreateAccountInviteErrorDialogService } from './dialog/create-account-invite-error-dialog.service';
-import { PasswordRequirement } from '../../components/password-strength-checker/pxb-password-strength-checker.component';
-
-class CrossFieldErrorMatcher implements ErrorStateMatcher {
-    isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-        return control.dirty && form.invalid;
-    }
-}
 
 @Component({
     selector: 'pxb-create-account-invite',
@@ -24,28 +15,25 @@ class CrossFieldErrorMatcher implements ErrorStateMatcher {
 })
 export class PxbCreateAccountInviteComponent implements OnInit {
     pageCount = 4;
-    currentPageId: number;
+    currentPageId = 0;
 
-    emailMatcher = new AuthErrorStateMatcher();
-    errorMatcher = new CrossFieldErrorMatcher();
-
-    passwordFormGroup: FormGroup;
-    firstNameFormControl: FormControl;
-    lastNameFormControl: FormControl;
-    phoneNumberFormControl: FormControl;
-
-    confirmAgreement = false;
-    confirmPasswordFocused = false;
-    newPasswordVisible = false;
-    confirmPasswordVisible = false;
-    passesStrengthCheck = false;
-    isValidRegistrationLink = false;
-    hasEulaLoadError = false;
     isLoading = true;
+    hasEulaLoadError = false;
+    isValidRegistrationLink = false;
 
+    // EULA Page
     licenseAgreement: string;
+    userAcceptsEula: boolean;
 
-    passwordRequirements: PasswordRequirement[];
+    // Create Password Page
+    password: string;
+    passwordMeetsRequirements: boolean;
+
+    // Account Details Page
+    firstName: string;
+    lastName: string;
+    phoneNumber: string;
+    validAccountDetails: boolean;
 
     constructor(
         private readonly _router: Router,
@@ -58,25 +46,10 @@ export class PxbCreateAccountInviteComponent implements OnInit {
         this._pxbSecurityService.securityStateChanges().subscribe((state: SecurityContext) => {
             this.isLoading = state.isLoading;
         });
-
-        this.passwordFormGroup = this._formBuilder.group(
-            {
-                newPassword: ['', Validators.required],
-                confirmPassword: ['', Validators.required],
-            },
-            {
-                validator: this.checkPasswords,
-            }
-        );
     }
 
     ngOnInit(): void {
-        this.currentPageId = 0;
-        this.firstNameFormControl = new FormControl('', Validators.required);
-        this.lastNameFormControl = new FormControl('', Validators.required);
-        this.phoneNumberFormControl = new FormControl('');
         this.validateRegistrationLink();
-        this.passwordRequirements = this._pxbAuthConfig.passwordRequirements;
     }
 
     validateRegistrationLink(): void {
@@ -111,16 +84,12 @@ export class PxbCreateAccountInviteComponent implements OnInit {
     }
 
     registerAccount(): void {
-        const firstName = this.firstNameFormControl.value;
-        const lastName = this.lastNameFormControl.value;
-        const phoneNumber = this.phoneNumberFormControl.value;
-        const password = this.passwordFormGroup.value.confirmPassword;
         this._pxbSecurityService.setLoading(true);
         this._pxbRegisterService
-            .completeRegistration(firstName, lastName, phoneNumber, password)
+            .completeRegistration(this.firstName, this.lastName, this.phoneNumber, this.password)
             .then(() => {
                 this._pxbSecurityService.setLoading(false);
-                this.next();
+                this.currentPageId += 1;
             })
             .catch(() => {
                 this._pxbSecurityService.setLoading(false);
@@ -143,22 +112,8 @@ export class PxbCreateAccountInviteComponent implements OnInit {
         }
     }
 
-    toggleNewPasswordVisibility(): void {
-        this.newPasswordVisible = !this.newPasswordVisible;
-    }
-
-    toggleConfirmPasswordVisibility(): void {
-        this.confirmPasswordVisible = !this.confirmPasswordVisible;
-    }
-
-    checkPasswords(group: FormGroup): any {
-        const pass = group.get('newPassword').value;
-        const confirmPass = group.get('confirmPassword').value;
-        return pass === confirmPass ? null : { passwordsDoNotMatch: true };
-    }
-
     getSuccessEmptyStateTitle(): string {
-        return `Welcome, ${this.firstNameFormControl.value} ${this.lastNameFormControl.value}!`;
+        return `Welcome, ${this.firstName} ${this.lastName}!`;
     }
 
     getSuccessEmptyStateDescription(): string {
@@ -166,25 +121,14 @@ export class PxbCreateAccountInviteComponent implements OnInit {
             this._pxbSecurityService.getSecurityState().email
         }. Your account has already been added to the organization. Press Continue below to finish.`;
     }
-
     canContinue(): boolean {
         switch (this.currentPageId) {
             case 0:
-                return !this.confirmAgreement;
+                return this.userAcceptsEula;
             case 1:
-                return !(
-                    this.passwordFormGroup.get('newPassword').value &&
-                    this.passesStrengthCheck &&
-                    this.passwordFormGroup.get('confirmPassword').value &&
-                    this.passwordFormGroup.valid
-                );
+                return this.passwordMeetsRequirements;
             case 2:
-                return !(
-                    this.firstNameFormControl.value &&
-                    this.firstNameFormControl.valid &&
-                    this.lastNameFormControl.value &&
-                    this.lastNameFormControl.valid
-                );
+                return this.validAccountDetails;
             default:
                 return;
         }

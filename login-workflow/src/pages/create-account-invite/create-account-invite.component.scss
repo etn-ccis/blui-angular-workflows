@@ -1,10 +1,13 @@
 @import '~@pxblue/colors/palette';
 
-.pxb-create-account-invite-content {
+pxb-create-account-eula-step,
+pxb-create-account-create-password-step,
+pxb-create-account-account-details-step {
     display: flex;
-    flex-direction: column;
     flex: 1 1 0px;
+    flex-direction: column;
 }
+
 .pxb-create-account-invite-content-error-state {
     display: flex;
     flex-direction: column;
