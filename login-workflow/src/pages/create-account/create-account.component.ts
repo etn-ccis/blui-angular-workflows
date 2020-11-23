@@ -54,6 +54,7 @@ export class PxbCreateAccountComponent {
     getEULA(): void {
         if (this._pxbAuthConfig.eula) {
             this.licenseAgreement = this._pxbAuthConfig.eula;
+            this.currentPageId++;
         } else {
             this._pxbSecurityService.setLoading(true);
             this._pxbRegisterService

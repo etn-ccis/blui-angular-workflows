@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { PxbAuthConfig } from '../../../../services/config/auth-config';
 import { AuthErrorStateMatcher } from '../../../../util/matcher';
 
 @Component({
@@ -46,7 +45,7 @@ export class PxbCreateAccountProvideEmailComponent {
     emailMatcher = new AuthErrorStateMatcher();
     emailFormControl: FormControl;
 
-    constructor(private readonly _pxbAuthConfig: PxbAuthConfig, private readonly _formBuilder: FormBuilder) {}
+    constructor(private readonly _formBuilder: FormBuilder) {}
 
     ngOnInit(): void {
         const emailValidators = [
@@ -54,7 +53,7 @@ export class PxbCreateAccountProvideEmailComponent {
             Validators.email,
             Validators.pattern(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i),
         ];
-        this.emailFormControl = new FormControl('', emailValidators);
+        this.emailFormControl = new FormControl(this.email, emailValidators);
     }
 
     updateEmail(email: string): void {

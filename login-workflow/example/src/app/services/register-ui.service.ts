@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { Injectable } from '@angular/core';
-import { IPxbRegisterUIService, PxbAuthSecurityService } from '@pxblue/angular-auth-workflow';
+import { IPxbRegisterUIService, PxbAuthSecurityService, PxbAuthConfig } from '@pxblue/angular-auth-workflow';
 import { SAMPLE_EULA } from '../constants/sampleEula';
 
 const TIMEOUT_MS = 1500;
@@ -9,7 +9,10 @@ const TIMEOUT_MS = 1500;
     providedIn: 'root',
 })
 export class RegisterUIService implements IPxbRegisterUIService {
-    constructor(private readonly _pxbSecurityService: PxbAuthSecurityService) {}
+    constructor(
+        private readonly _pxbSecurityService: PxbAuthSecurityService,
+        private readonly _pxbAuthConfig: PxbAuthConfig
+    ) {}
 
     validateUserRegistrationRequest(code?: string): Promise<void> {
         const urlParams = new URLSearchParams(window.location.search);
@@ -19,9 +22,11 @@ export class RegisterUIService implements IPxbRegisterUIService {
         );
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                if (!registrationCode
-                  || registrationCode.toUpperCase() === 'INVALID_LINK'
-                  || registrationCode.toUpperCase() === 'FAIL') {
+                if (
+                    !registrationCode ||
+                    registrationCode.toUpperCase() === 'INVALID_LINK' ||
+                    registrationCode.toUpperCase() === 'FAIL'
+                ) {
                     return reject();
                 }
                 return resolve();
@@ -38,26 +43,35 @@ export class RegisterUIService implements IPxbRegisterUIService {
                 if (registrationCode && registrationCode.toUpperCase() === 'EULA_FAIL') {
                     return reject();
                 }
-                return resolve(SAMPLE_EULA);
+                const eula = SAMPLE_EULA;
+                this._pxbAuthConfig.eula = eula; // This prevents future EULA load requests.
+                return resolve(eula);
             }, TIMEOUT_MS);
         });
     }
 
-  requestRegistrationCode(email: string): Promise<void> {
-    console.log(
-      `Performing a sample RequestRegistrationCode request with the following credentials:\n email: ${email}`
-    );
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (email.toUpperCase() === 'FAIL@TEST.COM') {
-          return reject();
-        }
-        return resolve();
-      }, TIMEOUT_MS);
-    });
-  }
+    requestRegistrationCode(email: string): Promise<void> {
+        console.log(
+            `Performing a sample RequestRegistrationCode request with the following credentials:\n email: ${email}`
+        );
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                if (email.toUpperCase() === 'FAIL@TEST.COM') {
+                    return reject();
+                }
+                return resolve();
+            }, TIMEOUT_MS);
+        });
+    }
 
-    completeRegistration(firstName: string, lastName: string, phoneNumber: string, password: string, validationCode?: string, email?: string): Promise<void> {
+    completeRegistration(
+        firstName: string,
+        lastName: string,
+        phoneNumber: string,
+        password: string,
+        validationCode?: string,
+        email?: string
+    ): Promise<void> {
         console.log(
             `Performing a sample CompleteRegistration request with the following credentials:\n firstName: ${firstName}\n lastName: ${lastName}\n phoneNumber: ${phoneNumber}\n password: ${password}\n validationCode: ${validationCode}\n email: ${email}`
         );

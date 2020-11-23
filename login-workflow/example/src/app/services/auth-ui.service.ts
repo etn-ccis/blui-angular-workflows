@@ -78,9 +78,7 @@ export class AuthUIService implements IPxbAuthUIService {
     verifyResetCode(): Promise<void> {
         const urlParams = new URLSearchParams(window.location.search);
         const resetCode = urlParams.get('code');
-        console.log(
-            `Performing a sample verifyResetCode request with the following credentials:\n code: ${resetCode}`
-        );
+        console.log(`Performing a sample verifyResetCode request with the following credentials:\n code: ${resetCode}`);
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 if (!resetCode || resetCode.toUpperCase() === 'INVALID_LINK') {
@@ -99,7 +97,7 @@ export class AuthUIService implements IPxbAuthUIService {
         console.log(
             `Performing a sample SetPassword request with the following credentials.\n  code: ${code}\n  password: ${password}\n  email: ${email}`
         );
-        
+
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 if (password.toLowerCase() === 'fail123!') {

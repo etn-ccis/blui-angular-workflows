@@ -56,7 +56,7 @@ export class PxbCreateAccountVerifyEmailComponent {
     ) {}
 
     ngOnInit(): void {
-        this.verificationCodeFormControl = new FormControl('', Validators.required);
+        this.verificationCodeFormControl = new FormControl(this.verificationCode, Validators.required);
     }
 
     sendVerificationEmail(): void {
