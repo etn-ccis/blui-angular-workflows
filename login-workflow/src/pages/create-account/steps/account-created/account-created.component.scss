@@ -1,0 +1,9 @@
+@import '~@pxblue/colors/palette';
+
+::ng-deep .pxb-account-created-empty-state .pxb-empty-state-description {
+    color: inherit !important;
+}
+
+.pxb-account-created-icon {
+    color: map-get($pxb-blue, 500);
+}

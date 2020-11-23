@@ -77,6 +77,11 @@
     .pxb-auth-title {
         padding-bottom: 16px;
     }
+    .pxb-auth-full-height {
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 0px;
+    }
     .mat-divider.pxb-auth-divider {
         margin-left: -24px !important;
         margin-right: -24px !important;
