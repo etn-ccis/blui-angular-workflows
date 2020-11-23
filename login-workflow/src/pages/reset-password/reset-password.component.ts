@@ -7,6 +7,7 @@ import { PxbAuthUIService } from '../../services/api/auth-ui.service';
 import { LOGIN_ROUTE } from '../../auth/auth.routes';
 import { PxbAuthConfig } from '../../services/config/auth-config';
 import { PxbResetPasswordErrorDialogService } from './dialog/reset-password-error-dialog.service';
+import { PasswordRequirement } from '../../components/password-strength-checker/pxb-password-strength-checker.component';
 
 class CrossFieldErrorMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -29,15 +30,12 @@ export class PxbResetPasswordComponent implements OnInit {
     newPasswordVisible = false;
     confirmPasswordVisible = false;
     errorMatcher = new CrossFieldErrorMatcher();
-    passLength = false;
-    specialFlag = false;
-    numberFlag = false;
-    upperFlag = false;
-    lowerFlag = false;
     isLoading = true;
+    passesStrengthCheck = false;
+    passwordRequirements: PasswordRequirement[];
 
     constructor(
-        private readonly _authConfig: PxbAuthConfig,
+        private readonly _pxbAuthConfig: PxbAuthConfig,
         private readonly _router: Router,
         private readonly _pxbAuthUIService: PxbAuthUIService,
         private readonly _pxbSecurityService: PxbAuthSecurityService,
@@ -61,6 +59,7 @@ export class PxbResetPasswordComponent implements OnInit {
 
     ngOnInit(): void {
         this.verifyResetCode();
+        this.passwordRequirements = this._pxbAuthConfig.passwordRequirements;
     }
 
     verifyResetCode(): void {
@@ -85,14 +84,6 @@ export class PxbResetPasswordComponent implements OnInit {
         this.confirmPasswordVisible = !this.confirmPasswordVisible;
     }
 
-    checkPasswordStrength(password: string): void {
-        this.passLength = /^.{8,16}$/.test(password);
-        this.specialFlag = /[!"#$%&'()*+,-./:;<=>?@[\]^`{|}~]+/.test(password);
-        this.numberFlag = /[0-9]/.test(password);
-        this.upperFlag = /[A-Z]/.test(password);
-        this.lowerFlag = /[a-z]/.test(password);
-    }
-
     checkPasswords(group: FormGroup): any {
         const pass = group.get('newPassword').value;
         const confirmPass = group.get('confirmPassword').value;
@@ -102,11 +93,7 @@ export class PxbResetPasswordComponent implements OnInit {
     isPasswordGroupValid(): boolean {
         return (
             this.passwordFormGroup.get('newPassword').value &&
-            this.passLength &&
-            this.specialFlag &&
-            this.numberFlag &&
-            this.upperFlag &&
-            this.lowerFlag &&
+            this.passesStrengthCheck &&
             this.passwordFormGroup.get('confirmPassword').value &&
             this.passwordFormGroup.valid
         );
@@ -119,7 +106,7 @@ export class PxbResetPasswordComponent implements OnInit {
     }
 
     navigateToLogin(): void {
-        void this._router.navigate([`${this._authConfig.authRoute}/${LOGIN_ROUTE}`]);
+        void this._router.navigate([`${this._pxbAuthConfig.authRoute}/${LOGIN_ROUTE}`]);
     }
 
     resetPassword(): void {
