@@ -12,7 +12,14 @@ export type IPxbRegisterUIService = {
     requestRegistrationCode(email: string): Promise<void>;
 
     // The user has been invited to register and has entered the necessary account and password information. The application should now complete the registration process given the user's data
-    completeRegistration(firstName: string, lastName: string, phoneNumber: string, password: string, validationCode?: string, email?: string): Promise<void>;
+    completeRegistration(
+        firstName: string,
+        lastName: string,
+        phoneNumber: string,
+        password: string,
+        validationCode?: string,
+        email?: string
+    ): Promise<void>;
 };
 
 @Injectable({
@@ -39,7 +46,14 @@ export class PxbRegisterUIService implements IPxbRegisterUIService {
         return undefined;
     }
 
-    completeRegistration(firstName: string, lastName: string, phoneNumber: string, password: string, validationCode?: string, email?: string): Promise<void> {
+    completeRegistration(
+        firstName: string,
+        lastName: string,
+        phoneNumber: string,
+        password: string,
+        validationCode?: string,
+        email?: string
+    ): Promise<void> {
         this.warn();
         return undefined;
     }

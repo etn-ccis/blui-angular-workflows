@@ -87,7 +87,14 @@ export class PxbCreateAccountComponent {
     registerAccount(): void {
         this._pxbSecurityService.setLoading(true);
         this._pxbRegisterService
-            .completeRegistration(this.firstName, this.lastName, this.phoneNumber, this.password, this.verificationCode, this.email)
+            .completeRegistration(
+                this.firstName,
+                this.lastName,
+                this.phoneNumber,
+                this.password,
+                this.verificationCode,
+                this.email
+            )
             .then(() => {
                 this._pxbSecurityService.setLoading(false);
                 this._pxbSecurityService.updateSecurityState({ email: this.email });
