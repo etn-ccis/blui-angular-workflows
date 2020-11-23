@@ -12,6 +12,7 @@
 
 <pxb-create-account-verify-email-step
     *ngIf="currentPageId === 2"
+    [email]="email"
     [(verificationCode)]="verificationCode"
 ></pxb-create-account-verify-email-step>
 

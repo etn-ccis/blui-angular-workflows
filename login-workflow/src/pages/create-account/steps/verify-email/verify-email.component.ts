@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { PxbAuthConfig } from '../../../../services/config/auth-config';
-import { AuthErrorStateMatcher } from '../../../../util/matcher';
+import { PxbAuthSecurityService } from '../../../../services/state/auth-security.service';
+import { PxbCreateAccountErrorDialogService } from '../../dialog/create-account-error-dialog.service';
+import { PxbRegisterUIService } from '../../../../services/api/register-ui.service';
 
 @Component({
     selector: 'pxb-create-account-verify-email-step',
@@ -41,18 +42,34 @@ import { AuthErrorStateMatcher } from '../../../../util/matcher';
 })
 export class PxbCreateAccountVerifyEmailComponent {
     @Input() verificationCode: string;
+    @Input() email: string;
+
     @Output() verificationCodeChange: EventEmitter<string> = new EventEmitter<string>();
 
     verificationCodeFormControl: FormControl;
 
-    constructor(private readonly _formBuilder: FormBuilder) {}
+    constructor(
+        private readonly _formBuilder: FormBuilder,
+        private readonly _pxbRegisterService: PxbRegisterUIService,
+        private readonly _pxbSecurityService: PxbAuthSecurityService,
+        private readonly _pxbErrorDialogService: PxbCreateAccountErrorDialogService
+    ) {}
 
     ngOnInit(): void {
         this.verificationCodeFormControl = new FormControl('', Validators.required);
     }
 
     sendVerificationEmail(): void {
-        // TODO
+        this._pxbSecurityService.setLoading(true);
+        this._pxbRegisterService
+            .requestRegistrationCode(this.email)
+            .then(() => {
+                this._pxbSecurityService.setLoading(false);
+            })
+            .catch(() => {
+                this._pxbErrorDialogService.openDialog();
+                this._pxbSecurityService.setLoading(false);
+            });
     }
 
     updateCode(code: string): void {

@@ -43,9 +43,23 @@ export class RegisterUIService implements IPxbRegisterUIService {
         });
     }
 
-    completeRegistration(firstName: string, lastName: string, phoneNumber: string, password: string): Promise<void> {
+  requestRegistrationCode(email: string): Promise<void> {
+    console.log(
+      `Performing a sample RequestRegistrationCode request with the following credentials:\n email: ${email}`
+    );
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (email.toUpperCase() === 'FAIL@TEST.COM') {
+          return reject();
+        }
+        return resolve();
+      }, TIMEOUT_MS);
+    });
+  }
+
+    completeRegistration(firstName: string, lastName: string, phoneNumber: string, password: string, validationCode?: string, email?: string): Promise<void> {
         console.log(
-            `Performing a sample CompleteRegistration request with the following credentials:\n firstName: ${firstName}\n lastName: ${lastName}\n phoneNumber: ${phoneNumber}\n password: ${password}`
+            `Performing a sample CompleteRegistration request with the following credentials:\n firstName: ${firstName}\n lastName: ${lastName}\n phoneNumber: ${phoneNumber}\n password: ${password}\n validationCode: ${validationCode}\n email: ${email}`
         );
         return new Promise((resolve, reject) => {
             setTimeout(() => {
