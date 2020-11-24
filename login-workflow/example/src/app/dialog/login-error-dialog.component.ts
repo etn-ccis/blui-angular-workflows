@@ -6,9 +6,7 @@ import { MatDialogRef } from '@angular/material/dialog';
     template: `
         <div class="mat-h2">Login Attempt Failure</div>
         <div class="mat-subheading-2">This is a custom dialog configured to show whenever a login attempt fails.</div>
-        <div style="display: flex; justify-content: flex-end; margin-top: 24px;">
-            <button mat-stroked-button (click)="dialogRef.close()">Okay</button>
-        </div>
+        <button mat-stroked-button style="width: 100%; margin-top: 32px" (click)="dialogRef.close()">Okay</button>
     `,
 })
 export class LoginErrorDialogComponent {

@@ -5,7 +5,8 @@ import { LOGIN_ROUTE } from '../../auth/auth.routes';
 import { PxbAuthConfig } from '../../services/config/auth-config';
 import { PxbRegisterUIService } from '../../services/api/register-ui.service';
 import { PxbAuthSecurityService, SecurityContext } from '../../services/state/auth-security.service';
-import { PxbCreateAccountInviteErrorDialogService } from './dialog/create-account-invite-error-dialog.service';
+import { PxbCreateAccountInviteErrorDialogService } from '../../services/dialog/create-account-invite-error-dialog.service';
+import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
 
 @Component({
     selector: 'pxb-create-account-invite',
@@ -56,8 +57,9 @@ export class PxbCreateAccountInviteComponent implements OnInit {
                 this.isValidRegistrationLink = true;
                 this.getEULA();
             })
-            .catch(() => {
+            .catch((data: ErrorDialogData) => {
                 this.isValidRegistrationLink = false;
+                this._pxbErrorDialogService.openDialog(data);
                 this._pxbSecurityService.setLoading(false);
             });
     }
@@ -72,9 +74,10 @@ export class PxbCreateAccountInviteComponent implements OnInit {
                     this.licenseAgreement = eula;
                     this._pxbSecurityService.setLoading(false);
                 })
-                .catch(() => {
+                .catch((data: ErrorDialogData) => {
                     this.hasEulaLoadError = true;
                     this._pxbSecurityService.setLoading(false);
+                    this._pxbErrorDialogService.openDialog(data);
                 });
         }
     }
@@ -87,9 +90,9 @@ export class PxbCreateAccountInviteComponent implements OnInit {
                 this._pxbSecurityService.setLoading(false);
                 this.currentPageId++;
             })
-            .catch(() => {
+            .catch((data: ErrorDialogData) => {
                 this._pxbSecurityService.setLoading(false);
-                this._pxbErrorDialogService.openDialog();
+                this._pxbErrorDialogService.openDialog(data);
             });
     }
 

@@ -5,7 +5,8 @@ import { LOGIN_ROUTE } from '../../auth/auth.routes';
 import { PxbAuthConfig } from '../../services/config/auth-config';
 import { PxbRegisterUIService } from '../../services/api/register-ui.service';
 import { PxbAuthSecurityService, SecurityContext } from '../../services/state/auth-security.service';
-import { PxbCreateAccountErrorDialogService } from './dialog/create-account-error-dialog.service';
+import { PxbCreateAccountErrorDialogService } from '../../services/dialog/create-account-error-dialog.service';
+import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
 
 @Component({
     selector: 'pxb-create-account',
@@ -64,8 +65,8 @@ export class PxbCreateAccountComponent {
                     this._pxbSecurityService.setLoading(false);
                     this.currentPageId++;
                 })
-                .catch(() => {
-                    this._pxbErrorDialogService.openDialog();
+                .catch((data: ErrorDialogData) => {
+                    this._pxbErrorDialogService.openDialog(data);
                     this._pxbSecurityService.setLoading(false);
                 });
         }
@@ -79,8 +80,8 @@ export class PxbCreateAccountComponent {
                 this._pxbSecurityService.setLoading(false);
                 this.currentPageId++;
             })
-            .catch(() => {
-                this._pxbErrorDialogService.openDialog();
+            .catch((data: ErrorDialogData) => {
+                this._pxbErrorDialogService.openDialog(data);
                 this._pxbSecurityService.setLoading(false);
             });
     }
@@ -101,8 +102,8 @@ export class PxbCreateAccountComponent {
                 this._pxbSecurityService.updateSecurityState({ email: this.email });
                 this.currentPageId++;
             })
-            .catch(() => {
-                this._pxbErrorDialogService.openDialog();
+            .catch((data: ErrorDialogData) => {
+                this._pxbErrorDialogService.openDialog(data);
                 this._pxbSecurityService.setLoading(false);
             });
     }

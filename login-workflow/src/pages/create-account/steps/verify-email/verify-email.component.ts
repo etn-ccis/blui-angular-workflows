@@ -1,8 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { PxbAuthSecurityService } from '../../../../services/state/auth-security.service';
-import { PxbCreateAccountErrorDialogService } from '../../dialog/create-account-error-dialog.service';
+import { PxbCreateAccountErrorDialogService } from '../../../../services/dialog/create-account-error-dialog.service';
 import { PxbRegisterUIService } from '../../../../services/api/register-ui.service';
+import { ErrorDialogData } from '../../../../services/dialog/error-dialog.service';
 
 @Component({
     selector: 'pxb-create-account-verify-email-step',
@@ -66,8 +67,8 @@ export class PxbVerifyEmailComponent {
             .then(() => {
                 this._pxbSecurityService.setLoading(false);
             })
-            .catch(() => {
-                this._pxbErrorDialogService.openDialog();
+            .catch((data: ErrorDialogData) => {
+                this._pxbErrorDialogService.openDialog(data);
                 this._pxbSecurityService.setLoading(false);
             });
     }

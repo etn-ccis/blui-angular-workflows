@@ -7,7 +7,8 @@ import { PxbAuthUIService } from '../../services/api/auth-ui.service';
 import { FORGOT_PASSWORD_ROUTE, LOGIN_ROUTE } from '../../auth/auth.routes';
 import { PxbAuthConfig } from '../../services/config/auth-config';
 import { PxbAuthSecurityService } from '../../services/state/auth-security.service';
-import { PxbForgotPasswordErrorDialogService } from './dialog/forgot-password-error-dialog.service';
+import { PxbForgotPasswordErrorDialogService } from '../../services/dialog/forgot-password-error-dialog.service';
+import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
 
 @Component({
     selector: 'pxb-forgot-password',
@@ -67,8 +68,8 @@ export class PxbForgotPasswordComponent implements OnInit {
                 void this._router.navigate([`${this.pxbAuthConfig.authRoute}/${FORGOT_PASSWORD_ROUTE}`]);
                 this._pxbSecurityService.setLoading(false);
             })
-            .catch(() => {
-                this._pxbForgotPasswordDialogService.openDialog();
+            .catch((data: ErrorDialogData) => {
+                this._pxbForgotPasswordDialogService.openDialog(data);
                 this._pxbSecurityService.setLoading(false);
             });
     }

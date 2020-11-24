@@ -22,12 +22,8 @@ import { PxbContactSupportComponent } from './pages/contact-support/contact-supp
 import { PxbChangePasswordComponent } from './pages/change-password/change-password.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { PxbChangePasswordDialogComponent } from './pages/change-password/dialog/change-password-dialog.component';
-import { PxbLoginErrorDialogComponent } from './pages/login/dialog/login-error-dialog.component';
-import { PxbChangePasswordErrorDialogComponent } from './pages/change-password/dialog/change-password-error-dialog.component';
-import { PxbForgotPasswordErrorDialogComponent } from './pages/forgot-password/dialog/forgot-password-error-dialog.component';
 import { PxbCreateAccountInviteModule } from './pages/create-account-invite/create-account-invite.module';
 import { PxbCommonComponentsModule } from './components/auth-common.module';
-import { PxbResetPasswordDialogComponent } from './pages/reset-password/dialog/reset-password-error-dialog.component';
 import { PxbCreateAccountModule } from './pages/create-account/create-account.module';
 
 @NgModule({
@@ -39,10 +35,6 @@ import { PxbCreateAccountModule } from './pages/create-account/create-account.mo
         PxbContactSupportComponent,
         PxbChangePasswordComponent,
         PxbChangePasswordDialogComponent,
-        PxbLoginErrorDialogComponent,
-        PxbChangePasswordErrorDialogComponent,
-        PxbForgotPasswordErrorDialogComponent,
-        PxbResetPasswordDialogComponent,
     ],
     imports: [
         BrowserModule,
@@ -66,13 +58,7 @@ import { PxbCreateAccountModule } from './pages/create-account/create-account.mo
         PxbCreateAccountInviteModule,
         PxbCommonComponentsModule,
     ],
-    entryComponents: [
-        PxbForgotPasswordErrorDialogComponent,
-        PxbLoginErrorDialogComponent,
-        PxbChangePasswordErrorDialogComponent,
-        PxbChangePasswordDialogComponent,
-        PxbResetPasswordDialogComponent,
-    ],
+    entryComponents: [PxbChangePasswordDialogComponent],
     exports: [
         PxbAuthComponent,
         PxbLoginComponent,

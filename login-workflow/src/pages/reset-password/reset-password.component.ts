@@ -6,8 +6,9 @@ import { PxbAuthSecurityService, SecurityContext } from '../../services/state/au
 import { PxbAuthUIService } from '../../services/api/auth-ui.service';
 import { LOGIN_ROUTE } from '../../auth/auth.routes';
 import { PxbAuthConfig } from '../../services/config/auth-config';
-import { PxbResetPasswordErrorDialogService } from './dialog/reset-password-error-dialog.service';
+import { PxbResetPasswordErrorDialogService } from '../../services/dialog/reset-password-error-dialog.service';
 import { PasswordRequirement } from '../../components/password-strength-checker/pxb-password-strength-checker.component';
+import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
 
 class CrossFieldErrorMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -118,9 +119,9 @@ export class PxbResetPasswordComponent implements OnInit {
                 this.passwordResetSuccess = true;
                 this._pxbSecurityService.setLoading(false);
             })
-            .catch(() => {
+            .catch((data: ErrorDialogData) => {
                 this._pxbSecurityService.setLoading(false);
-                this._pxbErrorDialogService.openDialog();
+                this._pxbErrorDialogService.openDialog(data);
             });
     }
 }

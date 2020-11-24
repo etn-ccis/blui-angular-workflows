@@ -17,6 +17,9 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { LoginErrorDialogComponent } from './dialog/login-error-dialog.component';
 import { RegisterUIService } from './services/register-ui.service';
 
+// import { PxbLoginErrorDialogService } from '@pxblue/angular-auth-workflow';
+// import {LoginErrorDialogService} from "./dialog/login-error-dialog.service";
+
 @NgModule({
     declarations: [AppComponent, HomeComponent, AuthComponent, DashboardComponent, LoginErrorDialogComponent],
     imports: [
@@ -46,7 +49,7 @@ import { RegisterUIService } from './services/register-ui.service';
             useClass: RegisterUIService,
         },
         // Custom error handling for Login failures
-        /* {
+       /*  {
             provide: PxbLoginErrorDialogService,
             useClass: LoginErrorDialogService
        } */

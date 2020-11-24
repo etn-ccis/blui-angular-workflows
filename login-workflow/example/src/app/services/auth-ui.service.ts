@@ -42,7 +42,7 @@ export class AuthUIService implements IPxbAuthUIService {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 if (password.toLowerCase() === 'fail') {
-                    return reject('The Login API request has failed.');
+                    return reject();
                 }
                 return resolve();
             }, TIMEOUT_MS);
@@ -54,7 +54,7 @@ export class AuthUIService implements IPxbAuthUIService {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 if (email.toLowerCase() === 'fail@test.com') {
-                    return reject('The ForgotPassword API request has failed.');
+                    return reject();
                 }
                 return resolve();
             }, TIMEOUT_MS);
@@ -68,7 +68,10 @@ export class AuthUIService implements IPxbAuthUIService {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 if (newPassword.toLowerCase() === 'fail123!') {
-                    return reject('The ChangePassword API request has failed.');
+                    return reject({
+                      title: 'Error!',
+                      message: 'This is an example of a custom error message.'
+                    });
                 }
                 return resolve();
             }, TIMEOUT_MS);
@@ -101,7 +104,7 @@ export class AuthUIService implements IPxbAuthUIService {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 if (password.toLowerCase() === 'fail123!') {
-                    return reject('The SetPassword API request has failed.');
+                    return reject();
                 }
                 return resolve();
             }, TIMEOUT_MS);
