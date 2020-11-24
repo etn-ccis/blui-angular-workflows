@@ -40,7 +40,12 @@ export class PxbEulaComponent {
     constructor(private readonly _pxbAuthConfig: PxbAuthConfig) {}
 
     ngOnInit(): void {
+        // Configurable option to require users to scroll to bottom of EULA before accepting.
         if (!this._pxbAuthConfig.eulaScrollLock) {
+            this.userScrolledBottom = true;
+        }
+        // User has already scrolled to the bottom and accepted the EULA.
+        if (this.userAcceptsEula) {
             this.userScrolledBottom = true;
         }
     }
