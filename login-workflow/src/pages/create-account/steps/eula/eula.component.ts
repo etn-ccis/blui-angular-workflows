@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { PxbAuthConfig } from './../../../../services/config/auth-config'
 
 @Component({
     selector: 'pxb-create-account-eula-step',
@@ -35,6 +36,14 @@ export class PxbEulaComponent {
     @Output() userAcceptsEulaChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     userScrolledBottom = false;
+
+    constructor(private readonly _pxbAuthConfig: PxbAuthConfig) {}
+
+    ngOnInit(): void {
+        if (!this._pxbAuthConfig.eulaScrollLock) {
+            this.userScrolledBottom = true;
+        }
+    }
 
     checkScrollDistance(e: Event): void {
         if (this.userScrolledBottom) {
