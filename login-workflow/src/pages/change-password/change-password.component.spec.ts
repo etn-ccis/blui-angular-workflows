@@ -4,7 +4,7 @@ import { PxbChangePasswordComponent } from './change-password.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { PxbAuthModule } from '../../auth.module';
 
-describe('ChangePasswordComponent', () => {
+describe('PxbChangePasswordComponent', () => {
     let component: PxbChangePasswordComponent;
     let fixture: ComponentFixture<PxbChangePasswordComponent>;
 
