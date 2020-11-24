@@ -12,7 +12,7 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
         `,
     ],
     template: `
-        <div class="mat-title pxb-auth-title">Create Password</div>
+        <div class="mat-title pxb-auth-title">Account Details</div>
         <div class="pxb-auth-full-height">
             <p class="mat-body-1" style="margin-bottom: 24px;">
                 Enter your details below to complete account creation.
@@ -59,7 +59,7 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
         </div>
     `,
 })
-export class PxbCreateAccountAccountDetailsComponent {
+export class PxbAccountDetailsComponent {
     @Input() firstName: string;
     @Input() lastName: string;
     @Input() phoneNumber: string;

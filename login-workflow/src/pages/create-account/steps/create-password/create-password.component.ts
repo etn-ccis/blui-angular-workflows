@@ -69,7 +69,7 @@ class CrossFieldErrorMatcher implements ErrorStateMatcher {
         </div>
     `,
 })
-export class PxbCreateAccountCreatePasswordComponent {
+export class PxbCreatePasswordComponent {
     @Input() password: string;
     @Input() passwordMeetsRequirements: boolean;
 

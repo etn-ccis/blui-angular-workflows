@@ -1,180 +1,49 @@
-<div class="mat-title title">{{ getTitle() }}</div>
+<pxb-create-account-provide-email-step
+    *ngIf="currentPageId === 0"
+    [(email)]="email"
+    [(isValidEmail)]="isValidEmail"
+></pxb-create-account-provide-email-step>
 
-<div class="content" *ngIf="currentPageId === 0">
-    <p class="mat-body-1" style="margin-bottom: 24px;">
-        To register for an Eaton account, enter the required information below. You will need to verify your email
-        address to continue.
-    </p>
-    <mat-divider style="margin-top: 16px; margin-bottom: 32px;"></mat-divider>
-    <form>
-        <mat-form-field appearance="fill" style="width: 100%;">
-            <mat-label>Email Address</mat-label>
-            <input
-                id="email"
-                name="email"
-                type="email"
-                matInput
-                [formControl]="emailFormControl"
-                [errorStateMatcher]="emailMatcher"
-            />
-            <mat-error
-                *ngIf="
-                    emailFormControl.hasError('email') &&
-                    !emailFormControl.hasError('required') &&
-                    !emailFormControl.hasError(customErrorName)
-                "
-            >
-                Please enter a valid email address
-            </mat-error>
-            <mat-error *ngIf="emailFormControl.hasError(customErrorName)">
-                {{ emailFormControl.errors[customErrorName].message }}
-            </mat-error>
-            <mat-error *ngIf="emailFormControl.hasError('required')"> Email is <strong>required</strong> </mat-error>
-        </mat-form-field>
-    </form>
-</div>
+<pxb-create-account-eula-step
+    *ngIf="currentPageId === 1"
+    [eula]="licenseAgreement"
+    [(userAcceptsEula)]="userAcceptsEula"
+></pxb-create-account-eula-step>
 
-<div class="content" *ngIf="currentPageId === 1">
-    <div class="license-agreement">{{ licenseAgreement }}</div>
-    <div class="confirm-agreement">
-        <mat-checkbox class="checkbox" [(ngModel)]="confirmAgreement"
-            >I have read and agree to the Terms & Conditions</mat-checkbox
-        >
-    </div>
-</div>
+<pxb-create-account-verify-email-step
+    *ngIf="currentPageId === 2"
+    [email]="email"
+    [(verificationCode)]="verificationCode"
+></pxb-create-account-verify-email-step>
 
-<div class="content" *ngIf="currentPageId === 2">
-    <p class="mat-body-1" style="margin-bottom: 24px;">
-        A verification code has been sent to the email address you provided. Click the link or enter the code below to
-        continue. This code is valid for 30 minutes.
-    </p>
-    <mat-divider style="margin-top: 16px; margin-bottom: 32px;"></mat-divider>
-    <form>
-        <mat-form-field appearance="fill" style="width: 100%;">
-            <mat-label>Verification Code</mat-label>
-            <input id="verification" name="verification" matInput [formControl]="verificationCodeFormControl" />
-            <mat-error *ngIf="verificationCodeFormControl.hasError('required')">
-                Verification code is <strong>required</strong>
-            </mat-error>
-        </mat-form-field>
-    </form>
-    <button mat-flat-button color="primary" style="width: 100%; margin-top: 8px;" (click)="sendVerificationEmail()">
-        Resend Verification Email
-    </button>
-</div>
+<pxb-create-account-create-password-step
+    *ngIf="currentPageId === 3"
+    [(password)]="password"
+    [(passwordMeetsRequirements)]="passwordMeetsRequirements"
+></pxb-create-account-create-password-step>
 
-<div class="content" *ngIf="currentPageId === 3">
-    <p class="mat-body-1" style="margin-bottom: 24px;">
-        Please select a password. Make sure that your password meets the necessary complexity requirements outlined
-        below.
-    </p>
-    <mat-divider style="margin-top: 16px; margin-bottom: 32px;"></mat-divider>
-    <div>
-        <form [formGroup]="passwordFormGroup">
-            <mat-form-field appearance="fill" style="width: 100%;">
-                <mat-label>Password</mat-label>
-                <input
-                    id="password"
-                    name="password"
-                    matInput
-                    placeholder="Password"
-                    required
-                    formControlName="newPassword"
-                    [type]="newPasswordVisible ? 'text' : 'password'"
-                    (keyup)="checkPasswordStrength($event.target.value)"
-                />
-                <button mat-icon-button matSuffix (click)="toggleNewPasswordVisibility()">
-                    <mat-icon>{{ newPasswordVisible ? 'visibility' : 'visibility_off' }}</mat-icon>
-                </button>
-            </mat-form-field>
-            <mat-list class="validation-list">
-                <app-password-strength-check [success]="passLength" validationMessage="8-16 Characters">
-                </app-password-strength-check>
-                <app-password-strength-check [success]="numberFlag" validationMessage="One number">
-                </app-password-strength-check>
-                <app-password-strength-check [success]="upperFlag" validationMessage="One uppercase letter">
-                </app-password-strength-check>
-                <app-password-strength-check [success]="lowerFlag" validationMessage="One lowercase letter">
-                </app-password-strength-check>
-                <app-password-strength-check [success]="specialFlag" validationMessage="One special character">
-                </app-password-strength-check>
-            </mat-list>
-            <mat-form-field appearance="fill" style="width: 100%;">
-                <mat-label>Confirm Password</mat-label>
-                <input
-                    id="confirm"
-                    name="confirm"
-                    matInput
-                    placeholder="Confirm Password"
-                    required
-                    formControlName="confirmPassword"
-                    [type]="confirmPasswordVisible ? 'text' : 'password'"
-                    [errorStateMatcher]="errorMatcher"
-                />
-                <button mat-icon-button matSuffix (click)="toggleConfirmPasswordVisibility()">
-                    <mat-icon>{{ confirmPasswordVisible ? 'visibility' : 'visibility_off' }}</mat-icon>
-                </button>
-                <mat-error *ngIf="passwordFormGroup.hasError('passwordsDoNotMatch')">Passwords do not match </mat-error>
-            </mat-form-field>
-        </form>
-    </div>
-</div>
+<pxb-create-account-account-details-step
+    *ngIf="currentPageId === 4"
+    [(firstName)]="firstName"
+    [(lastName)]="lastName"
+    [(phoneNumber)]="phoneNumber"
+    [(validAccountDetails)]="validAccountDetails"
+>
+</pxb-create-account-account-details-step>
 
-<div class="content" *ngIf="currentPageId === 4">
-    <p class="mat-body-1" style="margin-bottom: 24px;">Enter your details below to complete account creation.</p>
-    <mat-divider style="margin-top: 16px; margin-bottom: 32px;"></mat-divider>
-    <form>
-        <mat-form-field appearance="fill" style="width: 100%;" class="form-field">
-            <mat-label>First Name</mat-label>
-            <input id="first" name="first" matInput [formControl]="firstNameFormControl" />
-            <mat-error *ngIf="firstNameFormControl.hasError('required')">
-                First Name is <strong>required</strong>
-            </mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="fill" style="width: 100%;" class="form-field">
-            <mat-label>Last Name</mat-label>
-            <input id="last" name="last" matInput [formControl]="lastNameFormControl" />
-            <mat-error *ngIf="lastNameFormControl.hasError('required')">
-                Last Name is <strong>required</strong>
-            </mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="fill" style="width: 100%;" class="form-field">
-            <mat-label>Phone Number (optional)</mat-label>
-            <input id="phone" name="phone" matInput [formControl]="phoneNumberFormControl" />
-        </mat-form-field>
-    </form>
-</div>
+<pxb-create-account-account-created-step *ngIf="currentPageId === 5" [firstName]="firstName" [lastName]="lastName">
+</pxb-create-account-account-created-step>
 
-<div class="content" *ngIf="currentPageId === 5" style="justify-content: center;">
-    <pxb-empty-state class="empty-state" [title]="getEmptyStateTitle()" [description]="getEmptyStateDescription()">
-        <mat-icon pxb-empty-icon class="empty-state-icon">check_circle</mat-icon>
-    </pxb-empty-state>
-</div>
-
-<mat-divider style="margin-bottom: 16px;"></mat-divider>
-<div class="button-container">
-    <pxb-spacer *ngIf="currentPageId === 5"></pxb-spacer>
-    <button *ngIf="currentPageId !== 5" mat-stroked-button color="primary" (click)="goBack()" style="width: 100px;">
-        Back
-    </button>
-    <pxb-dot-stepper *ngIf="currentPageId <= 4" [steps]="pageCount" [activeStepId]="currentPageId"></pxb-dot-stepper>
-    <button
-        *ngIf="currentPageId <= 4"
-        mat-flat-button
-        color="primary"
-        [disabled]="canContinue()"
-        (click)="next()"
-        style="width: 100px;"
-    >
-        Next
-    </button>
-    <button
-        *ngIf="currentPageId === 5"
-        mat-flat-button
-        color="primary"
-        (click)="navigateToLogin(); resetForm()"
-        style="width: 100px;"
-    >
+<mat-divider class="pxb-auth-divider" style="margin-bottom: 16px;"></mat-divider>
+<div class="pxb-auth-action-button-container">
+    <ng-container *ngIf="currentPageId <= 4">
+        <button mat-stroked-button color="primary" (click)="goBack()" style="width: 100px;">Back</button>
+        <pxb-dot-stepper [steps]="6" [activeStepId]="currentPageId"></pxb-dot-stepper>
+        <button mat-flat-button color="primary" [disabled]="!canContinue()" (click)="goNext()" style="width: 100px;">
+            Next
+        </button>
+    </ng-container>
+    <button *ngIf="currentPageId === 5" mat-flat-button color="primary" (click)="navigateToLogin()" style="width: 100%">
         Continue
     </button>
 </div>

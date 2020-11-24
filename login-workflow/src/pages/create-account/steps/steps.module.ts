@@ -7,42 +7,50 @@ import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
-import { PxbCommonComponentsModule } from '../../../components/auth-common.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { PxbCreateAccountEulaComponent } from './eula/eula.component';
-import { PxbCreateAccountCreatePasswordComponent } from './create-password/create-password.component';
-import { PxbCreateAccountAccountDetailsComponent } from './account-details/account-details.component';
-import { PxbAccountCreatedComponent } from './account-created/account-created.component';
+
 import { EmptyStateModule } from '@pxblue/angular-components';
+
+import { PxbCommonComponentsModule } from '../../../components/auth-common.module';
+import { PxbAccountCreatedComponent } from './account-created/account-created.component';
+import { PxbAccountDetailsComponent } from './account-details/account-details.component';
+import { PxbCreatePasswordComponent } from './create-password/create-password.component';
+import { PxbEulaComponent } from './eula/eula.component';
+import { PxbProvideEmailComponent } from './provide-email/provide-email.component';
+import { PxbVerifyEmailComponent } from './verify-email/verify-email.component';
 
 @NgModule({
     declarations: [
-        PxbCreateAccountEulaComponent,
-        PxbCreateAccountCreatePasswordComponent,
-        PxbCreateAccountAccountDetailsComponent,
         PxbAccountCreatedComponent,
+        PxbAccountDetailsComponent,
+        PxbCreatePasswordComponent,
+        PxbEulaComponent,
+        PxbProvideEmailComponent,
+        PxbVerifyEmailComponent,
     ],
     imports: [
         BrowserModule,
+        BrowserAnimationsModule,
         CommonModule,
-        MatButtonModule,
-        MatFormFieldModule,
-        MatInputModule,
-        FormsModule,
-        MatFormFieldModule,
-        MatInputModule,
         EmptyStateModule,
-        MatDividerModule,
-        ReactiveFormsModule,
-        MatIconModule,
+        FormsModule,
+        MatButtonModule,
         MatCheckboxModule,
+        MatDividerModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatIconModule,
         PxbCommonComponentsModule,
+        ReactiveFormsModule,
     ],
     exports: [
-        PxbCreateAccountEulaComponent,
-        PxbCreateAccountCreatePasswordComponent,
-        PxbCreateAccountAccountDetailsComponent,
         PxbAccountCreatedComponent,
+        PxbAccountDetailsComponent,
+        PxbCreatePasswordComponent,
+        PxbEulaComponent,
+        PxbProvideEmailComponent,
+        PxbVerifyEmailComponent,
     ],
 })
 export class PxbCreateAccountStepsModule {}

@@ -1,199 +1,147 @@
-import { Component, Input, OnInit } from '@angular/core';
-import {
-    FormBuilder,
-    FormControl,
-    FormGroup,
-    FormGroupDirective,
-    NgForm,
-    ValidatorFn,
-    Validators,
-} from '@angular/forms';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthErrorStateMatcher } from '../../util/matcher';
-import { SAMPLE_EULA } from '../../constants/sampleEula';
-import { ErrorStateMatcher } from '@angular/material/core';
-import { PXB_LOGIN_VALIDATOR_ERROR_NAME } from '../login/login.component';
+
 import { LOGIN_ROUTE } from '../../auth/auth.routes';
 import { PxbAuthConfig } from '../../services/config/auth-config';
-
-class CrossFieldErrorMatcher implements ErrorStateMatcher {
-    isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-        return control.dirty && form.invalid;
-    }
-}
+import { PxbRegisterUIService } from '../../services/api/register-ui.service';
+import { PxbAuthSecurityService, SecurityContext } from '../../services/state/auth-security.service';
+import { PxbCreateAccountErrorDialogService } from './dialog/create-account-error-dialog.service';
 
 @Component({
     selector: 'pxb-create-account',
     templateUrl: './create-account.component.html',
     styleUrls: ['./create-account.component.scss'],
 })
-export class PxbCreateAccountComponent implements OnInit {
-    @Input() customEmailValidator: ValidatorFn;
-    @Input() licenseAgreement: string = SAMPLE_EULA;
-    pageCount = 6;
-    currentPageId: number;
-    customErrorName = PXB_LOGIN_VALIDATOR_ERROR_NAME;
-    emailFormControl: FormControl;
-    confirmAgreement = false;
-    verificationCodeFormControl: FormControl;
-    emailMatcher = new AuthErrorStateMatcher();
-    passwordFormGroup: FormGroup;
-    firstNameFormControl: FormControl;
-    lastNameFormControl: FormControl;
-    phoneNumberFormControl: FormControl;
-    newPasswordVisible = false;
-    confirmPasswordVisible = false;
-    errorMatcher = new CrossFieldErrorMatcher();
-    passLength = false;
-    specialFlag = false;
-    numberFlag = false;
-    upperFlag = false;
-    lowerFlag = false;
+export class PxbCreateAccountComponent {
+    currentPageId = 0;
+    isLoading = true;
+    hasEulaLoadError = false;
+    isValidVerificationCode = true;
+
+    // Provide Email Page
+    email: string;
+    isValidEmail: boolean;
+
+    // Verify Email Page
+    verificationCode: string;
+
+    // EULA Page
+    licenseAgreement: string;
+    userAcceptsEula: boolean;
+
+    // Create Password Page
+    password: string;
+    passwordMeetsRequirements: boolean;
+
+    // Account Details Page
+    firstName: string;
+    lastName: string;
+    phoneNumber: string;
+    validAccountDetails: boolean;
 
     constructor(
         private readonly _router: Router,
-        private readonly _authConfig: PxbAuthConfig,
-        private readonly _formBuilder: FormBuilder
+        private readonly _pxbAuthConfig: PxbAuthConfig,
+        private readonly _pxbRegisterService: PxbRegisterUIService,
+        private readonly _pxbSecurityService: PxbAuthSecurityService,
+        private readonly _pxbErrorDialogService: PxbCreateAccountErrorDialogService
     ) {
-        this.passwordFormGroup = this._formBuilder.group(
-            {
-                newPassword: ['', Validators.compose([Validators.required, Validators.minLength(8)])],
-                confirmPassword: ['', Validators.required],
-            },
-            {
-                validator: this.checkPasswords,
-            }
-        );
+        this._pxbSecurityService.securityStateChanges().subscribe((state: SecurityContext) => {
+            this.isLoading = state.isLoading;
+        });
     }
 
-    ngOnInit(): void {
-        this.currentPageId = 0;
-
-        const emailValidators = [
-            Validators.required,
-            Validators.email,
-            Validators.pattern(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i),
-        ];
-        if (this.customEmailValidator) {
-            emailValidators.push(this.customEmailValidator);
-        }
-        this.emailFormControl = new FormControl('', emailValidators);
-        this.verificationCodeFormControl = new FormControl('', Validators.required);
-        this.firstNameFormControl = new FormControl('', Validators.required);
-        this.lastNameFormControl = new FormControl('', Validators.required);
-        this.phoneNumberFormControl = new FormControl('');
-    }
-
-    getTitle(): string {
-        switch (this.currentPageId) {
-            case 0:
-                return 'Create an Account';
-            case 1:
-                return 'License Agreement';
-            case 2:
-                return 'Verify Email';
-            case 3:
-                return 'Create Password';
-            case 4:
-                return 'Account Details';
-            case 5:
-                return 'Account Created!';
-            default:
-                return;
+    getEULA(): void {
+        if (this._pxbAuthConfig.eula) {
+            this.licenseAgreement = this._pxbAuthConfig.eula;
+            this.currentPageId++;
+        } else {
+            this._pxbSecurityService.setLoading(true);
+            this._pxbRegisterService
+                .loadEULA()
+                .then((eula: string) => {
+                    this.licenseAgreement = eula;
+                    this._pxbSecurityService.setLoading(false);
+                    this.currentPageId++;
+                })
+                .catch(() => {
+                    this._pxbErrorDialogService.openDialog();
+                    this._pxbSecurityService.setLoading(false);
+                });
         }
     }
 
-    sendVerificationEmail(): void {
-        // send verification email
+    validateVerificationCode(): void {
+        this._pxbSecurityService.setLoading(true);
+        this._pxbRegisterService
+            .validateUserRegistrationRequest(this.verificationCode)
+            .then(() => {
+                this._pxbSecurityService.setLoading(false);
+                this.currentPageId++;
+            })
+            .catch(() => {
+                this._pxbErrorDialogService.openDialog();
+                this._pxbSecurityService.setLoading(false);
+            });
     }
 
-    toggleNewPasswordVisibility(): void {
-        this.newPasswordVisible = !this.newPasswordVisible;
-    }
-
-    toggleConfirmPasswordVisibility(): void {
-        this.confirmPasswordVisible = !this.confirmPasswordVisible;
-    }
-
-    checkPasswordStrength(password: string): void {
-        this.passLength = /^.{8,16}$/.test(password);
-        this.specialFlag = /[!"#$%&'()*+,-./:;<=>?@[\]^`{|}~]+/.test(password);
-        this.numberFlag = /[0-9]/.test(password);
-        this.upperFlag = /[A-Z]/.test(password);
-        this.lowerFlag = /[a-z]/.test(password);
-    }
-
-    checkPasswords(group: FormGroup): any {
-        const pass = group.get('newPassword').value;
-        const confirmPass = group.get('confirmPassword').value;
-        return pass === confirmPass ? null : { passwordsDoNotMatch: true };
-    }
-
-    getEmptyStateTitle(): string {
-        const title = `Welcome, ${this.firstNameFormControl.value} ${this.lastNameFormControl.value}!`;
-        return title;
-    }
-
-    getEmptyStateDescription(): string {
-        const description = `Your account has been successfully created with the email ${this.emailFormControl.value}. Your account has already been added to the organization. Press continue below to continue.`;
-        return description;
+    registerAccount(): void {
+        this._pxbSecurityService.setLoading(true);
+        this._pxbRegisterService
+            .completeRegistration(
+                this.firstName,
+                this.lastName,
+                this.phoneNumber,
+                this.password,
+                this.verificationCode,
+                this.email
+            )
+            .then(() => {
+                this._pxbSecurityService.setLoading(false);
+                this._pxbSecurityService.updateSecurityState({ email: this.email });
+                this.currentPageId++;
+            })
+            .catch(() => {
+                this._pxbErrorDialogService.openDialog();
+                this._pxbSecurityService.setLoading(false);
+            });
     }
 
     canContinue(): boolean {
         switch (this.currentPageId) {
             case 0:
-                return !(this.emailFormControl.value && this.emailFormControl.valid);
+                return this.isValidEmail;
             case 1:
-                return !this.confirmAgreement;
+                return this.userAcceptsEula;
             case 2:
-                return !this.verificationCodeFormControl.value;
+                return Boolean(this.verificationCode);
             case 3:
-                return !(
-                    this.passwordFormGroup.get('newPassword').value &&
-                    this.passLength &&
-                    this.specialFlag &&
-                    this.numberFlag &&
-                    this.upperFlag &&
-                    this.lowerFlag &&
-                    this.passwordFormGroup.get('confirmPassword').value &&
-                    this.passwordFormGroup.valid
-                );
+                return this.passwordMeetsRequirements;
             case 4:
-                return !(
-                    this.firstNameFormControl.value &&
-                    this.firstNameFormControl.valid &&
-                    this.lastNameFormControl.value &&
-                    this.lastNameFormControl.valid
-                );
+                return this.validAccountDetails;
             default:
                 return;
         }
     }
 
     goBack(): void {
-        if (this.currentPageId === 0) {
-            this.navigateToLogin();
-        } else {
-            this.currentPageId = this.currentPageId - 1;
+        this.currentPageId === 0 ? this.navigateToLogin() : this.currentPageId--;
+    }
+
+    goNext(): any {
+        switch (this.currentPageId) {
+            case 0:
+                return this.getEULA();
+            case 2:
+                return this.validateVerificationCode();
+            case 4:
+                return this.registerAccount();
+            default:
+                return this.currentPageId++;
         }
     }
 
-    next(): void {
-        this.currentPageId = this.currentPageId + 1;
-    }
-
-    resetForm(): void {
-        this.emailFormControl.reset();
-        this.confirmAgreement = false;
-        this.verificationCodeFormControl.reset();
-        this.passwordFormGroup.reset();
-        this.firstNameFormControl.reset();
-        this.lastNameFormControl.reset();
-        this.phoneNumberFormControl.reset();
-        this.currentPageId = 0;
-    }
-
     navigateToLogin(): void {
-        void this._router.navigate([`${this._authConfig.authRoute}/${LOGIN_ROUTE}`]);
+        void this._router.navigate([`${this._pxbAuthConfig.authRoute}/${LOGIN_ROUTE}`]);
     }
 }

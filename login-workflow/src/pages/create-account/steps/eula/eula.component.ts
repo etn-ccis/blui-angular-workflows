@@ -28,7 +28,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
         `,
     ],
 })
-export class PxbCreateAccountEulaComponent {
+export class PxbEulaComponent {
     @Input() eula: string;
 
     @Input() userAcceptsEula: boolean;
