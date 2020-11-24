@@ -40,7 +40,7 @@ import { PxbRegisterUIService } from '../../../../services/api/register-ui.servi
         </div>
     `,
 })
-export class PxbCreateAccountVerifyEmailComponent {
+export class PxbVerifyEmailComponent {
     @Input() verificationCode: string;
     @Input() email: string;
 

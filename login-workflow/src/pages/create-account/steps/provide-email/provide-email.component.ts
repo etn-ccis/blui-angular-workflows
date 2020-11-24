@@ -35,7 +35,7 @@ import { AuthErrorStateMatcher } from '../../../../util/matcher';
         </div>
     `,
 })
-export class PxbCreateAccountProvideEmailComponent {
+export class PxbProvideEmailComponent {
     @Input() email: string;
     @Input() isValidEmail: boolean;
 
