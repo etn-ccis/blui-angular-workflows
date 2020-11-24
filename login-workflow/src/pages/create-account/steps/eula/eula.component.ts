@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { PxbAuthConfig } from './../../../../services/config/auth-config'
+import { PxbAuthConfig } from './../../../../services/config/auth-config';
 
 @Component({
     selector: 'pxb-create-account-eula-step',
