@@ -44,7 +44,7 @@ export class RegisterUIService implements IPxbRegisterUIService {
                 }
                 const eula = SAMPLE_EULA;
                 this._pxbAuthConfig.eula = eula; // This prevents future EULA load requests.
-                return reject();
+                return resolve(eula);
             }, TIMEOUT_MS);
         });
     }
