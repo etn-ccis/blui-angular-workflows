@@ -9,7 +9,8 @@ import { LOGIN_ROUTE } from '../../auth/auth.routes';
 import { PxbAuthConfig } from '../../services/config/auth-config';
 import { PasswordRequirement } from '../../components/password-strength-checker/pxb-password-strength-checker.component';
 import { PxbChangePasswordDialogService } from './dialog/change-password-dialog.service';
-import { PxbChangePasswordErrorDialogService } from './dialog/change-password-error-dialog.service';
+import { PxbChangePasswordErrorDialogService } from '../../services/dialog/change-password-error-dialog.service';
+import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
 
 class CrossFieldErrorMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -99,10 +100,10 @@ export class PxbChangePasswordComponent {
                 this._pxbSecurityService.onUserNotAuthenticated();
                 this.isLoading = false;
             })
-            .catch(() => {
+            .catch((data: ErrorDialogData) => {
                 this.passwordChangeSuccess = false;
                 this.isLoading = false;
-                this._pxbChangePasswordErrorDialogService.openDialog();
+                this._pxbChangePasswordErrorDialogService.openDialog(data);
             });
     }
 

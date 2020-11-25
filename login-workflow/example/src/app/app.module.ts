@@ -3,7 +3,12 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { AppRoutingModule } from './app.routing';
-import { PxbAuthModule, PxbAuthUIService, PxbRegisterUIService } from '@pxblue/angular-auth-workflow';
+import {
+    PxbAuthModule,
+    PxbAuthUIService,
+    PxbRegisterUIService,
+    PxbLoginErrorDialogService,
+} from '@pxblue/angular-auth-workflow';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
@@ -16,6 +21,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { LoginErrorDialogComponent } from './dialog/login-error-dialog.component';
 import { RegisterUIService } from './services/register-ui.service';
+import { LoginErrorDialogService } from './dialog/login-error-dialog.service';
 
 @NgModule({
     declarations: [AppComponent, HomeComponent, AuthComponent, DashboardComponent, LoginErrorDialogComponent],
@@ -46,10 +52,10 @@ import { RegisterUIService } from './services/register-ui.service';
             useClass: RegisterUIService,
         },
         // Custom error handling for Login failures
-        /* {
+        {
             provide: PxbLoginErrorDialogService,
-            useClass: LoginErrorDialogService
-       } */
+            useClass: LoginErrorDialogService,
+        },
     ],
     entryComponents: [LoginErrorDialogComponent],
     bootstrap: [AppComponent],

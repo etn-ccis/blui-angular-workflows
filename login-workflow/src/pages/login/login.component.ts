@@ -14,7 +14,8 @@ import {
 } from '../../auth/auth.routes';
 
 import { PxbAuthConfig } from '../../services/config/auth-config';
-import { PxbLoginErrorDialogService } from './dialog/login-error-dialog.service';
+import { PxbLoginErrorDialogService } from '../../services/dialog/login-error-dialog.service';
+import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
 
 // TODO: Find a home for this const, perhaps config folder.
 export const PXB_LOGIN_VALIDATOR_ERROR_NAME = 'PXB_LOGIN_VALIDATOR_ERROR_NAME';
@@ -107,8 +108,8 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
                 this.navigateToDefaultRoute(); // TODO: User needs to provide this route somehow.
                 this._pxbSecurityService.setLoading(false);
             })
-            .catch(() => {
-                this._pxbLoginErrorDialogService.openDialog();
+            .catch((data: ErrorDialogData) => {
+                this._pxbLoginErrorDialogService.openDialog(data);
                 this._pxbSecurityService.onUserNotAuthenticated();
                 this._pxbSecurityService.setLoading(false);
             });

@@ -9,12 +9,11 @@ import { MatDividerModule } from '@angular/material/divider';
 import { CommonModule } from '@angular/common';
 import { PxbCreateAccountComponent } from './create-account.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import { PxbCreateAccountDialogComponent } from './dialog/create-account-error-dialog.component';
 import { PxbCreateAccountStepsModule } from './steps/steps.module';
 import { PxbCommonComponentsModule } from '../../components/auth-common.module';
 
 @NgModule({
-    declarations: [PxbCreateAccountComponent, PxbCreateAccountDialogComponent],
+    declarations: [PxbCreateAccountComponent],
     imports: [
         BrowserModule,
         CommonModule,
@@ -28,7 +27,6 @@ import { PxbCommonComponentsModule } from '../../components/auth-common.module';
         PxbCreateAccountStepsModule,
         PxbCommonComponentsModule,
     ],
-    entryComponents: [PxbCreateAccountDialogComponent],
-    exports: [PxbCreateAccountComponent, PxbCreateAccountDialogComponent, PxbCreateAccountStepsModule],
+    exports: [PxbCreateAccountComponent, PxbCreateAccountStepsModule],
 })
 export class PxbCreateAccountModule {}
