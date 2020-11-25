@@ -53,9 +53,9 @@ export class PxbCreateAccountComponent {
     }
 
     getEULA(): void {
+        this.currentPageId++;
         if (this._pxbAuthConfig.eula) {
             this.licenseAgreement = this._pxbAuthConfig.eula;
-            this.currentPageId++;
         } else {
             this._pxbSecurityService.setLoading(true);
             this._pxbRegisterService
@@ -63,7 +63,6 @@ export class PxbCreateAccountComponent {
                 .then((eula: string) => {
                     this.licenseAgreement = eula;
                     this._pxbSecurityService.setLoading(false);
-                    this.currentPageId++;
                 })
                 .catch((data: ErrorDialogData) => {
                     this._pxbErrorDialogService.openDialog(data);

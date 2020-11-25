@@ -69,8 +69,8 @@ export class AuthUIService implements IPxbAuthUIService {
             setTimeout(() => {
                 if (newPassword.toLowerCase() === 'fail123!') {
                     return reject({
-                      title: 'Error!',
-                      message: 'This is an example of a custom error message.'
+                        title: 'Error!',
+                        message: 'This is an example of a custom error message.',
                     });
                 }
                 return resolve();
