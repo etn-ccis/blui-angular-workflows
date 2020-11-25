@@ -65,6 +65,7 @@ export class PxbCreateAccountInviteComponent implements OnInit {
     getEULA(): void {
         if (this._pxbAuthConfig.eula) {
             this.licenseAgreement = this._pxbAuthConfig.eula;
+            this._pxbSecurityService.setLoading(false);
         } else {
             this._pxbRegisterService
                 .loadEULA()

@@ -15,6 +15,7 @@ export class PxbAuthConfig implements PxbAuthConfig {
     // @TODO: using this for splash screen... should we use this in place of ng-content for header in the login component? Should we have an additional prop for footerImage
     projectImage: string;
     backgroundImage: string;
+    eulaScrollLock = true;
 
     passwordRequirements?: PasswordRequirement[] = [
         {
