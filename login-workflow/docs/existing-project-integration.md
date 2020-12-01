@@ -2,92 +2,98 @@
 
 To start integrating this package into an existing application, you must first have an application. We recommend using the [PX Blue CLI](https://www.npmjs.com/package/@pxblue/cli) to initialize your project. 
 
-
 #### Installation and Setup
 
 Once you have a project, you can install this package via:
 ```shell
-npm install --save @pxblue/react-auth-workflow
+npm install --save @pxblue/angular-auth-workflow
 // or
-yarn add @pxblue/react-auth-workflow
+yarn add @pxblue/angular-auth-workflow
 ```
 
 This package also has a number of peer dependency requirements that you will also need to install in your project. To install the latest version of all of these peer dependencies, run the following command in your project root:
 ```
-npm install --save @material-ui/core @pxblue/colors @pxblue/react-components date-fns highcharts i18next react-dom react-i18next react-router-dom
+npm install --save @pxblue/colors @pxblue/angular-components
 // or
-yarn add @material-ui/core @pxblue/colors @pxblue/react-components date-fns highcharts i18next react-dom react-i18next react-router-dom
-```
-
-#### Implement AuthUIActions and RegistrationUIActions
-
-You need to implement the backend networking for all networking within react-auth-workflow. Your implementation will likely involve writing calls to your APIs and caching the returned data, as needed, depending on the requirements of your application. The example application has these actions mocked with calls to `sleep`.
-
-1. Create a `/src` folder in your application if it does not already exist
-2. Add an `/actions` folder inside the `src` directory.
-3. Create two files in the new `actions` directory: `AuthUIActions.tsx` and `RegistrationUIActions.tsx`
-    - The first file you created, `AuthUIActions.tsx`, will handle the implementation of the authentication related actions (such as login and forgot password).
-    - The second file you created, `RegistrationActions.tsx`, will handle the implementation of the registration related actions (such as loading the EULA and registration by invitation).
-    - You can copy these files directly from the [example](https://github.com/pxblue/react-workflows/tree/master/login-workflow/example) project as a starting point and then update the implementation details if you choose.
-4. You might also want to copy over the `example/src/store` and `example/src/constants` folders from react-auth-workflow for the purposes of compiling with the mock `AuthUIActions` and `RegistrationUIActions` before you write your own implementation. These sample implementations make use of the browser LocalStorage, but you may want to use a different approach in order to follow best practices for cybersecurity.
-5. Import the actions in your root app file (usually App.tsx):
-```
-import { ProjectAuthUIActions } from './src/actions/AuthUIActions';
-import { ProjectRegistrationUIActions } from './src/actions/RegistrationUIActions';
+yarn add @pxblue/colors @pxblue/angular-components
 ```
 
 
-#### Setting Up the Application Structure
+#### Add Module
 
-1. In the root app file (generally App.tsx), add the following imports to the top of the file:
+Import the `PxbAuthModule` into your `app.module.ts`.
 
-    ```tsx
-    import {
-        SecurityContextProvider,
-        AuthNavigationContainer,
-        AuthUIContextProvider,
-        useSecurityActions,
-    } from '@pxblue/react-auth-workflow';
-    ```
-2. Inside your root export, wrap your entire application as follows, where `<YourApp>` is your existing app structure XML (if you used the PX Blue CLI to create your project, the `ThemeProvider` should already be configured. If you didn't, you can skip those wrappers or follow the manual [integration instructions](https://pxblue.github.io/development/frameworks-web/react)):
-
-```tsx
-<ThemeProvider theme={createMuiTheme(PXBThemes.blue)}>
-    <CssBaseline />
-    <SecurityContextProvider>
-        <AuthUIConfiguration>
-            <AuthNavigationContainer /*routeConfig={routes}*/>
-                <YourApp />    <--- Your existing app
-            </AuthNavigationContainer>
-        </AuthUIConfiguration>
-    </SecurityContextProvider>
-</ThemeProvider>
-``` 
-
-
-#### Configure AuthUIContextProvider
-
-Create a functional component in your root app file that configures the options for the React Auth Workflow package. The component definition should look something like this:
-
-```tsx
-export const AuthUIConfiguration = (props) => {
-    const securityContextActions = useSecurityActions();
-    return (
-        <AuthUIContextProvider
-            authActions={ProjectAuthUIActions(securityContextActions)}
-            registrationActions={ProjectRegistrationUIActions}
-            showSelfRegistration={true}
-            allowDebugMode={true}
-            htmlEula={false}
-            contactEmail={'something@email.com'}
-            contactPhone={'1-800-123-4567'}
-            projectImage={require('./src/assets/images/some_image.png')}
-        >
-            {props.children}
-        </AuthUIContextProvider>
-    );
-}
 ```
-You can skip passing the `projectImage` property if you don't have one yet.
+import { PxbAuthModule } from '@pxblue/angular-auth-workflow';
 
-The various configuration options are explained in more detail in the [API](https://github.com/pxblue/react-workflows/tree/master/login-workflow/docs/API.md) documentation.
+imports: [
+    PxbAuthModule
+]
+```
+
+After the `PxbAuthModule` is added to the project, create an `AuthComponent` which renders the `<pxb-auth>` component and customize it according to your needs.
+
+For customization info, check out the [API]() documentation.
+
+
+#### Configure Routing
+In your `app.routing.ts` config, add the auth-specific routes. `authSubRoutes` is a `Route[]` which contains all necessary route config.
+
+The configuration below has the base URL redirect to the login screen. 
+All routes that require authentication can be protected using the `PxbAuthGuard`.  This guard will prevent routes from being accessed from unauthenticated users.  
+
+In the example below, the `/home` route can only be accessed if a user is logged in.
+
+```
+import { authSubRoutes, PxbAuthGuard, AUTH_ROUTE } from '@pxblue/angular-auth-workflow';
+import { HomeComponent } from './pages/home/home.component';
+import { AuthComponent } from './pages/auth/auth.component';\
+
+const routes: Routes = [
+    { path: '', redirectTo: AUTH_ROUTE, pathMatch: 'full' },
+    { path: AUTH_ROUTE, component: AuthComponent, children: authSubRoutes },
+    {
+        path: '',
+        canActivate: [PxbAuthGuard],
+        children: [
+            { path: 'home', component: HomeComponent }
+        ],
+    },
+];
+```
+
+The following is the list of default routes found in `authSubRoutes`: 
+
+| Screen              | Description                                            | Default URL                       | 
+| ------------------- | ------------------------------------------------------ | --------------------------------- | 
+| Login               | the login screen                                       | `'/auth/login'`                   |
+| Forgot Password     | the forgot password screen                             | `'/auth/forgot-password'`         | 
+| Reset Password      | the reset password screen                              | `'/auth/reset-password'`          |
+| Invite Registration | the first screen of the invite-based registration flow | `'/auth/register/invite'`         | 
+| Self Registration   | the first screen of the self-registration flow         | `'/auth/register/create-account'` |
+| Support             | the contact/support screen                             | `'/auth/support'`                 |
+
+
+#### Provide API Services
+
+There are two services that the `@pxblue/angular-auth-workflow` uses when it has to perform external registration or authentication actions.
+The `PxbAuthUIService` and `PxbRegisterUIService` will need to be provided and implemented to perform various actions.
+
+```
+// app.module.ts
+import { PxbAuthUIService, PxbRegisterUIService } from '@pxblue/angular-auth-workflow';
+import { AuthUIService } from 'services/auth-ui.service';
+import { RegisterUIService } from 'services/register-ui.service';
+
+providers: [
+    ...
+    {
+        provide: PxbAuthUIService,
+        useClass: AuthUIService,
+    },
+    {
+        provide: PxbRegisterUIService,
+        useClass: RegisterUIService,
+    },
+]
+```

@@ -24,48 +24,6 @@ To integrate the package into an existing project, read our [Existing Project In
 
 To use the example project as a starting point, read our [Sample Project Integration](https://github.com/pxblue/angular-workflows/tree/master/login-workflow/docs/sample-project-integration.md) instructions.
 
-# Routing
-In your `app.routing.ts` config, add the auth-specific routes. `authSubRoutes` is a `Route[]` which contains all necessary route config.
-
-The configuration below has the base URL redirect to the login screen. 
-All routes that require authentication can be protected using the `PxbAuthGuard`.  This guard will read the state from the `PxbAuthSecurityService` and will block navigation then redirect if a user is not authenticated.  
-
-In the example below, the `/home` and `/dashboard` routes can only be accessed if a user is logged in.
-
-```
-import { authSubRoutes, PxbAuthGuard, AUTH_ROUTE } from '@pxblue/angular-auth-workflow';
-
-const routes: Routes = [
-    { path: '', redirectTo: AUTH_ROUTE, pathMatch: 'full' },
-    { path: AUTH_ROUTE, component: AuthComponent, children: authSubRoutes },
-    {
-        path: '',
-        canActivate: [PxbAuthGuard],
-        children: [
-            { path: 'home', component: HomeComponent },
-            { path: 'dashboard', component: DashboardComponent },
-        ],
-    },
-];
-```
-
-The following is the list of default routes found in `authSubRoutes`: 
-
-| Screen              | Description                                            | Default URL                       | 
-| ------------------- | ------------------------------------------------------ | --------------------------------- | 
-| Login               | the login screen                                       | `'/auth/login'`                   |
-| Forgot Password     | the forgot password screen                             | `'/auth/forgot-password'`         | 
-| Reset Password      | the reset password screen                              | `'/auth/reset-password'`          |
-| Invite Registration | the first screen of the invite-based registration flow | `'/auth/register/invite'`         | 
-| Self Registration   | the first screen of the self-registration flow         | `'/auth/register/create-account'` |
-| Support             | the contact/support screen                             | `'/auth/support'`                 |
-
-
-#### Testing Deep Links
-
-- Open the sample URL in your browser `http://localhost:4200/auth/create-account-invite?code=DEADBEEF`
-
-
 # Managing State
 
 After setup, you are now able to access various security actions and state from within your application.  
