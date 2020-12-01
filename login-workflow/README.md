@@ -29,13 +29,14 @@ yarn add @pxblue/angular-auth-workflow
 # Integration
 You have two options for using this package in your application. You can manually integrate the package into an existing project, or you can start a project using the `/example` project provided in the package. 
 
-To integrate the package into an existing project, read our [Existing Project Integration ](https://github.com/pxblue/angular-workflows/tree/master/login-workflow/docs/existing-project-integration.md) instructions. Even if you are starting from scratch, it may be useful for you to refer to the example project while getting started.
+To integrate the package into an existing project, read our [Existing Project Integration](https://github.com/pxblue/angular-workflows/tree/master/login-workflow/docs/existing-project-integration.md) instructions. Even if you are starting from scratch, it may be useful for you to refer to the example project while getting started.
 
-To use the example project as a starting point, read our [Sample Project Integration ](https://github.com/pxblue/angular-workflows/tree/master/login-workflow/docs/sample-project-integration.md) instructions.
+To use the example project as a starting point, read our [Sample Project Integration](https://github.com/pxblue/angular-workflows/tree/master/login-workflow/docs/sample-project-integration.md) instructions.
 
 
+// TODO: Move this to the existing project integration docs
 # Routing
-In your `app.routing.ts` config, add the auth-specific routes.  `authSubRoutes` is a `Route[]` which contains all necessary route config.
+In your `app.routing.ts` config, add the auth-specific routes. `authSubRoutes` is a `Route[]` which contains all necessary route config.
 
 The configuration below has the base URL redirect to the login screen. 
 All routes that require authentication can be protected using the `PxbAuthGuard`.  This guard will read the state from the `PxbAuthSecurityService` and will block navigation then redirect if a user is not authenticated.  
@@ -257,7 +258,7 @@ Authentication Actions to be performed based on the user's UI actions. The appli
     -   **Returns**: _`Promise<void>`_
         -   Resolve if successful, otherwise reject with an error message.
 
--   **verifyResetCode**: _`() => Promise<void>)`_
+-   **verifyResetCode**: _`() => Promise<void>`_
 
     -   The user has tapped on an email with a password reset link, which they received after requesting help for forgetting their password. This API call validates the reset link is legitimate and the app should allow a user to enter a new password. 
 
@@ -270,37 +271,35 @@ Registration Actions to be performed based on the user's actions. The applicatio
 
 ### Type Declaration
 
--   **completeRegistration**: _`(firstName: string, lastName: string, phoneNumber: string, password: string, validationCode?: string, email?: string) => Promise<void>`_
+-   **completeRegistration**: _`(firstName: string, lastName: string, phoneNumber: string, password: string, validationCode?: string, email?: string: Promise<void>`_
 
     -   The user has been invited to register and has entered the necessary account and password information. The application should now complete the registration process given the user's data.
 
         > Note: Upon resolution, the user will be brought back to the Login screen.
 
     -   **Parameters**:
-
-        -   **userData**: _`{ accountDetails: AccountDetailInformation, password: string }`_
-            -   Account details and password entered by the user.
-        -   **validationCode**: _`string`_
-            -   Registration code provided from the invitation email link.
-        -   **validationEmail**: (optional) _`string`_
-            -   Email provided from the invitation email link (optional) `?email=addr%40domain.com`.
-
-    -   **Returns**: _`Promise<{ email: string, organizationName: string }>`_
+        -   **firstName**: _`string`_
+            -   User's first name.
+        -   **lastName**: _`string`_
+            -   User's last name.
+        -   **phoneNumber**: _`phoneNumber`_
+            -   User-provided phoneNumber; may be undefined.
+        -   **password**: (optional) _`string`_
+            -   User's requested account password.
+        -   **validationCode**: (optional) _`string`_
+            -   Code used to validate if a user's account registration link was valid.
+        -   **email**: (optional) _`string`_
+            -   User-provided email when creating a new account via `/auth/create-account`.
+    -   **Returns**: _`Promise<void>`_
         -   Resolve when account creation succeeds, otherwise reject with an error message.
 
--   **loadEULA**: _`(language: string) => Promise<string>)`_
+-   **loadEULA**: _`(): Promise<string>)`_
 
     -   The user wants to complete an action but must first accept the EULA. The application should retrieve an application-specific EULA for the user.
-
-    -   **Parameters**:
-
-        -   **language**: _`string`_
-            -   The i18n language the user is requesting for the EULA text.
-
     -   **Returns**: _`Promise<string>`_
         -   Resolve with EULA, otherwise reject with an error message.
 
--   **requestRegistrationCode**: _`(email: string) => Promise<void>)`_
+-   **requestRegistrationCode**: _`(email: string): Promise<void>)`_
 
     -   The user entered their email address and accepted the EULA. The API should now send them an email with the validation code.
 
@@ -312,166 +311,37 @@ Registration Actions to be performed based on the user's actions. The applicatio
     -   **Returns**: _`Promise<void>`_
         -   Resolve when the server has accepted the request.
 
--   **validateUserRegistrationRequest**: _`(validationCode: string, validationEmail?: string) => Promise<boolean>)`_
+-   **validateUserRegistrationRequest**: _`(code: string) => Promise<boolean>)`_
 
-    -   The user has tapped on an email link inviting them to register with the application. The application should validate the code provided by the link.
+    -   The user has been sent a verification code to an email they have provided; validate the verification code has been received to continue account registration.
 
     -   **Parameters**:
 
-        -   **validationCode**: _`string`_
+        -   **code**: _`string`_
             -   Registration code provided from the link.
-        -   **validationEmail**: (optional) _`string`_
-            -   Email provided from the invitation email link (optional) `?email=addr%40domain.com`.
 
-    -   **Returns**: _`Promise<boolean>`_
-        -   Resolves when the code is valid. True if registration is complete, False if account information is needed. If the code is not valid a rejection will occur with an error message.
-
-## RegistrationUIState
-
-Global state for registration-related activities and loading the EULA for newly registering users
-
-### Type Declaration
-
--   **eulaTransit**: _`TransitState`_
-    -   Network state for fetching a remote EULA.
--   **inviteRegistration**: _`InviteRegistrationState`_
-    -   Network and returned values state for registration of anew user via invitation.
-
-## SecurityContextActions
-
-Actions that change the security state of the application.
-
-### Type Declaration
-
--   **hideChangePassword**: _`() => void`_
-
-    -   Close the Change Password screen. This is most often called from within the Change Password screen. If the user has successfully changed their password, then hiding Change Password will take to the Authentication User Interface. If the user cancels changing their password, hiding Change Password will take the user back to the application's main screen.
-
-    -   **Returns**: _`void`_
-
--   **onUserAuthenticated**: _`(args: { email: string, rememberMe: boolean, userId: string }) => void`_
-
-    -   If the user has been authenticated, this function should be called. Most likely, this should be called within the initiateSecurity or logIn actions of the `AuthUIActions` provided to the `AuthUIContextProvider`. Once called, the application will be shown.
-
-    -   **Parameters**:
-
-        -   **args**: _`{ email: string, rememberMe: boolean, userId: string }`_
-            -   **email**: _`string`_
-                -   Email with which the user authenticate
-            -   **rememberMe**: _`boolean`_
-                -   Whether the user's email should be visible upon logout.
-            -   **userId**: _`string`_
-                -   UserId of the authenticated user (may be email).
-
-    -   **Returns**: _`void`_
-
--   **onUserNotAuthenticated**: _`( clearRememberMe?: boolean, overrideRememberMeEmail?: string) => void`_
-
-    -   If the user has been de-authenticated (either because they logged out or app started with no credentials), this function should be called. Most likely, this should be called within the `initiateSecurity` action of the `AuthUIActions` provided to the `AuthUIContextProvider`, or from a logout event within the application. Once called, the Authentication User Interface will be shown.
-
-    -   **Parameters**:
-
-        -   **clearRememberMe**: (optional) _`boolean`_
-            -   If true, clear any "remember me" data upon logout.
-        -   **overrideRememberMeEmail**: (optional) _`string`_ - If a value is provided, the `SecurityContextState`'s rememberMe will be set to true and this email will be shown in the email field of Login upon logout.
-
-    -   **Returns**: _`void`_
-
--   **showChangePassword**: _`() => void`_
-
-    -   Present the Change Password screen to the user (if the user is authenticated). The application will be unmounted.
-
-    -   **Returns**: _`void`_
-
-## SecurityContextState
-
-Basic state upon which to make application security decisions.
-
-### Type Declaration
-
--   **setPasswordTransit**: _`TransitState`_
-    -   Network state for setting a new password for a user who has made a forgot password request.
--   **verifyResetCodeTransit**: _`TransitState`_
-    -   Network state for verifying the reset password code for a user who has made a forgot password request.
-
-## SetPasswordState
-
-Network state for a user attempting to set a new password using a verify reset code after requesting forgot password.
-
-### Type Declaration
-
--   **email**: (optional) _`string`_
-    -   Email of the authenticated user.
--   **isAuthenticatedUser**: _`boolean`_
-    -   True: The user is authenticated and the application is shown (or the Change Password interface).
-    -   False: The user is not authenticated and the Authentication User Interface is shown.
--   **isLoading**: _`boolean`_
-    -   True: The security state is being loaded (all other fields are invalid).
-    -   False: The security state has been loaded.
--   **isShowingChangePassword**: _`boolean`_
-    -   True: The Change Password screen is currently visible.
-    -   False: The Change Password screen is not currently visible.
--   **isSignOut**: _`boolean`_
-    -   Used for animation purposes only.
-    -   True: The user is logged in currently and a change will be the result of logging out.
-    -   False: The user is likely logging in if authentication state changes.
--   **rememberMeDetails**: _`{ email?: string, rememberMe?: boolean }`_
-    -   Information for a user who wants to be remembered upon logout.
-    -   **email**: (optional) _`string`_
-        -   Email address to show in the email field of Login after logout.
-    -   **rememberMe**: (optional) _`boolean`_
-        -   When true, the user's email will be in the email field of Login.
--   **userId**: (optional) _`string`_
-    -   UserId of the authenticated user (may be an email).
-
-## TransitState
-
-Keeps track of the state of a network call.
-
-### Type Declaration
-
--   **transitComplete**: _`boolean`_
-    -   Returns true if a network call has completed, either successfully or unsuccessfully.
--   **transitErrorMessage**: _`string | null`_
-    -   An error message describing the failure of the last network call, or null if the last call was a success.
--   **transitId**: _`number | null`_
-    -   The identifier for a specific network call. Can be used to ignore an old return if a modal dismisses or another action fires.
--   **transitInProgress**: _`boolean`_
-    -   Returns true if the network call is currently active and awaiting a response.
--   **transitSuccess**: _`boolean`_
-    -   Returns true if the previously completed network call returned without error.
+    -   **Returns**: _`Promise<void>`_
+        -   Resolves when the code is valid. Reject with an error message.
 
 # Contributors
 
 To work on this package as a contributor, first clone down the repository:
 ```shell
-git clone https://github.com/pxblue/react-workflows
-cd react-workflows/login-workflow
+git clone https://github.com/pxblue/angular-workflows
+cd angular-workflows/login-workflow
 ```
 
 You can install all necessary dependencies and run the demo project by running:
 ```shell
 yarn start:example
-// or
-yarn start:example-android
 ```
 
 If you make changes to the library components and want to link them to the running example project, you can run:
 ```shell
-yarn link:workflow
+yarn watch
 ```
 
-You can build the library by running:
+In a new terminal, run: 
 ```shell
-yarn build
-```
-
-You can run the lint checks, prettier formatter, unit tests, and build by running:
-```shell
-yarn precommit
-```
-
-You can update the auto-generated licenses.md file by running:
-```shell
-yarn generate:licenses
+cd example && yarn start
 ```
