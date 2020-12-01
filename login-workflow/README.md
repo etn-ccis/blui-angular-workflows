@@ -265,7 +265,7 @@ Authentication Actions to be performed based on the user's UI actions. The appli
     -   **Returns**: _`Promise<void>`_
         -   Resolve if reset link is valid, otherwise reject.
 
-## RegistrationUIActions
+## PxbRegisterUIService
 
 Registration Actions to be performed based on the user's actions. The application will create appropriate actions (often API calls, local network storage, credential updates, etc.) based on the actionable needs of the user. A mock `PxbRegisterUIService` implementation is provided in the examples to start with during development.
 
