@@ -101,15 +101,13 @@ More information about `@pxblue/angular-auth-workflow's` exported objects can fo
 
 # API
 
-This document outlines the various exports and configuration options for the `@pxblue/angular-auth-shared` package.
+This document outlines the various exports and configuration options for the `@pxblue/angular-auth-workflow` package.
 
-## Context Providers
-
-### PxbAuthConfig
+## PxbAuthConfig
 
 `PxbAuthConfig` a configuration service; it is used to enable/disable settings in the `@pxblue/angular-auth-workflow`. Some UI configuration properties are also passed in.
 
-#### Usage
+### Usage
 
 ```tsx
 import { PxbAuthConfig } from '@pxblue/angular-auth-workflow';
@@ -122,7 +120,7 @@ constructor(pxbAuthConfig: PxbAuthConfig) {
 }
 ```
 
-#### Available Props
+### Properties
 
 -   **allowDebugMode** (optional): _`boolean`_
     -   When true, presents a debug button on the login screen to allow access to deep link-based screens/flows
@@ -137,7 +135,7 @@ constructor(pxbAuthConfig: PxbAuthConfig) {
     -   Set to true if your EULA needs to be rendered as HTML
     -   Default: false
 -   **passwordRequirements** (optional): _`PasswordRequirement[]`_
-    -   An array of `PasswordRequirement`s that must be satisfied when creating or changing a password.
+    -   An array of `PasswordRequirement` that must be satisfied when creating or changing a password.
     -   Default: Passwords must contain a number, uppercase letter, lowercase letter, special character, and be between 8 and 16 characters in length
 -   **projectImage** (optional): _`number | string`_
     -   Project image shown on splash screen and login screen.
@@ -147,22 +145,11 @@ constructor(pxbAuthConfig: PxbAuthConfig) {
     -   When true, shows the Create Account button to allow for self registration.
     -   Default: true
 
-## PasswordRequirement
+## PxbAuthSecurityService
 
-Definition for a security/complexity requirement for application passwords.
+`PxbAuthSecurityService` provides a single source of state for the state of user authentication. It is not meant to authenticate the user or hold credential information. Its purpose is to control access to authenticated or non-authenticated sections of the application.
 
-### Type Declaration
-
--   **description**: _`string`_
-    -   The text description of the requirement (e.g., 'contains an uppercase letter')
--   **regex**: _`RegExp`_
-    -   A regular expression the defines the complexity requirement (e.g., `/[A-Z]+/`)
-    
-### PxbAuthSecurityService
-
-`PxbAuthSecurityService` provides a single source of state for the state of user authentication. It is not meant to authenticate the user or hold credential information. Its purpose is to control access to authenticated or non-authenticated sections of the application (as well as change password for a currently authenticated user).
-
-#### Usage
+### Usage
 
 ```ts
 import { PxbAuthSecurityService, AUTH_ROUTE } from '@pxblue/angular-auth-workflow';
@@ -175,7 +162,7 @@ logout(): void {
 }
 ```
 
-## Methods
+### Methods
 
 -   **getSecurityState**: _`SecurityContext`_
     -   Returns current security state
@@ -190,7 +177,24 @@ logout(): void {
 
 ## PxbAuthUIService
 
-Authentication Actions to be performed based on the user's UI actions. A mock PxbAuthUIService implementation is provided in the examples folder for getting started with during development.
+`PxbAuthUIService` contains methods that are intended to call APIs to perform auth-related actions.  A mock `PxbAuthUIService` is provided in the examples folder to provide a placeholder for API calls.
+
+### Usage
+
+You will need to provide your own service implementation with real API calls.
+
+```
+// app.module.ts
+import { PxbAuthUIService } from '@pxblue/angular-auth-workflow';
+import { AuthUIService } from 'services/auth-ui.service';
+
+providers: [
+    {
+        provide: PxbAuthUIService,
+        useClass: AuthUIService,
+    }
+]
+```
 
 ### Methods
 
@@ -222,7 +226,7 @@ Authentication Actions to be performed based on the user's UI actions. A mock Px
 
 -   **login**: _`(email: string, password: string, rememberMe: boolean): Promise<void>`_
 
-    -   The user wants to log into the application. Perform a login with the user's credentials. The application should provide the user's email and password to the authentication server. In the case of valid credentials, the applications code should store the returned data (such as token, user information, etc.). Then the onUserAuthenticated function should be called on the SecurityContextActions object.
+    -   The user wants to log into the application. Perform a login with the user's credentials. The application should provide the user's email and password to the authentication server.
 
     -   **Parameters**:
 
@@ -235,7 +239,7 @@ Authentication Actions to be performed based on the user's UI actions. A mock Px
 
 -   **setPassword**: _`(password: string) => Promise<void>`_
 
-    -   A user who has previously used "forgotPassword" now has a valid password reset link and has entered a new password. The application should take the user's newly entered password and then reset the user's password.
+    -   A user who has previously used "forgotPassword" now has a valid password reset link and has entered a new password. The application should take the user's newly entered password and then reset the user's current password.
 
         > Note: Upon success, the user will be taken to the Login screen
 
@@ -250,7 +254,24 @@ Authentication Actions to be performed based on the user's UI actions. A mock Px
 
 ## PxbRegisterUIService
 
-Registration Actions to be performed based on the user's actions.  A mock `PxbRegisterUIService` implementation is provided in the examples to start with during development.
+`PxbAuthUIService` contains methods that are intended to call APIs to perform registration-related actions. A mock `PxbRegistrerUIService` is provided in the examples folder to provide a placeholder for API calls.
+
+### Usage
+
+You will need to provide your own service implementation with real API calls.
+
+```
+// app.module.ts
+import { PxbRegisterUIService } from '@pxblue/angular-auth-workflow';
+import { RegisterUIService } from 'services/register-ui.service';
+
+providers: [
+    {
+        provide: PxbRegisterUIService,
+        useClass: RegisterUIService,
+    }
+]
+```
 
 ### Methods
 
@@ -339,13 +360,13 @@ The example project demos this feature for the login screen; whenever an error h
 To provide your own dialog component, override the default `Pxb[Page]ErrorDialogService` in your `app.module.ts` with your own implementation that'll render your custom dialog component.
 
 ```
-    {
-        provide: PxbLoginErrorDialogService,
-        useClass: LoginErrorDialogService,
-    }
+{
+    provide: PxbLoginErrorDialogService,
+    useClass: LoginErrorDialogService,
+}
 ```
 
-To make things more type-safe; your custom `[Page]ErrorDialogService` should implement `IPxbAuthErrorDialogService`.
+To enforce type-safety, your custom `[Page]ErrorDialogService` should implement `IPxbAuthErrorDialogService`.
 
 ```
 import { IPxbAuthErrorDialogService } from '@pxblue/angular-auth-workflow';
@@ -365,9 +386,29 @@ export class LoginErrorDialogService implements IPxbAuthErrorDialogService {
 
 See the example project (`./src/app/dialog/login-error-dialog.component.ts`) for an example of a custom ErrorDialog component.
 
-# Customizing Pages
+# Customizing Auth Pages
  
- Individual pages within the `@pxblue/angular-auth-workflow` can be customized with string or ng-content. 
+ Each pages within the `@pxblue/angular-auth-workflow` can be customized with string `@Inputs` or `ng-content`.  
+ 
+ The Login Page will always need custom header and footer content. To provide your own `pxb-login-header` and `pxb-login-footer`, wrap a `<pxb-login>` component with a `ng-template` and pass it into the `<pxb-auth>` component as the `loginRef`.  This will tell the `<pxb-auth>` component to render your custom LoginComponent with your custom content instead of the default.
+ 
+ ```
+<pxb-auth [loginRef]="loginPage">
+    <ng-template #loginPage>
+        <pxb-login [customEmailValidator]="customValidator()">
+            <div pxb-login-header>
+                <img src="assets/images/eaton_stacked_logo.png" style="max-width: 100%; max-height: 80px;" />
+            </div>
+            <div pxb-login-footer style="text-align: center;">
+                <img
+                    src="assets/images/cybersecurity_certified.png"
+                    style="max-width: 30%; align-self: center;"
+                />
+            </div>
+        </pxb-login>
+    </ng-template>
+</pxb-auth>
+```
 
 
 
