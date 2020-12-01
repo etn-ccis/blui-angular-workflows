@@ -6,17 +6,8 @@ The Angular Auth Workflow package provides a consistent authentication and regis
 This includes pre-built implementations of the screens for Login, Forgot Password, Contact Information, Self-Registration, Registration By Invitation, and a dialog for Change Password.
 
 This documentation explains the steps required to integrate this auth workflow into your application.
-At a high level, the integration steps are: 
-
-1. Add `@pxblue/angular-auth-workflow` as a dependency
-2. Update app Routing config
-3. Update workflow's `PxbAuthConfig`.
-3. Update workflow's `securityState`.
-4. Provide your own `PxbAuthUIService` and `PxbRegisterUIService`.
-
 
 ![Login iOS](https://raw.githubusercontent.com/pxblue/react-workflows/master/login-workflow/media/login.png) ![Home iOS](https://raw.githubusercontent.com/pxblue/react-workflows/master/login-workflow/media/home.png) ![Password iOS](https://raw.githubusercontent.com/pxblue/react-workflows/master/login-workflow/media/password.png)
-
 
 # Installation
 To install the latest version of this package, run:
