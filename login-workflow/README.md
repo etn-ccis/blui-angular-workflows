@@ -107,7 +107,7 @@ This document outlines the various exports and configuration options for the `@p
 
 ### PxbAuthConfig
 
-`PxbAuthConfig` is a service used to configuration how the `@pxblue/angular-auth-workflow` behaves. UI configuration properties are also passed in.
+`PxbAuthConfig` a configuration service; it is used to enable/disable settings in the `@pxblue/angular-auth-workflow`. Some UI configuration properties are also passed in.
 
 #### Usage
 
@@ -190,7 +190,7 @@ logout(): void {
 
 ## PxbAuthUIService
 
-Authentication Actions to be performed based on the user's UI actions. The application will create appropriate actions (often api calls, local network storage, credential updates, etc.) and update the global security state based on the actionable needs of the user. A mock PxbAuthUIService implementation is provided in the examples folder for getting started with during development.
+Authentication Actions to be performed based on the user's UI actions. A mock PxbAuthUIService implementation is provided in the examples folder for getting started with during development.
 
 ### Methods
 
@@ -205,9 +205,6 @@ Authentication Actions to be performed based on the user's UI actions. The appli
         -   **newPassword**: _`string`_
             -   The user's new password as entered into the UI.
 
-    -   **Returns**: _`Promise<void>`_
-        -   Resolve if successful, otherwise reject with an error message.
-
 -   **forgotPassword**: _`(email: string): Promise<void>`_
 
     -   The user has forgotten their password and wants help. The application generally should call an API which will then send a password reset link to the user's email.
@@ -217,17 +214,11 @@ Authentication Actions to be performed based on the user's UI actions. The appli
         -   **email**: _`string`_
             -   Email address the user uses to log in to the application.
 
-    -   **Returns**: _`Promise<void>`_
-        -   Resolve if email is sent successfully, reject otherwise.
-
 -   **initiateSecurity**: _`() => Promise<void>`_
 
     -   Initialize the application security state. This will involve reading any local storage, validating existing credentials (token expiration, for example). At the end of validation, the SecurityContextActions should be called with either: onUserAuthenticated (which will present the application), or onUserNotAuthenticated (which will present the Auth UI).
-
+    -   Should always resolve, never throw.
         > Note: Until this method returns, the applications Splash screen will be presented.
-
-    -   **Returns**: _`Promise<void>`_
-        -   Should always resolve, never throw.
 
 -   **login**: _`(email: string, password: string, rememberMe: boolean): Promise<void>`_
 
@@ -242,9 +233,6 @@ Authentication Actions to be performed based on the user's UI actions. The appli
         -   **rememberMe**: _`boolean`_
             -   Indicates whether the user's email should be remembered on success.
 
-    -   **Returns**: _`Promise<void>`_
-        -   Resolve if code is credentials are valid, otherwise reject.
-
 -   **setPassword**: _`(password: string) => Promise<void>`_
 
     -   A user who has previously used "forgotPassword" now has a valid password reset link and has entered a new password. The application should take the user's newly entered password and then reset the user's password.
@@ -256,19 +244,13 @@ Authentication Actions to be performed based on the user's UI actions. The appli
         -   **password**: _`string`_
             -   New Password the user entered into the UI
 
-    -   **Returns**: _`Promise<void>`_
-        -   Resolve if successful, otherwise reject with an error message.
-
 -   **verifyResetCode**: _`() => Promise<void>`_
 
     -   The user has tapped on an email with a password reset link, which they received after requesting help for forgetting their password. This API call validates the reset link is legitimate and the app should allow a user to enter a new password. 
 
-    -   **Returns**: _`Promise<void>`_
-        -   Resolve if reset link is valid, otherwise reject.
-
 ## PxbRegisterUIService
 
-Registration Actions to be performed based on the user's actions. The application will create appropriate actions (often API calls, local network storage, credential updates, etc.) based on the actionable needs of the user. A mock `PxbRegisterUIService` implementation is provided in the examples to start with during development.
+Registration Actions to be performed based on the user's actions.  A mock `PxbRegisterUIService` implementation is provided in the examples to start with during development.
 
 ### Methods
 
@@ -291,12 +273,11 @@ Registration Actions to be performed based on the user's actions. The applicatio
             -   Code used to validate if a user's account registration link was valid.
         -   **email**: (optional) _`string`_
             -   User-provided email when creating a new account via `/auth/create-account`.
-    -   **Returns**: _`Promise<void>`_
-        -   Resolve when account creation succeeds, otherwise reject with an error message.
 
 -   **loadEULA**: _`(): Promise<string>`_
 
     -   The user wants to complete an action but must first accept the EULA. The application should retrieve an application-specific EULA for the user.
+    
     -   **Returns**: _`Promise<string>`_
         -   Resolve with EULA, otherwise reject with an error message.
 
@@ -309,9 +290,6 @@ Registration Actions to be performed based on the user's actions. The applicatio
         -   **email**: _`string`_
             -   The email address for the registering user.
 
-    -   **Returns**: _`Promise<void>`_
-        -   Resolve when the server has accepted the request.
-
 -   **validateUserRegistrationRequest**: _`(code: string) => Promise<boolean>`_
 
     -   The user has been sent a verification code to an email they have provided; validate the verification code has been received to continue account registration.
@@ -321,16 +299,13 @@ Registration Actions to be performed based on the user's actions. The applicatio
         -   **code**: _`string`_
             -   Registration code provided from the link.
 
-    -   **Returns**: _`Promise<void>`_
-        -   Resolves when the code is valid. Reject with an error message.
 
 
-
-#### Error Handling
+# Error Handling
 
 Each `PxbRegisterUIService` and `PxbAuthUIService` API call has a default error message that a user will see when an API call fails.  Each error message can be customized by rejecting a promise with an `ErrorDialogData` object.
 
-### Custom Error Title or Message
+## Custom Error Title or Message
 
 Rejecting an API call with an `ErrorDialogData` object allows for custom Dialog titles and message content to be display.
 
@@ -355,7 +330,7 @@ changePassword(oldPassword: string, newPassword: string): Promise<void> {
 }
 ```
 
-### Custom Error Content
+## Custom Error Content
 
 In situations where more complex Dialog errors are needed, such as dialogs with support links or images, users can provide their own error-state dialog components.
 
@@ -390,7 +365,7 @@ export class LoginErrorDialogService implements IPxbAuthErrorDialogService {
 
 See the example project (`./src/app/dialog/login-error-dialog.component.ts`) for an example of a custom ErrorDialog component.
 
-### Customizing Pages
+# Customizing Pages
  
  Individual pages within the `@pxblue/angular-auth-workflow` can be customized with string or ng-content. 
 
