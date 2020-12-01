@@ -24,3 +24,6 @@ Open the `AuthComponent` component file (`app/pages/auth/auth.component.ts`) and
 In the example project, all network calls are mocked with `setTimeouts`. The EULA is also a static sample file.
 
 Provide real implementation details within the `example/src/services/auth-ui.service.ts` and `examples/src/services/register-ui/service.ts` files, which are currently mocking network behavior. Most likely, your implementation will involve making calls to an API and using session storage or cookies to retain information as needed by your application (such as the user's name and email).
+
+#### Routing
+Any new routes will have to be added to the `app.routing.ts` file.

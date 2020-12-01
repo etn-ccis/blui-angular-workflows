@@ -45,6 +45,7 @@ In the example below, the `/home` and `/dashboard` routes can only be accessed i
 
 ```
 import { authSubRoutes, PxbAuthGuard, AUTH_ROUTE } from '@pxblue/angular-auth-workflow';
+
 const routes: Routes = [
     { path: '', redirectTo: AUTH_ROUTE, pathMatch: 'full' },
     { path: AUTH_ROUTE, component: AuthComponent, children: authSubRoutes },
@@ -191,7 +192,7 @@ logout(): void {
 
 Authentication Actions to be performed based on the user's UI actions. The application will create appropriate actions (often api calls, local network storage, credential updates, etc.) and update the global security state based on the actionable needs of the user. A mock PxbAuthUIService implementation is provided in the examples folder for getting started with during development.
 
-### Type Declaration
+### Methods
 
 -   **changePassword**: _`(oldPassword: string, newPassword: string): Promise<void>`_
 
@@ -269,7 +270,7 @@ Authentication Actions to be performed based on the user's UI actions. The appli
 
 Registration Actions to be performed based on the user's actions. The application will create appropriate actions (often API calls, local network storage, credential updates, etc.) based on the actionable needs of the user. A mock `PxbRegisterUIService` implementation is provided in the examples to start with during development.
 
-### Type Declaration
+### Methods
 
 -   **completeRegistration**: _`(firstName: string, lastName: string, phoneNumber: string, password: string, validationCode?: string, email?: string: Promise<void>`_
 
@@ -293,13 +294,13 @@ Registration Actions to be performed based on the user's actions. The applicatio
     -   **Returns**: _`Promise<void>`_
         -   Resolve when account creation succeeds, otherwise reject with an error message.
 
--   **loadEULA**: _`(): Promise<string>)`_
+-   **loadEULA**: _`(): Promise<string>`_
 
     -   The user wants to complete an action but must first accept the EULA. The application should retrieve an application-specific EULA for the user.
     -   **Returns**: _`Promise<string>`_
         -   Resolve with EULA, otherwise reject with an error message.
 
--   **requestRegistrationCode**: _`(email: string): Promise<void>)`_
+-   **requestRegistrationCode**: _`(email: string): Promise<void>`_
 
     -   The user entered their email address and accepted the EULA. The API should now send them an email with the validation code.
 
@@ -311,7 +312,7 @@ Registration Actions to be performed based on the user's actions. The applicatio
     -   **Returns**: _`Promise<void>`_
         -   Resolve when the server has accepted the request.
 
--   **validateUserRegistrationRequest**: _`(code: string) => Promise<boolean>)`_
+-   **validateUserRegistrationRequest**: _`(code: string) => Promise<boolean>`_
 
     -   The user has been sent a verification code to an email they have provided; validate the verification code has been received to continue account registration.
 
@@ -322,6 +323,78 @@ Registration Actions to be performed based on the user's actions. The applicatio
 
     -   **Returns**: _`Promise<void>`_
         -   Resolves when the code is valid. Reject with an error message.
+
+
+
+#### Error Handling
+
+Each `PxbRegisterUIService` and `PxbAuthUIService` API call has a default error message that a user will see when an API call fails.  Each error message can be customized by rejecting a promise with an `ErrorDialogData` object.
+
+### Custom Error Title or Message
+
+Rejecting an API call with an `ErrorDialogData` object allows for custom Dialog titles and message content to be display.
+
+```
+export type ErrorDialogData = {
+    title: string;
+    message: string;
+}
+```
+
+```
+changePassword(oldPassword: string, newPassword: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+        if (/*fail scenario*/)
+            return reject({
+                title: 'Error!',
+                message: 'This is an example of a custom error message.',
+            });
+        }
+        return resolve();
+    }
+}
+```
+
+### Custom Error Content
+
+In situations where more complex Dialog errors are needed, such as dialogs with support links or images, users can provide their own error-state dialog components.
+
+The example project demos this feature for the login screen; whenever an error happens, we show a custom user-provided dialog component.
+
+To provide your own dialog component, override the default `Pxb[Page]ErrorDialogService` in your `app.module.ts` with your own implementation that'll render your custom dialog component.
+
+```
+    {
+        provide: PxbLoginErrorDialogService,
+        useClass: LoginErrorDialogService,
+    }
+```
+
+To make things more type-safe; your custom `[Page]ErrorDialogService` should implement `IPxbAuthErrorDialogService`.
+
+```
+import { IPxbAuthErrorDialogService } from '@pxblue/angular-auth-workflow';
+
+@Injectable({
+    providedIn: 'root',
+})
+export class LoginErrorDialogService implements IPxbAuthErrorDialogService {
+    constructor(private dialog: MatDialog) {}
+    openDialog(): MatDialogRef<[YourDialogComponent]> {
+        return this.dialog.open([YourDialogComponent], {
+            disableClose: false,
+        });
+    }
+}
+```
+
+See the example project (`./src/app/dialog/login-error-dialog.component.ts`) for an example of a custom ErrorDialog component.
+
+### Customizing Pages
+ 
+ Individual pages within the `@pxblue/angular-auth-workflow` can be customized with string or ng-content. 
+
+
 
 # Contributors
 
