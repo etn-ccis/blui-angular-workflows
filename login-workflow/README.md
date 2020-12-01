@@ -75,16 +75,17 @@ The following is the list of default routes found in `authSubRoutes`:
 - Open the sample URL in your browser `http://localhost:4200/auth/create-account-invite?code=DEADBEEF`
 
 
-# Usage (Security State)
+# Managing State
 
 After setup, you are now able to access various security actions and state from within your application.  
 
+## PxbAuthSecurityService 
+
 `PxbAuthSecurityService` is a service used to store authentication state.  Pages with the auth workflow will look to this service for information about a current user and their authentication state. 
 
-Below is an example of how to inject this service into an component. 
+### Usage 
 
-
-```ts
+```
 import { PxbAuthSecurityService, AUTH_ROUTE } from '@pxblue/angular-auth-workflow';
 
 constructor(private readonly _pxbSecurityService: PxbAuthSecurityService) {}
@@ -95,19 +96,13 @@ logout(): void {
 }
 ```
 
-More information about `@pxblue/angular-auth-workflow's` exported objects can found in the API documentation further below.
-
-# API
-
-This document outlines the various exports and configuration options for the `@pxblue/angular-auth-workflow` package.
-
 ## PxbAuthConfig
 
 `PxbAuthConfig` a configuration service; it is used to enable/disable settings in the `@pxblue/angular-auth-workflow`. Some UI configuration properties are also passed in.
 
 ### Usage
 
-```tsx
+```
 import { PxbAuthConfig } from '@pxblue/angular-auth-workflow';
 
 constructor(pxbAuthConfig: PxbAuthConfig) {
@@ -142,6 +137,11 @@ constructor(pxbAuthConfig: PxbAuthConfig) {
 -   **showSelfRegistration**: _`boolean`_
     -   When true, shows the Create Account button to allow for self registration.
     -   Default: true
+
+
+# API Services
+
+This document outlines the various exports and configuration options for the `@pxblue/angular-auth-workflow` package.
 
 ## PxbAuthSecurityService
 
@@ -351,11 +351,11 @@ changePassword(oldPassword: string, newPassword: string): Promise<void> {
 
 ## Custom Error Content
 
-In situations where more complex Dialog errors are needed, such as dialogs with support links or images, users can provide their own error-state dialog components.
+In situations where more a complex error dialog is needed (e.g contains a link or images) users can use their own error dialog components.
 
 The example project demos this feature for the login screen; whenever an error happens, we show a custom user-provided dialog component.
 
-To provide your own dialog component, override the default `Pxb[Page]ErrorDialogService` in your `app.module.ts` with your own implementation that'll render your custom dialog component.
+To provide your own dialog component, replace the default page-specific `ErrorDialogService` with your own service that will display your custom dialog.
 
 ```
 // app.module.ts
@@ -370,7 +370,7 @@ providers: [
 ]
 ```
 
-To enforce type-safety, your custom `[Page]ErrorDialogService` should implement `IPxbAuthErrorDialogService`.
+To enforce type-safety, your `ErrorDialogService` should implement `IPxbAuthErrorDialogService`.
 
 ```
 import { IPxbAuthErrorDialogService } from '@pxblue/angular-auth-workflow';
