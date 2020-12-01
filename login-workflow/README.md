@@ -33,8 +33,6 @@ To integrate the package into an existing project, read our [Existing Project In
 
 To use the example project as a starting point, read our [Sample Project Integration](https://github.com/pxblue/angular-workflows/tree/master/login-workflow/docs/sample-project-integration.md) instructions.
 
-
-// TODO: Move this to the existing project integration docs
 # Routing
 In your `app.routing.ts` config, add the auth-specific routes. `authSubRoutes` is a `Route[]` which contains all necessary route config.
 
@@ -171,9 +169,9 @@ logout(): void {
 -   **securityStateChanges**: _`Observable<SecurityContext>`_
     -   An observable that emits when the security state changes
 -   **onUserAuthenticated**: _`void`_
-    -   Called when User authenticates; called either in `PxbAuthUIService's` `initiateSecurity` call or after `login` button is pressed and user logs in.
+    -   Should be called when a user authenticates; updates state accordingly.
 -   **onUserNotAuthenticated**: _`Observable<SecurityContext>`_
-    -   Should be called when the user is no longer authenticated; updates state accordingly.
+    -   Should be called when the user is no longer authenticated; updates state accordingly. 
 
 ## PxbAuthUIService
 
@@ -360,10 +358,16 @@ The example project demos this feature for the login screen; whenever an error h
 To provide your own dialog component, override the default `Pxb[Page]ErrorDialogService` in your `app.module.ts` with your own implementation that'll render your custom dialog component.
 
 ```
-{
-    provide: PxbLoginErrorDialogService,
-    useClass: LoginErrorDialogService,
-}
+// app.module.ts
+import { PxbLoginErrorDialogService } from '@pxblue/angular-auth-workflow';
+import { LoginErrorDialogService } from 'dialog/login-error-dialog.service';
+
+providers: [
+    {
+        provide: PxbLoginErrorDialogService,
+        useClass: LoginErrorDialogService,
+    }
+]
 ```
 
 To enforce type-safety, your custom `[Page]ErrorDialogService` should implement `IPxbAuthErrorDialogService`.
@@ -386,11 +390,11 @@ export class LoginErrorDialogService implements IPxbAuthErrorDialogService {
 
 See the example project (`./src/app/dialog/login-error-dialog.component.ts`) for an example of a custom ErrorDialog component.
 
-# Customizing Auth Pages
+# Custom Pages
  
- Each pages within the `@pxblue/angular-auth-workflow` can be customized with string `@Inputs` or `ng-content`.  
+ Each page within the `@pxblue/angular-auth-workflow` can be customized with string `@Inputs` or `ng-content`.  
  
- The Login Page will always need custom header and footer content. To provide your own `pxb-login-header` and `pxb-login-footer`, wrap a `<pxb-login>` component with a `ng-template` and pass it into the `<pxb-auth>` component as the `loginRef`.  This will tell the `<pxb-auth>` component to render your custom LoginComponent with your custom content instead of the default.
+ The Login Page will always need custom header and footer content. To provide your own `pxb-login-header` and `pxb-login-footer`, provide your own `<pxb-login>` template.  This will tell the `<pxb-auth>` component to render your custom content instead of the default.
  
  ```
 <pxb-auth [loginRef]="loginPage">
