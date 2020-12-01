@@ -47,7 +47,7 @@ logout(): void {
 
 ## PxbAuthConfig
 
-`PxbAuthConfig` a configuration service; it is used to enable/disable settings in the `@pxblue/angular-auth-workflow`. Some UI configuration properties are also passed in.
+`PxbAuthConfig` a configuration service; it is used to enable/disable settings in the auth workflow. These properties are typically set only once and do not change. Some UI configuration properties are also passed in.
 
 ### Usage
 
@@ -90,11 +90,11 @@ constructor(pxbAuthConfig: PxbAuthConfig) {
 
 # API Services
 
-This document outlines the various exports and configuration options for the `@pxblue/angular-auth-workflow` package.
+This document outlines the various exports and configuration options for the workflow package.
 
 ## PxbAuthSecurityService
 
-`PxbAuthSecurityService` provides a single source of state for the state of user authentication. It is not meant to authenticate the user or hold credential information. Its purpose is to control access to authenticated or non-authenticated sections of the application.
+`PxbAuthSecurityService` provides user authentication state and updates as a user logs in/out. Pages within the workflow use this service for info about whether or not a user is authenticated, check if an API call is happening, etc.  about It is not meant to authenticate the user or hold credential information. 
 
 ### Usage
 
@@ -113,7 +113,7 @@ logout(): void {
 
 -   **getSecurityState**: _`SecurityContext`_
     -   Returns current security state
--   **updateSecurityState(newState: Partial<SecurityContext>)**: _`void`_
+-   **updateSecurityState(newState: SecurityContext)**: _`void`_
     -   Accepts any new state prop and applies to the the current state.
 -   **securityStateChanges**: _`Observable<SecurityContext>`_
     -   An observable that emits when the security state changes
