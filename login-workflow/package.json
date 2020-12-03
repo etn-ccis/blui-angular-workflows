@@ -16,7 +16,7 @@
     "start:example": "yarn install:dependencies && yarn link:workflow && cd example && yarn start"
   },
   "prettier": "@pxblue/prettier-config",
-  "private": true,
+  "private": false,
   "peerDependencies": {
     "@pxblue/angular-components": "^2.0.0"
   },
