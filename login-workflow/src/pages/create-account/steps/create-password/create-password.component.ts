@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { PasswordRequirement } from '../../../../components/password-strength-checker/pxb-password-strength-checker.component';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
@@ -32,8 +32,9 @@ class CrossFieldErrorMatcher implements ErrorStateMatcher {
                         formControlName="newPassword"
                         [type]="newPasswordVisible ? 'text' : 'password'"
                         (ngModelChange)="updatePassword(passwordFormGroup.value.newPassword)"
+                        (keyup.enter)="tab()"
                     />
-                    <button mat-icon-button matSuffix (click)="toggleNewPasswordVisibility()">
+                    <button type="button" mat-icon-button matSuffix (click)="toggleNewPasswordVisibility()">
                         <mat-icon>{{ newPasswordVisible ? 'visibility' : 'visibility_off' }}</mat-icon>
                     </button>
                 </mat-form-field>
@@ -46,6 +47,7 @@ class CrossFieldErrorMatcher implements ErrorStateMatcher {
                 <mat-form-field appearance="fill" style="width: 100%;">
                     <mat-label>Confirm Password</mat-label>
                     <input
+                        #confirm
                         id="confirm"
                         name="confirm"
                         matInput
@@ -58,7 +60,7 @@ class CrossFieldErrorMatcher implements ErrorStateMatcher {
                         (ngModelChange)="updatePassword(passwordFormGroup.value.confirmPassword)"
                         [errorStateMatcher]="errorMatcher"
                     />
-                    <button mat-icon-button matSuffix (click)="toggleConfirmPasswordVisibility()">
+                    <button type="button" mat-icon-button matSuffix (click)="toggleConfirmPasswordVisibility()">
                         <mat-icon>{{ confirmPasswordVisible ? 'visibility' : 'visibility_off' }}</mat-icon>
                     </button>
                     <mat-error *ngIf="!confirmPasswordFocused && passwordFormGroup.hasError('passwordsDoNotMatch')"
@@ -75,6 +77,8 @@ export class PxbCreatePasswordComponent {
 
     @Output() passwordChange: EventEmitter<string> = new EventEmitter<string>();
     @Output() passwordMeetsRequirementsChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+    @ViewChild('confirm') confirmInputElement: ElementRef;
 
     newPasswordVisible = false;
     passesStrengthCheck = false;
@@ -102,6 +106,10 @@ export class PxbCreatePasswordComponent {
             this.passwordMeetsRequirements = false;
             this.passwordMeetsRequirementsChange.emit(false);
         });
+    }
+
+    tab(): void {
+        this.confirmInputElement.nativeElement.focus();
     }
 
     toggleNewPasswordVisibility(): void {

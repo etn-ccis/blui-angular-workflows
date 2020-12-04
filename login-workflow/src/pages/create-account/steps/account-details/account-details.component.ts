@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 
 @Component({
@@ -22,11 +22,13 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
                 <mat-form-field appearance="fill" class="pxb-account-details-form-field">
                     <mat-label>First Name</mat-label>
                     <input
+                        #first
                         id="first"
                         name="first"
                         matInput
                         [formControl]="firstNameFormControl"
                         (ngModelChange)="emitFirstNameChange(firstNameFormControl.value)"
+                        (keyup.enter)="tab($event)"
                     />
                     <mat-error *ngIf="firstNameFormControl.hasError('required')">
                         First Name is <strong>required</strong>
@@ -35,11 +37,13 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
                 <mat-form-field appearance="fill" class="pxb-account-details-form-field">
                     <mat-label>Last Name</mat-label>
                     <input
+                        #last
                         id="last"
                         name="last"
                         matInput
                         [formControl]="lastNameFormControl"
                         (ngModelChange)="emitLastNameChange(lastNameFormControl.value)"
+                        (keyup.enter)="tab($event)"
                     />
                     <mat-error *ngIf="lastNameFormControl.hasError('required')">
                         Last Name is <strong>required</strong>
@@ -48,6 +52,7 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
                 <mat-form-field appearance="fill" class="pxb-account-details-form-field">
                     <mat-label>Phone Number (optional)</mat-label>
                     <input
+                        #phone
                         id="phone"
                         name="phone"
                         matInput
@@ -70,6 +75,9 @@ export class PxbAccountDetailsComponent {
     @Output() phoneNumberChange: EventEmitter<string> = new EventEmitter<string>();
     @Output() validAccountDetailsChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
+    @ViewChild('last') lastNameInputElement: ElementRef;
+    @ViewChild('phone') phoneInputElement: ElementRef;
+
     firstNameFormControl: FormControl;
     lastNameFormControl: FormControl;
     phoneNumberFormControl: FormControl;
@@ -80,6 +88,18 @@ export class PxbAccountDetailsComponent {
         this.firstNameFormControl = new FormControl(this.firstName, Validators.required);
         this.lastNameFormControl = new FormControl(this.lastName, Validators.required);
         this.phoneNumberFormControl = new FormControl(this.phoneNumber);
+    }
+
+    tab(event:any): void {
+        switch (event.target.id) {
+            case "first":
+                this.lastNameInputElement.nativeElement.focus();
+                break;
+            case "last":
+                this.phoneInputElement.nativeElement.focus();
+                break;
+            default: return;
+        }
     }
 
     canContinue(): boolean {

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
@@ -22,6 +22,7 @@ class CrossFieldErrorMatcher implements ErrorStateMatcher {
     styleUrls: ['./reset-password.component.scss'],
 })
 export class PxbResetPasswordComponent implements OnInit {
+    @ViewChild('confirm') confirmInputElement: ElementRef;
     @Input() successTitle = 'Your password was successfully reset.';
     @Input() successDescription =
         "Your password was successfully updated! To ensure your account's security, you will need to log in to the application with your updated credentials.";
@@ -61,6 +62,10 @@ export class PxbResetPasswordComponent implements OnInit {
     ngOnInit(): void {
         this.verifyResetCode();
         this.passwordRequirements = this._pxbAuthConfig.passwordRequirements;
+    }
+
+    tab(): void {
+        this.confirmInputElement.nativeElement.focus();
     }
 
     verifyResetCode(): void {

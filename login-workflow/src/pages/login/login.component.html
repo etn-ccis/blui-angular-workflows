@@ -61,8 +61,9 @@
             [formControl]="passwordFormControl"
             [errorStateMatcher]="matcher"
             autocomplete="off"
+            (keydown.enter)="login()"
         />
-        <button mat-icon-button matSuffix (click)="togglePasswordVisibility()">
+        <button type="button" mat-icon-button matSuffix (click)="togglePasswordVisibility()">
             <mat-icon>{{ isPasswordVisible ? 'visibility' : 'visibility_off' }}</mat-icon>
         </button>
     </mat-form-field>
