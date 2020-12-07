@@ -8,8 +8,15 @@ import * as Colors from '@pxblue/colors';
     selector: 'pxb-create-account-eula-step',
     template: `
         <div class="mat-title pxb-auth-title">License Agreement</div>
-        <div *ngIf="eula" class="pxb-auth-full-height" style="overflow: auto" (scroll)="checkScrollDistance($event)">{{ eula }}</div>
-        <pxb-empty-state *ngIf="!eula && !isLoading" class="pxb-auth-full-height" title="Error" description="License Agreement Failed To Load">
+        <div *ngIf="eula" class="pxb-auth-full-height" style="overflow: auto" (scroll)="checkScrollDistance($event)">
+            {{ eula }}
+        </div>
+        <pxb-empty-state
+            *ngIf="!eula && !isLoading"
+            class="pxb-auth-full-height"
+            title="Error"
+            description="License Agreement Failed To Load"
+        >
             <mat-icon pxb-empty-icon [style.color]="colors.red[500]">error</mat-icon>
             <button pxb-actions mat-raised-button color="primary" (click)="getEULA()">
                 <mat-icon>replay</mat-icon>
@@ -51,13 +58,15 @@ export class PxbEulaComponent {
     userScrolledBottom = false;
     colors = Colors;
 
-    constructor(private readonly _pxbAuthConfig: PxbAuthConfig, 
+    constructor(
+        private readonly _pxbAuthConfig: PxbAuthConfig,
         private readonly _pxbRegisterService: PxbRegisterUIService,
-        private readonly _pxbSecurityService: PxbAuthSecurityService) {
-            this._pxbSecurityService.securityStateChanges().subscribe((state: SecurityContext) => {
-                this.isLoading = state.isLoading;
-            });
-        }
+        private readonly _pxbSecurityService: PxbAuthSecurityService
+    ) {
+        this._pxbSecurityService.securityStateChanges().subscribe((state: SecurityContext) => {
+            this.isLoading = state.isLoading;
+        });
+    }
 
     ngOnInit(): void {
         // Configurable option to require users to scroll to bottom of EULA before accepting.

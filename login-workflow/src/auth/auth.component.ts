@@ -81,10 +81,10 @@ export class PxbAuthComponent implements OnInit {
 
     // This will listen for auth state loading changes and toggles the shared overlay loading screen.
     private _listenForAuthLoadingStateChanges(): void {
-        this._pxbSecurityService
-            .securityStateChanges()
-            // eslint-disable-next-line no-console
-            .subscribe((state: SecurityContext) => (this.isLoading = state.isLoading), void console.log('error'), void console.log('complete'));
+        this._pxbSecurityService.securityStateChanges().subscribe((state: SecurityContext) => {
+            this.isLoading = state.isLoading;
+            this._changeDetectorRef.detectChanges();
+        });
     }
 
     // Observes route changes and determines which PXB Auth page to show via route name.

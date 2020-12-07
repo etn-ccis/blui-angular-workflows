@@ -43,7 +43,7 @@ export class RegisterUIService implements IPxbRegisterUIService {
                 if (registrationCode && registrationCode.toUpperCase() === 'EULA_FAIL') {
                   return reject();
                 }
-                const randomFailure = Math.random() > 0.5;
+                const randomFailure = Math.random() > 0.8;
                 if (randomFailure) {
                     reject();
                 } else {
