@@ -20,7 +20,7 @@ import * as Colors from '@pxblue/colors';
             <mat-icon pxb-empty-icon [style.color]="colors.red[500]">error</mat-icon>
             <button pxb-actions mat-raised-button color="primary" (click)="getEULA()">
                 <mat-icon>replay</mat-icon>
-                Reload EULA
+                Reload
             </button>
         </pxb-empty-state>
         <div *ngIf="eula" class="pxb-eula-confirm-agreement">
