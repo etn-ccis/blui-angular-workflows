@@ -83,7 +83,8 @@ export class PxbAuthComponent implements OnInit {
     private _listenForAuthLoadingStateChanges(): void {
         this._pxbSecurityService
             .securityStateChanges()
-            .subscribe((state: SecurityContext) => (this.isLoading = state.isLoading));
+            // eslint-disable-next-line no-console
+            .subscribe((state: SecurityContext) => (this.isLoading = state.isLoading), void console.log('error'), void console.log('complete'));
     }
 
     // Observes route changes and determines which PXB Auth page to show via route name.

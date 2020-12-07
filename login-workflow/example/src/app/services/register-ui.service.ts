@@ -43,9 +43,14 @@ export class RegisterUIService implements IPxbRegisterUIService {
                 if (registrationCode && registrationCode.toUpperCase() === 'EULA_FAIL') {
                   return reject();
                 }
-                const eula = SAMPLE_EULA;
-                this._pxbAuthConfig.eula = eula; // This prevents future EULA load requests.
-                return resolve(eula);
+                const randomFailure = Math.random() > 0.5;
+                if (randomFailure) {
+                    reject();
+                } else {
+                    const eula = SAMPLE_EULA;
+                    this._pxbAuthConfig.eula = eula; // This prevents future EULA load requests.
+                    resolve(eula);
+                }
             }, TIMEOUT_MS);
         });
     }

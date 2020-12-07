@@ -16,11 +16,9 @@ import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
 export class PxbCreateAccountInviteComponent implements OnInit {
     currentPageId = 0;
     isLoading = true;
-    hasEulaLoadError = false;
     isValidRegistrationLink = true;
 
     // EULA Page
-    licenseAgreement: string;
     userAcceptsEula: boolean;
 
     // Create Password Page
@@ -55,32 +53,12 @@ export class PxbCreateAccountInviteComponent implements OnInit {
             .validateUserRegistrationRequest()
             .then(() => {
                 this.isValidRegistrationLink = true;
-                this.getEULA();
             })
             .catch((data: ErrorDialogData) => {
                 this.isValidRegistrationLink = false;
                 this._pxbErrorDialogService.openDialog(data);
                 this._pxbSecurityService.setLoading(false);
             });
-    }
-
-    getEULA(): void {
-        if (this._pxbAuthConfig.eula) {
-            this.licenseAgreement = this._pxbAuthConfig.eula;
-            this._pxbSecurityService.setLoading(false);
-        } else {
-            this._pxbRegisterService
-                .loadEULA()
-                .then((eula: string) => {
-                    this.licenseAgreement = eula;
-                    this._pxbSecurityService.setLoading(false);
-                })
-                .catch((data: ErrorDialogData) => {
-                    this.hasEulaLoadError = true;
-                    this._pxbSecurityService.setLoading(false);
-                    this._pxbErrorDialogService.openDialog(data);
-                });
-        }
     }
 
     registerAccount(): void {
@@ -111,7 +89,7 @@ export class PxbCreateAccountInviteComponent implements OnInit {
     }
 
     hasEmptyStateError(): boolean {
-        return this.hasEulaLoadError || !this.isValidRegistrationLink;
+        return !this.isValidRegistrationLink;
     }
 
     goBack(): void {
