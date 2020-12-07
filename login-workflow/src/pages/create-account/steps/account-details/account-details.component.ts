@@ -90,15 +90,16 @@ export class PxbAccountDetailsComponent {
         this.phoneNumberFormControl = new FormControl(this.phoneNumber);
     }
 
-    tab(event:any): void {
+    tab(event: any): void {
         switch (event.target.id) {
-            case "first":
+            case 'first':
                 this.lastNameInputElement.nativeElement.focus();
                 break;
-            case "last":
+            case 'last':
                 this.phoneInputElement.nativeElement.focus();
                 break;
-            default: return;
+            default:
+                return;
         }
     }
 
