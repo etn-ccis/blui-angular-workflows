@@ -31,6 +31,7 @@ export const PXB_LOGIN_VALIDATOR_ERROR_NAME = 'PXB_LOGIN_VALIDATOR_ERROR_NAME';
 export class PxbLoginComponent implements OnInit, AfterViewInit {
     @ViewChild('header', { static: false }) headerEl: ElementRef;
     @ViewChild('footer', { static: false }) footerEl: ElementRef;
+    @ViewChild('password') passwordInputElement: ElementRef;
 
     @Input() customEmailValidator: ValidatorFn;
     customErrorName = PXB_LOGIN_VALIDATOR_ERROR_NAME;
@@ -86,6 +87,10 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
 
     ngAfterViewInit(): void {
         this._changeDetectorRef.detectChanges();
+    }
+
+    tab(): void {
+        this.passwordInputElement.nativeElement.focus();
     }
 
     togglePasswordVisibility(): void {

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
@@ -30,6 +30,8 @@ export class PxbChangePasswordComponent {
     @Input() successTitle = 'Password Changed';
     @Input() successDescription =
         "Your password was successfully updated! To ensure your account's security, you will need to log in to the application with your updated credentials.";
+    @ViewChild('password') passwordInputElement: ElementRef;
+    @ViewChild('confirm') confirmInputElement: ElementRef;
 
     passwordFormGroup: FormGroup;
     errorMatcher = new CrossFieldErrorMatcher();
@@ -66,6 +68,19 @@ export class PxbChangePasswordComponent {
                 validator: this._passwordsMatch,
             }
         );
+    }
+
+    tab(event: any): void {
+        switch (event.target.id) {
+            case 'current-password':
+                this.passwordInputElement.nativeElement.focus();
+                break;
+            case 'password':
+                this.confirmInputElement.nativeElement.focus();
+                break;
+            default:
+                return;
+        }
     }
 
     toggleCurrentPasswordVisibility(): void {
