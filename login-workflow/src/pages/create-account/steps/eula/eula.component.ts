@@ -84,6 +84,7 @@ export class PxbEulaComponent {
     getEULA(): void {
         if (this._pxbAuthConfig.eula) {
             this.eula = this._pxbAuthConfig.eula;
+            this._pxbSecurityService.setLoading(false);
         } else {
             this._pxbSecurityService.setLoading(true);
             this._pxbRegisterService
