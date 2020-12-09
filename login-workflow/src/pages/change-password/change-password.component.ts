@@ -30,8 +30,8 @@ export class PxbChangePasswordComponent {
     @Input() successTitle = 'Password Changed';
     @Input() successDescription =
         "Your password was successfully updated! To ensure your account's security, you will need to log in to the application with your updated credentials.";
-    @ViewChild('password') passwordInputElement: ElementRef;
-    @ViewChild('confirm') confirmInputElement: ElementRef;
+    @ViewChild('pxbPassword') passwordInputElement: ElementRef;
+    @ViewChild('pxbConfirm') confirmInputElement: ElementRef;
 
     passwordFormGroup: FormGroup;
     errorMatcher = new CrossFieldErrorMatcher();
@@ -70,12 +70,12 @@ export class PxbChangePasswordComponent {
         );
     }
 
-    tab(event: any): void {
+    advanceToNextField(event: any): void {
         switch (event.target.id) {
-            case 'current-password':
+            case 'pxb-current-password':
                 this.passwordInputElement.nativeElement.focus();
                 break;
-            case 'password':
+            case 'pxb-password':
                 this.confirmInputElement.nativeElement.focus();
                 break;
             default:

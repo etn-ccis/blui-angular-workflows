@@ -22,7 +22,7 @@ class CrossFieldErrorMatcher implements ErrorStateMatcher {
     styleUrls: ['./reset-password.component.scss'],
 })
 export class PxbResetPasswordComponent implements OnInit {
-    @ViewChild('confirm') confirmInputElement: ElementRef;
+    @ViewChild('pxbConfirm') confirmInputElement: ElementRef;
     @Input() successTitle = 'Your password was successfully reset.';
     @Input() successDescription =
         "Your password was successfully updated! To ensure your account's security, you will need to log in to the application with your updated credentials.";
@@ -64,7 +64,7 @@ export class PxbResetPasswordComponent implements OnInit {
         this.passwordRequirements = this._pxbAuthConfig.passwordRequirements;
     }
 
-    tab(): void {
+    advanceToNextField(): void {
         this.confirmInputElement.nativeElement.focus();
     }
 

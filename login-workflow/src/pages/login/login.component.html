@@ -25,14 +25,14 @@
         <input
             (focus)="touchedIdField = true; idFieldActive = true"
             (blur)="idFieldActive = false"
-            id="email"
+            id="pxb-email"
             name="email"
             type="email"
             matInput
             [formControl]="emailFormControl"
             [errorStateMatcher]="matcher"
             autocomplete="off"
-            (keyup.enter)="tab()"
+            (keyup.enter)="advanceToNextField()"
         />
         <mat-error
             *ngIf="
@@ -55,8 +55,8 @@
     <mat-form-field appearance="fill">
         <mat-label>Password</mat-label>
         <input
-            #password
-            id="password"
+            #pxbPassword
+            id="pxb-password"
             name="password"
             matInput
             [type]="isPasswordVisible ? 'text' : 'password'"

@@ -24,7 +24,7 @@ class CrossFieldErrorMatcher implements ErrorStateMatcher {
                 <mat-form-field appearance="fill" style="width: 100%;">
                     <mat-label>Password</mat-label>
                     <input
-                        id="password"
+                        id="pxb-password"
                         name="password"
                         matInput
                         placeholder="Password"
@@ -32,7 +32,7 @@ class CrossFieldErrorMatcher implements ErrorStateMatcher {
                         formControlName="newPassword"
                         [type]="newPasswordVisible ? 'text' : 'password'"
                         (ngModelChange)="updatePassword(passwordFormGroup.value.newPassword)"
-                        (keyup.enter)="tab()"
+                        (keyup.enter)="advanceToNextField()"
                     />
                     <button type="button" mat-icon-button matSuffix (click)="toggleNewPasswordVisibility()">
                         <mat-icon>{{ newPasswordVisible ? 'visibility' : 'visibility_off' }}</mat-icon>
@@ -47,8 +47,8 @@ class CrossFieldErrorMatcher implements ErrorStateMatcher {
                 <mat-form-field appearance="fill" style="width: 100%;">
                     <mat-label>Confirm Password</mat-label>
                     <input
-                        #confirm
-                        id="confirm"
+                        #pxbConfirm
+                        id="pxb-confirm"
                         name="confirm"
                         matInput
                         placeholder="Confirm Password"
@@ -59,6 +59,7 @@ class CrossFieldErrorMatcher implements ErrorStateMatcher {
                         (blur)="confirmPasswordFocused = false"
                         (ngModelChange)="updatePassword(passwordFormGroup.value.confirmPassword)"
                         [errorStateMatcher]="errorMatcher"
+                        (keyup.enter)="advance.emit(true)"
                     />
                     <button type="button" mat-icon-button matSuffix (click)="toggleConfirmPasswordVisibility()">
                         <mat-icon>{{ confirmPasswordVisible ? 'visibility' : 'visibility_off' }}</mat-icon>
@@ -77,8 +78,9 @@ export class PxbCreatePasswordComponent {
 
     @Output() passwordChange: EventEmitter<string> = new EventEmitter<string>();
     @Output() passwordMeetsRequirementsChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output() advance: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-    @ViewChild('confirm') confirmInputElement: ElementRef;
+    @ViewChild('pxbConfirm') confirmInputElement: ElementRef;
 
     newPasswordVisible = false;
     passesStrengthCheck = false;
@@ -108,7 +110,7 @@ export class PxbCreatePasswordComponent {
         });
     }
 
-    tab(): void {
+    advanceToNextField(): void {
         this.confirmInputElement.nativeElement.focus();
     }
 

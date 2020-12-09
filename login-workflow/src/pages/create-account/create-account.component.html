@@ -2,6 +2,7 @@
     *ngIf="currentPageId === 0"
     [(email)]="email"
     [(isValidEmail)]="isValidEmail"
+    (advance)="canContinue() ? goNext() : ''"
 ></pxb-create-account-provide-email-step>
 
 <pxb-create-account-eula-step
@@ -14,12 +15,14 @@
     *ngIf="currentPageId === 2"
     [email]="email"
     [(verificationCode)]="verificationCode"
+    (advance)="canContinue() ? goNext() : ''"
 ></pxb-create-account-verify-email-step>
 
 <pxb-create-account-create-password-step
     *ngIf="currentPageId === 3"
     [(password)]="password"
     [(passwordMeetsRequirements)]="passwordMeetsRequirements"
+    (advance)="canContinue() ? goNext() : ''"
 ></pxb-create-account-create-password-step>
 
 <pxb-create-account-account-details-step
@@ -28,6 +31,7 @@
     [(lastName)]="lastName"
     [(phoneNumber)]="phoneNumber"
     [(validAccountDetails)]="validAccountDetails"
+    (advance)="canContinue() ? goNext() : ''"
 >
 </pxb-create-account-account-details-step>
 

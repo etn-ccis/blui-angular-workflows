@@ -22,13 +22,13 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
                 <mat-form-field appearance="fill" class="pxb-account-details-form-field">
                     <mat-label>First Name</mat-label>
                     <input
-                        #first
-                        id="first"
+                        #pxbFirst
+                        id="pxb-first"
                         name="first"
                         matInput
                         [formControl]="firstNameFormControl"
                         (ngModelChange)="emitFirstNameChange(firstNameFormControl.value)"
-                        (keyup.enter)="tab($event)"
+                        (keyup.enter)="advanceToNextField($event)"
                     />
                     <mat-error *ngIf="firstNameFormControl.hasError('required')">
                         First Name is <strong>required</strong>
@@ -37,13 +37,13 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
                 <mat-form-field appearance="fill" class="pxb-account-details-form-field">
                     <mat-label>Last Name</mat-label>
                     <input
-                        #last
-                        id="last"
+                        #pxbLast
+                        id="pxb-last"
                         name="last"
                         matInput
                         [formControl]="lastNameFormControl"
                         (ngModelChange)="emitLastNameChange(lastNameFormControl.value)"
-                        (keyup.enter)="tab($event)"
+                        (keyup.enter)="advanceToNextField($event)"
                     />
                     <mat-error *ngIf="lastNameFormControl.hasError('required')">
                         Last Name is <strong>required</strong>
@@ -52,12 +52,13 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
                 <mat-form-field appearance="fill" class="pxb-account-details-form-field">
                     <mat-label>Phone Number (optional)</mat-label>
                     <input
-                        #phone
-                        id="phone"
+                        #pxbPhone
+                        id="pxb-phone"
                         name="phone"
                         matInput
                         [formControl]="phoneNumberFormControl"
                         (ngModelChange)="emitPhoneNumberChange(phoneNumberFormControl.value)"
+                        (keyup.enter)="advance.emit(true)"
                     />
                 </mat-form-field>
             </form>
@@ -74,9 +75,10 @@ export class PxbAccountDetailsComponent {
     @Output() lastNameChange: EventEmitter<string> = new EventEmitter<string>();
     @Output() phoneNumberChange: EventEmitter<string> = new EventEmitter<string>();
     @Output() validAccountDetailsChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output() advance: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-    @ViewChild('last') lastNameInputElement: ElementRef;
-    @ViewChild('phone') phoneInputElement: ElementRef;
+    @ViewChild('pxbLast') lastNameInputElement: ElementRef;
+    @ViewChild('pxbPhone') phoneInputElement: ElementRef;
 
     firstNameFormControl: FormControl;
     lastNameFormControl: FormControl;
@@ -90,12 +92,12 @@ export class PxbAccountDetailsComponent {
         this.phoneNumberFormControl = new FormControl(this.phoneNumber);
     }
 
-    tab(event: any): void {
+    advanceToNextField(event: any): void {
         switch (event.target.id) {
-            case 'first':
+            case 'pxb-first':
                 this.lastNameInputElement.nativeElement.focus();
                 break;
-            case 'last':
+            case 'pxb-last':
                 this.phoneInputElement.nativeElement.focus();
                 break;
             default:
