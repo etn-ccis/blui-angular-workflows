@@ -3,7 +3,7 @@
 
 The Angular Auth Workflow package provides a consistent authentication and registration experience across Eaton web applications using Angular. 
 
-This includes pre-built implementations of the screens for Login, Forgot Password, Contact Information, Self-Registration, Registration By Invitation, and a dialog for Change Password.
+This includes pre-built implementations of the screens for Login, Forgot Password, Self-Registration, Registration By Invitation, and a dialog for Change Password.
 
 This documentation explains the steps required to integrate this auth workflow into your application.
 
@@ -87,23 +87,6 @@ constructor(pxbAuthConfig: PxbAuthConfig) {
     -   When true, shows the Create Account button to allow for self registration.
     -   Default: true
 
-## SecurityContext
-
-`SecurityContext` retains user-provided state information.
-
-### Type Declaration
-
--   **email**: _`string`_
-    -   UserId of the authenticated user (may be an email).
--   **userId**: _`string`_
-    -   Information for a user who wants to be remembered upon logout.
--   **rememberMeDetails**: _`{ email: string; rememberMe: boolean }`_
-    -   Email and Remember Me state provided when a user logs in.
--   **isLoading**: _`boolean`_
-    -   Loading indicator when performing API calls.
--   **isAuthenticatedUser**: _`boolean`_
-    -   Whether the user has logged in or is otherwise authenticated.
-    
 # API Services
 
 This document outlines the various exports and configuration options for the workflow package.
@@ -138,6 +121,24 @@ logout(): void {
 -   **onUserNotAuthenticated**: _`Observable<SecurityContext>`_
     -   Should be called when the user is no longer authenticated; updates state accordingly. 
 
+## SecurityContext
+
+`SecurityContext` retains user-provided state information.
+
+### Type Declaration
+
+-   **email**: _`string`_
+    -   UserId of the authenticated user (may be an email).
+-   **userId**: _`string`_
+    -   Information for a user who wants to be remembered upon logout.
+-   **rememberMeDetails**: _`{ email: string; rememberMe: boolean }`_
+    -   Email and Remember Me state provided when a user logs in.
+-   **isLoading**: _`boolean`_
+    -   Loading indicator when performing API calls.
+-   **isAuthenticatedUser**: _`boolean`_
+    -   Whether the user has logged in or is otherwise authenticated.
+    
+    
 ## PxbAuthUIService
 
 `PxbAuthUIService` contains methods that are intended to call APIs to perform auth-related actions.  A mock `PxbAuthUIService` is provided in the examples folder to provide a placeholder for API calls.
