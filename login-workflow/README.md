@@ -12,7 +12,7 @@ This documentation explains the steps required to integrate this auth workflow i
 # Installation
 To install the latest version of this package, run:
 ```shell
-npm install --save @pxblue/angular-auth-workflow
+npm install @pxblue/angular-auth-workflow
 // or
 yarn add @pxblue/angular-auth-workflow
 ```
