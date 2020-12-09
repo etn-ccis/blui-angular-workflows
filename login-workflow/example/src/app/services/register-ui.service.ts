@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { IPxbRegisterUIService, PxbAuthSecurityService, PxbAuthConfig } from '@pxblue/angular-auth-workflow';
 import { SAMPLE_EULA } from '../constants/sampleEula';
 
+export const randomFailure = () => Math.random() < 0.25;
 const TIMEOUT_MS = 1500;
-
 @Injectable({
     providedIn: 'root',
 })
@@ -43,8 +43,7 @@ export class RegisterUIService implements IPxbRegisterUIService {
                 if (registrationCode && registrationCode.toUpperCase() === 'EULA_FAIL') {
                   return reject();
                 }
-                const randomFailure = Math.random() > 0.8;
-                if (randomFailure) {
+                if (randomFailure()) {
                     return reject();
                 } else {
                     const eula = SAMPLE_EULA;
