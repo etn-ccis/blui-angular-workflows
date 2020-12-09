@@ -87,7 +87,23 @@ constructor(pxbAuthConfig: PxbAuthConfig) {
     -   When true, shows the Create Account button to allow for self registration.
     -   Default: true
 
+## SecurityContext
 
+`SecurityContext` retains user-provided state information.
+
+### Type Declaration
+
+-   **email**: _`string`_
+    -   UserId of the authenticated user (may be an email).
+-   **userId**: _`string`_
+    -   Information for a user who wants to be remembered upon logout.
+-   **rememberMeDetails**: _`{ email: string; rememberMe: boolean }`_
+    -   Email and Remember Me state provided when a user logs in.
+-   **isLoading**: _`boolean`_
+    -   Loading indicator when performing API calls.
+-   **isAuthenticatedUser**: _`boolean`_
+    -   Whether the user has logged in or is otherwise authenticated.
+    
 # API Services
 
 This document outlines the various exports and configuration options for the workflow package.
