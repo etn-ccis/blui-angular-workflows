@@ -48,17 +48,18 @@ export class PxbCreateAccountInviteComponent implements OnInit {
     }
 
     validateRegistrationLink(): void {
+        this._pxbSecurityService.setLoadingMessage('Validating registration link...');
         this._pxbSecurityService.setLoading(true);
         this._pxbRegisterService
             .validateUserRegistrationRequest()
             .then(() => {
-                this.isValidRegistrationLink = true;
                 this._pxbSecurityService.setLoading(false);
+                this.isValidRegistrationLink = true;
             })
             .catch((data: ErrorDialogData) => {
-                this.isValidRegistrationLink = false;
                 this._pxbErrorDialogService.openDialog(data);
                 this._pxbSecurityService.setLoading(false);
+                this.isValidRegistrationLink = false;
             });
     }
 

@@ -48,6 +48,7 @@ export class PxbAuthComponent implements OnInit {
     showCreateAccountInvite: boolean;
 
     isLoading = false;
+    loadingMessage: string;
     isSecurityInitiated = false;
 
     constructor(
@@ -65,6 +66,10 @@ export class PxbAuthComponent implements OnInit {
         this.initiateSecurity();
         this.projectImage = this._pxbAuthConfig.projectImage;
         this.backgroundImage = this._pxbAuthConfig.backgroundImage;
+
+        this._pxbSecurityService.securityStateChanges().subscribe((securityContext: SecurityContext) => {
+            this.loadingMessage = securityContext.loadingMessage;
+        });
     }
 
     initiateSecurity(): void {
