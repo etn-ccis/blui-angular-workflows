@@ -6,16 +6,16 @@ To start integrating this package into an existing application, you must first h
 
 Once you have a project, you can install this package via:
 ```shell
-npm install --save @pxblue/angular-auth-workflow
+npm install @pxblue/angular-auth-workflow
 // or
 yarn add @pxblue/angular-auth-workflow
 ```
 
 This package also has a number of peer dependency requirements that you will also need to install in your project. To install the latest version of all of these peer dependencies, run the following command in your project root:
 ```
-npm install --save @pxblue/colors @pxblue/angular-components
+npm install @pxblue/colors @pxblue/angular-components @angular/cdk
 // or
-yarn add @pxblue/colors @pxblue/angular-components
+yarn add @pxblue/colors @pxblue/angular-components @angular/cdk
 ```
 
 
