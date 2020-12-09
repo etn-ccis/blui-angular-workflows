@@ -9,6 +9,7 @@ import { PxbAuthConfig } from '../../services/config/auth-config';
 import { PxbResetPasswordErrorDialogService } from '../../services/dialog/reset-password-error-dialog.service';
 import { PasswordRequirement } from '../../components/password-strength-checker/pxb-password-strength-checker.component';
 import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
+import { PxbFormsService } from '../../services/forms/forms.service';
 
 class CrossFieldErrorMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -42,7 +43,8 @@ export class PxbResetPasswordComponent implements OnInit {
         private readonly _pxbAuthUIService: PxbAuthUIService,
         private readonly _pxbSecurityService: PxbAuthSecurityService,
         private readonly _formBuilder: FormBuilder,
-        private readonly _pxbErrorDialogService: PxbResetPasswordErrorDialogService
+        private readonly _pxbErrorDialogService: PxbResetPasswordErrorDialogService,
+        public pxbFormsService: PxbFormsService
     ) {
         this._pxbSecurityService.securityStateChanges().subscribe((state: SecurityContext) => {
             this.isLoading = state.isLoading;
@@ -62,10 +64,6 @@ export class PxbResetPasswordComponent implements OnInit {
     ngOnInit(): void {
         this.verifyResetCode();
         this.passwordRequirements = this._pxbAuthConfig.passwordRequirements;
-    }
-
-    advanceToNextField(): void {
-        this.confirmInputElement.nativeElement.focus();
     }
 
     verifyResetCode(): void {

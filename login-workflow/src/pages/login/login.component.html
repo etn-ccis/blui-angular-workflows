@@ -32,7 +32,7 @@
             [formControl]="emailFormControl"
             [errorStateMatcher]="matcher"
             autocomplete="off"
-            (keyup.enter)="advanceToNextField()"
+            (keyup.enter)="pxbFormsService.advanceToNextField(passwordInputElement)"
         />
         <mat-error
             *ngIf="

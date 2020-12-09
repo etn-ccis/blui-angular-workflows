@@ -11,6 +11,7 @@ import { PasswordRequirement } from '../../components/password-strength-checker/
 import { PxbChangePasswordDialogService } from './dialog/change-password-dialog.service';
 import { PxbChangePasswordErrorDialogService } from '../../services/dialog/change-password-error-dialog.service';
 import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
+import { PxbFormsService } from '../../services/forms/forms.service';
 
 class CrossFieldErrorMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -55,7 +56,8 @@ export class PxbChangePasswordComponent {
         private readonly _pxbAuthUIService: PxbAuthUIService,
         private readonly _pxbSecurityService: PxbAuthSecurityService,
         private readonly _pxbChangePasswordDialogService: PxbChangePasswordDialogService,
-        private readonly _pxbChangePasswordErrorDialogService: PxbChangePasswordErrorDialogService
+        private readonly _pxbChangePasswordErrorDialogService: PxbChangePasswordErrorDialogService,
+        public pxbFormsService: PxbFormsService
     ) {
         this.passwordRequirements = this._pxbAuthConfig.passwordRequirements;
         this.passwordFormGroup = this._formBuilder.group(
@@ -68,19 +70,6 @@ export class PxbChangePasswordComponent {
                 validator: this._passwordsMatch,
             }
         );
-    }
-
-    advanceToNextField(event: any): void {
-        switch (event.target.id) {
-            case 'pxb-current-password':
-                this.passwordInputElement.nativeElement.focus();
-                break;
-            case 'pxb-password':
-                this.confirmInputElement.nativeElement.focus();
-                break;
-            default:
-                return;
-        }
     }
 
     toggleCurrentPasswordVisibility(): void {

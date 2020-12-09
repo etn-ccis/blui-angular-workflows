@@ -3,6 +3,7 @@ import { PasswordRequirement } from '../../../../components/password-strength-ch
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { PxbAuthConfig } from '../../../../services/config/auth-config';
+import { PxbFormsService } from '../../../../services/forms/forms.service';
 
 class CrossFieldErrorMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -32,7 +33,7 @@ class CrossFieldErrorMatcher implements ErrorStateMatcher {
                         formControlName="newPassword"
                         [type]="newPasswordVisible ? 'text' : 'password'"
                         (ngModelChange)="updatePassword(passwordFormGroup.value.newPassword)"
-                        (keyup.enter)="advanceToNextField()"
+                        (keyup.enter)="pxbFormsService.advanceToNextField(confirmInputElement)"
                     />
                     <button type="button" mat-icon-button matSuffix (click)="toggleNewPasswordVisibility()">
                         <mat-icon>{{ newPasswordVisible ? 'visibility' : 'visibility_off' }}</mat-icon>
@@ -91,7 +92,11 @@ export class PxbCreatePasswordComponent {
     errorMatcher = new CrossFieldErrorMatcher();
     passwordRequirements: PasswordRequirement[];
 
-    constructor(private readonly _pxbAuthConfig: PxbAuthConfig, private readonly _formBuilder: FormBuilder) {}
+    constructor(
+        private readonly _pxbAuthConfig: PxbAuthConfig,
+        private readonly _formBuilder: FormBuilder,
+        public pxbFormsService: PxbFormsService
+    ) {}
 
     ngOnInit(): void {
         this.passwordRequirements = this._pxbAuthConfig.passwordRequirements;
@@ -108,10 +113,6 @@ export class PxbCreatePasswordComponent {
             this.passwordMeetsRequirements = false;
             this.passwordMeetsRequirementsChange.emit(false);
         });
-    }
-
-    advanceToNextField(): void {
-        this.confirmInputElement.nativeElement.focus();
     }
 
     toggleNewPasswordVisibility(): void {
