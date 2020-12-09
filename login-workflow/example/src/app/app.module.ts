@@ -44,12 +44,12 @@ import { LoginErrorDialogService } from './dialog/login-error-dialog.service';
             useValue: 'PXB_AUTH_DEMO_APP',
         },
         {
-            provide: PxbAuthUIService,
-            useClass: AuthUIService,
+            provide: PxbAuthUIService, // AuthUI Service you will overwrite (dont change this name)
+            useClass: AuthUIService, // Your custom implementation.
         },
         {
-            provide: PxbRegisterUIService,
-            useClass: RegisterUIService,
+            provide: PxbRegisterUIService, // RegistrationUI Service you will overwrite (dont change this name)
+            useClass: RegisterUIService, // Your custom implementation.
         },
         // Custom error handling for Login failures
         {

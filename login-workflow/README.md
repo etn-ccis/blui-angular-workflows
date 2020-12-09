@@ -7,7 +7,7 @@ This includes pre-built implementations of the screens for Login, Forgot Passwor
 
 This documentation explains the steps required to integrate this auth workflow into your application.
 
-![Login iOS](https://raw.githubusercontent.com/pxblue/angular-workflows/master/login-workflow/media/login.png) ![Home iOS](https://raw.githubusercontent.com/pxblue/angular-workflows/master/login-workflow/media/home.png) ![Password iOS](https://raw.githubusercontent.com/pxblue/angular-workflows/master/login-workflow/media/password.png)
+![Login](https://raw.githubusercontent.com/pxblue/angular-workflows/master/login-workflow/media/login.png) ![Home](https://raw.githubusercontent.com/pxblue/angular-workflows/master/login-workflow/media/home.png) ![Password](https://raw.githubusercontent.com/pxblue/angular-workflows/master/login-workflow/media/password.png)
 
 # Installation
 To install the latest version of this package, run:
