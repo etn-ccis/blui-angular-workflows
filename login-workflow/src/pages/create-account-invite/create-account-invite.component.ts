@@ -15,8 +15,8 @@ import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
 })
 export class PxbCreateAccountInviteComponent implements OnInit {
     currentPageId = 0;
-    isLoading = true;
-    isValidRegistrationLink = true;
+    isLoading: boolean;
+    isValidRegistrationLink: boolean;
 
     // EULA Page
     userAcceptsEula: boolean;
@@ -53,6 +53,7 @@ export class PxbCreateAccountInviteComponent implements OnInit {
             .validateUserRegistrationRequest()
             .then(() => {
                 this.isValidRegistrationLink = true;
+                this._pxbSecurityService.setLoading(false);
             })
             .catch((data: ErrorDialogData) => {
                 this.isValidRegistrationLink = false;

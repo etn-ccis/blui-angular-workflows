@@ -15,7 +15,7 @@
 
 <ng-container *ngIf="!hasEmptyStateError()">
     <pxb-create-account-eula-step
-        *ngIf="currentPageId === 0"
+        *ngIf="currentPageId === 0 && isValidRegistrationLink"
         [(userAcceptsEula)]="userAcceptsEula"
     ></pxb-create-account-eula-step>
 
