@@ -94,7 +94,7 @@ This document outlines the various exports and configuration options for the wor
 
 ## PxbAuthSecurityService
 
-`PxbAuthSecurityService` provides user authentication state and updates as a user logs in/out. Pages within the workflow use this service for info about whether or not a user is authenticated, check if an API call is happening, etc.  about It is not meant to authenticate the user or hold credential information. 
+`PxbAuthSecurityService` provides user authentication state and updates as a user logs in/out. Pages within the workflow use this service for info about whether or not a user is authenticated, check if an API call is happening, etc.  It is not meant to authenticate the user or hold credential information. 
 
 ### Usage
 
