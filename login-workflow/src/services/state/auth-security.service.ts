@@ -36,13 +36,6 @@ export type SecurityContext = {
      */
     loadingMessage: string;
     /**
-     * Used for animation purposes only.
-     * True: The user is logged in currently and a change will be the result of
-     * logging out.
-     * False: The user is likely logging in if authentication state changes.
-     */
-    isSignOut: boolean;
-    /**
      * True: The user is authenticated and the application is shown (or the Change Password interface).
      * False: The user is not authenticated and the Authentication User Interface is shown.
      */
@@ -70,8 +63,6 @@ export class PxbAuthSecurityService {
         isAuthenticatedUser: false,
         isLoading: true,
         loadingMessage: undefined,
-        isSignOut: false,
-        isShowingChangePassword: false,
     };
 
     // Whenever the application loads for the first time, we may want to direct the user to their original destination, before they were redirected to the login screen.
@@ -140,7 +131,6 @@ export class PxbAuthSecurityService {
             Object.assign(currState, {
                 isAuthenticatedUser: false,
                 isLoading: false,
-                isSignOut: true,
                 isShowingChangePassword: false,
                 rememberMeDetails: {
                     rememberMe,
