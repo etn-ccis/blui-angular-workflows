@@ -1,6 +1,6 @@
 <div class="pxb-auth-content" [style.backgroundImage]="'url(' + backgroundImage + ')'">
     <mat-card class="pxb-auth-inner-card" [class.pxb-auth-splash-screen]="!isSecurityInitiated">
-        <pxb-auth-loading-overlay *ngIf="isLoading"></pxb-auth-loading-overlay>
+        <pxb-auth-loading-overlay *ngIf="isLoading" [loadingMessage]="loadingMessage"></pxb-auth-loading-overlay>
 
         <ng-container *ngIf="isSecurityInitiated">
             <!-- Login  -->

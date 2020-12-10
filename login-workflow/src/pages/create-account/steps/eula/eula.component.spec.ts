@@ -17,6 +17,7 @@ describe('PxbEulaComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(PxbEulaComponent);
         component = fixture.componentInstance;
+        spyOn(component, 'getEULA').and.stub();
         fixture.detectChanges();
     });
 
