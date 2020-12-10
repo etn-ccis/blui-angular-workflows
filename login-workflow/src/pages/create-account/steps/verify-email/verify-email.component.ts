@@ -24,6 +24,7 @@ import { ErrorDialogData } from '../../../../services/dialog/error-dialog.servic
                         matInput
                         [formControl]="verificationCodeFormControl"
                         (ngModelChange)="updateCode(verificationCodeFormControl.value)"
+                        (keyup.enter)="advance.emit(true)"
                     />
                     <mat-error *ngIf="verificationCodeFormControl.hasError('required')">
                         Verification code is <strong>required</strong>
@@ -46,6 +47,7 @@ export class PxbVerifyEmailComponent {
     @Input() email: string;
 
     @Output() verificationCodeChange: EventEmitter<string> = new EventEmitter<string>();
+    @Output() advance: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     verificationCodeFormControl: FormControl;
 

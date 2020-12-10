@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
+import { PxbFormsService } from '../../../../services/forms/forms.service';
 
 @Component({
     selector: 'pxb-create-account-account-details-step',
@@ -22,11 +23,13 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
                 <mat-form-field appearance="fill" class="pxb-account-details-form-field">
                     <mat-label>First Name</mat-label>
                     <input
-                        id="first"
+                        #pxbFirst
+                        id="pxb-first"
                         name="first"
                         matInput
                         [formControl]="firstNameFormControl"
                         (ngModelChange)="emitFirstNameChange(firstNameFormControl.value)"
+                        (keyup.enter)="pxbFormsService.advanceToNextField(lastNameInputElement)"
                     />
                     <mat-error *ngIf="firstNameFormControl.hasError('required')">
                         First Name is <strong>required</strong>
@@ -35,11 +38,13 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
                 <mat-form-field appearance="fill" class="pxb-account-details-form-field">
                     <mat-label>Last Name</mat-label>
                     <input
-                        id="last"
+                        #pxbLast
+                        id="pxb-last"
                         name="last"
                         matInput
                         [formControl]="lastNameFormControl"
                         (ngModelChange)="emitLastNameChange(lastNameFormControl.value)"
+                        (keyup.enter)="pxbFormsService.advanceToNextField(phoneInputElement)"
                     />
                     <mat-error *ngIf="lastNameFormControl.hasError('required')">
                         Last Name is <strong>required</strong>
@@ -48,11 +53,13 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
                 <mat-form-field appearance="fill" class="pxb-account-details-form-field">
                     <mat-label>Phone Number (optional)</mat-label>
                     <input
-                        id="phone"
+                        #pxbPhone
+                        id="pxb-phone"
                         name="phone"
                         matInput
                         [formControl]="phoneNumberFormControl"
                         (ngModelChange)="emitPhoneNumberChange(phoneNumberFormControl.value)"
+                        (keyup.enter)="advance.emit(true)"
                     />
                 </mat-form-field>
             </form>
@@ -69,12 +76,16 @@ export class PxbAccountDetailsComponent {
     @Output() lastNameChange: EventEmitter<string> = new EventEmitter<string>();
     @Output() phoneNumberChange: EventEmitter<string> = new EventEmitter<string>();
     @Output() validAccountDetailsChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output() advance: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+    @ViewChild('pxbLast') lastNameInputElement: ElementRef;
+    @ViewChild('pxbPhone') phoneInputElement: ElementRef;
 
     firstNameFormControl: FormControl;
     lastNameFormControl: FormControl;
     phoneNumberFormControl: FormControl;
 
-    constructor(private readonly _formBuilder: FormBuilder) {}
+    constructor(public pxbFormsService: PxbFormsService) {}
 
     ngOnInit(): void {
         this.firstNameFormControl = new FormControl(this.firstName, Validators.required);

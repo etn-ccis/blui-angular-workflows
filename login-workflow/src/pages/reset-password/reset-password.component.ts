@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
@@ -9,6 +9,7 @@ import { PxbAuthConfig } from '../../services/config/auth-config';
 import { PxbResetPasswordErrorDialogService } from '../../services/dialog/reset-password-error-dialog.service';
 import { PasswordRequirement } from '../../components/password-strength-checker/pxb-password-strength-checker.component';
 import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
+import { PxbFormsService } from '../../services/forms/forms.service';
 
 class CrossFieldErrorMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -22,6 +23,7 @@ class CrossFieldErrorMatcher implements ErrorStateMatcher {
     styleUrls: ['./reset-password.component.scss'],
 })
 export class PxbResetPasswordComponent implements OnInit {
+    @ViewChild('pxbConfirm') confirmInputElement: ElementRef;
     @Input() successTitle = 'Your password was successfully reset.';
     @Input() successDescription =
         "Your password was successfully updated! To ensure your account's security, you will need to log in to the application with your updated credentials.";
@@ -41,7 +43,8 @@ export class PxbResetPasswordComponent implements OnInit {
         private readonly _pxbAuthUIService: PxbAuthUIService,
         private readonly _pxbSecurityService: PxbAuthSecurityService,
         private readonly _formBuilder: FormBuilder,
-        private readonly _pxbErrorDialogService: PxbResetPasswordErrorDialogService
+        private readonly _pxbErrorDialogService: PxbResetPasswordErrorDialogService,
+        public pxbFormsService: PxbFormsService
     ) {
         this._pxbSecurityService.securityStateChanges().subscribe((state: SecurityContext) => {
             this.isLoading = state.isLoading;

@@ -1,8 +1,9 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { PasswordRequirement } from '../../../../components/password-strength-checker/pxb-password-strength-checker.component';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { PxbAuthConfig } from '../../../../services/config/auth-config';
+import { PxbFormsService } from '../../../../services/forms/forms.service';
 
 class CrossFieldErrorMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -24,7 +25,7 @@ class CrossFieldErrorMatcher implements ErrorStateMatcher {
                 <mat-form-field appearance="fill" style="width: 100%;">
                     <mat-label>Password</mat-label>
                     <input
-                        id="password"
+                        id="pxb-password"
                         name="password"
                         matInput
                         placeholder="Password"
@@ -32,8 +33,9 @@ class CrossFieldErrorMatcher implements ErrorStateMatcher {
                         formControlName="newPassword"
                         [type]="newPasswordVisible ? 'text' : 'password'"
                         (ngModelChange)="updatePassword(passwordFormGroup.value.newPassword)"
+                        (keyup.enter)="pxbFormsService.advanceToNextField(confirmInputElement)"
                     />
-                    <button mat-icon-button matSuffix (click)="toggleNewPasswordVisibility()">
+                    <button type="button" mat-icon-button matSuffix (click)="toggleNewPasswordVisibility()">
                         <mat-icon>{{ newPasswordVisible ? 'visibility' : 'visibility_off' }}</mat-icon>
                     </button>
                 </mat-form-field>
@@ -46,7 +48,8 @@ class CrossFieldErrorMatcher implements ErrorStateMatcher {
                 <mat-form-field appearance="fill" style="width: 100%;">
                     <mat-label>Confirm Password</mat-label>
                     <input
-                        id="confirm"
+                        #pxbConfirm
+                        id="pxb-confirm"
                         name="confirm"
                         matInput
                         placeholder="Confirm Password"
@@ -57,8 +60,9 @@ class CrossFieldErrorMatcher implements ErrorStateMatcher {
                         (blur)="confirmPasswordFocused = false"
                         (ngModelChange)="updatePassword(passwordFormGroup.value.confirmPassword)"
                         [errorStateMatcher]="errorMatcher"
+                        (keyup.enter)="advance.emit(true)"
                     />
-                    <button mat-icon-button matSuffix (click)="toggleConfirmPasswordVisibility()">
+                    <button type="button" mat-icon-button matSuffix (click)="toggleConfirmPasswordVisibility()">
                         <mat-icon>{{ confirmPasswordVisible ? 'visibility' : 'visibility_off' }}</mat-icon>
                     </button>
                     <mat-error *ngIf="!confirmPasswordFocused && passwordFormGroup.hasError('passwordsDoNotMatch')"
@@ -75,6 +79,9 @@ export class PxbCreatePasswordComponent {
 
     @Output() passwordChange: EventEmitter<string> = new EventEmitter<string>();
     @Output() passwordMeetsRequirementsChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output() advance: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+    @ViewChild('pxbConfirm') confirmInputElement: ElementRef;
 
     newPasswordVisible = false;
     passesStrengthCheck = false;
@@ -85,7 +92,11 @@ export class PxbCreatePasswordComponent {
     errorMatcher = new CrossFieldErrorMatcher();
     passwordRequirements: PasswordRequirement[];
 
-    constructor(private readonly _pxbAuthConfig: PxbAuthConfig, private readonly _formBuilder: FormBuilder) {}
+    constructor(
+        private readonly _pxbAuthConfig: PxbAuthConfig,
+        private readonly _formBuilder: FormBuilder,
+        public pxbFormsService: PxbFormsService
+    ) {}
 
     ngOnInit(): void {
         this.passwordRequirements = this._pxbAuthConfig.passwordRequirements;

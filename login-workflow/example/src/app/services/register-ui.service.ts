@@ -41,7 +41,7 @@ export class RegisterUIService implements IPxbRegisterUIService {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 if (registrationCode && registrationCode.toUpperCase() === 'EULA_FAIL') {
-                  return reject();
+                    return reject();
                 }
                 const eula = SAMPLE_EULA;
                 this._pxbAuthConfig.eula = eula; // This prevents future EULA load requests.
