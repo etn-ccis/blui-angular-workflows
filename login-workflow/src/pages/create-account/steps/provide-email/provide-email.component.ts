@@ -23,6 +23,7 @@ import { AuthErrorStateMatcher } from '../../../../util/matcher';
                         [formControl]="emailFormControl"
                         (ngModelChange)="updateEmail(emailFormControl.value)"
                         [errorStateMatcher]="emailMatcher"
+                        (keyup.enter)="advance.emit(true)"
                     />
                     <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
                         Please enter a valid email address
@@ -41,6 +42,7 @@ export class PxbProvideEmailComponent {
 
     @Output() emailChange: EventEmitter<string> = new EventEmitter<string>();
     @Output() isValidEmailChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output() advance: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     emailMatcher = new AuthErrorStateMatcher();
     emailFormControl: FormControl;

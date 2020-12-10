@@ -15,8 +15,7 @@
 
 <ng-container *ngIf="!hasEmptyStateError()">
     <pxb-create-account-eula-step
-        *ngIf="currentPageId === 0"
-        [eula]="licenseAgreement"
+        *ngIf="currentPageId === 0 && isValidRegistrationLink"
         [(userAcceptsEula)]="userAcceptsEula"
     ></pxb-create-account-eula-step>
 
@@ -24,6 +23,7 @@
         *ngIf="currentPageId === 1"
         [(password)]="password"
         [(passwordMeetsRequirements)]="passwordMeetsRequirements"
+        (advance)="canContinue() ? goNext() : ''"
     ></pxb-create-account-create-password-step>
 
     <pxb-create-account-account-details-step
@@ -32,6 +32,7 @@
         [(lastName)]="lastName"
         [(phoneNumber)]="phoneNumber"
         [(validAccountDetails)]="validAccountDetails"
+        (advance)="canContinue() ? goNext() : ''"
     >
     </pxb-create-account-account-details-step>
 

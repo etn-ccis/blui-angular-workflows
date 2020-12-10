@@ -16,7 +16,6 @@ import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
 export class PxbCreateAccountComponent {
     currentPageId = 0;
     isLoading = true;
-    hasEulaLoadError = false;
     isValidVerificationCode = true;
 
     // Provide Email Page
@@ -27,7 +26,6 @@ export class PxbCreateAccountComponent {
     verificationCode: string;
 
     // EULA Page
-    licenseAgreement: string;
     userAcceptsEula: boolean;
 
     // Create Password Page
@@ -50,25 +48,6 @@ export class PxbCreateAccountComponent {
         this._pxbSecurityService.securityStateChanges().subscribe((state: SecurityContext) => {
             this.isLoading = state.isLoading;
         });
-    }
-
-    getEULA(): void {
-        this.currentPageId++;
-        if (this._pxbAuthConfig.eula) {
-            this.licenseAgreement = this._pxbAuthConfig.eula;
-        } else {
-            this._pxbSecurityService.setLoading(true);
-            this._pxbRegisterService
-                .loadEULA()
-                .then((eula: string) => {
-                    this.licenseAgreement = eula;
-                    this._pxbSecurityService.setLoading(false);
-                })
-                .catch((data: ErrorDialogData) => {
-                    this._pxbErrorDialogService.openDialog(data);
-                    this._pxbSecurityService.setLoading(false);
-                });
-        }
     }
 
     validateVerificationCode(): void {
@@ -130,8 +109,6 @@ export class PxbCreateAccountComponent {
 
     goNext(): any {
         switch (this.currentPageId) {
-            case 0:
-                return this.getEULA();
             case 2:
                 return this.validateVerificationCode();
             case 4:

@@ -10,6 +10,7 @@
     z-index: 3;
     opacity: 0.2;
 }
+
 .pxb-auth-loading-spinner {
     display: flex;
     position: absolute;
@@ -20,4 +21,10 @@
     z-index: 4;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+}
+
+.pxb-auth-loading-message {
+    margin-top: 16px;
+    margin-bottom: -40px;
 }

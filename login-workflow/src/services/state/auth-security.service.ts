@@ -32,6 +32,17 @@ export type SecurityContext = {
      */
     isLoading: boolean;
     /**
+     * Message to display below the loading spinner.
+     */
+    loadingMessage: string;
+    /**
+     * Used for animation purposes only.
+     * True: The user is logged in currently and a change will be the result of
+     * logging out.
+     * False: The user is likely logging in if authentication state changes.
+     */
+    isSignOut: boolean;
+    /**
      * True: The user is authenticated and the application is shown (or the Change Password interface).
      * False: The user is not authenticated and the Authentication User Interface is shown.
      */
@@ -58,6 +69,9 @@ export class PxbAuthSecurityService {
         },
         isAuthenticatedUser: false,
         isLoading: true,
+        loadingMessage: undefined,
+        isSignOut: false,
+        isShowingChangePassword: false,
     };
 
     // Whenever the application loads for the first time, we may want to direct the user to their original destination, before they were redirected to the login screen.
@@ -90,7 +104,16 @@ export class PxbAuthSecurityService {
     }
 
     setLoading(isLoading: boolean): void {
+        !isLoading ? this.clearLoadingMessage() : '';
         this.updateSecurityState({ isLoading });
+    }
+
+    setLoadingMessage(loadingMessage: string): void {
+        this.updateSecurityState({ loadingMessage });
+    }
+
+    clearLoadingMessage(): void {
+        this.updateSecurityState({ loadingMessage: undefined });
     }
 
     // If the user has been authenticated, this function should be called.
@@ -104,6 +127,7 @@ export class PxbAuthSecurityService {
                 email: rememberMe ? email : undefined,
                 rememberMe,
             },
+            loadingMessage: this.securityState.loadingMessage,
         });
     }
 

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
@@ -11,6 +11,7 @@ import { PasswordRequirement } from '../../components/password-strength-checker/
 import { PxbChangePasswordDialogService } from './dialog/change-password-dialog.service';
 import { PxbChangePasswordErrorDialogService } from '../../services/dialog/change-password-error-dialog.service';
 import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
+import { PxbFormsService } from '../../services/forms/forms.service';
 
 class CrossFieldErrorMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -30,6 +31,8 @@ export class PxbChangePasswordComponent {
     @Input() successTitle = 'Password Changed';
     @Input() successDescription =
         "Your password was successfully updated! To ensure your account's security, you will need to log in to the application with your updated credentials.";
+    @ViewChild('pxbPassword') passwordInputElement: ElementRef;
+    @ViewChild('pxbConfirm') confirmInputElement: ElementRef;
 
     passwordFormGroup: FormGroup;
     errorMatcher = new CrossFieldErrorMatcher();
@@ -53,7 +56,8 @@ export class PxbChangePasswordComponent {
         private readonly _pxbAuthUIService: PxbAuthUIService,
         private readonly _pxbSecurityService: PxbAuthSecurityService,
         private readonly _pxbChangePasswordDialogService: PxbChangePasswordDialogService,
-        private readonly _pxbChangePasswordErrorDialogService: PxbChangePasswordErrorDialogService
+        private readonly _pxbChangePasswordErrorDialogService: PxbChangePasswordErrorDialogService,
+        public pxbFormsService: PxbFormsService
     ) {
         this.passwordRequirements = this._pxbAuthConfig.passwordRequirements;
         this.passwordFormGroup = this._formBuilder.group(
