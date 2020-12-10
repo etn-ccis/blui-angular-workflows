@@ -13,9 +13,9 @@ yarn add @pxblue/angular-auth-workflow
 
 This package also has a number of peer dependency requirements that you will also need to install in your project. To install the latest version of all of these peer dependencies, run the following command in your project root:
 ```
-npm install @pxblue/colors @pxblue/angular-components @angular/cdk
+npm install @pxblue/colors @pxblue/angular-components @angular/cdk @angular/material @pxblue/angular-components
 // or
-yarn add @pxblue/colors @pxblue/angular-components @angular/cdk
+yarn add @pxblue/colors @pxblue/angular-components @angular/cdk @angular/material @pxblue/angular-components
 ```
 
 
@@ -47,7 +47,7 @@ In the example below, the `/home` route can only be accessed if a user is logged
 ```
 import { authSubRoutes, PxbAuthGuard, AUTH_ROUTE } from '@pxblue/angular-auth-workflow';
 import { HomeComponent } from './pages/home/home.component';
-import { AuthComponent } from './pages/auth/auth.component';\
+import { AuthComponent } from './pages/auth/auth.component';
 
 const routes: Routes = [
     { path: '', redirectTo: AUTH_ROUTE, pathMatch: 'full' },
