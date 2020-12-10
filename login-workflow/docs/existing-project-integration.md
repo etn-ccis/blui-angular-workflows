@@ -18,6 +18,8 @@ npm install @pxblue/colors @pxblue/angular-components @angular/cdk @angular/mate
 yarn add @pxblue/colors @pxblue/angular-components @angular/cdk @angular/material
 ```
 
+This Auth Workflow is built using PX Blue and Angular Material components; if your project is not already using Angular Material, please refer to our setup guide found [here](https://pxblue.github.io/development/frameworks-web/angular). 
+
 
 #### Add Module
 
