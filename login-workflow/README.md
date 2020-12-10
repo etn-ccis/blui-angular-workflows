@@ -3,7 +3,7 @@
 
 The Angular Auth Workflow package provides a consistent authentication and registration experience across Eaton web applications using Angular. 
 
-This includes pre-built implementations of the screens for Login, Forgot Password, Self-Registration, Registration By Invitation, and a dialog for Change Password.
+This includes pre-built implementations of the screens for Login, Forgot Password, Self-Registration, Contact Support, Registration By Invitation, and a dialog for Change Password.
 
 This documentation explains the steps required to integrate this auth workflow into your application.
 
@@ -86,6 +86,7 @@ constructor(pxbAuthConfig: PxbAuthConfig) {
 -   **showSelfRegistration**: _`boolean`_
     -   When true, shows the Create Account button to allow for self registration.
     -   Default: true
+    
 
 # API Services
 
