@@ -1,15 +1,9 @@
 import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { PasswordRequirement } from '../../../../components/password-strength-checker/pxb-password-strength-checker.component';
-import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PxbAuthConfig } from '../../../../services/config/auth-config';
 import { PxbFormsService } from '../../../../services/forms/forms.service';
-
-class CrossFieldErrorMatcher implements ErrorStateMatcher {
-    isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-        return control.dirty && form.invalid;
-    }
-}
+import { CrossFieldErrorMatcher } from '../../../../util/matcher';
 
 @Component({
     selector: 'pxb-create-account-create-password-step',

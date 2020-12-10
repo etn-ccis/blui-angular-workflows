@@ -1,7 +1,6 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, ValidatorFn, Validators } from '@angular/forms';
-import { AuthErrorStateMatcher } from '../../util/matcher';
 import { isEmptyView } from '../../util/view-utils';
 import { PxbAuthSecurityService } from '../../services/state/auth-security.service';
 import { PxbAuthUIService } from '../../services/api/auth-ui.service';
@@ -39,7 +38,6 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
 
     emailFormControl: FormControl;
     passwordFormControl: FormControl;
-    matcher = new AuthErrorStateMatcher();
 
     isLoading: boolean;
     rememberMe: boolean;

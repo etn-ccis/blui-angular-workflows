@@ -1,6 +1,5 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { PxbAuthUIService } from '../../services/api/auth-ui.service';
@@ -12,12 +11,7 @@ import { PxbChangePasswordDialogService } from './dialog/change-password-dialog.
 import { PxbChangePasswordErrorDialogService } from '../../services/dialog/change-password-error-dialog.service';
 import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
 import { PxbFormsService } from '../../services/forms/forms.service';
-
-class CrossFieldErrorMatcher implements ErrorStateMatcher {
-    isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-        return control.dirty && form.invalid;
-    }
-}
+import { CrossFieldErrorMatcher } from '../../util/matcher';
 
 @Component({
     selector: 'pxb-change-password',
