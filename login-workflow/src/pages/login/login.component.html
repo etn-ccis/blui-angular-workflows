@@ -30,7 +30,6 @@
             type="email"
             matInput
             [formControl]="emailFormControl"
-            [errorStateMatcher]="matcher"
             autocomplete="off"
             (keyup.enter)="pxbFormsService.advanceToNextField(passwordInputElement)"
         />
@@ -61,7 +60,6 @@
             matInput
             [type]="isPasswordVisible ? 'text' : 'password'"
             [formControl]="passwordFormControl"
-            [errorStateMatcher]="matcher"
             autocomplete="off"
             (keydown.enter)="isValidFormEntries() ? login() : ''"
         />
