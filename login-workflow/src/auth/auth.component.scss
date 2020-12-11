@@ -67,6 +67,11 @@
 
 /* These styles are needed for the ChangePassword dialog too. */
 ::ng-deep {
+    // TODO: This can be removed when the mobile stepper spans 100% width naturally.
+    .pxb-mobile-stepper {
+        width: 100%;
+    }
+
     .pxb-auth-link {
         color: map-get($pxb-blue, 500);
         text-decoration: none;

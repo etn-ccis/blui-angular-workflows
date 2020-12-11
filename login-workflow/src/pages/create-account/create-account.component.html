@@ -40,11 +40,21 @@
 <mat-divider class="pxb-auth-divider" style="margin-bottom: 16px;"></mat-divider>
 <div class="pxb-auth-action-button-container">
     <ng-container *ngIf="currentPageId <= 4">
-        <button mat-stroked-button color="primary" (click)="goBack()" style="width: 100px;">Back</button>
-        <pxb-dot-stepper [steps]="6" [activeStepId]="currentPageId"></pxb-dot-stepper>
-        <button mat-flat-button color="primary" [disabled]="!canContinue()" (click)="goNext()" style="width: 100px;">
-            Next
-        </button>
+        <pxb-mobile-stepper [steps]="4" [activeStep]="currentPageId">
+            <button pxb-back-button mat-stroked-button color="primary" style="width: 100px;" (click)="goBack()">
+                Back
+            </button>
+            <button
+                pxb-next-button
+                mat-flat-button
+                color="primary"
+                style="width: 100px;"
+                [disabled]="!canContinue()"
+                (click)="goNext()"
+            >
+                Next
+            </button>
+        </pxb-mobile-stepper>
     </ng-container>
     <button *ngIf="currentPageId === 5" mat-flat-button color="primary" (click)="navigateToLogin()" style="width: 100%">
         Continue
