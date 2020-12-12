@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
-import { EmptyStateModule } from '@pxblue/angular-components';
+import { EmptyStateModule, MobileStepperModule } from '@pxblue/angular-components';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
@@ -22,6 +22,7 @@ import { PxbCommonComponentsModule } from '../../components/auth-common.module';
         RouterModule,
         MatIconModule,
         MatDividerModule,
+        MobileStepperModule,
         EmptyStateModule,
         MatDialogModule,
         PxbCreateAccountStepsModule,

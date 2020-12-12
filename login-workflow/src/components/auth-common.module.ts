@@ -9,13 +9,11 @@ import { MatButtonModule } from '@angular/material/button';
 
 import { LoadingOverlayComponent } from './loading-overlay/loading-overlay.component';
 import { PasswordStrengthCheckComponent } from './password-strength-checker/password-strength-checker.component';
-import { DotStepperComponent } from './dot-stepper/dot-stepper.component';
 import { PxbPasswordStrengthCheckerComponent } from './password-strength-checker/pxb-password-strength-checker.component';
 import { PxbAuthErrorDialogComponent } from './error-dialog/error-dialog.component';
 
 @NgModule({
     declarations: [
-        DotStepperComponent,
         LoadingOverlayComponent,
         PasswordStrengthCheckComponent,
         PxbAuthErrorDialogComponent,
@@ -32,7 +30,6 @@ import { PxbAuthErrorDialogComponent } from './error-dialog/error-dialog.compone
         MatListModule,
     ],
     exports: [
-        DotStepperComponent,
         LoadingOverlayComponent,
         PasswordStrengthCheckComponent,
         PxbAuthErrorDialogComponent,
