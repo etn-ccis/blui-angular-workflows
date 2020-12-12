@@ -73,9 +73,6 @@ constructor(pxbAuthConfig: PxbAuthConfig) {
 -   **contactPhone** (optional): _`string`_
     -   Contact phone number to be shown on the support screen (human-readable for display only).
     -   Default: provides a fake phone number
--   **htmlEula** (optional): _`boolean`_
-    -   Set to true if your EULA needs to be rendered as HTML
-    -   Default: false
 -   **passwordRequirements** (optional): _`PasswordRequirement[]`_
     -   An array of `PasswordRequirement` that must be satisfied when creating or changing a password.
     -   Default: Passwords must contain a number, uppercase letter, lowercase letter, special character, and be between 8 and 16 characters in length
