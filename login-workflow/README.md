@@ -88,7 +88,7 @@ constructor(pxbAuthConfig: PxbAuthConfig) {
     -   Default: true
     
 
-# API Services
+# Services
 
 This document outlines the various exports and configuration options for the workflow package.
 
@@ -140,6 +140,23 @@ logout(): void {
     -   Whether the user has logged in or is otherwise authenticated.
     
     
+## PxbChangePasswordDialogService
+
+The Change Password page is the only page in the auth workflow that is accessible via a dialog box and not an angular route. 
+When a password is changed, the dialog box will be dismissed automatically. To show the Change Password dialog, see the usage below. 
+    
+### Usage
+
+```
+import { PxbChangePasswordDialogService } from '@pxblue/angular-auth-workflow';
+
+constructor(public readonly _pxbChangePasswordService: PxbChangePasswordDialogService) {}
+
+openDialog() {
+    this._pxbChangePasswordService.openDialog();
+}
+```
+
 ## PxbAuthUIService
 
 `PxbAuthUIService` contains methods that are intended to call APIs to perform auth-related actions.  A mock `PxbAuthUIService` is provided in the examples folder to provide a placeholder for API calls.
