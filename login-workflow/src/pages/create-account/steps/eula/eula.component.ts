@@ -15,7 +15,7 @@ import * as Colors from '@pxblue/colors';
             class="pxb-auth-full-height"
             style="overflow: auto"
             (scroll)="checkScrollDistance($event)"
-            [innerHTML]="sanitizer.bypassSecurityTrustHtml(eula)"
+            [innerHTML]="sanitizer.sanitize(1, eula)"
         ></div>
         <pxb-empty-state
             *ngIf="!eula && !isLoading"
