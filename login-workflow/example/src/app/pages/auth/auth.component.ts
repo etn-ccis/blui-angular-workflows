@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AbstractControl, ValidatorFn } from '@angular/forms';
-import { PxbAuthConfig } from '@pxblue/angular-auth-workflow';
+import { PxbAuthConfig, AUTH_ROUTES } from '@pxblue/angular-auth-workflow';
 
 @Component({
     selector: 'app-auth',
@@ -28,9 +28,9 @@ export class AuthComponent {
         pxbAuthConfig.backgroundImage = 'assets/images/background.svg';
         pxbAuthConfig.allowDebugMode = true;
         pxbAuthConfig.showSelfRegistration = false;
-        // If the homeRoute is not pre-populated by default route inspection, provide it below.
-        if (!pxbAuthConfig.homeRoute || pxbAuthConfig.homeRoute === '/') {
-            pxbAuthConfig.homeRoute = 'home';
+        // If the ON_AUTHENTICATED route is not pre-populated by PXB auth workflow, provide it below.
+        if (!AUTH_ROUTES.ON_AUTHENTICATED || AUTH_ROUTES.ON_AUTHENTICATED === '/') {
+            AUTH_ROUTES.ON_AUTHENTICATED = 'home';
         }
     }
 

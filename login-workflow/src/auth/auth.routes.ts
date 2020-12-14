@@ -1,7 +1,10 @@
-export const LOGIN_ROUTE = 'login';
-export const AUTH_ROUTE = 'auth';
-export const RESET_PASSWORD_ROUTE = 'reset-password';
-export const FORGOT_PASSWORD_ROUTE = 'forgot-password';
-export const CREATE_ACCOUNT_ROUTE = 'register/create-account';
-export const CREATE_ACCOUNT_INVITE_ROUTE = 'register/invite';
-export const CONTACT_SUPPORT_ROUTE = 'support';
+export const AUTH_ROUTES = {
+    AUTH_WORKFLOW: 'auth',
+    LOGIN: 'login',
+    RESET_PASSWORD: 'reset-password',
+    FORGOT_PASSWORD: 'forgot-password',
+    CREATE_ACCOUNT: 'register/create-account',
+    CREATE_ACCOUNT_INVITE: 'register/invite',
+    CONTACT_SUPPORT: 'support',
+    ON_AUTHENTICATED: '',
+};

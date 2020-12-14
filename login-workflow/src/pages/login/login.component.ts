@@ -4,14 +4,7 @@ import { FormControl, ValidatorFn, Validators } from '@angular/forms';
 import { isEmptyView } from '../../util/view-utils';
 import { PxbAuthSecurityService } from '../../services/state/auth-security.service';
 import { PxbAuthUIService } from '../../services/api/auth-ui.service';
-import {
-    CONTACT_SUPPORT_ROUTE,
-    CREATE_ACCOUNT_INVITE_ROUTE,
-    CREATE_ACCOUNT_ROUTE,
-    FORGOT_PASSWORD_ROUTE,
-    RESET_PASSWORD_ROUTE,
-} from '../../auth/auth.routes';
-
+import { AUTH_ROUTES } from '../../auth/auth.routes';
 import { PxbAuthConfig } from '../../services/config/auth-config';
 import { PxbLoginErrorDialogService } from '../../services/dialog/login-error-dialog.service';
 import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
@@ -106,7 +99,7 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
             .login(email, password, rememberMe)
             .then(() => {
                 this._pxbSecurityService.onUserAuthenticated(email, password, rememberMe);
-                this.navigateToDefaultRoute(); // TODO: User needs to provide this route somehow.
+                this.navigateToDefaultRoute();
                 this._pxbSecurityService.setLoading(false);
             })
             .catch((data: ErrorDialogData) => {
@@ -122,31 +115,31 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
     }
 
     navigateToDefaultRoute(): void {
-        void this._router.navigate([this._pxbAuthConfig.homeRoute]);
+        void this._router.navigate([AUTH_ROUTES.ON_AUTHENTICATED]);
     }
 
     forgotPassword(): void {
-        void this._router.navigate([`${this._pxbAuthConfig.authRoute}/${FORGOT_PASSWORD_ROUTE}`]);
+        void this._router.navigate([`${AUTH_ROUTES.AUTH_WORKFLOW}/${AUTH_ROUTES.FORGOT_PASSWORD}`]);
     }
 
     testForgotPasswordEmail(): void {
-        void this._router.navigate([`${this._pxbAuthConfig.authRoute}/${RESET_PASSWORD_ROUTE}`], {
+        void this._router.navigate([`${AUTH_ROUTES.AUTH_WORKFLOW}/${AUTH_ROUTES.RESET_PASSWORD}`], {
             queryParams: { code: 'DEADBEEF', email: 'resetPassword@email.com' },
         });
     }
 
     testInviteRegister(): void {
-        void this._router.navigate([`${this._pxbAuthConfig.authRoute}/${CREATE_ACCOUNT_INVITE_ROUTE}`], {
+        void this._router.navigate([`${AUTH_ROUTES.AUTH_WORKFLOW}/${AUTH_ROUTES.CREATE_ACCOUNT_INVITE}`], {
             queryParams: { code: 'DEADBEEF' },
         });
     }
 
     createAccount(): void {
-        void this._router.navigate([`${this._pxbAuthConfig.authRoute}/${CREATE_ACCOUNT_ROUTE}`]);
+        void this._router.navigate([`${AUTH_ROUTES.AUTH_WORKFLOW}/${AUTH_ROUTES.CREATE_ACCOUNT}`]);
     }
 
     contactSupport(): void {
-        void this._router.navigate([`${this._pxbAuthConfig.authRoute}/${CONTACT_SUPPORT_ROUTE}`]);
+        void this._router.navigate([`${AUTH_ROUTES.AUTH_WORKFLOW}/${AUTH_ROUTES.CONTACT_SUPPORT}`]);
     }
 
     isValidFormEntries(): boolean {

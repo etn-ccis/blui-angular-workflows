@@ -2,14 +2,7 @@ import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, TemplateRef } 
 import { NavigationEnd, Router } from '@angular/router';
 import { PxbAuthConfig } from '../services/config/auth-config';
 import { isEmptyView } from '../util/view-utils';
-import {
-    CONTACT_SUPPORT_ROUTE,
-    CREATE_ACCOUNT_INVITE_ROUTE,
-    CREATE_ACCOUNT_ROUTE,
-    FORGOT_PASSWORD_ROUTE,
-    LOGIN_ROUTE,
-    RESET_PASSWORD_ROUTE,
-} from './auth.routes';
+import { AUTH_ROUTES } from './auth.routes';
 import { PxbAuthUIService } from '../services/api/auth-ui.service';
 import { PxbAuthSecurityService, SecurityContext } from '../services/state/auth-security.service';
 import { PxbCreateAccountInviteComponent } from '../pages/create-account-invite/create-account-invite.component';
@@ -80,7 +73,7 @@ export class PxbAuthComponent implements OnInit {
     }
 
     matches(route: NavigationEnd, targetRoute: string): boolean {
-        const potentialAuthRoute = `/${this._pxbAuthConfig.authRoute}/${targetRoute}`;
+        const potentialAuthRoute = `/${AUTH_ROUTES.AUTH_WORKFLOW}/${targetRoute}`;
         return route.urlAfterRedirects.split('?')[0] === potentialAuthRoute;
     }
 
@@ -97,12 +90,12 @@ export class PxbAuthComponent implements OnInit {
         this._router.events.subscribe((route) => {
             if (route instanceof NavigationEnd) {
                 this._resetSelectedRoute();
-                this.showLogin = this.matches(route, LOGIN_ROUTE);
-                this.showResetPassword = this.matches(route, RESET_PASSWORD_ROUTE);
-                this.showCreateAccount = this.matches(route, CREATE_ACCOUNT_ROUTE);
-                this.showForgotPassword = this.matches(route, FORGOT_PASSWORD_ROUTE);
-                this.showContactSupport = this.matches(route, CONTACT_SUPPORT_ROUTE);
-                this.showCreateAccountInvite = this.matches(route, CREATE_ACCOUNT_INVITE_ROUTE);
+                this.showLogin = this.matches(route, AUTH_ROUTES.LOGIN);
+                this.showResetPassword = this.matches(route, AUTH_ROUTES.RESET_PASSWORD);
+                this.showCreateAccount = this.matches(route, AUTH_ROUTES.CREATE_ACCOUNT);
+                this.showForgotPassword = this.matches(route, AUTH_ROUTES.FORGOT_PASSWORD);
+                this.showContactSupport = this.matches(route, AUTH_ROUTES.CONTACT_SUPPORT);
+                this.showCreateAccountInvite = this.matches(route, AUTH_ROUTES.CREATE_ACCOUNT_INVITE);
                 this._changeDetectorRef.detectChanges();
             }
         });

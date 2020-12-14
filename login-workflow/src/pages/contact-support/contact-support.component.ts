@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { LOGIN_ROUTE } from '../../auth/auth.routes';
+import { AUTH_ROUTES } from '../../auth/auth.routes';
 import { PxbAuthConfig } from '../../services/config/auth-config';
 
 @Component({
@@ -15,6 +15,6 @@ export class PxbContactSupportComponent {
     constructor(private readonly _router: Router, public authConfig: PxbAuthConfig) {}
 
     navigateToLogin(): void {
-        void this._router.navigate([`${this.authConfig.authRoute}/${LOGIN_ROUTE}`]);
+        void this._router.navigate([`${AUTH_ROUTES.AUTH_WORKFLOW}/${AUTH_ROUTES.LOGIN}`]);
     }
 }

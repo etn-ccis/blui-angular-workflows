@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { NavigationStart, Router } from '@angular/router';
 import { PxbAuthConfig } from '../../services/config/auth-config';
-import { AUTH_ROUTE } from '../../auth/auth.routes';
+import { AUTH_ROUTES } from '../../auth/auth.routes';
 
 export type SecurityContext = {
     /**
@@ -70,8 +70,10 @@ export class PxbAuthSecurityService {
         _router.events.subscribe((event) => {
             if (event instanceof NavigationStart && !this.isFirstRouteCaptured) {
                 this.isFirstRouteCaptured = true;
-                if (!event.url.includes(AUTH_ROUTE) || event.url === '/') {
-                    this._pxbAuthConfig.homeRoute = event.url;
+                if (!event.url.includes(AUTH_ROUTES.AUTH_WORKFLOW) || event.url === '/') {
+                    if (!AUTH_ROUTES.ON_AUTHENTICATED) {
+                        AUTH_ROUTES.ON_AUTHENTICATED = event.url;
+                    }
                 }
             }
         });
