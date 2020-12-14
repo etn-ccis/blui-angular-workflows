@@ -17,4 +17,4 @@ export function getAuthSubRoutes(): Routes {
         { path: AUTH_ROUTES.CONTACT_SUPPORT, component: PxbContactSupportComponent },
         { path: AUTH_ROUTES.CREATE_ACCOUNT_INVITE, component: PxbCreateAccountInviteComponent },
     ];
-};
+}
