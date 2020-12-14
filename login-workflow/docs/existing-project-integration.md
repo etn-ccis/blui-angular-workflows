@@ -47,13 +47,14 @@ All routes that require authentication can be protected using the `PxbAuthGuard`
 In the example below, the `/home` route can only be accessed if a user is logged in.
 
 ```
-import { authSubRoutes, PxbAuthGuard, AUTH_ROUTE } from '@pxblue/angular-auth-workflow';
+import { getAuthSubRoutes, PxbAuthGuard, AUTH_ROUTES } from '@pxblue/angular-auth-workflow';
 import { HomeComponent } from './pages/home/home.component';
 import { AuthComponent } from './pages/auth/auth.component';
 
+const authWorkflowRoutes = getAuthSubRoutes();
 const routes: Routes = [
-    { path: '', redirectTo: AUTH_ROUTE, pathMatch: 'full' },
-    { path: AUTH_ROUTE, component: AuthComponent, children: authSubRoutes },
+    { path: '', redirectTo: AUTH_ROUTES.AUTH_WORKFLOW, pathMatch: 'full' },
+    { path: AUTH_ROUTES.AUTH_WORKFLOW, component: AuthComponent, children: authWorkflowRoutes },
     {
         path: '',
         canActivate: [PxbAuthGuard],
@@ -64,7 +65,9 @@ const routes: Routes = [
 ];
 ```
 
-The following is the list of default routes found in `authSubRoutes`: 
+
+
+The following is the list of default routes found in `getAuthSubRoutes()`.  
 
 | Screen              | Description                                            | Default URL                       | 
 | ------------------- | ------------------------------------------------------ | --------------------------------- | 
@@ -75,6 +78,7 @@ The following is the list of default routes found in `authSubRoutes`:
 | Self Registration   | the first screen of the self-registration flow         | `'/auth/register/create-account'` |
 | Support             | the contact/support screen                             | `'/auth/support'`                 |
 
+Any route url can be overwritten by altering the `AUTH_ROUTES` object. 
 
 #### Provide API Services
 
