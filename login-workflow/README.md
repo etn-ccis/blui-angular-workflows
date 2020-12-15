@@ -78,9 +78,6 @@ constructor(pxbAuthConfig: PxbAuthConfig) {
 -   **eulaScrollLock** (optional): _`boolean`_
     -   Requires the EULA to be completed scrolled through before a user can accept it.
     -   Default: true
--   **htmlEula** (optional): _`boolean`_
-    -   Set to true if your EULA needs to be rendered as HTML
-    -   Default: false
 -   **passwordRequirements** (optional): _`PasswordRequirement[]`_
     -   An array of `PasswordRequirement` that must be satisfied when creating or changing a password.
     -   Default: Passwords must contain a number, uppercase letter, lowercase letter, special character, and be between 8 and 16 characters in length
