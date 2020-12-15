@@ -73,8 +73,9 @@ export class PxbAuthComponent implements OnInit {
     }
 
     matches(route: NavigationEnd, targetRoute: string): boolean {
-        const potentialAuthRoute = `/${AUTH_ROUTES.AUTH_WORKFLOW}/${targetRoute}`;
-        return route.urlAfterRedirects.split('?')[0] === potentialAuthRoute;
+        const potentialAuthRoute = `/${AUTH_ROUTES.AUTH_WORKFLOW}/${targetRoute}`.replace('//', '/');
+        const urlNoParams = route.urlAfterRedirects.split('?')[0];
+        return urlNoParams === potentialAuthRoute;
     }
 
     // This will listen for auth state loading changes and toggles the shared overlay loading screen.
