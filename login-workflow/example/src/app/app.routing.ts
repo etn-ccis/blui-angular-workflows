@@ -6,9 +6,8 @@ import { AuthComponent } from './pages/auth/auth.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 // The default workflow routes can be overwritten if needed.
-AUTH_ROUTES.AUTH_WORKFLOW = '';
-AUTH_ROUTES.CONTACT_SUPPORT = 'help/assistance';
-AUTH_ROUTES.CREATE_ACCOUNT = 'create-account';
+AUTH_ROUTES.AUTH_WORKFLOW = 'auth';
+AUTH_ROUTES.CONTACT_SUPPORT = 'assistance';
 
 const authWorkflowRoutes = getAuthSubRoutes();
 const routes: Routes = [
