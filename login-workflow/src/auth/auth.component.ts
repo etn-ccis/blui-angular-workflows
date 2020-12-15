@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, TemplateRef } 
 import { NavigationEnd, Router } from '@angular/router';
 import { PxbAuthConfig } from '../services/config/auth-config';
 import { isEmptyView } from '../util/view-utils';
-import { AUTH_ROUTES } from './auth.routes';
+import { matchesRoute } from '../util/matcher';
 import { PxbAuthUIService } from '../services/api/auth-ui.service';
 import { PxbAuthSecurityService, SecurityContext } from '../services/state/auth-security.service';
 import { PxbCreateAccountInviteComponent } from '../pages/create-account-invite/create-account-invite.component';
@@ -72,12 +72,6 @@ export class PxbAuthComponent implements OnInit {
         });
     }
 
-    matches(route: NavigationEnd, targetRoute: string): boolean {
-        const potentialAuthRoute = `/${AUTH_ROUTES.AUTH_WORKFLOW}/${targetRoute}`.replace('//', '/');
-        const urlNoParams = route.urlAfterRedirects.split('?')[0];
-        return urlNoParams === potentialAuthRoute;
-    }
-
     // This will listen for auth state loading changes and toggles the shared overlay loading screen.
     private _listenForAuthLoadingStateChanges(): void {
         this._pxbSecurityService.securityStateChanges().subscribe((state: SecurityContext) => {
@@ -91,12 +85,13 @@ export class PxbAuthComponent implements OnInit {
         this._router.events.subscribe((route) => {
             if (route instanceof NavigationEnd) {
                 this._resetSelectedRoute();
-                this.showLogin = this.matches(route, AUTH_ROUTES.LOGIN);
-                this.showResetPassword = this.matches(route, AUTH_ROUTES.RESET_PASSWORD);
-                this.showCreateAccount = this.matches(route, AUTH_ROUTES.CREATE_ACCOUNT);
-                this.showForgotPassword = this.matches(route, AUTH_ROUTES.FORGOT_PASSWORD);
-                this.showContactSupport = this.matches(route, AUTH_ROUTES.CONTACT_SUPPORT);
-                this.showCreateAccountInvite = this.matches(route, AUTH_ROUTES.CREATE_ACCOUNT_INVITE);
+                const url = route.urlAfterRedirects;
+                this.showLogin = matchesRoute(url, 'LOGIN');
+                this.showResetPassword = matchesRoute(url, 'RESET_PASSWORD');
+                this.showCreateAccount = matchesRoute(url, 'CREATE_ACCOUNT');
+                this.showForgotPassword = matchesRoute(url, 'FORGOT_PASSWORD');
+                this.showContactSupport = matchesRoute(url, 'CONTACT_SUPPORT');
+                this.showCreateAccountInvite = matchesRoute(url, 'CREATE_ACCOUNT_INVITE');
                 this._changeDetectorRef.detectChanges();
             }
         });

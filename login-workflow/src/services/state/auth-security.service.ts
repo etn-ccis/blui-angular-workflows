@@ -3,6 +3,7 @@ import { Observable, Subject } from 'rxjs';
 import { NavigationStart, Router } from '@angular/router';
 import { PxbAuthConfig } from '../../services/config/auth-config';
 import { AUTH_ROUTES } from '../../auth/auth.routes';
+import { matchesRoute } from '../../util/matcher';
 
 export type SecurityContext = {
     /**
@@ -70,10 +71,18 @@ export class PxbAuthSecurityService {
         _router.events.subscribe((event) => {
             if (event instanceof NavigationStart && !this.isFirstRouteCaptured) {
                 this.isFirstRouteCaptured = true;
-                if (!event.url.includes(AUTH_ROUTES.AUTH_WORKFLOW) || event.url === '/') {
-                    if (!AUTH_ROUTES.ON_AUTHENTICATED) {
-                        AUTH_ROUTES.ON_AUTHENTICATED = event.url;
-                    }
+                const url = event.url;
+                // If the initial route loaded is not part of the auth workflow, make it so authenticated users will redirect to it post-login.
+                if (
+                    !matchesRoute(url, 'LOGIN') &&
+                    !matchesRoute(url, 'CONTACT_SUPPORT') &&
+                    !matchesRoute(url, 'CREATE_ACCOUNT') &&
+                    !matchesRoute(url, 'CREATE_ACCOUNT_INVITE') &&
+                    !matchesRoute(url, 'FORGOT_PASSWORD') &&
+                    !matchesRoute(url, 'RESET_PASSWORD') &&
+                    !matchesRoute(url, 'AUTH_WORKFLOW')
+                ) {
+                    AUTH_ROUTES.ON_AUTHENTICATED = event.url;
                 }
             }
         });
