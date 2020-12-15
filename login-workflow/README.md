@@ -67,16 +67,21 @@ constructor(pxbAuthConfig: PxbAuthConfig) {
 -   **allowDebugMode** (optional): _`boolean`_
     -   When true, presents a debug button on the login screen to allow access to deep link-based screens/flows
     -   Default: false
+-   **backgroundImage** (optional): _`string`_
+    -   Background image to be used within the auth workflow
 -   **contactEmail** (optional): _`string`_
     -   Contact email address to be shown on the support screen
     -   Default: provides a fake email address
 -   **contactPhone** (optional): _`string`_
     -   Contact phone number to be shown on the support screen (human-readable for display only).
     -   Default: provides a fake phone number
+-   **eulaScrollLock** (optional): _`boolean`_
+    -   Requires the EULA to be completed scrolled through before a user can accept it.
+    -   Default: true
 -   **passwordRequirements** (optional): _`PasswordRequirement[]`_
     -   An array of `PasswordRequirement` that must be satisfied when creating or changing a password.
     -   Default: Passwords must contain a number, uppercase letter, lowercase letter, special character, and be between 8 and 16 characters in length
--   **projectImage** (optional): _`number | string`_
+-   **projectImage** (optional): _`string`_
     -   Project image shown on splash screen and login screen.
     -   Dimensions of the image should be 534w x 152h with a transparent background. Differently sized images may not render properly on all devices.
     -   Default: Provides an example project image.

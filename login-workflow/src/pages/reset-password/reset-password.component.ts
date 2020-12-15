@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PxbAuthSecurityService, SecurityContext } from '../../services/state/auth-security.service';
 import { PxbAuthUIService } from '../../services/api/auth-ui.service';
-import { LOGIN_ROUTE } from '../../auth/auth.routes';
+import { AUTH_ROUTES } from '../../auth/auth.routes';
 import { PxbAuthConfig } from '../../services/config/auth-config';
 import { PxbResetPasswordErrorDialogService } from '../../services/dialog/reset-password-error-dialog.service';
 import { PasswordRequirement } from '../../components/password-strength-checker/pxb-password-strength-checker.component';
@@ -104,7 +104,7 @@ export class PxbResetPasswordComponent implements OnInit {
     }
 
     navigateToLogin(): void {
-        void this._router.navigate([`${this._pxbAuthConfig.authRoute}/${LOGIN_ROUTE}`]);
+        void this._router.navigate([`${AUTH_ROUTES.AUTH_WORKFLOW}/${AUTH_ROUTES.LOGIN}`]);
     }
 
     resetPassword(): void {

@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 import { PxbAuthUIService } from '../../services/api/auth-ui.service';
 import { PxbAuthSecurityService } from '../../services/state/auth-security.service';
-import { LOGIN_ROUTE } from '../../auth/auth.routes';
+import { AUTH_ROUTES } from '../../auth/auth.routes';
 import { PxbAuthConfig } from '../../services/config/auth-config';
 import { PasswordRequirement } from '../../components/password-strength-checker/pxb-password-strength-checker.component';
 import { PxbChangePasswordDialogService } from './dialog/change-password-dialog.service';
@@ -84,7 +84,7 @@ export class PxbChangePasswordComponent {
 
     done(): void {
         this.closeDialog();
-        void this._router.navigate([`${this._pxbAuthConfig.authRoute}/${LOGIN_ROUTE}`]);
+        void this._router.navigate([`${AUTH_ROUTES.AUTH_WORKFLOW}/${AUTH_ROUTES.LOGIN}`]);
     }
 
     changePassword(): void {

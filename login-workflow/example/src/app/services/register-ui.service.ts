@@ -79,7 +79,7 @@ export class RegisterUIService implements IPxbRegisterUIService {
         const urlParams = new URLSearchParams(window.location.search);
         const urlCode = urlParams.get('code');
         if (!validationCode) {
-          validationCode = urlCode;
+            validationCode = urlCode;
         }
         console.log(
             `Performing a sample CompleteRegistration request with the following credentials:\n firstName: ${firstName}\n lastName: ${lastName}\n phoneNumber: ${phoneNumber}\n password: ${password}\n validationCode: ${validationCode}\n email: ${email}`

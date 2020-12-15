@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AuthErrorStateMatcher } from '../../util/matcher';
 import { PXB_LOGIN_VALIDATOR_ERROR_NAME } from '../login/login.component';
 import { PxbAuthUIService } from '../../services/api/auth-ui.service';
-import { FORGOT_PASSWORD_ROUTE, LOGIN_ROUTE } from '../../auth/auth.routes';
+import { AUTH_ROUTES } from '../../auth/auth.routes';
 import { PxbAuthConfig } from '../../services/config/auth-config';
 import { PxbAuthSecurityService } from '../../services/state/auth-security.service';
 import { PxbForgotPasswordErrorDialogService } from '../../services/dialog/forgot-password-error-dialog.service';
@@ -48,7 +48,7 @@ export class PxbForgotPasswordComponent implements OnInit {
     }
 
     navigateToLogin(): void {
-        void this._router.navigate([`${this.pxbAuthConfig.authRoute}/${LOGIN_ROUTE}`]);
+        void this._router.navigate([`${AUTH_ROUTES.AUTH_WORKFLOW}/${AUTH_ROUTES.LOGIN}`]);
     }
 
     resetPassword(): void {
@@ -65,7 +65,7 @@ export class PxbForgotPasswordComponent implements OnInit {
             .forgotPassword(email)
             .then(() => {
                 this.passwordResetSuccess = true;
-                void this._router.navigate([`${this.pxbAuthConfig.authRoute}/${FORGOT_PASSWORD_ROUTE}`]);
+                void this._router.navigate([`${AUTH_ROUTES.AUTH_WORKFLOW}/${AUTH_ROUTES.FORGOT_PASSWORD}`]);
                 this._pxbSecurityService.setLoading(false);
             })
             .catch((data: ErrorDialogData) => {
