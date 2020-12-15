@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AbstractControl, ValidatorFn } from '@angular/forms';
-import { PxbAuthConfig, AUTH_ROUTES, PasswordRequirement } from '@pxblue/angular-auth-workflow';
+import { PxbAuthConfig, AUTH_ROUTES } from '@pxblue/angular-auth-workflow';
 
 @Component({
     selector: 'app-auth',
@@ -28,7 +28,10 @@ export class AuthComponent {
         pxbAuthConfig.backgroundImage = 'assets/images/background.svg';
         pxbAuthConfig.allowDebugMode = true;
         pxbAuthConfig.showSelfRegistration = false;
-        pxbAuthConfig.passwordRequirements.push({ regex: /^((?!password).)*$/, description: 'Does not contain "password"'});
+        pxbAuthConfig.passwordRequirements.push({
+            regex: /^((?!password).)*$/,
+            description: 'Does not contain "password"',
+        });
         // If the ON_AUTHENTICATED route is not pre-populated by PXB auth workflow, provide it below.
         if (!AUTH_ROUTES.ON_AUTHENTICATED || AUTH_ROUTES.ON_AUTHENTICATED === '/') {
             AUTH_ROUTES.ON_AUTHENTICATED = 'home';
