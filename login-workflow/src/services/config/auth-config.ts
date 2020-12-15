@@ -41,7 +41,6 @@ export class PxbAuthConfig implements PxbAuthConfig {
     ];
 
     eula: string;
-    htmlEula = false;
     allowDebugMode = false;
     showSelfRegistration = true;
 }

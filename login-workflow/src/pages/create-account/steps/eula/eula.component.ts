@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { PxbAuthConfig } from './../../../../services/config/auth-config';
 import { PxbRegisterUIService } from '../../../../services/api/register-ui.service';
 import { PxbAuthSecurityService, SecurityContext } from '../../../../services/state/auth-security.service';
@@ -6,11 +7,16 @@ import * as Colors from '@pxblue/colors';
 
 @Component({
     selector: 'pxb-create-account-eula-step',
+    encapsulation: ViewEncapsulation.None,
     template: `
         <div class="mat-title pxb-auth-title">License Agreement</div>
-        <div *ngIf="eula" class="pxb-auth-full-height" style="overflow: auto" (scroll)="checkScrollDistance($event)">
-            {{ eula }}
-        </div>
+        <div
+            *ngIf="eula"
+            class="pxb-auth-full-height"
+            style="overflow: auto"
+            (scroll)="checkScrollDistance($event)"
+            [innerHTML]="sanitizer.sanitize(1, eula)"
+        ></div>
         <pxb-empty-state
             *ngIf="!eula && !isLoading"
             class="pxb-auth-full-height"
@@ -59,6 +65,7 @@ export class PxbEulaComponent {
     colors = Colors;
 
     constructor(
+        public sanitizer: DomSanitizer,
         private readonly _pxbAuthConfig: PxbAuthConfig,
         private readonly _pxbRegisterService: PxbRegisterUIService,
         private readonly _pxbSecurityService: PxbAuthSecurityService
@@ -77,7 +84,6 @@ export class PxbEulaComponent {
         if (this.userAcceptsEula) {
             this.userScrolledBottom = true;
         }
-
         this.getEULA();
     }
 
