@@ -79,8 +79,8 @@ constructor(pxbAuthConfig: PxbAuthConfig) {
     -   Requires the EULA to be completed scrolled through before a user can accept it.
     -   Default: true
 -   **passwordRequirements** (optional): _`PasswordRequirement[]`_
-    -   An array of `PasswordRequirement` that must be satisfied when creating or changing a password.
-    -   Default: Passwords must contain a number, uppercase letter, lowercase letter, special character, and be between 8 and 16 characters in length
+    -   An array of `PasswordRequirement` that must be satisfied when creating or changing a password.  
+    -   Default: Passwords must contain a number, uppercase letter, lowercase letter, special character, and be between 8 and 16 characters in length.  The default array can be extended or replaced to include custom requirements.
 -   **projectImage** (optional): _`string`_
     -   Project image shown on splash screen and login screen.
     -   Dimensions of the image should be 534w x 152h with a transparent background. Differently sized images may not render properly on all devices.
