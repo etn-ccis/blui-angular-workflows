@@ -12,6 +12,7 @@ import { PxbChangePasswordErrorDialogService } from '../../services/dialog/chang
 import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
 import { PxbFormsService } from '../../services/forms/forms.service';
 import { CrossFieldErrorMatcher } from '../../util/matcher';
+import { makeEverythingUnique } from '../../util/filters';
 
 @Component({
     selector: 'pxb-change-password',
@@ -53,7 +54,7 @@ export class PxbChangePasswordComponent {
         private readonly _pxbChangePasswordErrorDialogService: PxbChangePasswordErrorDialogService,
         public pxbFormsService: PxbFormsService
     ) {
-        this.passwordRequirements = this._pxbAuthConfig.passwordRequirements;
+        this.passwordRequirements = makeEverythingUnique(this._pxbAuthConfig.passwordRequirements, 'description');
         this.passwordFormGroup = this._formBuilder.group(
             {
                 currentPassword: ['', Validators.required],
