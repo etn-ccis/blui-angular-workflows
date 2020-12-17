@@ -23,9 +23,8 @@ export class PxbAccountCreatedComponent {
     getSuccessEmptyStateTitle(): string {
         if (this.userName.trim()) {
             return `Welcome, ${this.userName}!`;
-        } else {
-            return `Welcome!`;
         }
+        return `Welcome!`;
     }
 
     getSuccessEmptyStateDescription(): string {

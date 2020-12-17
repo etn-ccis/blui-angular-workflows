@@ -127,6 +127,6 @@ export class PxbCreateAccountComponent {
     }
 
     showStepper(): boolean {
-        return this.currentPageId <= (this.accountDetails.length == 0 ? 3 : 4);
+        return this.currentPageId <= (this.accountDetails.length === 0 ? 3 : 4);
     }
 }

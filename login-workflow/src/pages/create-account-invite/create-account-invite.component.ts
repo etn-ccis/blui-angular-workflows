@@ -115,6 +115,6 @@ export class PxbCreateAccountInviteComponent implements OnInit {
     }
 
     showStepper(): boolean {
-        return this.currentPageId <= (this.accountDetails.length == 0 ? 1 : 2);
+        return this.currentPageId <= (this.accountDetails.length === 0 ? 1 : 2);
     }
 }
