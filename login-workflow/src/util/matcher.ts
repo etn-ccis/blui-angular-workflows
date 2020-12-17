@@ -1,6 +1,6 @@
 import { ErrorStateMatcher } from '@angular/material/core';
 import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
-import { AUTH_ROUTES } from '..';
+import { AUTH_ROUTES } from '../auth/auth.routes';
 
 /** Error when invalid control is touched, or submitted. */
 export class AuthErrorStateMatcher implements ErrorStateMatcher {
