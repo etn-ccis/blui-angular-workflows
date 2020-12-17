@@ -11,7 +11,6 @@ import { PxbLoginComponent } from '../pages/login/login.component';
 import { PxbForgotPasswordComponent } from '../pages/forgot-password/forgot-password.component';
 import { PxbContactSupportComponent } from '../pages/contact-support/contact-support.component';
 import { PxbResetPasswordComponent } from '../pages/reset-password/reset-password.component';
-import { FormControl, Validators } from '@angular/forms';
 
 @Component({
     selector: 'pxb-auth',
