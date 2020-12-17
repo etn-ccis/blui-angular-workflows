@@ -10,6 +10,7 @@ import { PasswordRequirement } from '../../components/password-strength-checker/
 import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
 import { PxbFormsService } from '../../services/forms/forms.service';
 import { CrossFieldErrorMatcher } from '../../util/matcher';
+import { makeEverythingUnique } from '../../util/filters';
 
 @Component({
     selector: 'pxb-reset-password',
@@ -57,7 +58,7 @@ export class PxbResetPasswordComponent implements OnInit {
 
     ngOnInit(): void {
         this.verifyResetCode();
-        this.passwordRequirements = this._pxbAuthConfig.passwordRequirements;
+        this.passwordRequirements = makeEverythingUnique(this._pxbAuthConfig.passwordRequirements, 'description');
     }
 
     verifyResetCode(): void {

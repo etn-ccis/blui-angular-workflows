@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PxbAuthConfig } from '../../../../services/config/auth-config';
 import { PxbFormsService } from '../../../../services/forms/forms.service';
 import { CrossFieldErrorMatcher } from '../../../../util/matcher';
+import { makeEverythingUnique } from '../../../../util/filters';
 
 @Component({
     selector: 'pxb-create-account-create-password-step',
@@ -93,7 +94,7 @@ export class PxbCreatePasswordComponent {
     ) {}
 
     ngOnInit(): void {
-        this.passwordRequirements = this._pxbAuthConfig.passwordRequirements;
+        this.passwordRequirements = makeEverythingUnique(this._pxbAuthConfig.passwordRequirements, 'description');
         this.passwordFormGroup = this._formBuilder.group(
             {
                 newPassword: ['', Validators.required],
