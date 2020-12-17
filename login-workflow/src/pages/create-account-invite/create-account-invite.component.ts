@@ -20,6 +20,7 @@ export class PxbCreateAccountInviteComponent implements OnInit {
     @Input() userName: string;
 
     currentPageId = 0;
+    numberOfSteps: number;
     isLoading: boolean;
     isValidRegistrationLink: boolean;
 
@@ -44,6 +45,7 @@ export class PxbCreateAccountInviteComponent implements OnInit {
 
     ngOnInit(): void {
         this.validateRegistrationLink();
+        this.numberOfSteps = this.accountDetails.length === 0 ? 3 : 4;
     }
 
     validateRegistrationLink(): void {
@@ -76,6 +78,12 @@ export class PxbCreateAccountInviteComponent implements OnInit {
             });
     }
 
+    clearAccountDetailsInfo(): void {
+        for (const formControl of this.accountDetails) {
+            formControl.reset();
+        }
+    }
+
     canContinue(): boolean {
         switch (this.currentPageId) {
             case 0:
@@ -102,6 +110,11 @@ export class PxbCreateAccountInviteComponent implements OnInit {
     }
 
     navigateToLogin(): void {
+        this.clearAccountDetailsInfo();
         void this._router.navigate([`${AUTH_ROUTES.AUTH_WORKFLOW}/${AUTH_ROUTES.LOGIN}`]);
+    }
+
+    showStepper(): boolean {
+        return this.currentPageId <= (this.accountDetails.length == 0 ? 1 : 2);
     }
 }

@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { PxbAuthSecurityService } from '../../../../services/state/auth-security.service';
 
 @Component({
     selector: 'pxb-create-account-account-created-step',
@@ -18,16 +17,24 @@ import { PxbAuthSecurityService } from '../../../../services/state/auth-security
     styleUrls: ['./account-created.component.scss'],
 })
 export class PxbAccountCreatedComponent {
-    @Input() userName: string;
-    constructor(private readonly _pxbSecurityService: PxbAuthSecurityService) {}
+    @Input() email = '';
+    @Input() userName = '';
 
     getSuccessEmptyStateTitle(): string {
-        return `Welcome, ${this.userName}!`;
+        if (this.userName.trim()) {
+            return `Welcome, ${this.userName}!`;
+        } else {
+            return `Welcome!`;
+        }
     }
 
     getSuccessEmptyStateDescription(): string {
-        return `Your account has been successfully created with the email ${
-            this._pxbSecurityService.getSecurityState().email
-        }. Your account has already been added to the organization. Press Continue below to finish.`;
+        let firstSentence: string;
+        if (this.email.trim()) {
+            firstSentence = `Your account has been successfully created with the email ${this.email}.`;
+        } else {
+            firstSentence = `Your account has been successfully created.`;
+        }
+        return `${firstSentence} Your account has already been added to the organization. Press Continue below to finish.`;
     }
 }

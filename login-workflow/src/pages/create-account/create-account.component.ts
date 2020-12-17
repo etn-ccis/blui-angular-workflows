@@ -22,6 +22,7 @@ export class PxbCreateAccountComponent {
     currentPageId = 0;
     isLoading = true;
     isValidVerificationCode = true;
+    numberOfSteps: number;
 
     // Provide Email Page
     email: string;
@@ -49,6 +50,10 @@ export class PxbCreateAccountComponent {
         });
     }
 
+    ngOnInit(): void {
+        this.numberOfSteps = this.accountDetails.length === 0 ? 5 : 6;
+    }
+
     validateVerificationCode(): void {
         this._pxbSecurityService.setLoading(true);
         this._pxbRegisterService
@@ -61,6 +66,12 @@ export class PxbCreateAccountComponent {
                 this._pxbErrorDialogService.openDialog(data);
                 this._pxbSecurityService.setLoading(false);
             });
+    }
+
+    clearAccountDetailsInfo(): void {
+        for (const formControl of this.accountDetails) {
+            formControl.reset();
+        }
     }
 
     registerAccount(): void {
@@ -111,6 +122,11 @@ export class PxbCreateAccountComponent {
     }
 
     navigateToLogin(): void {
+        this.clearAccountDetailsInfo();
         void this._router.navigate([`${AUTH_ROUTES.AUTH_WORKFLOW}/${AUTH_ROUTES.LOGIN}`]);
+    }
+
+    showStepper(): boolean {
+        return this.currentPageId <= (this.accountDetails.length == 0 ? 3 : 4);
     }
 }
