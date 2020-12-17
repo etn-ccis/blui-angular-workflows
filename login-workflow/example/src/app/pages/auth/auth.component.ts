@@ -27,14 +27,14 @@ import { PxbAuthConfig, AUTH_ROUTES } from '@pxblue/angular-auth-workflow';
                 <pxb-create-account
                     [accountDetails]="accountDetails"
                     [hasValidAccountDetails]="accountDetailsValid()"
-                    [userName]="firstNameFormControl.value + lastNameFormControl.value"
+                    [userName]="firstNameFormControl.value + ' ' + lastNameFormControl.value"
                 >
                     <template pxb-account-details-form [ngTemplateOutlet]="accountDetailsRef"></template>
                 </pxb-create-account>
             </ng-template>
             <ng-template #createAccountViaInvitePage>
                 <pxb-create-account-invite
-                    [userName]="firstNameFormControl.value + lastNameFormControl.value"
+                    [userName]="firstNameFormControl.value + ' ' + lastNameFormControl.value"
                     [accountDetails]="accountDetails"
                     [hasValidAccountDetails]="accountDetailsValid()"
                 >
@@ -47,14 +47,14 @@ import { PxbAuthConfig, AUTH_ROUTES } from '@pxblue/angular-auth-workflow';
             <form>
                 <mat-form-field appearance="fill" [style.width.%]="100" [style.marginBottom.px]="8">
                     <mat-label>First Name</mat-label>
-                    <input matInput [formControl]="firstNameFormControl" />
+                    <input matInput [formControl]="firstNameFormControl" required />
                     <mat-error *ngIf="firstNameFormControl.hasError('required')">
                         First Name is <strong>required</strong>
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="fill" [style.width.%]="100" [style.marginBottom.px]="8">
                     <mat-label>Last Name</mat-label>
-                    <input matInput [formControl]="lastNameFormControl" />
+                    <input matInput [formControl]="lastNameFormControl" required />
                     <mat-error *ngIf="lastNameFormControl.hasError('required')">
                         Last Name is <strong>required</strong>
                     </mat-error>
