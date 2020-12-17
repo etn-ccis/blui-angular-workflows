@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AUTH_ROUTES } from '../../auth/auth.routes';
@@ -7,6 +7,7 @@ import { PxbRegisterUIService } from '../../services/api/register-ui.service';
 import { PxbAuthSecurityService, SecurityContext } from '../../services/state/auth-security.service';
 import { PxbCreateAccountErrorDialogService } from '../../services/dialog/create-account-error-dialog.service';
 import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
     selector: 'pxb-create-account',
@@ -14,6 +15,10 @@ import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
     styleUrls: ['./create-account.component.scss'],
 })
 export class PxbCreateAccountComponent {
+    @Input() accountDetails: FormControl[] = [];
+    @Input() hasValidAccountDetails = false;
+    @Input() userName: string;
+
     currentPageId = 0;
     isLoading = true;
     isValidVerificationCode = true;
@@ -31,12 +36,6 @@ export class PxbCreateAccountComponent {
     // Create Password Page
     password: string;
     passwordMeetsRequirements: boolean;
-
-    // Account Details Page
-    firstName: string;
-    lastName: string;
-    phoneNumber: string;
-    validAccountDetails: boolean;
 
     constructor(
         private readonly _router: Router,
@@ -67,14 +66,7 @@ export class PxbCreateAccountComponent {
     registerAccount(): void {
         this._pxbSecurityService.setLoading(true);
         this._pxbRegisterService
-            .completeRegistration(
-                this.firstName,
-                this.lastName,
-                this.phoneNumber,
-                this.password,
-                this.verificationCode,
-                this.email
-            )
+            .completeRegistration(this.accountDetails, this.password, this.verificationCode, this.email)
             .then(() => {
                 this._pxbSecurityService.setLoading(false);
                 this._pxbSecurityService.updateSecurityState({ email: this.email });
@@ -97,7 +89,7 @@ export class PxbCreateAccountComponent {
             case 3:
                 return this.passwordMeetsRequirements;
             case 4:
-                return this.validAccountDetails;
+                return this.hasValidAccountDetails;
             default:
                 return;
         }

@@ -18,13 +18,11 @@ import { PxbAuthSecurityService } from '../../../../services/state/auth-security
     styleUrls: ['./account-created.component.scss'],
 })
 export class PxbAccountCreatedComponent {
-    @Input() firstName: string;
-    @Input() lastName: string;
-
+    @Input() userName: string;
     constructor(private readonly _pxbSecurityService: PxbAuthSecurityService) {}
 
     getSuccessEmptyStateTitle(): string {
-        return `Welcome, ${this.firstName} ${this.lastName}!`;
+        return `Welcome, ${this.userName}!`;
     }
 
     getSuccessEmptyStateDescription(): string {

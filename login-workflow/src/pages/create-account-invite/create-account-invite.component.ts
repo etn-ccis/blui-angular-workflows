@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AUTH_ROUTES } from '../../auth/auth.routes';
@@ -7,6 +7,7 @@ import { PxbRegisterUIService } from '../../services/api/register-ui.service';
 import { PxbAuthSecurityService, SecurityContext } from '../../services/state/auth-security.service';
 import { PxbCreateAccountInviteErrorDialogService } from '../../services/dialog/create-account-invite-error-dialog.service';
 import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
     selector: 'pxb-create-account-invite',
@@ -14,6 +15,10 @@ import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
     styleUrls: ['./create-account-invite.component.scss'],
 })
 export class PxbCreateAccountInviteComponent implements OnInit {
+    @Input() accountDetails: FormControl[] = [];
+    @Input() hasValidAccountDetails = false;
+    @Input() userName: string;
+
     currentPageId = 0;
     isLoading: boolean;
     isValidRegistrationLink: boolean;
@@ -24,12 +29,6 @@ export class PxbCreateAccountInviteComponent implements OnInit {
     // Create Password Page
     password: string;
     passwordMeetsRequirements: boolean;
-
-    // Account Details Page
-    firstName: string;
-    lastName: string;
-    phoneNumber: string;
-    validAccountDetails: boolean;
 
     constructor(
         private readonly _router: Router,
@@ -66,7 +65,7 @@ export class PxbCreateAccountInviteComponent implements OnInit {
     registerAccount(): void {
         this._pxbSecurityService.setLoading(true);
         this._pxbRegisterService
-            .completeRegistration(this.firstName, this.lastName, this.phoneNumber, this.password)
+            .completeRegistration(this.accountDetails, this.password)
             .then(() => {
                 this._pxbSecurityService.setLoading(false);
                 this.currentPageId++;
@@ -84,7 +83,7 @@ export class PxbCreateAccountInviteComponent implements OnInit {
             case 1:
                 return this.passwordMeetsRequirements;
             case 2:
-                return this.validAccountDetails;
+                return this.hasValidAccountDetails;
             default:
                 return;
         }

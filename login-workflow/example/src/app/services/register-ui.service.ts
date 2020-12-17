@@ -2,6 +2,7 @@
 import { Injectable } from '@angular/core';
 import { IPxbRegisterUIService, PxbAuthSecurityService, PxbAuthConfig } from '@pxblue/angular-auth-workflow';
 import { SAMPLE_EULA } from '../constants/sampleEula';
+import { FormControl } from '@angular/forms';
 
 export const randomFailure = () => Math.random() < 0.25;
 const TIMEOUT_MS = 1500;
@@ -69,9 +70,7 @@ export class RegisterUIService implements IPxbRegisterUIService {
     }
 
     completeRegistration(
-        firstName: string,
-        lastName: string,
-        phoneNumber: string,
+        formControls: FormControl[],
         password: string,
         validationCode?: string,
         email?: string
@@ -82,13 +81,10 @@ export class RegisterUIService implements IPxbRegisterUIService {
             validationCode = urlCode;
         }
         console.log(
-            `Performing a sample CompleteRegistration request with the following credentials:\n firstName: ${firstName}\n lastName: ${lastName}\n phoneNumber: ${phoneNumber}\n password: ${password}\n validationCode: ${validationCode}\n email: ${email}`
+            `Performing a sample CompleteRegistration request with the following credentials:\n password: ${password}\n validationCode: ${validationCode}\n email: ${email}`
         );
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                if (firstName.toUpperCase() === 'FAIL' || lastName.toUpperCase() === 'FAIL') {
-                    return reject();
-                }
                 this._pxbSecurityService.updateSecurityState({ email: 'sample-email@test.com' });
                 return resolve();
             }, TIMEOUT_MS);

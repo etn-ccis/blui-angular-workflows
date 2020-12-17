@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Injectable } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 /* Registration Actions to be performed when a user attempts to register */
 export type IPxbRegisterUIService = {
@@ -14,9 +15,7 @@ export type IPxbRegisterUIService = {
 
     // The user has been invited to register and has entered the necessary account and password information. The application should now complete the registration process given the user's data
     completeRegistration(
-        firstName: string,
-        lastName: string,
-        phoneNumber: string,
+        formControls: FormControl[],
         password: string,
         validationCode?: string,
         email?: string
@@ -48,9 +47,7 @@ export class PxbRegisterUIService implements IPxbRegisterUIService {
     }
 
     completeRegistration(
-        firstName: string,
-        lastName: string,
-        phoneNumber: string,
+        formControls: FormControl[],
         password: string,
         validationCode?: string,
         email?: string

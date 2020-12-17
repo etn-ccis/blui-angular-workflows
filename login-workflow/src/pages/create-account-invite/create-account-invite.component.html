@@ -26,17 +26,11 @@
         (advance)="canContinue() ? goNext() : ''"
     ></pxb-create-account-create-password-step>
 
-    <pxb-create-account-account-details-step
-        *ngIf="currentPageId === 2"
-        [(firstName)]="firstName"
-        [(lastName)]="lastName"
-        [(phoneNumber)]="phoneNumber"
-        [(validAccountDetails)]="validAccountDetails"
-        (advance)="canContinue() ? goNext() : ''"
-    >
+    <pxb-create-account-account-details-step *ngIf="currentPageId === 2">
+        <ng-content pxb-account-details-form select="[pxb-account-details-form]"></ng-content>
     </pxb-create-account-account-details-step>
 
-    <pxb-create-account-account-created-step *ngIf="currentPageId === 3" [firstName]="firstName" [lastName]="lastName">
+    <pxb-create-account-account-created-step *ngIf="currentPageId === 3" [userName]="userName">
     </pxb-create-account-account-created-step>
 
     <mat-divider class="pxb-auth-divider" style="margin-bottom: 16px;"></mat-divider>
