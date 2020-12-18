@@ -43,6 +43,7 @@ import { PxbAuthConfig, AUTH_ROUTES } from '@pxblue/angular-auth-workflow';
             </ng-template>
         </pxb-auth>
 
+        <!-- This is an example of a custom account details form.  To enable the defaults, remove this template and the accountDetails[]. -->
         <ng-template #accountDetailsRef>
             <form>
                 <mat-form-field appearance="fill" [style.width.%]="100" [style.marginBottom.px]="8">

@@ -1,15 +1,9 @@
-import { Component } from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@angular/core';
+import {FormControl, Validators} from "@angular/forms";
+import {PxbFormsService} from "../../../../services/forms/forms.service";
 
 @Component({
     selector: 'pxb-create-account-account-details-step',
-    styles: [
-        `
-            .pxb-account-details-form-field {
-                width: 100%;
-                margin-bottom: 8px;
-            }
-        `,
-    ],
     template: `
         <div class="mat-title pxb-auth-title">Account Details</div>
         <div class="pxb-auth-full-height">
@@ -17,8 +11,87 @@ import { Component } from '@angular/core';
                 Enter your details below to complete account creation.
             </p>
             <mat-divider class="pxb-auth-divider" style="margin-top: 16px; margin-bottom: 32px;"></mat-divider>
-            <ng-content select="[pxb-account-details-form]"></ng-content>
+            <div style="display: flex; flex: 1 1 0px; overflow: auto;">
+                <ng-container *ngIf="!useDefaultAccountDetails">
+                    <ng-content select="[pxb-account-details-form]"></ng-content>
+                </ng-container>
+                <form *ngIf="useDefaultAccountDetails">
+                    <mat-form-field appearance="fill" [style.width.%]="100" [style.marginBottom.px]="8">
+                        <mat-label>First Name</mat-label>
+                        <input
+                            #pxbFirst
+                            id="pxb-first"
+                            name="first"
+                            matInput [formControl]="firstNameFormControl" required
+                            (ngModelChange)="emitIfValid()"
+                            (keyup.enter)="pxbFormsService.advanceToNextField(lastNameInputElement)" />
+                        <mat-error *ngIf="firstNameFormControl.hasError('required')">
+                            First Name is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" [style.width.%]="100" [style.marginBottom.px]="8">
+                        <mat-label>Last Name</mat-label>
+                        <input matInput
+                               #pxbLast
+                               id="pxb-last"
+                               name="last"
+                               [formControl]="lastNameFormControl" required
+                               (ngModelChange)="emitIfValid()"
+                               (keyup.enter)="pxbFormsService.advanceToNextField(phoneInputElement)" />
+                        <mat-error *ngIf="lastNameFormControl.hasError('required')">
+                            Last Name is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" [style.width.%]="100" [style.marginBottom.px]="8">
+                        <mat-label>Phone Number (optional)</mat-label>
+                        <input  #pxbPhone
+                                id="pxb-phone"
+                                name="phone"
+                                matInput [formControl]="phoneNumberFormControl"
+                                (keyup.enter)="advance.emit(true)"/>
+                    </mat-form-field>
+                </form>
+            </div>
         </div>
     `,
 })
-export class PxbAccountDetailsComponent {}
+/* Default Account Details consists of a First/Last Name (required) and a phone number (optional). */
+export class PxbAccountDetailsComponent {
+    @Input() useDefaultAccountDetails = false;
+    @Output() accountDetailsChange = new EventEmitter<FormControl[]>();
+    @Output() validAccountDetailsChange = new EventEmitter<boolean>();
+    @Output() advance: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+    @ViewChild('pxbLast') lastNameInputElement: ElementRef;
+    @ViewChild('pxbPhone') phoneInputElement: ElementRef;
+
+    firstNameFormControl: FormControl;
+    lastNameFormControl: FormControl;
+    phoneNumberFormControl: FormControl;
+
+    constructor(public pxbFormsService: PxbFormsService) {}
+
+
+    ngOnInit(): void {
+        if (this.useDefaultAccountDetails) {
+            this.firstNameFormControl = new FormControl('', Validators.required);
+            this.lastNameFormControl = new FormControl('', Validators.required);
+            this.phoneNumberFormControl = new FormControl('');
+            this.accountDetailsChange.emit([
+                this.firstNameFormControl,
+                this.lastNameFormControl,
+                this.phoneNumberFormControl,
+            ]);
+        }
+    }
+
+    /* If we are using the default account details, we need to provide the input validation required for the 'NEXT' button. */
+    emitIfValid(): void {
+        this.validAccountDetailsChange.emit(
+                this.firstNameFormControl.value &&
+                this.firstNameFormControl.valid &&
+                this.lastNameFormControl.value &&
+                this.lastNameFormControl.valid
+        );
+    }
+}

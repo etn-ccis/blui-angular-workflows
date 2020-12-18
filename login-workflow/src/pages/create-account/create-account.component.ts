@@ -15,14 +15,14 @@ import { FormControl } from '@angular/forms';
     styleUrls: ['./create-account.component.scss'],
 })
 export class PxbCreateAccountComponent {
-    @Input() accountDetails: FormControl[] = [];
-    @Input() hasValidAccountDetails = false;
     @Input() userName: string;
+    @Input() accountDetails: FormControl[];
+    @Input() hasValidAccountDetails = false;
+    @Input() useDefaultAccountDetails = false;
 
     currentPageId = 0;
     isLoading = true;
     isValidVerificationCode = true;
-    numberOfSteps: number;
 
     // Provide Email Page
     email: string;
@@ -48,10 +48,6 @@ export class PxbCreateAccountComponent {
         this._pxbSecurityService.securityStateChanges().subscribe((state: SecurityContext) => {
             this.isLoading = state.isLoading;
         });
-    }
-
-    ngOnInit(): void {
-        this.numberOfSteps = this.accountDetails.length === 0 ? 5 : 6;
     }
 
     validateVerificationCode(): void {
@@ -121,12 +117,27 @@ export class PxbCreateAccountComponent {
         }
     }
 
+    skipAccountDetails(): boolean {
+        return !this.useDefaultAccountDetails && this.accountDetails.length === 0;
+    }
+
+    getNumberOfSteps(): number {
+        return this.skipAccountDetails() ? 5 : 6;
+    }
+
     navigateToLogin(): void {
         this.clearAccountDetailsInfo();
         void this._router.navigate([`${AUTH_ROUTES.AUTH_WORKFLOW}/${AUTH_ROUTES.LOGIN}`]);
     }
 
     showStepper(): boolean {
-        return this.currentPageId <= (this.accountDetails.length === 0 ? 3 : 4);
+        return this.currentPageId <= (this.skipAccountDetails() ? 3 : 4);
+    }
+
+    getUserName(): string {
+        if (this.useDefaultAccountDetails) {
+            return `${this.accountDetails[0].value} ${this.accountDetails[1].value}`;
+        }
+        return this.userName;
     }
 }
