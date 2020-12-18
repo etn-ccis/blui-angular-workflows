@@ -24,11 +24,13 @@
     (advance)="canContinue() ? goNext() : ''"
 ></pxb-create-account-create-password-step>
 
-<pxb-create-account-account-details-step *ngIf="currentPageId === 4 && !skipAccountDetails()"
+<pxb-create-account-account-details-step
+    *ngIf="currentPageId === 4 && !skipAccountDetails()"
     [useDefaultAccountDetails]="useDefaultAccountDetails"
     (accountDetailsChange)="accountDetails = $event"
     (validAccountDetailsChange)="hasValidAccountDetails = $event"
- (advance)="canContinue() ? goNext() : ''">
+    (advance)="canContinue() ? goNext() : ''"
+>
     <ng-content pxb-account-details-form select="[pxb-account-details-form]"></ng-content>
 </pxb-create-account-account-details-step>
 

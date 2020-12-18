@@ -1,6 +1,6 @@
-import {Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@angular/core';
-import {FormControl, Validators} from "@angular/forms";
-import {PxbFormsService} from "../../../../services/forms/forms.service";
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
+import { PxbFormsService } from '../../../../services/forms/forms.service';
 
 @Component({
     selector: 'pxb-create-account-account-details-step',
@@ -22,33 +22,42 @@ import {PxbFormsService} from "../../../../services/forms/forms.service";
                             #pxbFirst
                             id="pxb-first"
                             name="first"
-                            matInput [formControl]="firstNameFormControl" required
+                            matInput
+                            [formControl]="firstNameFormControl"
+                            required
                             (ngModelChange)="emitIfValid()"
-                            (keyup.enter)="pxbFormsService.advanceToNextField(lastNameInputElement)" />
+                            (keyup.enter)="pxbFormsService.advanceToNextField(lastNameInputElement)"
+                        />
                         <mat-error *ngIf="firstNameFormControl.hasError('required')">
                             First Name is <strong>required</strong>
                         </mat-error>
                     </mat-form-field>
                     <mat-form-field appearance="fill" [style.width.%]="100" [style.marginBottom.px]="8">
                         <mat-label>Last Name</mat-label>
-                        <input matInput
-                               #pxbLast
-                               id="pxb-last"
-                               name="last"
-                               [formControl]="lastNameFormControl" required
-                               (ngModelChange)="emitIfValid()"
-                               (keyup.enter)="pxbFormsService.advanceToNextField(phoneInputElement)" />
+                        <input
+                            matInput
+                            #pxbLast
+                            id="pxb-last"
+                            name="last"
+                            [formControl]="lastNameFormControl"
+                            required
+                            (ngModelChange)="emitIfValid()"
+                            (keyup.enter)="pxbFormsService.advanceToNextField(phoneInputElement)"
+                        />
                         <mat-error *ngIf="lastNameFormControl.hasError('required')">
                             Last Name is <strong>required</strong>
                         </mat-error>
                     </mat-form-field>
                     <mat-form-field appearance="fill" [style.width.%]="100" [style.marginBottom.px]="8">
                         <mat-label>Phone Number (optional)</mat-label>
-                        <input  #pxbPhone
-                                id="pxb-phone"
-                                name="phone"
-                                matInput [formControl]="phoneNumberFormControl"
-                                (keyup.enter)="advance.emit(true)"/>
+                        <input
+                            #pxbPhone
+                            id="pxb-phone"
+                            name="phone"
+                            matInput
+                            [formControl]="phoneNumberFormControl"
+                            (keyup.enter)="advance.emit(true)"
+                        />
                     </mat-form-field>
                 </form>
             </div>
@@ -71,7 +80,6 @@ export class PxbAccountDetailsComponent {
 
     constructor(public pxbFormsService: PxbFormsService) {}
 
-
     ngOnInit(): void {
         if (this.useDefaultAccountDetails) {
             this.firstNameFormControl = new FormControl('', Validators.required);
@@ -88,7 +96,7 @@ export class PxbAccountDetailsComponent {
     /* If we are using the default account details, we need to provide the input validation required for the 'NEXT' button. */
     emitIfValid(): void {
         this.validAccountDetailsChange.emit(
-                this.firstNameFormControl.value &&
+            this.firstNameFormControl.value &&
                 this.firstNameFormControl.valid &&
                 this.lastNameFormControl.value &&
                 this.lastNameFormControl.valid
