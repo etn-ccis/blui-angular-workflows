@@ -1,8 +1,8 @@
-import {Component, ElementRef, Input, ViewChild} from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AUTH_ROUTES } from '../../auth/auth.routes';
 import { PxbAuthConfig } from '../../services/config/auth-config';
-import {isEmptyView} from "../../util/view-utils";
+import { isEmptyView } from '../../util/view-utils';
 
 @Component({
     selector: 'pxb-contact-support',
