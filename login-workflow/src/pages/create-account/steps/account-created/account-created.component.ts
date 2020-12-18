@@ -17,11 +17,11 @@ import { Component, Input } from '@angular/core';
     styleUrls: ['./account-created.component.scss'],
 })
 export class PxbAccountCreatedComponent {
-    @Input() email = '';
-    @Input() userName = '';
+    @Input() email;
+    @Input() userName;
 
     getSuccessEmptyStateTitle(): string {
-        if (this.userName.trim()) {
+        if (this.userName && this.userName.trim()) {
             return `Welcome, ${this.userName}!`;
         }
         return `Welcome!`;
@@ -29,7 +29,7 @@ export class PxbAccountCreatedComponent {
 
     getSuccessEmptyStateDescription(): string {
         let firstSentence: string;
-        if (this.email.trim()) {
+        if (this.email && this.email.trim()) {
             firstSentence = `Your account has been successfully created with the email ${this.email}.`;
         } else {
             firstSentence = `Your account has been successfully created.`;

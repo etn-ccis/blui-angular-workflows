@@ -18,11 +18,13 @@
             <!-- Create Account (Self-Register) -->
             <div class="pxb-auth-create-account" *ngIf="showCreateAccount">
                 <template [ngTemplateOutlet]="createAccountRef"></template>
+                <pxb-create-account *ngIf="!createAccountRef"></pxb-create-account>
             </div>
 
             <!-- Create Account (Invited) -->
             <div class="pxb-auth-create-account-invite" *ngIf="showCreateAccountInvite">
                 <template [ngTemplateOutlet]="createAccountInviteRef"></template>
+                <pxb-create-account-invite *ngIf="!createAccountInviteRef"></pxb-create-account-invite>
             </div>
 
             <!-- Forgot Password -->

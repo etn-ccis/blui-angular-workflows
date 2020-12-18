@@ -26,20 +26,26 @@
         (advance)="canContinue() ? goNext() : ''"
     ></pxb-create-account-create-password-step>
 
-    <pxb-create-account-account-details-step *ngIf="currentPageId === 2 && accountDetails.length > 0">
+    <pxb-create-account-account-details-step
+        *ngIf="currentPageId === 2 && !skipAccountDetails()"
+        [useDefaultAccountDetails]="useDefaultAccountDetails"
+        (accountDetailsChange)="accountDetails = $event"
+        (validAccountDetailsChange)="hasValidAccountDetails = $event"
+        (advance)="canContinue() ? goNext() : ''"
+    >
         <ng-content pxb-account-details-form select="[pxb-account-details-form]"></ng-content>
     </pxb-create-account-account-details-step>
 
     <pxb-create-account-account-created-step
-        *ngIf="currentPageId === 3 || (currentPageId === 2 && accountDetails.length === 0)"
-        [userName]="userName"
+        *ngIf="currentPageId === 3 || (currentPageId === 2 && skipAccountDetails())"
+        [userName]="getUserName()"
     >
     </pxb-create-account-account-created-step>
 
     <mat-divider class="pxb-auth-divider" style="margin-bottom: 16px;"></mat-divider>
     <div class="pxb-auth-action-button-container">
         <ng-container *ngIf="showStepper()">
-            <pxb-mobile-stepper [steps]="numberOfSteps" [activeStep]="currentPageId">
+            <pxb-mobile-stepper [steps]="getNumberOfSteps()" [activeStep]="currentPageId">
                 <button pxb-back-button mat-stroked-button color="primary" style="width: 100px;" (click)="goBack()">
                     Back
                 </button>

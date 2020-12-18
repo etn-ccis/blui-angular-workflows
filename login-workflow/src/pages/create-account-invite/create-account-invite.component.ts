@@ -15,12 +15,12 @@ import { FormControl } from '@angular/forms';
     styleUrls: ['./create-account-invite.component.scss'],
 })
 export class PxbCreateAccountInviteComponent implements OnInit {
+    @Input() userName: string;
     @Input() accountDetails: FormControl[] = [];
     @Input() hasValidAccountDetails = false;
-    @Input() userName: string;
+    @Input() useDefaultAccountDetails;
 
     currentPageId = 0;
-    numberOfSteps: number;
     isLoading: boolean;
     isValidRegistrationLink: boolean;
 
@@ -45,7 +45,10 @@ export class PxbCreateAccountInviteComponent implements OnInit {
 
     ngOnInit(): void {
         this.validateRegistrationLink();
-        this.numberOfSteps = this.accountDetails.length === 0 ? 3 : 4;
+        // Unless the user has specified otherwise, use the defaultAccountDetails if there are no custom forms provided.
+        if (this.useDefaultAccountDetails === undefined) {
+            this.useDefaultAccountDetails = this.accountDetails.length === 0;
+        }
     }
 
     validateRegistrationLink(): void {
@@ -106,7 +109,18 @@ export class PxbCreateAccountInviteComponent implements OnInit {
     }
 
     goNext(): void {
+        if (this.currentPageId === 1 && this.skipAccountDetails()) {
+            return this.registerAccount();
+        }
         this.currentPageId === 2 ? this.registerAccount() : this.currentPageId++;
+    }
+
+    skipAccountDetails(): boolean {
+        return !this.useDefaultAccountDetails && this.accountDetails.length === 0;
+    }
+
+    getNumberOfSteps(): number {
+        return this.skipAccountDetails() ? 3 : 4;
     }
 
     navigateToLogin(): void {
@@ -115,6 +129,13 @@ export class PxbCreateAccountInviteComponent implements OnInit {
     }
 
     showStepper(): boolean {
-        return this.currentPageId <= (this.accountDetails.length === 0 ? 1 : 2);
+        return this.currentPageId <= (this.skipAccountDetails() ? 1 : 2);
+    }
+
+    getUserName(): string {
+        if (this.useDefaultAccountDetails) {
+            return `${this.accountDetails[0].value} ${this.accountDetails[1].value}`;
+        }
+        return this.userName;
     }
 }

@@ -16,9 +16,9 @@ import { FormControl } from '@angular/forms';
 })
 export class PxbCreateAccountComponent {
     @Input() userName: string;
-    @Input() accountDetails: FormControl[];
+    @Input() accountDetails: FormControl[] = [];
     @Input() hasValidAccountDetails = false;
-    @Input() useDefaultAccountDetails = false;
+    @Input() useDefaultAccountDetails;
 
     currentPageId = 0;
     isLoading = true;
@@ -48,6 +48,13 @@ export class PxbCreateAccountComponent {
         this._pxbSecurityService.securityStateChanges().subscribe((state: SecurityContext) => {
             this.isLoading = state.isLoading;
         });
+    }
+
+    ngOnInit(): void {
+        // Unless the user has specified otherwise, use the defaultAccountDetails if there are no custom forms provided.
+        if (this.useDefaultAccountDetails === undefined) {
+            this.useDefaultAccountDetails = this.accountDetails.length === 0;
+        }
     }
 
     validateVerificationCode(): void {
@@ -110,6 +117,8 @@ export class PxbCreateAccountComponent {
         switch (this.currentPageId) {
             case 2:
                 return this.validateVerificationCode();
+            case 3:
+                return this.skipAccountDetails() ? this.registerAccount() : this.currentPageId++;
             case 4:
                 return this.registerAccount();
             default:

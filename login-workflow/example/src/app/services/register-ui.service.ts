@@ -80,16 +80,16 @@ export class RegisterUIService implements IPxbRegisterUIService {
         if (!validationCode) {
             validationCode = urlCode;
         }
-        const firstName = formControls[0].value;
-        const lastName = formControls[1].value;
-        const country = formControls[2].value;
+        const firstName = formControls[0]?.value;
+        const lastName = formControls[1]?.value;
+        const country = formControls[2]?.value;
         const phoneNumber = formControls[3]?.value;
         console.log(
             `Performing a sample CompleteRegistration request with the following credentials:\n firstName: ${firstName}\n lastName: ${lastName}\n country: ${country}\n phoneNumber: ${phoneNumber}\n password: ${password}\n validationCode: ${validationCode}\n email: ${email}`
         );
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                if (firstName.toUpperCase() === 'FAIL' || lastName.toUpperCase() === 'FAIL') {
+                if (firstName && firstName.toUpperCase() === 'FAIL') {
                     return reject();
                 }
                 this._pxbSecurityService.updateSecurityState({ email: 'sample-email@test.com' });
