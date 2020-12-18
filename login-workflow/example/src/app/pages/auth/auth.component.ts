@@ -25,11 +25,11 @@ import { PxbAuthConfig, AUTH_ROUTES } from '@pxblue/angular-auth-workflow';
             </ng-template>
             <ng-template #createAccountPage>
                 <pxb-create-account
-                    [accountDetails]="accountDetails"
+                    [useDefaultAccountDetails]="false"
+                    [accountDetails]="[]"
                     [hasValidAccountDetails]="accountDetailsValid()"
                     [userName]="firstNameFormControl.value + ' ' + lastNameFormControl.value"
                 >
-                    <template pxb-account-details-form [ngTemplateOutlet]="accountDetailsRef"></template>
                 </pxb-create-account>
             </ng-template>
             <ng-template #createAccountViaInvitePage>
