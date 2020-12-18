@@ -1,28 +1,35 @@
-<div class="mat-title pxb-auth-title">Contact Us</div>
+<div class="mat-title pxb-auth-title">
+    {{ title }}
+    <ng-content select="[pxb-title]"></ng-content>
+</div>
+
 <div style="text-align: center; margin-bottom: 26px; margin-top: 8px;">
     <mat-icon class="pxb-contact-support-chat-bubble-icon">chat_bubble_outline</mat-icon>
 </div>
 
 <div class="pxb-contact-support-description">
-    <p class="mat-body-1" style="margin-bottom: 8px;">General Questions</p>
-
-    <p class="mat-body-1" style="margin-bottom: 32px;">
-        For questions, feedback, or support please email us at
-        <a class="pxb-auth-link" [href]="'mailto:' + authConfig.contactEmail">{{ authConfig.contactEmail }}</a
-        >.
+    <p class="mat-body-1" style="margin-bottom: 8px;">
+        {{ generalSupportTitle }}
+        <ng-content select="pxb-general-support-title"></ng-content>
     </p>
 
-    <p class="mat-body-1" style="margin-bottom: 8px;">Emergency Support</p>
+    <p class="mat-body-1" style="margin-bottom: 32px;" [innerHTML]="generalSupportDescription"></p>
+    <ng-content select="[pxb-general-support-description]"></ng-content>
 
-    <p class="mat-body-1">
-        For technical support, please call
-        <a class="pxb-auth-link" [href]="'tel:' + authConfig.contactPhone">{{ authConfig.contactPhone }}</a
-        >.
+    <p class="mat-body-1" style="margin-bottom: 8px;">
+        {{ emergencySupportTitle }}
+        <ng-content select="pxb-emergency-support-title"></ng-content>
     </p>
+
+    <p class="mat-body-1" [innerHTML]="emergencySupportDescription"></p>
+    <ng-content select="[pxb-emergency-support-description]"></ng-content>
 </div>
 
 <mat-divider style="margin-bottom: 16px" class="pxb-auth-divider"></mat-divider>
 
 <div class="pxb-auth-action-button-container">
-    <button mat-flat-button color="primary" (click)="navigateToLogin()" [style.width.%]="100">Okay</button>
+    <button mat-flat-button color="primary" (click)="navigateToLogin()" [style.width.%]="100">
+        {{ buttonText }}
+        <ng-content select="pxb-button-text"></ng-content>
+    </button>
 </div>
