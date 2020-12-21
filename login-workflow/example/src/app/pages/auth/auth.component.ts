@@ -5,43 +5,39 @@ import { PxbAuthConfig, AUTH_ROUTES } from '@pxblue/angular-auth-workflow';
 @Component({
     selector: 'app-auth',
     template: `
-        <pxb-auth
-            [loginRef]="loginPage"
-            [createAccountRef]="createAccountPage"
-            [createAccountInviteRef]="createAccountViaInvitePage"
-        >
-            <ng-template #loginPage>
-                <pxb-login [customEmailValidator]="customValidator()">
-                    <div pxb-login-header>
-                        <img src="assets/images/eaton_stacked_logo.png" style="max-width: 100%; max-height: 80px;" />
-                    </div>
-                    <div pxb-login-footer style="text-align: center;">
-                        <img
-                            src="assets/images/cybersecurity_certified.png"
-                            style="max-width: 30%; align-self: center;"
-                        />
-                    </div>
-                </pxb-login>
-            </ng-template>
-            <ng-template #createAccountPage>
-                <pxb-create-account
-                    [accountDetails]="accountDetails"
-                    [hasValidAccountDetails]="accountDetailsValid()"
-                    [userName]="firstNameFormControl.value + ' ' + lastNameFormControl.value"
-                >
-                  <template pxb-account-details-form [ngTemplateOutlet]="accountDetailsRef"></template>
-                </pxb-create-account>
-            </ng-template>
-            <ng-template #createAccountViaInvitePage>
-                <pxb-create-account-invite
-                    [accountDetails]="accountDetails"
-                    [hasValidAccountDetails]="accountDetailsValid()"
-                    [userName]="firstNameFormControl.value + ' ' + lastNameFormControl.value"
-                >
-                    <template pxb-account-details-form [ngTemplateOutlet]="accountDetailsRef"></template>
-                </pxb-create-account-invite>
-            </ng-template>
-        </pxb-auth>
+        <!-- Project-specific login page -->
+        <ng-template #loginPage>
+            <pxb-login [customEmailValidator]="customValidator()">
+                <div pxb-login-header>
+                    <img src="assets/images/eaton_stacked_logo.png" style="max-width: 100%; max-height: 80px;" />
+                </div>
+                <div pxb-login-footer style="text-align: center;">
+                    <img src="assets/images/cybersecurity_certified.png" style="max-width: 30%; align-self: center;" />
+                </div>
+            </pxb-login>
+        </ng-template>
+
+        <!-- Custom Create Account page -->
+        <ng-template #createAccountPage>
+            <pxb-create-account
+                [accountDetails]="accountDetails"
+                [hasValidAccountDetails]="accountDetailsValid()"
+                [userName]="firstNameFormControl.value + ' ' + lastNameFormControl.value"
+            >
+                <template pxb-account-details-form [ngTemplateOutlet]="accountDetailsRef"></template>
+            </pxb-create-account>
+        </ng-template>
+
+        <!-- Custom Create Account via Invite page -->
+        <ng-template #createAccountViaInvitePage>
+            <pxb-create-account-invite
+                [accountDetails]="accountDetails"
+                [hasValidAccountDetails]="accountDetailsValid()"
+                [userName]="firstNameFormControl.value + ' ' + lastNameFormControl.value"
+            >
+                <template pxb-account-details-form [ngTemplateOutlet]="accountDetailsRef"></template>
+            </pxb-create-account-invite>
+        </ng-template>
 
         <!-- This is an example of a custom account details form.  To enable the defaults, remove this template and the accountDetails[]. -->
         <ng-template #accountDetailsRef>
@@ -77,6 +73,14 @@ import { PxbAuthConfig, AUTH_ROUTES } from '@pxblue/angular-auth-workflow';
                 </mat-form-field>
             </form>
         </ng-template>
+
+        <!-- This is what accepts all page customizations and renders on screen. !-->
+        <pxb-auth
+            [loginRef]="loginPage"
+            [createAccountRef]="createAccountPage"
+            [createAccountInviteRef]="createAccountViaInvitePage"
+        >
+        </pxb-auth>
     `,
 })
 export class AuthComponent {

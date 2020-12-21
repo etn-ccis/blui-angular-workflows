@@ -400,6 +400,24 @@ See the example project (`./src/app/dialog/login-error-dialog.component.ts`) for
 </pxb-auth>
 ```
 
+## Auth Component
+The Auth Component is the top level `<pxb-auth>` component that houses all pages with the auth workflow.
+This component accepts @Inputs for individual page customizations.
+
+<div style="overflow: auto;">
+
+| @Input                    | Description                                    | Type                                           | 
+| ------------------------- | ---------------------------------------------- | ---------------------------------------------- |
+| contactSupportRef         | Contact Support customizations                 | `TemplateRef<PxbContactSupportComponent>`      |
+| createAccountInviteRef    | Create Account via Invite customizations       | `TemplateRef<PxbCreateAccountInviteComponent>` |
+| createAccountRef          | Create Account customizations                  | `TemplateRef<PxbCreateAccountComponent>`       |
+| forgotPasswordRef         | Forgot Password customizations                 | `TemplateRef<PxbForgotPasswordComponent>`      |
+| loginRef                  | Login customizations                           | `TemplateRef<PxbLoginComponent>`               |
+| resetPasswordRef          | Reset Password customizations                  | `TemplateRef<PxbResetPasswordComponent>`       |
+
+</div>
+
+
 ## Create Account
 The Create Account page is used for self-registration via a link on the Login Page.
 
