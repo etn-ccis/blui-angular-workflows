@@ -27,22 +27,25 @@
     ></pxb-create-account-create-password-step>
 
     <pxb-create-account-account-details-step
-        *ngIf="currentPageId === 2"
-        [(firstName)]="firstName"
-        [(lastName)]="lastName"
-        [(phoneNumber)]="phoneNumber"
-        [(validAccountDetails)]="validAccountDetails"
+        *ngIf="currentPageId === 2 && !skipAccountDetails()"
+        [useDefaultAccountDetails]="useDefaultAccountDetails"
+        (accountDetailsChange)="accountDetails = $event"
+        (validAccountDetailsChange)="hasValidAccountDetails = $event"
         (advance)="canContinue() ? goNext() : ''"
     >
+        <ng-content pxb-account-details-form select="[pxb-account-details-form]"></ng-content>
     </pxb-create-account-account-details-step>
 
-    <pxb-create-account-account-created-step *ngIf="currentPageId === 3" [firstName]="firstName" [lastName]="lastName">
+    <pxb-create-account-account-created-step
+        *ngIf="currentPageId === 3 || (currentPageId === 2 && skipAccountDetails())"
+        [userName]="getUserName()"
+    >
     </pxb-create-account-account-created-step>
 
     <mat-divider class="pxb-auth-divider" style="margin-bottom: 16px;"></mat-divider>
     <div class="pxb-auth-action-button-container">
-        <ng-container *ngIf="currentPageId <= 2">
-            <pxb-mobile-stepper [steps]="4" [activeStep]="currentPageId">
+        <ng-container *ngIf="showStepper()">
+            <pxb-mobile-stepper [steps]="getNumberOfSteps()" [activeStep]="currentPageId">
                 <button pxb-back-button mat-stroked-button color="primary" style="width: 100px;" (click)="goBack()">
                     Back
                 </button>
@@ -58,13 +61,7 @@
                 </button>
             </pxb-mobile-stepper>
         </ng-container>
-        <button
-            *ngIf="currentPageId === 3"
-            mat-flat-button
-            color="primary"
-            (click)="navigateToLogin()"
-            style="width: 100%"
-        >
+        <button *ngIf="!showStepper()" mat-flat-button color="primary" (click)="navigateToLogin()" style="width: 100%">
             Continue
         </button>
     </div>

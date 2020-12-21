@@ -1,14 +1,16 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
-import { EmptyStateModule, MobileStepperModule } from '@pxblue/angular-components';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
-import { MatDividerModule } from '@angular/material/divider';
-import { CommonModule } from '@angular/common';
-import { PxbCreateAccountComponent } from './create-account.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
+import { EmptyStateModule, MobileStepperModule } from '@pxblue/angular-components';
+
+import { PxbCreateAccountComponent } from './create-account.component';
 import { PxbCreateAccountStepsModule } from './steps/steps.module';
 import { PxbCommonComponentsModule } from '../../components/auth-common.module';
 
