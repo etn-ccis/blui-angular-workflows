@@ -1,7 +1,6 @@
-import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, TemplateRef } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit, TemplateRef } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { PxbAuthConfig } from '../services/config/auth-config';
-import { isEmptyView } from '../util/view-utils';
 import { matchesRoute } from '../util/matcher';
 import { PxbAuthUIService } from '../services/api/auth-ui.service';
 import { PxbAuthSecurityService, SecurityContext } from '../services/state/auth-security.service';
@@ -30,8 +29,6 @@ export class PxbAuthComponent implements OnInit {
 
     projectImage: string;
     backgroundImage: string;
-
-    isEmpty = (el: ElementRef): boolean => isEmptyView(el);
 
     showLogin: boolean;
     showCreateAccount: boolean;

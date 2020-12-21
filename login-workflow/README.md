@@ -400,6 +400,67 @@ See the example project (`./src/app/dialog/login-error-dialog.component.ts`) for
 </pxb-auth>
 ```
 
+## Auth Component
+The Auth Component is the top level `<pxb-auth>` component that houses all pages with the auth workflow.
+This component accepts @Inputs for individual page customizations.
+
+<div style="overflow: auto;">
+
+| @Input                    | Description                                    | Type                                           | 
+| ------------------------- | ---------------------------------------------- | ---------------------------------------------- |
+| contactSupportRef         | Contact Support customizations                 | `TemplateRef<PxbContactSupportComponent>`      |
+| createAccountInviteRef    | Create Account via Invite customizations       | `TemplateRef<PxbCreateAccountInviteComponent>` |
+| createAccountRef          | Create Account customizations                  | `TemplateRef<PxbCreateAccountComponent>`       |
+| forgotPasswordRef         | Forgot Password customizations                 | `TemplateRef<PxbForgotPasswordComponent>`      |
+| loginRef                  | Login customizations                           | `TemplateRef<PxbLoginComponent>`               |
+| resetPasswordRef          | Reset Password customizations                  | `TemplateRef<PxbResetPasswordComponent>`       |
+
+</div>
+
+
+## Create Account
+The Create Account page is used for self-registration via a link on the Login Page.
+
+<div style="overflow: auto;">
+
+| @Input                    | Description                                                                 | Type                 | Required | Default                        |
+| ------------------------- | --------------------------------------------------------------------------- | -------------------- | -------- | ------------------------------ |
+| userName                  | Greeting used at the end of user self-registration                          | `string `            | no       | first and last name            |
+| accountDetails            | Custom form controls used for self-registration                             | `FormControl[]`      | no       | []                             |
+| hasValidAccountDetails    | Used to enable progression when using providing custom account details      | `boolean`            | no       | `false`                        |
+| useDefaultAccountDetails  | Set to false to remove Account Details section from self-registration       | `boolean`            | no       | `accountDetails.length === 0`  |
+
+</div>
+
+The following child element is projected into `<pxb-create-account>` and `<pxb-create-account-invite>`.
+
+<div style="overflow: auto;">
+
+| Selector                    | Description                                      | Required |
+| --------------------------- | ------------------------------------------------ | -------- | 
+| pxb-account-details-form    | Custom form fields for capturing account details | no       |
+
+</div>
+
+## Create Account via Invite
+The Create Account via Invite page is used for self-registration via an email link.  This page currently has the same API as the Create Account page above. 
+
+
+## Contact Support
+The Contact Support page contains information for users who need help accessing/using the application.  
+
+<div style="overflow: auto;">
+
+| @Input                        | Description                                                                 | Type                 | ng-content                            |
+| ----------------------------- | --------------------------------------------------------------------------- | -------------------- | ------------------------------------- |     
+| title                         | Page title                                                                  | `string `            | `pxb-title`                           |
+| generalSupportTitle           | General support section title                                               | `string `            | `pxb-general-support-title`           |
+| generalSupportDescription     | General support section description                                         | `string`             | `pxb-general-support-description`     | 
+| emergencySupportTitle         | Emergency support section title                                             | `string`             | `pxb-emergency-support-title`         | 
+| emergencySupportDescription   | Emergency support section description                                       | `string`             | `pxb-emergency-support-description`   | 
+| buttonText                    | Text that appears in the button at the bottom of the page                   | `string`             | `pxb-button-text`                     | 
+
+</div>
 
 
 # Contributors
