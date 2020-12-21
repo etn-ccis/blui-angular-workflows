@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AUTH_ROUTES } from '../../auth/auth.routes';
@@ -7,6 +7,7 @@ import { PxbRegisterUIService } from '../../services/api/register-ui.service';
 import { PxbAuthSecurityService, SecurityContext } from '../../services/state/auth-security.service';
 import { PxbCreateAccountErrorDialogService } from '../../services/dialog/create-account-error-dialog.service';
 import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
     selector: 'pxb-create-account',
@@ -14,6 +15,11 @@ import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
     styleUrls: ['./create-account.component.scss'],
 })
 export class PxbCreateAccountComponent {
+    @Input() userName: string;
+    @Input() accountDetails: FormControl[] = [];
+    @Input() hasValidAccountDetails = false;
+    @Input() useDefaultAccountDetails;
+
     currentPageId = 0;
     isLoading = true;
     isValidVerificationCode = true;
@@ -32,12 +38,6 @@ export class PxbCreateAccountComponent {
     password: string;
     passwordMeetsRequirements: boolean;
 
-    // Account Details Page
-    firstName: string;
-    lastName: string;
-    phoneNumber: string;
-    validAccountDetails: boolean;
-
     constructor(
         private readonly _router: Router,
         private readonly _pxbAuthConfig: PxbAuthConfig,
@@ -48,6 +48,13 @@ export class PxbCreateAccountComponent {
         this._pxbSecurityService.securityStateChanges().subscribe((state: SecurityContext) => {
             this.isLoading = state.isLoading;
         });
+    }
+
+    ngOnInit(): void {
+        // Unless the user has specified otherwise, use the defaultAccountDetails if there are no custom forms provided.
+        if (this.useDefaultAccountDetails === undefined) {
+            this.useDefaultAccountDetails = this.accountDetails.length === 0;
+        }
     }
 
     validateVerificationCode(): void {
@@ -64,17 +71,16 @@ export class PxbCreateAccountComponent {
             });
     }
 
+    clearAccountDetailsInfo(): void {
+        for (const formControl of this.accountDetails) {
+            formControl.reset();
+        }
+    }
+
     registerAccount(): void {
         this._pxbSecurityService.setLoading(true);
         this._pxbRegisterService
-            .completeRegistration(
-                this.firstName,
-                this.lastName,
-                this.phoneNumber,
-                this.password,
-                this.verificationCode,
-                this.email
-            )
+            .completeRegistration(this.accountDetails, this.password, this.verificationCode, this.email)
             .then(() => {
                 this._pxbSecurityService.setLoading(false);
                 this._pxbSecurityService.updateSecurityState({ email: this.email });
@@ -97,7 +103,7 @@ export class PxbCreateAccountComponent {
             case 3:
                 return this.passwordMeetsRequirements;
             case 4:
-                return this.validAccountDetails;
+                return this.hasValidAccountDetails;
             default:
                 return;
         }
@@ -111,6 +117,8 @@ export class PxbCreateAccountComponent {
         switch (this.currentPageId) {
             case 2:
                 return this.validateVerificationCode();
+            case 3:
+                return this.skipAccountDetails() ? this.registerAccount() : this.currentPageId++;
             case 4:
                 return this.registerAccount();
             default:
@@ -118,7 +126,27 @@ export class PxbCreateAccountComponent {
         }
     }
 
+    skipAccountDetails(): boolean {
+        return !this.useDefaultAccountDetails && this.accountDetails.length === 0;
+    }
+
+    getNumberOfSteps(): number {
+        return this.skipAccountDetails() ? 5 : 6;
+    }
+
     navigateToLogin(): void {
+        this.clearAccountDetailsInfo();
         void this._router.navigate([`${AUTH_ROUTES.AUTH_WORKFLOW}/${AUTH_ROUTES.LOGIN}`]);
+    }
+
+    showStepper(): boolean {
+        return this.currentPageId <= (this.skipAccountDetails() ? 3 : 4);
+    }
+
+    getUserName(): string {
+        if (this.useDefaultAccountDetails) {
+            return `${this.accountDetails[0].value} ${this.accountDetails[1].value}`;
+        }
+        return this.userName;
     }
 }

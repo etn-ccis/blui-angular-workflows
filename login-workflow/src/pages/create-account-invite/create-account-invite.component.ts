@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AUTH_ROUTES } from '../../auth/auth.routes';
@@ -7,6 +7,7 @@ import { PxbRegisterUIService } from '../../services/api/register-ui.service';
 import { PxbAuthSecurityService, SecurityContext } from '../../services/state/auth-security.service';
 import { PxbCreateAccountInviteErrorDialogService } from '../../services/dialog/create-account-invite-error-dialog.service';
 import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
     selector: 'pxb-create-account-invite',
@@ -14,6 +15,11 @@ import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
     styleUrls: ['./create-account-invite.component.scss'],
 })
 export class PxbCreateAccountInviteComponent implements OnInit {
+    @Input() userName: string;
+    @Input() accountDetails: FormControl[] = [];
+    @Input() hasValidAccountDetails = false;
+    @Input() useDefaultAccountDetails;
+
     currentPageId = 0;
     isLoading: boolean;
     isValidRegistrationLink: boolean;
@@ -24,12 +30,6 @@ export class PxbCreateAccountInviteComponent implements OnInit {
     // Create Password Page
     password: string;
     passwordMeetsRequirements: boolean;
-
-    // Account Details Page
-    firstName: string;
-    lastName: string;
-    phoneNumber: string;
-    validAccountDetails: boolean;
 
     constructor(
         private readonly _router: Router,
@@ -45,6 +45,10 @@ export class PxbCreateAccountInviteComponent implements OnInit {
 
     ngOnInit(): void {
         this.validateRegistrationLink();
+        // Unless the user has specified otherwise, use the defaultAccountDetails if there are no custom forms provided.
+        if (this.useDefaultAccountDetails === undefined) {
+            this.useDefaultAccountDetails = this.accountDetails.length === 0;
+        }
     }
 
     validateRegistrationLink(): void {
@@ -66,7 +70,7 @@ export class PxbCreateAccountInviteComponent implements OnInit {
     registerAccount(): void {
         this._pxbSecurityService.setLoading(true);
         this._pxbRegisterService
-            .completeRegistration(this.firstName, this.lastName, this.phoneNumber, this.password)
+            .completeRegistration(this.accountDetails, this.password)
             .then(() => {
                 this._pxbSecurityService.setLoading(false);
                 this.currentPageId++;
@@ -77,6 +81,12 @@ export class PxbCreateAccountInviteComponent implements OnInit {
             });
     }
 
+    clearAccountDetailsInfo(): void {
+        for (const formControl of this.accountDetails) {
+            formControl.reset();
+        }
+    }
+
     canContinue(): boolean {
         switch (this.currentPageId) {
             case 0:
@@ -84,7 +94,7 @@ export class PxbCreateAccountInviteComponent implements OnInit {
             case 1:
                 return this.passwordMeetsRequirements;
             case 2:
-                return this.validAccountDetails;
+                return this.hasValidAccountDetails;
             default:
                 return;
         }
@@ -99,10 +109,33 @@ export class PxbCreateAccountInviteComponent implements OnInit {
     }
 
     goNext(): void {
+        if (this.currentPageId === 1 && this.skipAccountDetails()) {
+            return this.registerAccount();
+        }
         this.currentPageId === 2 ? this.registerAccount() : this.currentPageId++;
     }
 
+    skipAccountDetails(): boolean {
+        return !this.useDefaultAccountDetails && this.accountDetails.length === 0;
+    }
+
+    getNumberOfSteps(): number {
+        return this.skipAccountDetails() ? 3 : 4;
+    }
+
     navigateToLogin(): void {
+        this.clearAccountDetailsInfo();
         void this._router.navigate([`${AUTH_ROUTES.AUTH_WORKFLOW}/${AUTH_ROUTES.LOGIN}`]);
+    }
+
+    showStepper(): boolean {
+        return this.currentPageId <= (this.skipAccountDetails() ? 1 : 2);
+    }
+
+    getUserName(): string {
+        if (this.useDefaultAccountDetails) {
+            return `${this.accountDetails[0].value} ${this.accountDetails[1].value}`;
+        }
+        return this.userName;
     }
 }

@@ -22,6 +22,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { LoginErrorDialogComponent } from './dialog/login-error-dialog.component';
 import { RegisterUIService } from './services/register-ui.service';
 import { LoginErrorDialogService } from './dialog/login-error-dialog.service';
+import { MatSelect, MatSelectModule } from '@angular/material/select';
 
 @NgModule({
     declarations: [AppComponent, HomeComponent, AuthComponent, DashboardComponent, LoginErrorDialogComponent],
@@ -34,6 +35,7 @@ import { LoginErrorDialogService } from './dialog/login-error-dialog.service';
         ReactiveFormsModule,
         FormsModule,
         PxbAuthModule,
+        MatSelectModule,
         AppRoutingModule,
         MatButtonModule,
         MatDialogModule,
