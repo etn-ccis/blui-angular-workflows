@@ -94,7 +94,7 @@ export class PxbResetPasswordComponent implements OnInit {
 
     verifyResetCode(): void {
         this._pxbSecurityService.setLoading(true);
-        this._pxbAuthUIService
+        void this._pxbAuthUIService
             .verifyResetCode()
             .then(() => {
                 this.isValidResetCode = true;
