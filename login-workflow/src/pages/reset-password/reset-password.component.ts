@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PxbAuthSecurityService, SecurityContext } from '../../services/state/auth-security.service';
@@ -11,6 +11,7 @@ import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
 import { PxbFormsService } from '../../services/forms/forms.service';
 import { CrossFieldErrorMatcher } from '../../util/matcher';
 import { makeEverythingUnique } from '../../util/filters';
+import { isEmptyView } from '../../util/view-utils';
 
 @Component({
     selector: 'pxb-reset-password',
@@ -19,6 +20,18 @@ import { makeEverythingUnique } from '../../util/filters';
 })
 export class PxbResetPasswordComponent implements OnInit {
     @ViewChild('pxbConfirm') confirmInputElement: ElementRef;
+
+    @ViewChild('pageTitleVC') pageTitleEl: ElementRef;
+    @ViewChild('pageDescriptionVC', { static: false }) pageDescriptionEl: ElementRef;
+    @ViewChild('resetCodeErrorTitleVC') resetCodeErrorTitleEl: ElementRef;
+    @ViewChild('resetCodeErrorDescriptionVC') resetCodeErrorDescriptionEl: ElementRef;
+    @ViewChild('resetSuccessTitleVC') resetSuccessTitleEl: ElementRef;
+    @ViewChild('resetSuccessDescriptionVC') resetSuccessDescriptionEl: ElementRef;
+    @ViewChild('backButtonTextVC') backButtonTextEl: ElementRef;
+    @ViewChild('okayButtonTextVC') okayButtonTextEl: ElementRef;
+    @ViewChild('doneButtonTextVC') doneButtonTextEl: ElementRef;
+
+    showResetCodeErrorDescription: boolean;
 
     @Input() pageTitle = 'Reset Password';
     @Input() pageDescription =
@@ -34,6 +47,8 @@ export class PxbResetPasswordComponent implements OnInit {
     @Input() backButtonText = 'Back';
     @Input() okayButtonText = 'Okay';
     @Input() doneButtonText = 'Done';
+
+    isEmpty = (el: ElementRef): boolean => isEmptyView(el);
 
     isValidResetCode = false;
     passwordResetSuccess = false;
@@ -52,7 +67,8 @@ export class PxbResetPasswordComponent implements OnInit {
         private readonly _pxbSecurityService: PxbAuthSecurityService,
         private readonly _formBuilder: FormBuilder,
         private readonly _pxbErrorDialogService: PxbResetPasswordErrorDialogService,
-        public pxbFormsService: PxbFormsService
+        public pxbFormsService: PxbFormsService,
+        private readonly _changeDetectorRef: ChangeDetectorRef
     ) {
         this._pxbSecurityService.securityStateChanges().subscribe((state: SecurityContext) => {
             this.isLoading = state.isLoading;
@@ -85,7 +101,10 @@ export class PxbResetPasswordComponent implements OnInit {
             .catch(() => {
                 this.isValidResetCode = false;
                 this._pxbSecurityService.setLoading(false);
-            });
+            })
+            .then(() => {
+                this._changeDetectorRef.detectChanges();
+            })
     }
 
     toggleNewPasswordVisibility(): void {

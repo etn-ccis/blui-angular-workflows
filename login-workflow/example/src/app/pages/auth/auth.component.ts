@@ -17,6 +17,14 @@ import { PxbAuthConfig, AUTH_ROUTES } from '@pxblue/angular-auth-workflow';
             </pxb-login>
         </ng-template>
 
+
+        <!-- Custom reset password page -->
+        <ng-template #resetPasswordPage>
+          <pxb-reset-password>
+            <div pxb-reset-code-error-description>You can't change your password.</div>
+          </pxb-reset-password>
+        </ng-template>
+
         <!-- Custom Create Account page -->
         <ng-template #createAccountPage>
             <pxb-create-account
@@ -77,6 +85,7 @@ import { PxbAuthConfig, AUTH_ROUTES } from '@pxblue/angular-auth-workflow';
         <!-- This is what accepts all page customizations and renders on screen. !-->
         <pxb-auth
             [loginRef]="loginPage"
+            [resetPasswordRef]="resetPasswordPage"
             [createAccountRef]="createAccountPage"
             [createAccountInviteRef]="createAccountViaInvitePage"
         >
