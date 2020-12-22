@@ -13,7 +13,7 @@ import { isEmptyView } from '../../util/view-utils';
     },
 })
 export class PxbContactSupportComponent {
-    @Input() title = 'Contact Us';
+    @Input() pageTitle = 'Contact Us';
     @Input() buttonText = 'Okay';
     @Input() generalSupportTitle = 'General Questions';
     @Input() generalSupportDescription: string;

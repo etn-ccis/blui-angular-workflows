@@ -453,7 +453,7 @@ The Contact Support page contains information for users who need help accessing/
 
 | @Input                        | Description                                                                 | Type                 | ng-content                            |
 | ----------------------------- | --------------------------------------------------------------------------- | -------------------- | ------------------------------------- |     
-| title                         | Page title                                                                  | `string `            | `pxb-title`                           |
+| pageTitle                     | Page title                                                                  | `string `            | `pxb-page-title`                      |
 | generalSupportTitle           | General support section title                                               | `string `            | `pxb-general-support-title`           |
 | generalSupportDescription     | General support section description                                         | `string`             | `pxb-general-support-description`     | 
 | emergencySupportTitle         | Emergency support section title                                             | `string`             | `pxb-emergency-support-title`         | 
@@ -462,6 +462,27 @@ The Contact Support page contains information for users who need help accessing/
 
 </div>
 
+## Reset Password
+The Reset Password page is normally access via email and contains forms used to change a user's password.
+    
+<div style="overflow: auto;">
+
+| @Input                             | Description                                                                 | Type                | ng-content                                 |
+| ---------------------------------- | --------------------------------------------------------------------------- | ------------------- | ------------------------------------------ |   
+| backButtonText                     | Back button text                                                            | `string`            | `pxb-back-button-text`                     |
+| confirmPasswordFormLabel           | Confirm password form title                                                 | `string`            |                                            |  
+| doneButtonText                     | Done button text                                                            | `string`            | `pxb-done-button-text`                     |
+| okayButtonText                     | Okay button text                                                            | `string`            | `pxb-okay-button-text`                     |  
+| pageDescription                    | Password reset instructions                                                 | `string`            | `pxb-page-description`                     |
+| pageTitle                          | Page title                                                                  | `string`            | `pxb-page-title`                           |
+| passwordFormLabel                  | Password form title                                                         | `string`            |                                            |
+| passwordMismatchError              | Error seen when passwords do not match                                      | `string`            |                                            |
+| resetCodeErrorTitle                | Error state title seen when link validation invalid                         | `string`            | `pxb-reset-code-error-title`               |
+| resetCodeErrorDescription          | Error state description seen when link validation is invalid                | `string`            | `pxb-reset-code-error-description`         |
+| resetSuccessTitle                  | Success state title when password reset is successful                       | `string`            | `pxb-reset-success-title`                  |
+| resetSuccessDescription            | Success state description when password reset is successful                 | `string`            | `pxb-reset-success-description`            |
+
+</div>
 
 # Contributors
 

@@ -19,9 +19,22 @@ import { makeEverythingUnique } from '../../util/filters';
 })
 export class PxbResetPasswordComponent implements OnInit {
     @ViewChild('pxbConfirm') confirmInputElement: ElementRef;
-    @Input() successTitle = 'Your password was successfully reset.';
-    @Input() successDescription =
+
+    @Input() pageTitle = 'Reset Password';
+    @Input() pageDescription =
+        'Please select a password. Make sure that your password meets the necessary complexity requirements outlined below.';
+    @Input() resetCodeErrorTitle = 'Error';
+    @Input() resetCodeErrorDescription = 'There was an error validating your reset code.';
+    @Input() passwordFormLabel = 'Password';
+    @Input() confirmPasswordFormLabel = 'Confirm Password';
+    @Input() passwordMismatchError = 'Passwords do not match';
+    @Input() resetSuccessTitle = 'Your password was successfully reset.';
+    @Input() resetSuccessDescription =
         "Your password was successfully updated! To ensure your account's security, you will need to log in to the application with your updated credentials.";
+    @Input() backButtonText = 'Back';
+    @Input() okayButtonText = 'Okay';
+    @Input() doneButtonText = 'Done';
+
     isValidResetCode = false;
     passwordResetSuccess = false;
     passwordFormGroup: FormGroup;
