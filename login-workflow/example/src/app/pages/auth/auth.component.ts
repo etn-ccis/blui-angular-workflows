@@ -21,7 +21,8 @@ import { PxbAuthConfig, AUTH_ROUTES } from '@pxblue/angular-auth-workflow';
         <!-- Custom reset password page -->
         <ng-template #resetPasswordPage>
           <pxb-reset-password>
-            <div pxb-reset-code-error-description>You can't change your password.</div>
+            <div pxb-reset-success-title>Good Job</div>
+            <div pxb-reset-success-description>You changedy our password</div>
           </pxb-reset-password>
         </ng-template>
 

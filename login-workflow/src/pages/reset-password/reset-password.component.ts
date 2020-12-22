@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PxbAuthSecurityService, SecurityContext } from '../../services/state/auth-security.service';
@@ -30,8 +30,6 @@ export class PxbResetPasswordComponent implements OnInit {
     @ViewChild('backButtonTextVC') backButtonTextEl: ElementRef;
     @ViewChild('okayButtonTextVC') okayButtonTextEl: ElementRef;
     @ViewChild('doneButtonTextVC') doneButtonTextEl: ElementRef;
-
-    showResetCodeErrorDescription: boolean;
 
     @Input() pageTitle = 'Reset Password';
     @Input() pageDescription =
@@ -90,6 +88,10 @@ export class PxbResetPasswordComponent implements OnInit {
         this.passwordRequirements = makeEverythingUnique(this._pxbAuthConfig.passwordRequirements, 'description');
     }
 
+    ngAfterViewInit(): void {
+        this._changeDetectorRef.detectChanges();
+    }
+
     verifyResetCode(): void {
         this._pxbSecurityService.setLoading(true);
         this._pxbAuthUIService
@@ -104,7 +106,7 @@ export class PxbResetPasswordComponent implements OnInit {
             })
             .then(() => {
                 this._changeDetectorRef.detectChanges();
-            })
+            });
     }
 
     toggleNewPasswordVisibility(): void {
@@ -152,6 +154,9 @@ export class PxbResetPasswordComponent implements OnInit {
             .catch((data: ErrorDialogData) => {
                 this._pxbSecurityService.setLoading(false);
                 this._pxbErrorDialogService.openDialog(data);
+            })
+            .then(() => {
+                this._changeDetectorRef.detectChanges();
             });
     }
 }
