@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -23,9 +23,6 @@ import { makeEverythingUnique } from '../../util/filters';
     },
 })
 export class PxbChangePasswordComponent {
-    @Input() successTitle = 'Password Changed';
-    @Input() successDescription =
-        "Your password was successfully updated! To ensure your account's security, you will need to log in to the application with your updated credentials.";
     @ViewChild('pxbPassword') passwordInputElement: ElementRef;
     @ViewChild('pxbConfirm') confirmInputElement: ElementRef;
 
@@ -50,7 +47,7 @@ export class PxbChangePasswordComponent {
         private readonly _pxbAuthConfig: PxbAuthConfig,
         private readonly _pxbAuthUIService: PxbAuthUIService,
         private readonly _pxbSecurityService: PxbAuthSecurityService,
-        private readonly _pxbChangePasswordDialogService: PxbChangePasswordDialogService,
+        public pxbChangePasswordDialogService: PxbChangePasswordDialogService,
         private readonly _pxbChangePasswordErrorDialogService: PxbChangePasswordErrorDialogService,
         public pxbFormsService: PxbFormsService
     ) {
@@ -80,7 +77,7 @@ export class PxbChangePasswordComponent {
     }
 
     closeDialog(): void {
-        this._pxbChangePasswordDialogService.closeDialog();
+        this.pxbChangePasswordDialogService.closeDialog();
     }
 
     done(): void {
