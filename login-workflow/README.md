@@ -155,6 +155,7 @@ import { PxbChangePasswordDialogService } from '@pxblue/angular-auth-workflow';
 constructor(public readonly _pxbChangePasswordService: PxbChangePasswordDialogService) {}
 
 openDialog() {
+    this._pxbChangePasswordService.title = 'Change Password';
     this._pxbChangePasswordService.openDialog();
 }
 ```
@@ -445,7 +446,6 @@ The following child element is projected into `<pxb-create-account>` and `<pxb-c
 ## Create Account via Invite
 The Create Account via Invite page is used for self-registration via an email link.  This page currently has the same API as the Create Account page above. 
 
-
 ## Contact Support
 The Contact Support page contains information for users who need help accessing/using the application.  
 
@@ -462,6 +462,37 @@ The Contact Support page contains information for users who need help accessing/
 
 </div>
 
+## Change Password
+The Change Password dialog allows authenticated users to change their password. Since this is a dialog, the `PxbChangePasswordDialogService` is used for text customizations. 
+
+### Usage 
+
+```
+import { PxbChangePasswordDialogService } from '@pxblue/angular-auth-workflow';
+
+constructor(pxbChangePasswordService: PxbChangePasswordDialogService) {
+    pxbChangePasswordService.pageTitle = 'Custom Change Password Title';
+}
+```
+
+### API 
+<div style="overflow: auto;">
+
+| Prop Name                          | Description                                                                 | Type                | 
+| ---------------------------------- | --------------------------------------------------------------------------- | ------------------- | 
+| backButtonText                     | Back button text                                                            | `string`            | 
+| confirmPasswordFormLabel           | Input field title for confirming new password                               | `string`            | 
+| currentPasswordFormLabel           | Input field title for current password                                      | `string`            | 
+| loginButtonText                    | Login button text                                                           | `string`            | 
+| okayButtonText                     | Okay button text                                                            | `string`            | 
+| pageDescription                    | Change password instructions                                                | `string`            | 
+| pageTitle                          | Dialog title                                                                | `string`            | 
+| passwordChangeSuccessDescription   | Success state description when password is changed                          | `string`            | 
+| passwordChangeSuccessTitle         | Success state title when password is changed                                | `string`            | 
+| passwordFormLabel                  | Input field title for new password                                          | `string`            | 
+| passwordMismatchError              | Error shown when new password and confirm password does not match           | `string`            | 
+
+</div>
 
 # Contributors
 
