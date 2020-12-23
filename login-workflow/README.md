@@ -451,13 +451,13 @@ The Contact Support page contains information for users who need help accessing/
 <div style="overflow: auto;">
 
 | @Input                        | Description                                                                 | Type                 | ng-content                            |
-| ----------------------------- | --------------------------------------------------------------------------- | -------------------- | ------------------------------------- |     
-| pageTitle                     | Page title                                                                  | `string `            | `pxb-page-title`                      |
-| generalSupportTitle           | General support section title                                               | `string `            | `pxb-general-support-title`           |
-| generalSupportDescription     | General support section description                                         | `string`             | `pxb-general-support-description`     | 
-| emergencySupportTitle         | Emergency support section title                                             | `string`             | `pxb-emergency-support-title`         | 
+| ----------------------------- | --------------------------------------------------------------------------- | -------------------- | ------------------------------------- |  
 | emergencySupportDescription   | Emergency support section description                                       | `string`             | `pxb-emergency-support-description`   | 
-| buttonText                    | Text that appears in the button at the bottom of the page                   | `string`             | `pxb-button-text`                     | 
+| emergencySupportTitle         | Emergency support section title                                             | `string`             | `pxb-emergency-support-title`         |  
+| generalSupportDescription     | General support section description                                         | `string`             | `pxb-general-support-description`     |   
+| generalSupportTitle           | General support section title                                               | `string `            | `pxb-general-support-title`           |
+| okayButtonText                | Text that appears in the button at the bottom of the page                   | `string`             | `pxb-okay-button-text`                | 
+| pageTitle                     | Page title                                                                  | `string `            | `pxb-page-title`                      |
 
 </div>
 

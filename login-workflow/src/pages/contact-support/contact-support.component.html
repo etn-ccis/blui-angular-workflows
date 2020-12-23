@@ -32,7 +32,7 @@
 
 <div class="pxb-auth-action-button-container">
     <button mat-flat-button color="primary" (click)="navigateToLogin()" [style.width.%]="100">
-        {{ buttonText }}
-        <ng-content *ngIf="!buttonText" select="[pxb-button-text]"></ng-content>
+        {{ okayButtonText }}
+        <ng-content *ngIf="!okayButtonText" select="[pxb-okay-button-text]"></ng-content>
     </button>
 </div>
