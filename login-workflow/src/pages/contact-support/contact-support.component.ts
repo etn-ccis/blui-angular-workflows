@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AUTH_ROUTES } from '../../auth/auth.routes';
 import { PxbAuthConfig } from '../../services/config/auth-config';
@@ -12,10 +12,7 @@ import { isEmptyView } from '../../util/view-utils';
         class: 'pxb-contact-support',
     },
 })
-export class PxbContactSupportComponent {
-
-
-
+export class PxbContactSupportComponent implements OnInit, AfterViewInit {
     @Input() pageTitle = 'Contact Us';
     @Input() okayButtonText = 'Okay';
     @Input() generalSupportTitle = 'General Questions';
@@ -24,10 +21,19 @@ export class PxbContactSupportComponent {
     @Input() emergencySupportDescription: string;
 
     @ViewChild('icon') iconEl: ElementRef;
-
+    @ViewChild('pageTitleVC') pageTitleEl;
+    @ViewChild('okayButtonTextVC') okayButtonTextEl;
+    @ViewChild('generalSupportTitleVC') generalSupportTitleEl;
+    @ViewChild('generalSupportDescriptionVC') generalSupportDescriptionEl;
+    @ViewChild('emergencySupportTitleVC') emergencySupportTitleEl;
+    @ViewChild('emergencySupportDescriptionVC') emergencySupportDescriptionEl;
     isEmpty = (el: ElementRef): boolean => isEmptyView(el);
 
-    constructor(private readonly _router: Router, public authConfig: PxbAuthConfig) {}
+    constructor(
+        public authConfig: PxbAuthConfig,
+        private readonly _router: Router,
+        private readonly _changeDetectorRef: ChangeDetectorRef
+    ) {}
 
     ngOnInit(): void {
         if (this.generalSupportDescription === undefined) {
@@ -47,6 +53,10 @@ export class PxbContactSupportComponent {
                 </a>.
             `;
         }
+    }
+
+    ngAfterViewInit(): void {
+        this._changeDetectorRef.detectChanges();
     }
 
     navigateToLogin(): void {

@@ -19,18 +19,6 @@ import { isEmptyView } from '../../util/view-utils';
     styleUrls: ['./reset-password.component.scss'],
 })
 export class PxbResetPasswordComponent implements OnInit {
-    @ViewChild('pxbConfirm') confirmInputElement: ElementRef;
-
-    @ViewChild('pageTitleVC') pageTitleEl: ElementRef;
-    @ViewChild('pageDescriptionVC', { static: false }) pageDescriptionEl: ElementRef;
-    @ViewChild('resetCodeErrorTitleVC') resetCodeErrorTitleEl: ElementRef;
-    @ViewChild('resetCodeErrorDescriptionVC') resetCodeErrorDescriptionEl: ElementRef;
-    @ViewChild('resetSuccessTitleVC') resetSuccessTitleEl: ElementRef;
-    @ViewChild('resetSuccessDescriptionVC') resetSuccessDescriptionEl: ElementRef;
-    @ViewChild('backButtonTextVC') backButtonTextEl: ElementRef;
-    @ViewChild('okayButtonTextVC') okayButtonTextEl: ElementRef;
-    @ViewChild('doneButtonTextVC') doneButtonTextEl: ElementRef;
-
     @Input() pageTitle = 'Reset Password';
     @Input() pageDescription =
         'Please select a password. Make sure that your password meets the necessary complexity requirements outlined below.';
@@ -46,7 +34,16 @@ export class PxbResetPasswordComponent implements OnInit {
     @Input() okayButtonText = 'Okay';
     @Input() doneButtonText = 'Done';
 
-    isEmpty = (el: ElementRef): boolean => isEmptyView(el);
+    @ViewChild('pxbConfirm') confirmInputElement: ElementRef;
+    @ViewChild('pageTitleVC') pageTitleEl: ElementRef;
+    @ViewChild('pageDescriptionVC', { static: false }) pageDescriptionEl: ElementRef;
+    @ViewChild('resetCodeErrorTitleVC') resetCodeErrorTitleEl: ElementRef;
+    @ViewChild('resetCodeErrorDescriptionVC') resetCodeErrorDescriptionEl: ElementRef;
+    @ViewChild('resetSuccessTitleVC') resetSuccessTitleEl: ElementRef;
+    @ViewChild('resetSuccessDescriptionVC') resetSuccessDescriptionEl: ElementRef;
+    @ViewChild('backButtonTextVC') backButtonTextEl: ElementRef;
+    @ViewChild('okayButtonTextVC') okayButtonTextEl: ElementRef;
+    @ViewChild('doneButtonTextVC') doneButtonTextEl: ElementRef;
 
     isValidResetCode = false;
     passwordResetSuccess = false;
@@ -57,6 +54,7 @@ export class PxbResetPasswordComponent implements OnInit {
     isLoading = true;
     passesStrengthCheck = false;
     passwordRequirements: PasswordRequirement[];
+    isEmpty = (el: ElementRef): boolean => isEmptyView(el);
 
     constructor(
         private readonly _pxbAuthConfig: PxbAuthConfig,
