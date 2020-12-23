@@ -155,6 +155,7 @@ import { PxbChangePasswordDialogService } from '@pxblue/angular-auth-workflow';
 constructor(public readonly _pxbChangePasswordService: PxbChangePasswordDialogService) {}
 
 openDialog() {
+    this._pxbChangePasswordService.title = 'Change Password';
     this._pxbChangePasswordService.openDialog();
 }
 ```
@@ -445,9 +446,36 @@ The following child element is projected into `<pxb-create-account>` and `<pxb-c
 ## Create Account via Invite
 The Create Account via Invite page is used for self-registration via an email link.  This page currently has the same API as the Create Account page above. 
 
+## Contact Support
+The Contact Support page contains information for users who need help accessing/using the application.  
+
+<div style="overflow: auto;">
+
+| @Input                        | Description                                                                 | Type                 | ng-content                            |
+| ----------------------------- | --------------------------------------------------------------------------- | -------------------- | ------------------------------------- |     
+| title                         | Page title                                                                  | `string `            | `pxb-title`                           |
+| generalSupportTitle           | General support section title                                               | `string `            | `pxb-general-support-title`           |
+| generalSupportDescription     | General support section description                                         | `string`             | `pxb-general-support-description`     | 
+| emergencySupportTitle         | Emergency support section title                                             | `string`             | `pxb-emergency-support-title`         | 
+| emergencySupportDescription   | Emergency support section description                                       | `string`             | `pxb-emergency-support-description`   | 
+| buttonText                    | Text that appears in the button at the bottom of the page                   | `string`             | `pxb-button-text`                     | 
+
+</div>
+
 ## Change Password
 The Change Password dialog allows authenticated users to change their password. Since this is a dialog, the `PxbChangePasswordDialogService` is used for text customizations. 
 
+### Usage 
+
+```
+import { PxbChangePasswordDialogService } from '@pxblue/angular-auth-workflow';
+
+constructor(pxbChangePasswordService: PxbChangePasswordDialogService) {
+    pxbChangePasswordService.pageTitle = 'Custom Change Password Title';
+}
+```
+
+### API 
 <div style="overflow: auto;">
 
 | Prop Name                          | Description                                                                 | Type                | 
@@ -465,23 +493,6 @@ The Change Password dialog allows authenticated users to change their password. 
 | passwordMismatchError              | Error shown when new password and confirm password does not match           | `string`            | 
 
 </div>
-
-## Contact Support
-The Contact Support page contains information for users who need help accessing/using the application.  
-
-<div style="overflow: auto;">
-
-| @Input                        | Description                                                                 | Type                 | ng-content                            |
-| ----------------------------- | --------------------------------------------------------------------------- | -------------------- | ------------------------------------- |     
-| title                         | Page title                                                                  | `string `            | `pxb-title`                           |
-| generalSupportTitle           | General support section title                                               | `string `            | `pxb-general-support-title`           |
-| generalSupportDescription     | General support section description                                         | `string`             | `pxb-general-support-description`     | 
-| emergencySupportTitle         | Emergency support section title                                             | `string`             | `pxb-emergency-support-title`         | 
-| emergencySupportDescription   | Emergency support section description                                       | `string`             | `pxb-emergency-support-description`   | 
-| buttonText                    | Text that appears in the button at the bottom of the page                   | `string`             | `pxb-button-text`                     | 
-
-</div>
-
 
 # Contributors
 
