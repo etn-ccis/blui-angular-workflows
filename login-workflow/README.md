@@ -155,7 +155,6 @@ import { PxbChangePasswordDialogService } from '@pxblue/angular-auth-workflow';
 constructor(public readonly _pxbChangePasswordService: PxbChangePasswordDialogService) {}
 
 openDialog() {
-    this._pxbChangePasswordService.title = 'Change Password';
     this._pxbChangePasswordService.openDialog();
 }
 ```
@@ -452,13 +451,13 @@ The Contact Support page contains information for users who need help accessing/
 <div style="overflow: auto;">
 
 | @Input                        | Description                                                                 | Type                 | ng-content                            |
-| ----------------------------- | --------------------------------------------------------------------------- | -------------------- | ------------------------------------- |     
-| title                         | Page title                                                                  | `string `            | `pxb-title`                           |
-| generalSupportTitle           | General support section title                                               | `string `            | `pxb-general-support-title`           |
-| generalSupportDescription     | General support section description                                         | `string`             | `pxb-general-support-description`     | 
-| emergencySupportTitle         | Emergency support section title                                             | `string`             | `pxb-emergency-support-title`         | 
+| ----------------------------- | --------------------------------------------------------------------------- | -------------------- | ------------------------------------- |  
 | emergencySupportDescription   | Emergency support section description                                       | `string`             | `pxb-emergency-support-description`   | 
-| buttonText                    | Text that appears in the button at the bottom of the page                   | `string`             | `pxb-button-text`                     | 
+| emergencySupportTitle         | Emergency support section title                                             | `string`             | `pxb-emergency-support-title`         |  
+| generalSupportDescription     | General support section description                                         | `string`             | `pxb-general-support-description`     |   
+| generalSupportTitle           | General support section title                                               | `string `            | `pxb-general-support-title`           |
+| okayButtonText                | Text that appears in the button at the bottom of the page                   | `string`             | `pxb-okay-button-text`                | 
+| pageTitle                     | Page title                                                                  | `string `            | `pxb-page-title`                      |
 
 </div>
 
@@ -491,6 +490,27 @@ constructor(pxbChangePasswordService: PxbChangePasswordDialogService) {
 | passwordChangeSuccessTitle         | Success state title when password is changed                                | `string`            | 
 | passwordFormLabel                  | Input field title for new password                                          | `string`            | 
 | passwordMismatchError              | Error shown when new password and confirm password does not match           | `string`            | 
+
+</div>
+## Reset Password
+The Reset Password page is normally access via email and contains forms used to change a user's password.
+    
+<div style="overflow: auto;">
+
+| @Input                             | Description                                                                 | Type                | ng-content                                 |
+| ---------------------------------- | --------------------------------------------------------------------------- | ------------------- | ------------------------------------------ |   
+| backButtonText                     | Back button text                                                            | `string`            | `pxb-back-button-text`                     |
+| confirmPasswordFormLabel           | Confirm password form title                                                 | `string`            |                                            |  
+| doneButtonText                     | Done button text                                                            | `string`            | `pxb-done-button-text`                     |
+| okayButtonText                     | Okay button text                                                            | `string`            | `pxb-okay-button-text`                     |  
+| pageDescription                    | Password reset instructions                                                 | `string`            | `pxb-page-description`                     |
+| pageTitle                          | Page title                                                                  | `string`            | `pxb-page-title`                           |
+| passwordFormLabel                  | Password form title                                                         | `string`            |                                            |
+| passwordMismatchError              | Error seen when passwords do not match                                      | `string`            |                                            |
+| resetCodeErrorTitle                | Error state title seen when link validation invalid                         | `string`            | `pxb-reset-code-error-title`               |
+| resetCodeErrorDescription          | Error state description seen when link validation is invalid                | `string`            | `pxb-reset-code-error-description`         |
+| resetSuccessTitle                  | Success state title when password reset is successful                       | `string`            | `pxb-reset-success-title`                  |
+| resetSuccessDescription            | Success state description when password reset is successful                 | `string`            | `pxb-reset-success-description`            |
 
 </div>
 
