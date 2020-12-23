@@ -30,7 +30,7 @@ export class PxbContactSupportComponent implements OnInit, AfterViewInit {
     isEmpty = (el: ElementRef): boolean => isEmptyView(el);
 
     constructor(
-        public authConfig: PxbAuthConfig,
+        private readonly _pxbAuthConfig: PxbAuthConfig,
         private readonly _router: Router,
         private readonly _changeDetectorRef: ChangeDetectorRef
     ) {}
@@ -39,8 +39,8 @@ export class PxbContactSupportComponent implements OnInit, AfterViewInit {
         if (this.generalSupportDescription === undefined) {
             this.generalSupportDescription = `
                 For questions, feedback, or support please email us at
-                <a class="pxb-auth-link" href="mailto:${this.authConfig.contactEmail}">
-                    ${this.authConfig.contactEmail}
+                <a class="pxb-auth-link" href="mailto:${this._pxbAuthConfig.contactEmail}">
+                    ${this._pxbAuthConfig.contactEmail}
                 </a>.
             `;
         }
@@ -48,8 +48,8 @@ export class PxbContactSupportComponent implements OnInit, AfterViewInit {
         if (this.emergencySupportDescription === undefined) {
             this.emergencySupportDescription = `
                 For technical support, please call
-                <a class="pxb-auth-link" href="tel:${this.authConfig.contactPhone}">
-                  ${this.authConfig.contactPhone}
+                <a class="pxb-auth-link" href="tel:${this._pxbAuthConfig.contactPhone}">
+                  ${this._pxbAuthConfig.contactPhone}
                 </a>.
             `;
         }
