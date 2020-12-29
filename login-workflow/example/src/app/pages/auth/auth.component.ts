@@ -18,7 +18,7 @@ import { PxbAuthConfig, AUTH_ROUTES } from '@pxblue/angular-auth-workflow';
         </ng-template>
 
         <!-- Custom Create Account page -->
-        <ng-template #createAccountPage>
+        <!-- <ng-template #createAccountPage>
             <pxb-create-account
                 [accountDetails]="accountDetails"
                 [hasValidAccountDetails]="accountDetailsValid()"
@@ -26,10 +26,10 @@ import { PxbAuthConfig, AUTH_ROUTES } from '@pxblue/angular-auth-workflow';
             >
                 <template pxb-account-details-form [ngTemplateOutlet]="accountDetailsRef"></template>
             </pxb-create-account>
-        </ng-template>
+        </ng-template> -->
 
         <!-- Custom Create Account via Invite page -->
-        <ng-template #createAccountViaInvitePage>
+        <!-- <ng-template #createAccountViaInvitePage>
             <pxb-create-account-invite
                 [accountDetails]="accountDetails"
                 [hasValidAccountDetails]="accountDetailsValid()"
@@ -37,10 +37,10 @@ import { PxbAuthConfig, AUTH_ROUTES } from '@pxblue/angular-auth-workflow';
             >
                 <template pxb-account-details-form [ngTemplateOutlet]="accountDetailsRef"></template>
             </pxb-create-account-invite>
-        </ng-template>
+        </ng-template> -->
 
         <!-- This is an example of a custom account details form.  To enable the defaults, remove this template and the accountDetails[]. -->
-        <ng-template #accountDetailsRef>
+        <!-- <ng-template #accountDetailsRef>
             <form>
                 <mat-form-field appearance="fill" [style.width.%]="100" [style.marginBottom.px]="8">
                     <mat-label>First Name</mat-label>
@@ -72,14 +72,10 @@ import { PxbAuthConfig, AUTH_ROUTES } from '@pxblue/angular-auth-workflow';
                     <input matInput [formControl]="phoneNumberFormControl" />
                 </mat-form-field>
             </form>
-        </ng-template>
+        </ng-template> -->
 
         <!-- This is what accepts all page customizations and renders on screen. !-->
-        <pxb-auth
-            [loginRef]="loginPage"
-            [createAccountRef]="createAccountPage"
-            [createAccountInviteRef]="createAccountViaInvitePage"
-        >
+        <pxb-auth [loginRef]="loginPage">
         </pxb-auth>
     `,
 })
@@ -111,32 +107,32 @@ export class AuthComponent {
     }
 
     ngOnInit(): void {
-        this.initCreateAccountFormControls();
+        // this.initCreateAccountFormControls();
     }
 
-    initCreateAccountFormControls(): void {
-        this.firstNameFormControl = new FormControl('', Validators.required);
-        this.lastNameFormControl = new FormControl('', Validators.required);
-        this.countryFormControl = new FormControl('', Validators.required);
-        this.phoneNumberFormControl = new FormControl('');
-        this.accountDetails = [
-            this.firstNameFormControl,
-            this.lastNameFormControl,
-            this.countryFormControl,
-            this.phoneNumberFormControl,
-        ];
-    }
+    // initCreateAccountFormControls(): void {
+    //     this.firstNameFormControl = new FormControl('', Validators.required);
+    //     this.lastNameFormControl = new FormControl('', Validators.required);
+    //     this.countryFormControl = new FormControl('', Validators.required);
+    //     this.phoneNumberFormControl = new FormControl('');
+    //     this.accountDetails = [
+    //         this.firstNameFormControl,
+    //         this.lastNameFormControl,
+    //         this.countryFormControl,
+    //         this.phoneNumberFormControl,
+    //     ];
+    // }
 
-    accountDetailsValid(): boolean {
-        return (
-            this.firstNameFormControl.value &&
-            this.firstNameFormControl.valid &&
-            this.lastNameFormControl.value &&
-            this.lastNameFormControl.valid &&
-            this.countryFormControl.value &&
-            this.countryFormControl.valid
-        );
-    }
+    // accountDetailsValid(): boolean {
+    //     return (
+    //         this.firstNameFormControl.value &&
+    //         this.firstNameFormControl.valid &&
+    //         this.lastNameFormControl.value &&
+    //         this.lastNameFormControl.valid &&
+    //         this.countryFormControl.value &&
+    //         this.countryFormControl.valid
+    //     );
+    // }
 
     customValidator(): ValidatorFn {
         return (control: AbstractControl): { [key: string]: any } | null => {

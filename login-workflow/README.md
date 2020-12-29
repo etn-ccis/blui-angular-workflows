@@ -426,6 +426,7 @@ The Create Account page is used for self-registration via a link on the Login Pa
 | @Input                    | Description                                                                 | Type                 | Required | Default                        |
 | ------------------------- | --------------------------------------------------------------------------- | -------------------- | -------- | ------------------------------ |
 | userName                  | Greeting used at the end of user self-registration                          | `string `            | no       | first and last name            |
+<!-- 
 | accountDetails            | Custom form controls used for self-registration                             | `FormControl[]`      | no       | []                             |
 | hasValidAccountDetails    | Used to enable progression when using providing custom account details      | `boolean`            | no       | `false`                        |
 | useDefaultAccountDetails  | Set to false to remove Account Details section from self-registration       | `boolean`            | no       | `accountDetails.length === 0`  |
@@ -440,7 +441,8 @@ The following child element is projected into `<pxb-create-account>` and `<pxb-c
 | --------------------------- | ------------------------------------------------ | -------- | 
 | pxb-account-details-form    | Custom form fields for capturing account details | no       |
 
-</div>
+</div> 
+-->
 
 ## Create Account via Invite
 The Create Account via Invite page is used for self-registration via an email link.  This page currently has the same API as the Create Account page above. 
