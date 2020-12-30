@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AUTH_ROUTES } from '../../auth/auth.routes';
@@ -8,7 +8,7 @@ import { PxbAuthSecurityService, SecurityContext } from '../../services/state/au
 import { PxbCreateAccountInviteErrorDialogService } from '../../services/dialog/create-account-invite-error-dialog.service';
 import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
 import { FormControl } from '@angular/forms';
-import {Subscription} from "rxjs";
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'pxb-create-account-invite',

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnInit, TemplateRef } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit, TemplateRef } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { PxbAuthConfig } from '../services/config/auth-config';
 import { matchesRoute } from '../util/matcher';
@@ -10,7 +10,7 @@ import { PxbLoginComponent } from '../pages/login/login.component';
 import { PxbForgotPasswordComponent } from '../pages/forgot-password/forgot-password.component';
 import { PxbContactSupportComponent } from '../pages/contact-support/contact-support.component';
 import { PxbResetPasswordComponent } from '../pages/reset-password/reset-password.component';
-import {Subject, Subscription} from "rxjs";
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'pxb-auth',
@@ -20,7 +20,7 @@ import {Subject, Subscription} from "rxjs";
         class: 'pxb-auth',
     },
 })
-export class PxbAuthComponent implements OnInit {
+export class PxbAuthComponent implements OnInit, OnDestroy {
     @Input() createAccountInviteRef: TemplateRef<PxbCreateAccountInviteComponent>;
     @Input() createAccountRef: TemplateRef<PxbCreateAccountComponent>;
     @Input() loginRef: TemplateRef<PxbLoginComponent>;
@@ -76,7 +76,8 @@ export class PxbAuthComponent implements OnInit {
 
     // This will listen for auth state loading changes and toggles the shared overlay loading screen.
     private _listenForAuthLoadingStateChanges(): void {
-        this.stateListener = this._pxbSecurityService.securityStateChanges()
+        this.stateListener = this._pxbSecurityService
+            .securityStateChanges()
             .subscribe((securityContext: SecurityContext) => {
                 this.isLoading = securityContext.isLoading;
                 this.loadingMessage = securityContext.loadingMessage;
