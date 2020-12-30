@@ -82,10 +82,9 @@ export class RegisterUIService implements IPxbRegisterUIService {
         }
         const firstName = formControls[0]?.value;
         const lastName = formControls[1]?.value;
-        const country = formControls[2]?.value;
-        const phoneNumber = formControls[3]?.value;
+        const phoneNumber = formControls[2]?.value;
         console.log(
-            `Performing a sample CompleteRegistration request with the following credentials:\n firstName: ${firstName}\n lastName: ${lastName}\n country: ${country}\n phoneNumber: ${phoneNumber}\n password: ${password}\n validationCode: ${validationCode}\n email: ${email}`
+            `Performing a sample CompleteRegistration request with the following credentials:\n firstName: ${firstName}\n lastName: ${lastName}\n phoneNumber: ${phoneNumber}\n password: ${password}\n validationCode: ${validationCode}\n email: ${email}`
         );
         return new Promise((resolve, reject) => {
             setTimeout(() => {
