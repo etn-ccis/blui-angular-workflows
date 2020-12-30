@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AUTH_ROUTES } from '../../auth/auth.routes';
@@ -8,13 +8,14 @@ import { PxbAuthSecurityService, SecurityContext } from '../../services/state/au
 import { PxbCreateAccountErrorDialogService } from '../../services/dialog/create-account-error-dialog.service';
 import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
 import { FormControl } from '@angular/forms';
+import {Subscription} from "rxjs";
 
 @Component({
     selector: 'pxb-create-account',
     templateUrl: './create-account.component.html',
     styleUrls: ['./create-account.component.scss'],
 })
-export class PxbCreateAccountComponent {
+export class PxbCreateAccountComponent implements OnInit, OnDestroy {
     @Input() userName: string;
     @Input() accountDetails: FormControl[] = [];
     @Input() hasValidAccountDetails = false;
@@ -38,6 +39,8 @@ export class PxbCreateAccountComponent {
     password: string;
     passwordMeetsRequirements: boolean;
 
+    stateListener: Subscription;
+
     constructor(
         private readonly _router: Router,
         private readonly _pxbAuthConfig: PxbAuthConfig,
@@ -45,7 +48,7 @@ export class PxbCreateAccountComponent {
         private readonly _pxbSecurityService: PxbAuthSecurityService,
         private readonly _pxbErrorDialogService: PxbCreateAccountErrorDialogService
     ) {
-        this._pxbSecurityService.securityStateChanges().subscribe((state: SecurityContext) => {
+        this.stateListener = this._pxbSecurityService.securityStateChanges().subscribe((state: SecurityContext) => {
             this.isLoading = state.isLoading;
         });
     }
@@ -55,6 +58,10 @@ export class PxbCreateAccountComponent {
         if (this.useDefaultAccountDetails === undefined) {
             this.useDefaultAccountDetails = this.accountDetails.length === 0;
         }
+    }
+
+    ngOnDestroy(): void {
+        this.stateListener.unsubscribe();
     }
 
     validateVerificationCode(): void {

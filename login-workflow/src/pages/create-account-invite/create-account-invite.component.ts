@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AUTH_ROUTES } from '../../auth/auth.routes';
@@ -8,13 +8,14 @@ import { PxbAuthSecurityService, SecurityContext } from '../../services/state/au
 import { PxbCreateAccountInviteErrorDialogService } from '../../services/dialog/create-account-invite-error-dialog.service';
 import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
 import { FormControl } from '@angular/forms';
+import {Subscription} from "rxjs";
 
 @Component({
     selector: 'pxb-create-account-invite',
     templateUrl: './create-account-invite.component.html',
     styleUrls: ['./create-account-invite.component.scss'],
 })
-export class PxbCreateAccountInviteComponent implements OnInit {
+export class PxbCreateAccountInviteComponent implements OnInit, OnDestroy {
     @Input() userName: string;
     @Input() accountDetails: FormControl[] = [];
     @Input() hasValidAccountDetails = false;
@@ -31,6 +32,8 @@ export class PxbCreateAccountInviteComponent implements OnInit {
     password: string;
     passwordMeetsRequirements: boolean;
 
+    stateListener: Subscription;
+
     constructor(
         private readonly _router: Router,
         private readonly _pxbAuthConfig: PxbAuthConfig,
@@ -38,7 +41,7 @@ export class PxbCreateAccountInviteComponent implements OnInit {
         private readonly _pxbSecurityService: PxbAuthSecurityService,
         private readonly _pxbErrorDialogService: PxbCreateAccountInviteErrorDialogService
     ) {
-        this._pxbSecurityService.securityStateChanges().subscribe((state: SecurityContext) => {
+        this.stateListener = this._pxbSecurityService.securityStateChanges().subscribe((state: SecurityContext) => {
             this.isLoading = state.isLoading;
         });
     }
@@ -49,6 +52,10 @@ export class PxbCreateAccountInviteComponent implements OnInit {
         if (this.useDefaultAccountDetails === undefined) {
             this.useDefaultAccountDetails = this.accountDetails.length === 0;
         }
+    }
+
+    ngOnDestroy(): void {
+        this.stateListener.unsubscribe();
     }
 
     validateRegistrationLink(): void {
