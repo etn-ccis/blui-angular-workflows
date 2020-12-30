@@ -1,5 +1,5 @@
 {
-  "name": "angular-auth-workflow",
+  "name": "@pxblue/angular-auth-workflow",
   "version": "1.0.0",
   "scripts": {
     "ng": "ng",
