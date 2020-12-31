@@ -18,13 +18,17 @@
             "demo": {
               "project": "ng-package-demo.json",
               "watch": true
+            },
+            "production": {
+              "tsConfig": "tsconfig.lib.json"
             }
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "test.ts",
+            "main": "src/test.ts",
+            "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js"
           }

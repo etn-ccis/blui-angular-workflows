@@ -1,6 +1,10 @@
 {
   "dest": "./dist",
   "lib": {
-    "entryFile": "src/index.ts"
+    "entryFile": "src/index.ts",
+    "umdModuleIds": {
+      "@pxblue/angular-components": "angularComponents",
+      "@pxblue/colors": "Colors"
+    }
   }
 }

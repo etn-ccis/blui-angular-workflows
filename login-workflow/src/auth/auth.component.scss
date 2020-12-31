@@ -1,13 +1,128 @@
-.pxb-float-card-container {
+@import '~@pxblue/colors/palette';
+
+.pxb-auth-content {
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #007bc1;
+
+    .pxb-auth-inner-card {
+        padding: 0;
+        box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        position: relative;
+        max-width: 450px;
+        max-height: 730px;
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    .pxb-auth-splash-screen {
+        align-items: center;
+        justify-content: center;
+    }
+
+    .pxb-auth-splash-screen-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .pxb-auth-login {
+        padding: 32px 64px;
+        overflow: auto;
+        flex: 1 1 0px;
+        display: flex;
+        flex-direction: column;
+        > div {
+            height: 100%;
+        }
+    }
+
+    .pxb-auth-contact-support,
+    .pxb-auth-forgot-password,
+    .pxb-auth-reset-password,
+    .pxb-auth-create-account,
+    .pxb-auth-create-account-invite {
+        flex: 1 1 0px;
+        display: flex;
+        flex-direction: column;
+        padding: 32px 24px 24px 24px;
+        overflow: auto;
+    }
+
+    @media only screen and (max-width: 600px) {
+        .pxb-auth-contact-support,
+        .pxb-auth-forgot-password,
+        .pxb-auth-reset-password,
+        .pxb-auth-create-account,
+        .pxb-auth-create-account-invite {
+            padding: 16px;
+        }
+    }
 }
 
-.pxb-inner-card {
-    height: 575px;
-    width: 300px;
-    padding: 48px;
+/* These styles are needed for the ChangePassword dialog too. */
+::ng-deep {
+    // TODO: This can be removed when the mobile stepper spans 100% width naturally.
+    .pxb-mobile-stepper {
+        width: 100%;
+    }
+
+    .pxb-auth-link {
+        color: map-get($pxb-blue, 500);
+        text-decoration: none;
+        font-weight: 600;
+        text-align: center;
+        cursor: pointer;
+    }
+    .pxb-auth-title {
+        padding-bottom: 16px;
+    }
+    .pxb-auth-full-height {
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 0px;
+    }
+    .mat-divider.pxb-auth-divider {
+        margin-left: -24px !important;
+        margin-right: -24px !important;
+        position: static !important;
+        width: auto !important;
+    }
+    .mat-divider.pxb-auth-divider-32 {
+        margin-left: -32px !important;
+        margin-right: -32px !important;
+    }
+    .pxb-auth-action-button-container {
+        padding-top: 8px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    pxb-contact-support,
+    pxb-create-account,
+    pxb-create-account-invite,
+    pxb-forgot-password,
+    pxb-login,
+    pxb-reset-password {
+        flex: 1 1 0px;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+    pxb-password-strength-checker {
+        margin-bottom: 24px;
+        margin-top: -16px;
+    }
+
+    @media only screen and (max-width: 600px) {
+        .mat-divider.pxb-auth-divider {
+            margin-left: -16px !important;
+            margin-right: -16px !important;
+        }
+    }
 }

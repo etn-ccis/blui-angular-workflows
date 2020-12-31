@@ -1,20 +1,31 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
-import { AppRoutingModule, AUTH_ROUTE, HOME_ROUTE } from './app.routing';
-import { PxbAuthModule, PxbAuthApiService, PXB_AUTH_CONFIG } from '@pxblue/angular-auth-workflow';
+import { AppRoutingModule } from './app.routing';
+import {
+    PxbAuthModule,
+    PxbAuthUIService,
+    PxbRegisterUIService,
+    PxbLoginErrorDialogService,
+} from '@pxblue/angular-auth-workflow';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthComponent } from './pages/auth/auth.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AuthService } from './services/auth.service';
+import { AuthUIService } from './services/auth-ui.service';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { LoginErrorDialogComponent } from './dialog/login-error-dialog.component';
+import { RegisterUIService } from './services/register-ui.service';
+import { LoginErrorDialogService } from './dialog/login-error-dialog.service';
+import { MatSelect, MatSelectModule } from '@angular/material/select';
 
 @NgModule({
-    declarations: [AppComponent, HomeComponent, AuthComponent],
+    declarations: [AppComponent, HomeComponent, AuthComponent, DashboardComponent, LoginErrorDialogComponent],
     imports: [
         BrowserModule,
         MatFormFieldModule,
@@ -24,21 +35,31 @@ import { AuthService } from './services/auth.service';
         ReactiveFormsModule,
         FormsModule,
         PxbAuthModule,
+        MatSelectModule,
         AppRoutingModule,
+        MatButtonModule,
+        MatDialogModule,
     ],
     providers: [
         {
-            provide: PxbAuthApiService,
-            useClass: AuthService,
+            provide: 'APP_NAME',
+            useValue: 'PXB_AUTH_DEMO_APP',
         },
         {
-            provide: PXB_AUTH_CONFIG,
-            useValue: {
-                homeRoute: HOME_ROUTE,
-                authRoute: AUTH_ROUTE,
-            },
+            provide: PxbAuthUIService, // AuthUI Service you will overwrite (dont change this name)
+            useClass: AuthUIService, // Your custom implementation.
+        },
+        {
+            provide: PxbRegisterUIService, // RegistrationUI Service you will overwrite (dont change this name)
+            useClass: RegisterUIService, // Your custom implementation.
+        },
+        // Custom error handling for Login failures
+        {
+            provide: PxbLoginErrorDialogService,
+            useClass: LoginErrorDialogService,
         },
     ],
+    entryComponents: [LoginErrorDialogComponent],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

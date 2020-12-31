@@ -1,0 +1,47 @@
+<div class="mat-title pxb-auth-title">
+    <ng-container *ngIf="isEmpty(pageTitleEl)">{{ pageTitle }}</ng-container>
+    <div #pageTitleVC><ng-content select="[pxb-page-title]"></ng-content></div>
+</div>
+
+<div style="text-align: center; margin-bottom: 26px; margin-top: 8px;">
+    <div #icon>
+        <ng-content select="[pxb-icon]"></ng-content>
+    </div>
+    <mat-icon *ngIf="isEmpty(iconEl)" class="pxb-contact-support-chat-bubble-icon">chat_bubble_outline</mat-icon>
+</div>
+
+<div class="pxb-contact-support-description">
+    <p class="mat-body-1" style="margin-bottom: 8px;">
+        <ng-container *ngIf="isEmpty(generalSupportTitleEl)">
+            {{ generalSupportTitle }}
+        </ng-container>
+    </p>
+    <div #generalSupportTitleVC>
+        <ng-content select="[pxb-general-support-title]"></ng-content>
+    </div>
+
+    <p
+        *ngIf="isEmpty(generalSupportDescriptionEl)"
+        class="mat-body-1"
+        style="margin-bottom: 32px;"
+        [innerHTML]="generalSupportDescription"
+    ></p>
+    <div #generalSupportDescriptionVC><ng-content select="[pxb-general-support-description]"></ng-content></div>
+
+    <p class="mat-body-1" style="margin-bottom: 8px;">
+        <ng-container *ngIf="isEmpty(emergencySupportTitleEl)">{{ emergencySupportTitle }}</ng-container>
+    </p>
+    <div #emergencySupportTitleVC><ng-content select="[pxb-emergency-support-title]"></ng-content></div>
+
+    <p *ngIf="isEmpty(emergencySupportDescriptionEl)" class="mat-body-1" [innerHTML]="emergencySupportDescription"></p>
+    <div #emergencySupportDescriptionVC><ng-content select="[pxb-emergency-support-description]"></ng-content></div>
+</div>
+
+<mat-divider style="margin-bottom: 16px" class="pxb-auth-divider"></mat-divider>
+
+<div class="pxb-auth-action-button-container">
+    <button mat-flat-button color="primary" (click)="navigateToLogin()" [style.width.%]="100">
+        <ng-container *ngIf="isEmpty(okayButtonTextEl)">{{ okayButtonText }}</ng-container>
+        <div #okayButtonTextVC><ng-content select="[pxb-okay-button-text]"></ng-content></div>
+    </button>
+</div>

@@ -1,14 +1,20 @@
-import { Routes } from '@angular/router';
 import { PxbLoginComponent } from '../pages/login/login.component';
 import { PxbForgotPasswordComponent } from '../pages/forgot-password/forgot-password.component';
 import { PxbResetPasswordComponent } from '../pages/reset-password/reset-password.component';
 import { PxbCreateAccountComponent } from '../pages/create-account/create-account.component';
-import { CREATE_ACCOUNT_ROUTE, FORGOT_PASSWORD_ROUTE, LOGIN_ROUTE, RESET_PASSWORD_ROUTE } from '../config/route-names';
+import { PxbContactSupportComponent } from '../pages/contact-support/contact-support.component';
+import { PxbCreateAccountInviteComponent } from '../pages/create-account-invite/create-account-invite.component';
+import { AUTH_ROUTES } from './auth.routes';
+import { Routes } from '@angular/router';
 
-export const authSubRoutes: Routes = [
-    { path: '', redirectTo: LOGIN_ROUTE, pathMatch: 'full' },
-    { path: LOGIN_ROUTE, component: PxbLoginComponent },
-    { path: RESET_PASSWORD_ROUTE, component: PxbResetPasswordComponent },
-    { path: FORGOT_PASSWORD_ROUTE, component: PxbForgotPasswordComponent },
-    { path: CREATE_ACCOUNT_ROUTE, component: PxbCreateAccountComponent },
-];
+export function getAuthSubRoutes(): Routes {
+    return [
+        { path: '', redirectTo: AUTH_ROUTES.LOGIN, pathMatch: 'full' },
+        { path: AUTH_ROUTES.LOGIN, component: PxbLoginComponent },
+        { path: AUTH_ROUTES.RESET_PASSWORD, component: PxbResetPasswordComponent },
+        { path: AUTH_ROUTES.FORGOT_PASSWORD, component: PxbForgotPasswordComponent },
+        { path: AUTH_ROUTES.CREATE_ACCOUNT, component: PxbCreateAccountComponent },
+        { path: AUTH_ROUTES.CONTACT_SUPPORT, component: PxbContactSupportComponent },
+        { path: AUTH_ROUTES.CREATE_ACCOUNT_INVITE, component: PxbCreateAccountInviteComponent },
+    ];
+}

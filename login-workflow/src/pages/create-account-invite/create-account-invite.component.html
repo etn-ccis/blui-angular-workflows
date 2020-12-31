@@ -1,0 +1,68 @@
+<!-- Error State -->
+<ng-container *ngIf="hasEmptyStateError() && !isLoading">
+    <div class="mat-title pxb-auth-title">License Agreement</div>
+    <div class="pxb-create-account-invite-content-error-state">
+        <!-- TODO: How should we handle error states? -->
+        <pxb-empty-state title="Error" description="There was an error during account registration.">
+            <mat-icon pxb-empty-icon>error</mat-icon>
+        </pxb-empty-state>
+    </div>
+    <mat-divider class="pxb-auth-divider" style="margin-bottom: 16px;"></mat-divider>
+    <div class="pxb-auth-action-button-container">
+        <button mat-flat-button color="primary" (click)="navigateToLogin()" [style.width.%]="100">Okay</button>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="!hasEmptyStateError()">
+    <pxb-create-account-eula-step
+        *ngIf="currentPageId === 0 && isValidRegistrationLink"
+        [(userAcceptsEula)]="userAcceptsEula"
+    ></pxb-create-account-eula-step>
+
+    <pxb-create-account-create-password-step
+        *ngIf="currentPageId === 1"
+        [(password)]="password"
+        [(passwordMeetsRequirements)]="passwordMeetsRequirements"
+        (advance)="canContinue() ? goNext() : ''"
+    ></pxb-create-account-create-password-step>
+
+    <pxb-create-account-account-details-step
+        *ngIf="currentPageId === 2 && !skipAccountDetails()"
+        [useDefaultAccountDetails]="useDefaultAccountDetails"
+        (accountDetailsChange)="accountDetails = $event"
+        (validAccountDetailsChange)="hasValidAccountDetails = $event"
+        (advance)="canContinue() ? goNext() : ''"
+    >
+        <ng-content pxb-account-details-form select="[pxb-account-details-form]"></ng-content>
+    </pxb-create-account-account-details-step>
+
+    <pxb-create-account-account-created-step
+        *ngIf="currentPageId === 3 || (currentPageId === 2 && skipAccountDetails())"
+        [userName]="getUserName()"
+    >
+    </pxb-create-account-account-created-step>
+
+    <mat-divider class="pxb-auth-divider" style="margin-bottom: 16px;"></mat-divider>
+    <div class="pxb-auth-action-button-container">
+        <ng-container *ngIf="showStepper()">
+            <pxb-mobile-stepper [steps]="getNumberOfSteps()" [activeStep]="currentPageId">
+                <button pxb-back-button mat-stroked-button color="primary" style="width: 100px;" (click)="goBack()">
+                    Back
+                </button>
+                <button
+                    pxb-next-button
+                    mat-flat-button
+                    color="primary"
+                    style="width: 100px;"
+                    [disabled]="!canContinue()"
+                    (click)="goNext()"
+                >
+                    Next
+                </button>
+            </pxb-mobile-stepper>
+        </ng-container>
+        <button *ngIf="!showStepper()" mat-flat-button color="primary" (click)="navigateToLogin()" style="width: 100%">
+            Continue
+        </button>
+    </div>
+</ng-container>

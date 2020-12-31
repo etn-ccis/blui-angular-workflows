@@ -1,1 +1,66 @@
-<p>create-account works!</p>
+<pxb-create-account-provide-email-step
+    *ngIf="currentPageId === 0"
+    [(email)]="email"
+    [(isValidEmail)]="isValidEmail"
+    (advance)="canContinue() ? goNext() : ''"
+></pxb-create-account-provide-email-step>
+
+<pxb-create-account-eula-step
+    *ngIf="currentPageId === 1"
+    [(userAcceptsEula)]="userAcceptsEula"
+></pxb-create-account-eula-step>
+
+<pxb-create-account-verify-email-step
+    *ngIf="currentPageId === 2"
+    [email]="email"
+    [(verificationCode)]="verificationCode"
+    (advance)="canContinue() ? goNext() : ''"
+></pxb-create-account-verify-email-step>
+
+<pxb-create-account-create-password-step
+    *ngIf="currentPageId === 3"
+    [(password)]="password"
+    [(passwordMeetsRequirements)]="passwordMeetsRequirements"
+    (advance)="canContinue() ? goNext() : ''"
+></pxb-create-account-create-password-step>
+
+<pxb-create-account-account-details-step
+    *ngIf="currentPageId === 4 && !skipAccountDetails()"
+    [useDefaultAccountDetails]="useDefaultAccountDetails"
+    (accountDetailsChange)="accountDetails = $event"
+    (validAccountDetailsChange)="hasValidAccountDetails = $event"
+    (advance)="canContinue() ? goNext() : ''"
+>
+    <ng-content pxb-account-details-form select="[pxb-account-details-form]"></ng-content>
+</pxb-create-account-account-details-step>
+
+<pxb-create-account-account-created-step
+    *ngIf="currentPageId === 5 || (currentPageId === 4 && skipAccountDetails())"
+    [userName]="getUserName()"
+    [email]="email"
+>
+</pxb-create-account-account-created-step>
+
+<mat-divider class="pxb-auth-divider" style="margin-bottom: 16px;"></mat-divider>
+<div class="pxb-auth-action-button-container">
+    <ng-container *ngIf="showStepper()">
+        <pxb-mobile-stepper [steps]="getNumberOfSteps()" [activeStep]="currentPageId">
+            <button pxb-back-button mat-stroked-button color="primary" style="width: 100px;" (click)="goBack()">
+                Back
+            </button>
+            <button
+                pxb-next-button
+                mat-flat-button
+                color="primary"
+                style="width: 100px;"
+                [disabled]="!canContinue()"
+                (click)="goNext()"
+            >
+                Next
+            </button>
+        </pxb-mobile-stepper>
+    </ng-container>
+    <button *ngIf="!showStepper()" mat-flat-button color="primary" (click)="navigateToLogin()" style="width: 100%">
+        Continue
+    </button>
+</div>

@@ -1,23 +1,48 @@
-<div class="pxb-float-card-container">
-    <mat-card class="pxb-inner-card">
-        <div #login>
-            <ng-content *ngIf="showLogin" select="pxb-login"></ng-content>
-        </div>
-        <pxb-login *ngIf="isEmpty(loginEl) && showLogin"></pxb-login>
+<div class="pxb-auth-content" [style.backgroundImage]="'url(' + backgroundImage + ')'">
+    <mat-card class="pxb-auth-inner-card" [class.pxb-auth-splash-screen]="!isSecurityInitiated">
+        <pxb-auth-loading-overlay *ngIf="isLoading" [loadingMessage]="loadingMessage"></pxb-auth-loading-overlay>
 
-        <div #resetPassword>
-            <ng-content *ngIf="showResetPassword" select="pxb-reset-password"></ng-content>
-        </div>
-        <pxb-reset-password *ngIf="isEmpty(resetPasswordEl) && showResetPassword"></pxb-reset-password>
+        <ng-container *ngIf="isSecurityInitiated">
+            <!-- Login  -->
+            <div class="pxb-auth-login" *ngIf="showLogin">
+                <template [ngTemplateOutlet]="loginRef"></template>
+                <pxb-login *ngIf="!loginRef"></pxb-login>
+            </div>
 
-        <div #createAccount>
-            <ng-content *ngIf="showCreateAccount" select="pxb-create-account"></ng-content>
-        </div>
-        <pxb-create-account *ngIf="isEmpty(createAccountEl) && showCreateAccount"></pxb-create-account>
+            <!-- Reset Password -->
+            <div class="pxb-auth-reset-password" *ngIf="showResetPassword">
+                <template [ngTemplateOutlet]="resetPasswordRef"></template>
+                <pxb-reset-password *ngIf="!resetPasswordRef"></pxb-reset-password>
+            </div>
 
-        <div #forgotPassword>
-            <ng-content *ngIf="showForgotPassword" select="pxb-forgot-password"></ng-content>
+            <!-- Create Account (Self-Register) -->
+            <div class="pxb-auth-create-account" *ngIf="showCreateAccount">
+                <template [ngTemplateOutlet]="createAccountRef"></template>
+                <pxb-create-account *ngIf="!createAccountRef"></pxb-create-account>
+            </div>
+
+            <!-- Create Account (Invited) -->
+            <div class="pxb-auth-create-account-invite" *ngIf="showCreateAccountInvite">
+                <template [ngTemplateOutlet]="createAccountInviteRef"></template>
+                <pxb-create-account-invite *ngIf="!createAccountInviteRef"></pxb-create-account-invite>
+            </div>
+
+            <!-- Forgot Password -->
+            <div class="pxb-auth-forgot-password" *ngIf="showForgotPassword">
+                <template [ngTemplateOutlet]="forgotPasswordRef"></template>
+                <pxb-forgot-password *ngIf="!forgotPasswordRef"></pxb-forgot-password>
+            </div>
+
+            <!-- Contact Support -->
+            <div class="pxb-auth-contact-support" *ngIf="showContactSupport">
+                <template [ngTemplateOutlet]="contactSupportRef"></template>
+                <pxb-contact-support *ngIf="!contactSupportRef"></pxb-contact-support>
+            </div>
+        </ng-container>
+
+        <div *ngIf="!isSecurityInitiated" class="pxb-auth-splash-screen-content">
+            <img [src]="projectImage" style="max-width: 100%; max-height: 80px; margin-bottom: 48px;" />
+            <mat-spinner diameter="40"></mat-spinner>
         </div>
-        <pxb-forgot-password *ngIf="isEmpty(forgotPasswordEl) && showForgotPassword"></pxb-forgot-password>
     </mat-card>
 </div>

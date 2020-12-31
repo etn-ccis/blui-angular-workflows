@@ -1,28 +1,48 @@
-.main-div {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+@import '~@pxblue/colors/palette';
+.pxb-login-debug-button {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+}
+
+.pxb-login-debug-message {
+    padding: 8px;
+    margin-bottom: 16px;
+    background-color: map-get($pxb-yellow, 500);
+    text-align: center;
 }
 
 .pxb-login-header {
-    margin-bottom: 30px;
+    margin-bottom: 48px;
 }
 
 mat-form-field {
     width: 100%;
-    margin-bottom: 35px;
+    margin-bottom: 25px;
+}
+
+::ng-deep .pxb-login-remember-me-checkbox .mat-checkbox-inner-container {
+    width: 18px;
+    height: 18px;
+}
+
+.pxb-login-remember-me-login-wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    align-items: center;
 }
 
 .pxb-login-button {
-    width: 100px;
+    width: 150px;
 }
 
-.pxb-login-password-link,
-.pxb-login-create-account-link {
-    color: #007bc1;
-    font-weight: 600;
-    margin-bottom: 32px;
-    text-align: center;
-    cursor: pointer;
+@media only screen and (max-width: 600px) {
+    .pxb-login-remember-me-login-wrapper {
+        flex-direction: column-reverse;
+    }
+
+    .pxb-login-button {
+        margin-bottom: 8px;
+    }
 }

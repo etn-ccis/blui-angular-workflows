@@ -1,0 +1,27 @@
+@import '~@pxblue/colors/palette';
+
+pxb-create-account-provide-email-step,
+pxb-create-account-verify-email-step,
+pxb-create-account-eula-step,
+pxb-create-account-create-password-step,
+pxb-create-account-account-details-step,
+pxb-create-account-account-created-step {
+    display: flex;
+    flex: 1 1 0px;
+    flex-direction: column;
+}
+
+.pxb-create-account-content-error-state {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0px;
+    justify-content: center;
+    ::ng-deep {
+        .pxb-empty-state-description {
+            color: map_get($pxb-black, 500);
+        }
+        .pxb-empty-state-empty-icon-wrapper {
+            color: map_get($pxb-red, 500);
+        }
+    }
+}
