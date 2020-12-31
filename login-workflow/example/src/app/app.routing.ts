@@ -6,6 +6,7 @@ import { AuthComponent } from './pages/auth/auth.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 // The default workflow routes can be overwritten if needed.
+// This feature only works if ivy is enabled.
 AUTH_ROUTES.AUTH_WORKFLOW = 'auth';
 AUTH_ROUTES.CONTACT_SUPPORT = 'assistance';
 

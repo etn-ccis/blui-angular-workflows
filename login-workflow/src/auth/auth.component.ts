@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnInit, TemplateRef } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit, TemplateRef } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { PxbAuthConfig } from '../services/config/auth-config';
 import { matchesRoute } from '../util/matcher';
@@ -10,6 +10,7 @@ import { PxbLoginComponent } from '../pages/login/login.component';
 import { PxbForgotPasswordComponent } from '../pages/forgot-password/forgot-password.component';
 import { PxbContactSupportComponent } from '../pages/contact-support/contact-support.component';
 import { PxbResetPasswordComponent } from '../pages/reset-password/reset-password.component';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'pxb-auth',
@@ -19,7 +20,7 @@ import { PxbResetPasswordComponent } from '../pages/reset-password/reset-passwor
         class: 'pxb-auth',
     },
 })
-export class PxbAuthComponent implements OnInit {
+export class PxbAuthComponent implements OnInit, OnDestroy {
     @Input() createAccountInviteRef: TemplateRef<PxbCreateAccountInviteComponent>;
     @Input() createAccountRef: TemplateRef<PxbCreateAccountComponent>;
     @Input() loginRef: TemplateRef<PxbLoginComponent>;
@@ -41,6 +42,9 @@ export class PxbAuthComponent implements OnInit {
     loadingMessage: string;
     isSecurityInitiated = false;
 
+    stateListener: Subscription;
+    routeListener: Subscription;
+
     constructor(
         private readonly _router: Router,
         private readonly _pxbAuthConfig: PxbAuthConfig,
@@ -56,10 +60,11 @@ export class PxbAuthComponent implements OnInit {
         this.initiateSecurity();
         this.projectImage = this._pxbAuthConfig.projectImage;
         this.backgroundImage = this._pxbAuthConfig.backgroundImage;
+    }
 
-        this._pxbSecurityService.securityStateChanges().subscribe((securityContext: SecurityContext) => {
-            this.loadingMessage = securityContext.loadingMessage;
-        });
+    ngOnDestroy(): void {
+        this.stateListener.unsubscribe();
+        this.routeListener.unsubscribe();
     }
 
     initiateSecurity(): void {
@@ -71,15 +76,18 @@ export class PxbAuthComponent implements OnInit {
 
     // This will listen for auth state loading changes and toggles the shared overlay loading screen.
     private _listenForAuthLoadingStateChanges(): void {
-        this._pxbSecurityService.securityStateChanges().subscribe((state: SecurityContext) => {
-            this.isLoading = state.isLoading;
-            this._changeDetectorRef.detectChanges();
-        });
+        this.stateListener = this._pxbSecurityService
+            .securityStateChanges()
+            .subscribe((securityContext: SecurityContext) => {
+                this.isLoading = securityContext.isLoading;
+                this.loadingMessage = securityContext.loadingMessage;
+                this._changeDetectorRef.detectChanges();
+            });
     }
 
     // Observes route changes and determines which PXB Auth page to show via route name.
     private _listenForAuthRouteChanges(): void {
-        this._router.events.subscribe((route) => {
+        this.routeListener = this._router.events.subscribe((route) => {
             if (route instanceof NavigationEnd) {
                 this._resetSelectedRoute();
                 const url = route.urlAfterRedirects;
