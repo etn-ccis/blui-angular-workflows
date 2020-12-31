@@ -1,5 +1,6 @@
 {
   "name": "angular-auth-workflow",
+  "description": "Re-usable workflow components for Authentication and Registration within Eaton applications.",
   "version": "1.0.0",
   "scripts": {
     "ng": "ng",
