@@ -40,4 +40,7 @@ export class PxbAuthConfig implements PxbAuthConfig {
     eula: string;
     allowDebugMode = false;
     showSelfRegistration = true;
+    showContactSupport = true;
+    showForgotPassword = true;
+    showRememberMe = true;
 }

@@ -34,8 +34,6 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
 
     isLoading: boolean;
     rememberMe: boolean;
-    enableDebugMode: boolean;
-    showSelfRegistration: boolean;
 
     isPasswordVisible = false;
     debugMode = false;
@@ -45,8 +43,8 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
     isEmpty = (el: ElementRef): boolean => isEmptyView(el);
 
     constructor(
+        public pxbAuthConfig: PxbAuthConfig,
         private readonly _router: Router,
-        private readonly _pxbAuthConfig: PxbAuthConfig,
         private readonly _changeDetectorRef: ChangeDetectorRef,
         private readonly _pxbUIActionsService: PxbAuthUIService,
         private readonly _pxbSecurityService: PxbAuthSecurityService,
@@ -55,9 +53,6 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
     ) {}
 
     ngOnInit(): void {
-        this.enableDebugMode = this._pxbAuthConfig.allowDebugMode;
-        this.showSelfRegistration = this._pxbAuthConfig.showSelfRegistration;
-
         const emailValidators = [
             Validators.required,
             Validators.email,
