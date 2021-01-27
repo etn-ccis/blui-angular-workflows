@@ -25,17 +25,26 @@
 ></pxb-create-account-create-password-step>
 
 <pxb-create-account-account-details-step
-    *ngIf="currentPageId === 4 && !skipAccountDetails()"
-    [useDefaultAccountDetails]="useDefaultAccountDetails"
-    (accountDetailsChange)="accountDetails = $event"
-    (validAccountDetailsChange)="hasValidAccountDetails = $event"
+    *ngIf="currentPageId === 4"
+    [showDefaultAccountDetails]="true"
+    (firstName)="firstName = $event"
+    (lastName)="lastName = $event"
+    (accountNameValid)="validAccountName = $event"
     (advance)="canContinue() ? goNext() : ''"
 >
-    <ng-content pxb-account-details-form select="[pxb-account-details-form]"></ng-content>
+    <ng-content pxb-account-details-form select="[pxb-account-details-form-page-1]"></ng-content>
+</pxb-create-account-account-details-step>
+
+<pxb-create-account-account-details-step
+    *ngIf="currentPageId === 5 && hasExtendedAccountDetails()"
+    [showDefaultAccountDetails]="false"
+    (advance)="canContinue() ? goNext() : ''"
+>
+    <ng-content pxb-account-details-form select="[pxb-account-details-form-page-2]"></ng-content>
 </pxb-create-account-account-details-step>
 
 <pxb-create-account-account-created-step
-    *ngIf="currentPageId === 5 || (currentPageId === 4 && skipAccountDetails())"
+    *ngIf="(currentPageId === 5 && !hasExtendedAccountDetails()) || currentPageId === 6"
     [userName]="getUserName()"
     [email]="email"
 >

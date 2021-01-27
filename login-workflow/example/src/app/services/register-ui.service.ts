@@ -70,6 +70,8 @@ export class RegisterUIService implements IPxbRegisterUIService {
     }
 
     completeRegistration(
+        firstName: string,
+        lastName: string,
         formControls: FormControl[],
         password: string,
         validationCode?: string,
@@ -80,11 +82,8 @@ export class RegisterUIService implements IPxbRegisterUIService {
         if (!validationCode) {
             validationCode = urlCode;
         }
-        const firstName = formControls[0]?.value;
-        const lastName = formControls[1]?.value;
-        const phoneNumber = formControls[2]?.value;
         console.log(
-            `Performing a sample CompleteRegistration request with the following credentials:\n firstName: ${firstName}\n lastName: ${lastName}\n phoneNumber: ${phoneNumber}\n password: ${password}\n validationCode: ${validationCode}\n email: ${email}`
+            `Performing a sample CompleteRegistration request with the following credentials:\n firstName: ${firstName}\n lastName: ${lastName}\n password: ${password}\n validationCode: ${validationCode}\n email: ${email}`
         );
         return new Promise((resolve, reject) => {
             setTimeout(() => {

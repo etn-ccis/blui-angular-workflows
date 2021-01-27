@@ -16,10 +16,10 @@ import { Subscription } from 'rxjs';
     styleUrls: ['./create-account-invite.component.scss'],
 })
 export class PxbCreateAccountInviteComponent implements OnInit, OnDestroy {
-    @Input() userName: string;
-    @Input() accountDetails: FormControl[] = [];
-    @Input() hasValidAccountDetails = false;
-    @Input() useDefaultAccountDetails;
+    @Input() accountDetailsPage1: FormControl[] = [];
+    @Input() accountDetailsPage2: FormControl[] = [];
+    @Input() hasValidAccountDetailsPage1 = false;
+    @Input() hasValidAccountDetailsPage2 = false;
 
     currentPageId = 0;
     isLoading: boolean;
@@ -31,6 +31,11 @@ export class PxbCreateAccountInviteComponent implements OnInit, OnDestroy {
     // Create Password Page
     password: string;
     passwordMeetsRequirements: boolean;
+
+    // Account Details Page
+    validAccountName: boolean;
+    firstName: string;
+    lastName: string;
 
     stateListener: Subscription;
 
@@ -48,10 +53,6 @@ export class PxbCreateAccountInviteComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.validateRegistrationLink();
-        // Unless the user has specified otherwise, use the defaultAccountDetails if there are no custom forms provided.
-        if (this.useDefaultAccountDetails === undefined) {
-            this.useDefaultAccountDetails = this.accountDetails.length === 0;
-        }
     }
 
     ngOnDestroy(): void {
@@ -76,8 +77,9 @@ export class PxbCreateAccountInviteComponent implements OnInit, OnDestroy {
 
     registerAccount(): void {
         this._pxbSecurityService.setLoading(true);
+        const accountDetails = this.accountDetailsPage1.concat(this.accountDetailsPage2);
         this._pxbRegisterService
-            .completeRegistration(this.accountDetails, this.password)
+            .completeRegistration(this.firstName, this.lastName, accountDetails, this.password)
             .then(() => {
                 this._pxbSecurityService.setLoading(false);
                 this.currentPageId++;
@@ -89,7 +91,10 @@ export class PxbCreateAccountInviteComponent implements OnInit, OnDestroy {
     }
 
     clearAccountDetailsInfo(): void {
-        for (const formControl of this.accountDetails) {
+        for (const formControl of this.accountDetailsPage1) {
+            formControl.reset();
+        }
+        for (const formControl of this.accountDetailsPage2) {
             formControl.reset();
         }
     }
@@ -101,7 +106,11 @@ export class PxbCreateAccountInviteComponent implements OnInit, OnDestroy {
             case 1:
                 return this.passwordMeetsRequirements;
             case 2:
-                return this.hasValidAccountDetails;
+                return (
+                    this.validAccountName && (this.hasValidAccountDetailsPage1 || this.accountDetailsPage1.length === 0)
+                );
+            case 3:
+                return this.hasValidAccountDetailsPage2;
             default:
                 return;
         }
@@ -115,19 +124,17 @@ export class PxbCreateAccountInviteComponent implements OnInit, OnDestroy {
         this.currentPageId === 0 ? this.navigateToLogin() : this.currentPageId--;
     }
 
-    goNext(): void {
-        if (this.currentPageId === 1 && this.skipAccountDetails()) {
-            return this.registerAccount();
+    goNext(): any {
+        switch (this.currentPageId) {
+            case 1:
+                return this.currentPageId++;
+            case 2:
+                return this.hasExtendedAccountDetails() ? this.currentPageId++ : this.registerAccount();
+            case 3:
+                return this.registerAccount();
+            default:
+                return this.currentPageId++;
         }
-        this.currentPageId === 2 ? this.registerAccount() : this.currentPageId++;
-    }
-
-    skipAccountDetails(): boolean {
-        return !this.useDefaultAccountDetails && this.accountDetails.length === 0;
-    }
-
-    getNumberOfSteps(): number {
-        return this.skipAccountDetails() ? 3 : 4;
     }
 
     navigateToLogin(): void {
@@ -136,13 +143,18 @@ export class PxbCreateAccountInviteComponent implements OnInit, OnDestroy {
     }
 
     showStepper(): boolean {
-        return this.currentPageId <= (this.skipAccountDetails() ? 1 : 2);
+        return this.currentPageId <= (this.hasExtendedAccountDetails() ? 3 : 2);
+    }
+
+    getNumberOfSteps(): number {
+        return this.hasExtendedAccountDetails() ? 4 : 3;
     }
 
     getUserName(): string {
-        if (this.useDefaultAccountDetails) {
-            return `${this.accountDetails[0].value} ${this.accountDetails[1].value}`;
-        }
-        return this.userName;
+        return `${this.firstName} ${this.lastName}`;
+    }
+
+    hasExtendedAccountDetails(): boolean {
+        return this.accountDetailsPage2 && this.accountDetailsPage2.length > 0;
     }
 }
