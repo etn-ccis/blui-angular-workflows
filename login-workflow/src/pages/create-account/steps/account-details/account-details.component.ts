@@ -23,7 +23,7 @@ import { PxbFormsService } from '../../../../services/forms/forms.service';
                                 matInput
                                 [formControl]="firstNameFormControl"
                                 required
-                                (ngModelChange)="emitIfValid(); firstName.emit(firstNameFormControl.value)"
+                                (ngModelChange)="emitIfValid(); firstNameChange.emit(firstNameFormControl.value)"
                                 (keyup.enter)="pxbFormsService.advanceToNextField(lastNameInputElement)"
                             />
                             <mat-error *ngIf="firstNameFormControl.hasError('required')">
@@ -39,7 +39,7 @@ import { PxbFormsService } from '../../../../services/forms/forms.service';
                                 name="last"
                                 [formControl]="lastNameFormControl"
                                 required
-                                (ngModelChange)="emitIfValid(); lastName.emit(lastNameFormControl.value)"
+                                (ngModelChange)="emitIfValid(); lastNameChange.emit(lastNameFormControl.value)"
                                 (keyup.enter)="advance.emit(true)"
                             />
                             <mat-error *ngIf="lastNameFormControl.hasError('required')">
@@ -56,11 +56,12 @@ import { PxbFormsService } from '../../../../services/forms/forms.service';
 /* Default Account Details consists of a First/Last Name (required) and a phone number (optional). */
 export class PxbAccountDetailsComponent {
     @Input() showDefaultAccountDetails = false;
-    @Output() accountDetailsChange = new EventEmitter<FormControl[]>();
+    @Input() firstName: string;
+    @Input() lastName: string;
+    @Output() firstNameChange: EventEmitter<string> = new EventEmitter<string>();
+    @Output() lastNameChange: EventEmitter<string> = new EventEmitter<string>();
     @Output() accountNameValid = new EventEmitter<boolean>();
     @Output() advance: EventEmitter<boolean> = new EventEmitter<boolean>();
-    @Output() firstName: EventEmitter<string> = new EventEmitter<string>();
-    @Output() lastName: EventEmitter<string> = new EventEmitter<string>();
 
     @ViewChild('pxbLast') lastNameInputElement: ElementRef;
 
@@ -71,9 +72,8 @@ export class PxbAccountDetailsComponent {
 
     ngOnInit(): void {
         if (this.showDefaultAccountDetails) {
-            this.firstNameFormControl = new FormControl('', Validators.required);
-            this.lastNameFormControl = new FormControl('', Validators.required);
-            this.accountDetailsChange.emit([this.firstNameFormControl, this.lastNameFormControl]);
+            this.firstNameFormControl = new FormControl(this.firstName, Validators.required);
+            this.lastNameFormControl = new FormControl(this.lastName, Validators.required);
         }
     }
 

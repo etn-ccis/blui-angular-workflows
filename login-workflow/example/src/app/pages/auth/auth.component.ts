@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormControl, ValidatorFn, Validators } from '@angular/forms';
-import { PxbAuthConfig, AUTH_ROUTES } from '@pxblue/angular-auth-workflow';
+import { PxbAuthConfig, AUTH_ROUTES, AccountDetails } from '@pxblue/angular-auth-workflow';
 
 @Component({
     selector: 'app-auth',
@@ -19,19 +19,18 @@ import { PxbAuthConfig, AUTH_ROUTES } from '@pxblue/angular-auth-workflow';
 
       <!-- Custom Create Account page -->
       <ng-template #createAccountPage>
-        <pxb-create-account
-          [accountDetailsPage2]="accountDetails"
-          [hasValidAccountDetailsPage2]="accountDetailsValid()">
+        <pxb-create-account [accountDetails]="infinity">
+          <template pxb-account-details-form-page-1 [ngTemplateOutlet]="accountDetailsRef"></template>
           <template pxb-account-details-form-page-2 [ngTemplateOutlet]="accountDetailsRef"></template>
         </pxb-create-account>
       </ng-template>
 
-      <!-- Custom Create Account via Invite page -->
+
+      <!-- Custom Create Account page -->
       <ng-template #createAccountViaInvitePage>
-        <pxb-create-account-invite
-          [accountDetailsPage1]="accountDetails"
-          [hasValidAccountDetailsPage1]="accountDetailsValid()">
+        <pxb-create-account-invite [accountDetails]="infinity">
           <template pxb-account-details-form-page-1 [ngTemplateOutlet]="accountDetailsRef"></template>
+          <template pxb-account-details-form-page-2 [ngTemplateOutlet]="accountDetailsRef"></template>
         </pxb-create-account-invite>
       </ng-template>
 
@@ -66,6 +65,7 @@ export class AuthComponent {
     countryFormControl: FormControl;
     phoneNumberFormControl: FormControl;
     accountDetails: FormControl[];
+    infinity: AccountDetails[];
 
     countries: any[] = [
         { value: 'US', viewValue: 'US' },
@@ -89,6 +89,16 @@ export class AuthComponent {
 
     ngOnInit(): void {
         this.initCreateAccountFormControls();
+        this.infinity = [
+          {
+            forms: [this.countryFormControl, this.phoneNumberFormControl],
+            isValid: () => this.countryFormControl.value
+          },
+          {
+            forms: [this.countryFormControl, this.phoneNumberFormControl],
+            isValid: () => this.phoneNumberFormControl.value
+          }
+        ]
     }
 
      initCreateAccountFormControls(): void {

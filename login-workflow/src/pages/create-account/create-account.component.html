@@ -24,31 +24,38 @@
     (advance)="canContinue() ? goNext() : ''"
 ></pxb-create-account-create-password-step>
 
+<!-- Page 1 -->
 <pxb-create-account-account-details-step
-    *ngIf="currentPageId === 4"
+    *ngIf="showAccountDetailPage(0)"
     [showDefaultAccountDetails]="true"
-    (firstName)="firstName = $event"
-    (lastName)="lastName = $event"
+    [(firstName)]="firstName"
+    [(lastName)]="lastName"
     (accountNameValid)="validAccountName = $event"
     (advance)="canContinue() ? goNext() : ''"
 >
     <ng-content pxb-account-details-form select="[pxb-account-details-form-page-1]"></ng-content>
 </pxb-create-account-account-details-step>
 
-<pxb-create-account-account-details-step
-    *ngIf="currentPageId === 5 && hasExtendedAccountDetails()"
-    [showDefaultAccountDetails]="false"
-    (advance)="canContinue() ? goNext() : ''"
->
+<!-- Page 2 -->
+<pxb-create-account-account-details-step *ngIf="showAccountDetailPage(1)">
     <ng-content pxb-account-details-form select="[pxb-account-details-form-page-2]"></ng-content>
 </pxb-create-account-account-details-step>
 
+<!-- Page 3 -->
+<pxb-create-account-account-details-step *ngIf="showAccountDetailPage(2)">
+    <ng-content pxb-account-details-form select="[pxb-account-details-form-page-3]"></ng-content>
+</pxb-create-account-account-details-step>
+
+<!-- Page 4 -->
+<pxb-create-account-account-details-step *ngIf="showAccountDetailPage(3)">
+    <ng-content pxb-account-details-form select="[pxb-account-details-form-page-4]"></ng-content>
+</pxb-create-account-account-details-step>
+
 <pxb-create-account-account-created-step
-    *ngIf="(currentPageId === 5 && !hasExtendedAccountDetails()) || currentPageId === 6"
+    *ngIf="showAccountCreated()"
     [userName]="getUserName()"
     [email]="email"
->
-</pxb-create-account-account-created-step>
+></pxb-create-account-account-created-step>
 
 <mat-divider class="pxb-auth-divider" style="margin-bottom: 16px;"></mat-divider>
 <div class="pxb-auth-action-button-container">

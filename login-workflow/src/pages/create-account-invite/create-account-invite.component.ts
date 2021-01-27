@@ -7,8 +7,10 @@ import { PxbRegisterUIService } from '../../services/api/register-ui.service';
 import { PxbAuthSecurityService, SecurityContext } from '../../services/state/auth-security.service';
 import { PxbCreateAccountInviteErrorDialogService } from '../../services/dialog/create-account-invite-error-dialog.service';
 import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
-import { FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import {AccountDetails} from "../..";
+
+const ACCOUNT_DETAILS_STARTING_PAGE = 2;
 
 @Component({
     selector: 'pxb-create-account-invite',
@@ -16,12 +18,10 @@ import { Subscription } from 'rxjs';
     styleUrls: ['./create-account-invite.component.scss'],
 })
 export class PxbCreateAccountInviteComponent implements OnInit, OnDestroy {
-    @Input() accountDetailsPage1: FormControl[] = [];
-    @Input() accountDetailsPage2: FormControl[] = [];
-    @Input() hasValidAccountDetailsPage1 = false;
-    @Input() hasValidAccountDetailsPage2 = false;
+    @Input() accountDetails: AccountDetails[] = [];
 
     currentPageId = 0;
+    accountDetailsPageStart = ACCOUNT_DETAILS_STARTING_PAGE;
     isLoading: boolean;
     isValidRegistrationLink: boolean;
 
@@ -59,6 +59,14 @@ export class PxbCreateAccountInviteComponent implements OnInit, OnDestroy {
         this.stateListener.unsubscribe();
     }
 
+    clearAccountDetailsInfo(): void {
+        for (const detail of this.accountDetails) {
+            for (const formControl of detail.forms) {
+                formControl.reset();
+            }
+        }
+    }
+
     validateRegistrationLink(): void {
         this._pxbSecurityService.setLoadingMessage('Validating registration link...');
         this._pxbSecurityService.setLoading(true);
@@ -77,9 +85,12 @@ export class PxbCreateAccountInviteComponent implements OnInit, OnDestroy {
 
     registerAccount(): void {
         this._pxbSecurityService.setLoading(true);
-        const accountDetails = this.accountDetailsPage1.concat(this.accountDetailsPage2);
+        const formControls = [];
+        for (const detail of this.accountDetails) {
+            formControls.concat(detail.forms);
+        }
         this._pxbRegisterService
-            .completeRegistration(this.firstName, this.lastName, accountDetails, this.password)
+            .completeRegistration(this.firstName, this.lastName, formControls, this.password)
             .then(() => {
                 this._pxbSecurityService.setLoading(false);
                 this.currentPageId++;
@@ -90,27 +101,18 @@ export class PxbCreateAccountInviteComponent implements OnInit, OnDestroy {
             });
     }
 
-    clearAccountDetailsInfo(): void {
-        for (const formControl of this.accountDetailsPage1) {
-            formControl.reset();
-        }
-        for (const formControl of this.accountDetailsPage2) {
-            formControl.reset();
-        }
-    }
-
     canContinue(): boolean {
+        if (this.isAccountDetailsPage()) {
+            const detailsIndex = this.currentPageId - ACCOUNT_DETAILS_STARTING_PAGE;
+            return this.currentPageId === ACCOUNT_DETAILS_STARTING_PAGE
+                ? this.validAccountName && (!this.isAccountDetailsPopulated(0) || this.accountDetails[0].isValid())
+                : this.isAccountDetailsPopulated(detailsIndex) && this.accountDetails[detailsIndex].isValid();
+        }
         switch (this.currentPageId) {
             case 0:
                 return this.userAcceptsEula;
             case 1:
                 return this.passwordMeetsRequirements;
-            case 2:
-                return (
-                    this.validAccountName && (this.hasValidAccountDetailsPage1 || this.accountDetailsPage1.length === 0)
-                );
-            case 3:
-                return this.hasValidAccountDetailsPage2;
             default:
                 return;
         }
@@ -120,21 +122,15 @@ export class PxbCreateAccountInviteComponent implements OnInit, OnDestroy {
         return !this.isValidRegistrationLink;
     }
 
-    goBack(): void {
-        this.currentPageId === 0 ? this.navigateToLogin() : this.currentPageId--;
+    goNext(): any {
+        if (this.isAccountDetailsPage()) {
+            return this.isLastAccountDetailsPage() ? this.registerAccount() : this.currentPageId++;
+        }
+        return this.currentPageId++;
     }
 
-    goNext(): any {
-        switch (this.currentPageId) {
-            case 1:
-                return this.currentPageId++;
-            case 2:
-                return this.hasExtendedAccountDetails() ? this.currentPageId++ : this.registerAccount();
-            case 3:
-                return this.registerAccount();
-            default:
-                return this.currentPageId++;
-        }
+    goBack(): void {
+        this.currentPageId === 0 ? this.navigateToLogin() : this.currentPageId--;
     }
 
     navigateToLogin(): void {
@@ -143,18 +139,41 @@ export class PxbCreateAccountInviteComponent implements OnInit, OnDestroy {
     }
 
     showStepper(): boolean {
-        return this.currentPageId <= (this.hasExtendedAccountDetails() ? 3 : 2);
+        return this.currentPageId < ACCOUNT_DETAILS_STARTING_PAGE + this.getNumberOfAccountsDetailsPages();
     }
 
     getNumberOfSteps(): number {
-        return this.hasExtendedAccountDetails() ? 4 : 3;
+        return ACCOUNT_DETAILS_STARTING_PAGE + this.getNumberOfAccountsDetailsPages();
     }
 
     getUserName(): string {
         return `${this.firstName} ${this.lastName}`;
     }
 
-    hasExtendedAccountDetails(): boolean {
-        return this.accountDetailsPage2 && this.accountDetailsPage2.length > 0;
+    isAccountDetailsPage(): boolean {
+        return (
+            this.currentPageId >= ACCOUNT_DETAILS_STARTING_PAGE &&
+            this.currentPageId < ACCOUNT_DETAILS_STARTING_PAGE + this.getNumberOfAccountsDetailsPages());
+    }
+
+    isLastAccountDetailsPage(): boolean {
+        return this.currentPageId === (ACCOUNT_DETAILS_STARTING_PAGE + this.getNumberOfAccountsDetailsPages());
+    }
+
+    isAccountDetailsPopulated(index: number): boolean {
+        return this.accountDetails && this.accountDetails[index] && this.accountDetails[index].forms.length > 0;
+    }
+
+    showAccountDetailPage(page: number): boolean {
+        return page < this.getNumberOfAccountsDetailsPages() &&
+            this.currentPageId === ACCOUNT_DETAILS_STARTING_PAGE + page;
+    }
+
+    showAccountCreated(): boolean {
+        return this.currentPageId === ACCOUNT_DETAILS_STARTING_PAGE + this.getNumberOfAccountsDetailsPages();
+    }
+
+    getNumberOfAccountsDetailsPages(): number {
+        return this.accountDetails.length === 0 ? 1 : this.accountDetails.length;
     }
 }
