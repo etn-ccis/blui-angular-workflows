@@ -47,7 +47,7 @@ import { PxbFormsService } from '../../../../services/forms/forms.service';
                             </mat-error>
                         </mat-form-field>
                     </ng-container>
-                    <ng-content select="[pxb-account-details-form]"></ng-content>
+                    <ng-content select="[pxb-account-details]"></ng-content>
                 </form>
             </div>
         </div>

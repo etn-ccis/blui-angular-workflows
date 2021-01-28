@@ -9,6 +9,7 @@ import { PxbCreateAccountErrorDialogService } from '../../services/dialog/create
 import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
 import { FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { CreateAccountService } from './create-account.service';
 
 const ACCOUNT_DETAILS_STARTING_PAGE = 4;
 
@@ -25,8 +26,6 @@ export type AccountDetails = {
 export class PxbCreateAccountComponent implements OnDestroy {
     @Input() accountDetails: AccountDetails[] = [];
 
-    currentPageId = 0;
-    accountDetailsPageStart = ACCOUNT_DETAILS_STARTING_PAGE;
     isLoading = true;
     isValidVerificationCode = true;
 
@@ -50,6 +49,7 @@ export class PxbCreateAccountComponent implements OnDestroy {
     lastName: string;
 
     stateListener: Subscription;
+    registrationUtils: CreateAccountService;
 
     constructor(
         private readonly _router: Router,
@@ -63,16 +63,12 @@ export class PxbCreateAccountComponent implements OnDestroy {
         });
     }
 
-    ngOnDestroy(): void {
-        this.stateListener.unsubscribe();
+    ngOnInit(): void {
+        this.registrationUtils = new CreateAccountService(ACCOUNT_DETAILS_STARTING_PAGE, this.accountDetails);
     }
 
-    clearAccountDetailsInfo(): void {
-        for (const detail of this.accountDetails) {
-            for (const formControl of detail.formControls) {
-                formControl.reset();
-            }
-        }
+    ngOnDestroy(): void {
+        this.stateListener.unsubscribe();
     }
 
     validateVerificationCode(): void {
@@ -81,7 +77,7 @@ export class PxbCreateAccountComponent implements OnDestroy {
             .validateUserRegistrationRequest(this.verificationCode)
             .then(() => {
                 this._pxbSecurityService.setLoading(false);
-                this.currentPageId++;
+                this.registrationUtils.nextStep();
             })
             .catch((data: ErrorDialogData) => {
                 this._pxbErrorDialogService.openDialog(data);
@@ -91,17 +87,11 @@ export class PxbCreateAccountComponent implements OnDestroy {
 
     registerAccount(): void {
         this._pxbSecurityService.setLoading(true);
-        const customAccountDetails = [];
-        for (const detail of this.accountDetails) {
-            for (const control of detail.formControls) {
-                customAccountDetails.push(control.value);
-            }
-        }
         this._pxbRegisterService
             .completeRegistration(
                 this.firstName,
                 this.lastName,
-                customAccountDetails,
+                this.registrationUtils.getAccountDetailsCustomValues(),
                 this.password,
                 this.verificationCode,
                 this.email
@@ -109,7 +99,7 @@ export class PxbCreateAccountComponent implements OnDestroy {
             .then(() => {
                 this._pxbSecurityService.setLoading(false);
                 this._pxbSecurityService.updateSecurityState({ email: this.email });
-                this.currentPageId++;
+                this.registrationUtils.nextStep();
             })
             .catch((data: ErrorDialogData) => {
                 this._pxbErrorDialogService.openDialog(data);
@@ -118,7 +108,12 @@ export class PxbCreateAccountComponent implements OnDestroy {
     }
 
     canContinue(): boolean {
-        switch (this.currentPageId) {
+        if (this.registrationUtils.isAccountDetailsPage()) {
+            return this.registrationUtils.isFirstAccountDetailsPage()
+                ? this.validAccountName && this.registrationUtils.hasValidAccountDetails()
+                : this.registrationUtils.hasValidAccountDetails();
+        }
+        switch (this.registrationUtils.getCurrentPage()) {
             case 0:
                 return this.isValidEmail;
             case 1:
@@ -130,71 +125,30 @@ export class PxbCreateAccountComponent implements OnDestroy {
             default:
                 break;
         }
-        if (this.isAccountDetailsPage()) {
-            const detailsIndex = this.currentPageId - ACCOUNT_DETAILS_STARTING_PAGE;
-            return this.currentPageId === ACCOUNT_DETAILS_STARTING_PAGE
-                ? this.validAccountName && (!this.isAccountDetailsPopulated(0) || this.accountDetails[0].isValid())
-                : this.isAccountDetailsPopulated(detailsIndex) && this.accountDetails[detailsIndex].isValid();
-        }
     }
 
     goNext(): any {
-        if (this.isAccountDetailsPage()) {
-            return this.isLastAccountDetailsPage() ? this.registerAccount() : this.currentPageId++;
+        if (this.registrationUtils.isAccountDetailsPage()) {
+            return this.registrationUtils.isLastAccountDetailsPage()
+                ? this.registerAccount()
+                : this.registrationUtils.nextStep();
         }
-        if (this.currentPageId === 2) {
+        if (this.registrationUtils.getCurrentPage() === 2) {
             return this.validateVerificationCode();
         }
-        return this.currentPageId++;
+        return this.registrationUtils.nextStep();
     }
 
     goBack(): void {
-        this.currentPageId === 0 ? this.navigateToLogin() : this.currentPageId--;
+        this.registrationUtils.getCurrentPage() === 0 ? this.navigateToLogin() : this.registrationUtils.prevStep();
     }
 
     navigateToLogin(): void {
-        this.clearAccountDetailsInfo();
+        this.registrationUtils.clearAccountDetails();
         void this._router.navigate([`${AUTH_ROUTES.AUTH_WORKFLOW}/${AUTH_ROUTES.LOGIN}`]);
-    }
-
-    showStepper(): boolean {
-        return this.currentPageId < ACCOUNT_DETAILS_STARTING_PAGE + this.getNumberOfAccountsDetailsPages();
-    }
-
-    getNumberOfSteps(): number {
-        return ACCOUNT_DETAILS_STARTING_PAGE + this.getNumberOfAccountsDetailsPages();
     }
 
     getUserName(): string {
         return `${this.firstName} ${this.lastName}`;
-    }
-
-    isAccountDetailsPage(): boolean {
-        return (
-            this.currentPageId >= ACCOUNT_DETAILS_STARTING_PAGE &&
-            this.currentPageId < ACCOUNT_DETAILS_STARTING_PAGE + this.getNumberOfAccountsDetailsPages()
-        );
-    }
-
-    isLastAccountDetailsPage(): boolean {
-        return this.currentPageId === ACCOUNT_DETAILS_STARTING_PAGE + this.getNumberOfAccountsDetailsPages() - 1;
-    }
-
-    isAccountDetailsPopulated(index: number): boolean {
-        return this.accountDetails && this.accountDetails[index] && this.accountDetails[index].formControls.length > 0;
-    }
-
-    showAccountDetailPage(page: number): boolean {
-        return (
-            page < this.getNumberOfAccountsDetailsPages() && this.currentPageId === ACCOUNT_DETAILS_STARTING_PAGE + page
-        );
-    }
-
-    showAccountCreated(): boolean {
-        return this.currentPageId === ACCOUNT_DETAILS_STARTING_PAGE + this.getNumberOfAccountsDetailsPages();
-    }
-
-    getNumberOfAccountsDetailsPages(): number {
-        return this.accountDetails.length === 0 ? 1 : this.accountDetails.length;
     }
 }

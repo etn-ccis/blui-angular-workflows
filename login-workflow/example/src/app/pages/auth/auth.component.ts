@@ -20,8 +20,8 @@ import { PxbAuthConfig, AUTH_ROUTES, AccountDetails } from '@pxblue/angular-auth
       <!-- Custom Create Account page -->
       <ng-template #createAccountPage>
         <pxb-create-account [accountDetails]="accountDetails">
-          <template pxb-account-details-form-page-1 [ngTemplateOutlet]="accountDetailsPage1"></template>
-          <template pxb-account-details-form-page-2 [ngTemplateOutlet]="accountDetailsPage2"></template>
+          <template pxb-account-details-page-0 [ngTemplateOutlet]="accountDetailsFirstPage"></template>
+          <template pxb-account-details-page-1 [ngTemplateOutlet]="accountDetailsSecondPage"></template>
         </pxb-create-account>
       </ng-template>
 
@@ -29,13 +29,13 @@ import { PxbAuthConfig, AUTH_ROUTES, AccountDetails } from '@pxblue/angular-auth
       <!-- Custom Create Account page -->
       <ng-template #createAccountViaInvitePage>
         <pxb-create-account-invite [accountDetails]="accountDetails">
-          <template pxb-account-details-form-page-1 [ngTemplateOutlet]="accountDetailsPage1"></template>
-          <template pxb-account-details-form-page-2 [ngTemplateOutlet]="accountDetailsPage2"></template>
+          <template pxb-account-details-page-0 [ngTemplateOutlet]="accountDetailsFirstPage"></template>
+          <template pxb-account-details-page-1 [ngTemplateOutlet]="accountDetailsSecondPage"></template>
         </pxb-create-account-invite>
       </ng-template>
 
       <!-- This is an example of a custom account details form.  To enable the defaults, remove this template and the accountDetails[]. -->
-      <ng-template #accountDetailsPage1>
+      <ng-template #accountDetailsFirstPage>
         <form>
           <mat-form-field appearance="fill" [style.width.%]="100" [style.marginBottom.px]="8">
             <mat-label>Country</mat-label>
@@ -54,7 +54,8 @@ import { PxbAuthConfig, AUTH_ROUTES, AccountDetails } from '@pxblue/angular-auth
           </mat-form-field>
         </form>
       </ng-template>
-      <ng-template #accountDetailsPage2>
+
+      <ng-template #accountDetailsSecondPage>
         <form>
           <mat-form-field appearance="fill" [style.width.%]="100" [style.marginBottom.px]="8">
             <mat-label>Emergency Contact Number</mat-label>

@@ -1,66 +1,69 @@
 <pxb-create-account-provide-email-step
-    *ngIf="currentPageId === 0"
+    *ngIf="registrationUtils.getCurrentPage() === 0"
     [(email)]="email"
     [(isValidEmail)]="isValidEmail"
     (advance)="canContinue() ? goNext() : ''"
 ></pxb-create-account-provide-email-step>
 
 <pxb-create-account-eula-step
-    *ngIf="currentPageId === 1"
+    *ngIf="registrationUtils.getCurrentPage() === 1"
     [(userAcceptsEula)]="userAcceptsEula"
 ></pxb-create-account-eula-step>
 
 <pxb-create-account-verify-email-step
-    *ngIf="currentPageId === 2"
+    *ngIf="registrationUtils.getCurrentPage() === 2"
     [email]="email"
     [(verificationCode)]="verificationCode"
     (advance)="canContinue() ? goNext() : ''"
 ></pxb-create-account-verify-email-step>
 
 <pxb-create-account-create-password-step
-    *ngIf="currentPageId === 3"
+    *ngIf="registrationUtils.getCurrentPage() === 3"
     [(password)]="password"
     [(passwordMeetsRequirements)]="passwordMeetsRequirements"
     (advance)="canContinue() ? goNext() : ''"
 ></pxb-create-account-create-password-step>
 
-<!-- Page 1 -->
+<!-- First Account Details Page -->
 <pxb-create-account-account-details-step
-    *ngIf="showAccountDetailPage(0)"
+    *ngIf="registrationUtils.showAccountDetailsPage(0)"
     [showDefaultAccountDetails]="true"
     [(firstName)]="firstName"
     [(lastName)]="lastName"
     (accountNameValid)="validAccountName = $event"
     (advance)="canContinue() ? goNext() : ''"
 >
-    <ng-content pxb-account-details-form select="[pxb-account-details-form-page-1]"></ng-content>
+    <ng-content pxb-account-details select="[pxb-account-details-page-0]"></ng-content>
 </pxb-create-account-account-details-step>
 
-<!-- Page 2 -->
-<pxb-create-account-account-details-step *ngIf="showAccountDetailPage(1)">
-    <ng-content pxb-account-details-form select="[pxb-account-details-form-page-2]"></ng-content>
+<!-- Second Account Details Page -->
+<pxb-create-account-account-details-step *ngIf="registrationUtils.showAccountDetailsPage(1)">
+    <ng-content pxb-account-details select="[pxb-account-details-page-1]"></ng-content>
 </pxb-create-account-account-details-step>
 
-<!-- Page 3 -->
-<pxb-create-account-account-details-step *ngIf="showAccountDetailPage(2)">
-    <ng-content pxb-account-details-form select="[pxb-account-details-form-page-3]"></ng-content>
+<!-- Third Account Details Page -->
+<pxb-create-account-account-details-step *ngIf="registrationUtils.showAccountDetailsPage(2)">
+    <ng-content pxb-account-details select="[pxb-account-details-page-2]"></ng-content>
 </pxb-create-account-account-details-step>
 
-<!-- Page 4 -->
-<pxb-create-account-account-details-step *ngIf="showAccountDetailPage(3)">
-    <ng-content pxb-account-details-form select="[pxb-account-details-form-page-4]"></ng-content>
+<!-- Fourth Account Details Page -->
+<pxb-create-account-account-details-step *ngIf="registrationUtils.showAccountDetailsPage(3)">
+    <ng-content pxb-account-details select="[pxb-account-details-page-3]"></ng-content>
 </pxb-create-account-account-details-step>
 
 <pxb-create-account-account-created-step
-    *ngIf="showAccountCreated()"
+    *ngIf="registrationUtils.showAccountCreatedPage()"
     [userName]="getUserName()"
     [email]="email"
 ></pxb-create-account-account-created-step>
 
 <mat-divider class="pxb-auth-divider" style="margin-bottom: 16px;"></mat-divider>
 <div class="pxb-auth-action-button-container">
-    <ng-container *ngIf="showStepper()">
-        <pxb-mobile-stepper [steps]="getNumberOfSteps()" [activeStep]="currentPageId">
+    <ng-container *ngIf="!registrationUtils.showAccountCreatedPage()">
+        <pxb-mobile-stepper
+            [steps]="registrationUtils.getNumberOfSteps()"
+            [activeStep]="registrationUtils.getCurrentPage()"
+        >
             <button pxb-back-button mat-stroked-button color="primary" style="width: 100px;" (click)="goBack()">
                 Back
             </button>
@@ -76,7 +79,13 @@
             </button>
         </pxb-mobile-stepper>
     </ng-container>
-    <button *ngIf="!showStepper()" mat-flat-button color="primary" (click)="navigateToLogin()" style="width: 100%">
+    <button
+        *ngIf="registrationUtils.showAccountCreatedPage()"
+        mat-flat-button
+        color="primary"
+        (click)="navigateToLogin()"
+        style="width: 100%"
+    >
         Continue
     </button>
 </div>
