@@ -19,23 +19,23 @@ import { PxbAuthConfig, AUTH_ROUTES, AccountDetails } from '@pxblue/angular-auth
 
       <!-- Custom Create Account page -->
       <ng-template #createAccountPage>
-        <pxb-create-account [accountDetails]="infinity">
-          <template pxb-account-details-form-page-1 [ngTemplateOutlet]="accountDetailsRef"></template>
-          <template pxb-account-details-form-page-2 [ngTemplateOutlet]="accountDetailsRef"></template>
+        <pxb-create-account [accountDetails]="accountDetails">
+          <template pxb-account-details-form-page-1 [ngTemplateOutlet]="accountDetailsPage1"></template>
+          <template pxb-account-details-form-page-2 [ngTemplateOutlet]="accountDetailsPage2"></template>
         </pxb-create-account>
       </ng-template>
 
 
       <!-- Custom Create Account page -->
       <ng-template #createAccountViaInvitePage>
-        <pxb-create-account-invite [accountDetails]="infinity">
-          <template pxb-account-details-form-page-1 [ngTemplateOutlet]="accountDetailsRef"></template>
-          <template pxb-account-details-form-page-2 [ngTemplateOutlet]="accountDetailsRef"></template>
+        <pxb-create-account-invite [accountDetails]="accountDetails">
+          <template pxb-account-details-form-page-1 [ngTemplateOutlet]="accountDetailsPage1"></template>
+          <template pxb-account-details-form-page-2 [ngTemplateOutlet]="accountDetailsPage2"></template>
         </pxb-create-account-invite>
       </ng-template>
 
       <!-- This is an example of a custom account details form.  To enable the defaults, remove this template and the accountDetails[]. -->
-      <ng-template #accountDetailsRef>
+      <ng-template #accountDetailsPage1>
         <form>
           <mat-form-field appearance="fill" [style.width.%]="100" [style.marginBottom.px]="8">
             <mat-label>Country</mat-label>
@@ -54,6 +54,17 @@ import { PxbAuthConfig, AUTH_ROUTES, AccountDetails } from '@pxblue/angular-auth
           </mat-form-field>
         </form>
       </ng-template>
+      <ng-template #accountDetailsPage2>
+        <form>
+          <mat-form-field appearance="fill" [style.width.%]="100" [style.marginBottom.px]="8">
+            <mat-label>Emergency Contact Number</mat-label>
+            <input matInput [formControl]="emergencyFormControl" required />
+            <mat-error *ngIf="emergencyFormControl.hasError('required')">
+              Emergency Contact is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </form>
+      </ng-template>
 
       <!-- This is what accepts all page customizations and renders on screen. !-->
       <pxb-auth [loginRef]="loginPage"
@@ -64,8 +75,8 @@ import { PxbAuthConfig, AUTH_ROUTES, AccountDetails } from '@pxblue/angular-auth
 export class AuthComponent {
     countryFormControl: FormControl;
     phoneNumberFormControl: FormControl;
-    accountDetails: FormControl[];
-    infinity: AccountDetails[];
+  emergencyFormControl: FormControl;
+    accountDetails: AccountDetails[];
 
     countries: any[] = [
         { value: 'US', viewValue: 'US' },
@@ -89,32 +100,22 @@ export class AuthComponent {
 
     ngOnInit(): void {
         this.initCreateAccountFormControls();
-        this.infinity = [
-          {
-            forms: [this.countryFormControl, this.phoneNumberFormControl],
-            isValid: () => this.countryFormControl.value
-          },
-          {
-            forms: [this.countryFormControl, this.phoneNumberFormControl],
-            isValid: () => this.phoneNumberFormControl.value
-          }
-        ]
     }
 
      initCreateAccountFormControls(): void {
          this.countryFormControl = new FormControl('', Validators.required);
          this.phoneNumberFormControl = new FormControl('');
+         this.emergencyFormControl = new FormControl('', Validators.required);
          this.accountDetails = [
-             this.countryFormControl,
-             this.phoneNumberFormControl,
-         ];
-     }
-
-     accountDetailsValid(): boolean {
-         return (
-             this.countryFormControl.value &&
-             this.countryFormControl.valid
-         );
+           {
+             formControls: [this.countryFormControl, this.phoneNumberFormControl],
+             isValid: () => this.countryFormControl.value
+           },
+           {
+             formControls: [this.emergencyFormControl],
+             isValid: () => this.emergencyFormControl.value
+           }
+         ]
      }
 
     customValidator(): ValidatorFn {

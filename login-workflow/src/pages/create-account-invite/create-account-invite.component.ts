@@ -8,7 +8,7 @@ import { PxbAuthSecurityService, SecurityContext } from '../../services/state/au
 import { PxbCreateAccountInviteErrorDialogService } from '../../services/dialog/create-account-invite-error-dialog.service';
 import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
 import { Subscription } from 'rxjs';
-import {AccountDetails} from "../..";
+import { AccountDetails } from '../..';
 
 const ACCOUNT_DETAILS_STARTING_PAGE = 2;
 
@@ -61,7 +61,7 @@ export class PxbCreateAccountInviteComponent implements OnInit, OnDestroy {
 
     clearAccountDetailsInfo(): void {
         for (const detail of this.accountDetails) {
-            for (const formControl of detail.forms) {
+            for (const formControl of detail.formControls) {
                 formControl.reset();
             }
         }
@@ -85,12 +85,14 @@ export class PxbCreateAccountInviteComponent implements OnInit, OnDestroy {
 
     registerAccount(): void {
         this._pxbSecurityService.setLoading(true);
-        const formControls = [];
+        const customAccountDetails = [];
         for (const detail of this.accountDetails) {
-            formControls.concat(detail.forms);
+            for (const control of detail.formControls) {
+                customAccountDetails.push(control.value);
+            }
         }
         this._pxbRegisterService
-            .completeRegistration(this.firstName, this.lastName, formControls, this.password)
+            .completeRegistration(this.firstName, this.lastName, customAccountDetails, this.password)
             .then(() => {
                 this._pxbSecurityService.setLoading(false);
                 this.currentPageId++;
@@ -153,20 +155,22 @@ export class PxbCreateAccountInviteComponent implements OnInit, OnDestroy {
     isAccountDetailsPage(): boolean {
         return (
             this.currentPageId >= ACCOUNT_DETAILS_STARTING_PAGE &&
-            this.currentPageId < ACCOUNT_DETAILS_STARTING_PAGE + this.getNumberOfAccountsDetailsPages());
+            this.currentPageId < ACCOUNT_DETAILS_STARTING_PAGE + this.getNumberOfAccountsDetailsPages()
+        );
     }
 
     isLastAccountDetailsPage(): boolean {
-        return this.currentPageId === (ACCOUNT_DETAILS_STARTING_PAGE + this.getNumberOfAccountsDetailsPages());
+        return this.currentPageId === ACCOUNT_DETAILS_STARTING_PAGE + this.getNumberOfAccountsDetailsPages() - 1;
     }
 
     isAccountDetailsPopulated(index: number): boolean {
-        return this.accountDetails && this.accountDetails[index] && this.accountDetails[index].forms.length > 0;
+        return this.accountDetails && this.accountDetails[index] && this.accountDetails[index].formControls.length > 0;
     }
 
     showAccountDetailPage(page: number): boolean {
-        return page < this.getNumberOfAccountsDetailsPages() &&
-            this.currentPageId === ACCOUNT_DETAILS_STARTING_PAGE + page;
+        return (
+            page < this.getNumberOfAccountsDetailsPages() && this.currentPageId === ACCOUNT_DETAILS_STARTING_PAGE + page
+        );
     }
 
     showAccountCreated(): boolean {

@@ -12,7 +12,7 @@ import { PxbFormsService } from '../../../../services/forms/forms.service';
             </p>
             <mat-divider class="pxb-auth-divider" style="margin-top: 16px; margin-bottom: 32px;"></mat-divider>
             <div style="display: flex; flex: 1 1 0px; overflow: auto;">
-                <form>
+                <form [style.width.%]="100">
                     <ng-container *ngIf="showDefaultAccountDetails">
                         <mat-form-field appearance="fill" [style.width.%]="100" [style.marginBottom.px]="8">
                             <mat-label>First Name</mat-label>

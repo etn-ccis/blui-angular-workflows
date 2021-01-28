@@ -17,7 +17,7 @@ export type IPxbRegisterUIService = {
     completeRegistration(
         firstName: string,
         lastName: string,
-        formControls: FormControl[],
+        customAccountDetails: string[],
         password: string,
         validationCode?: string,
         email?: string
@@ -51,7 +51,7 @@ export class PxbRegisterUIService implements IPxbRegisterUIService {
     completeRegistration(
         firstName: string,
         lastName: string,
-        formControls: FormControl[],
+        customAccountDetails: string[],
         password: string,
         validationCode?: string,
         email?: string
