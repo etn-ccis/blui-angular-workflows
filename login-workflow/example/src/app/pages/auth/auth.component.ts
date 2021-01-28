@@ -5,78 +5,79 @@ import { PxbAuthConfig, AUTH_ROUTES, AccountDetails } from '@pxblue/angular-auth
 @Component({
     selector: 'app-auth',
     template: `
-      <!-- Project-specific login page -->
-      <ng-template #loginPage>
-        <pxb-login [customEmailValidator]="customValidator()">
-          <div pxb-login-header>
-            <img src="assets/images/eaton_stacked_logo.png" style="max-width: 100%; max-height: 80px;"/>
-          </div>
-          <div pxb-login-footer style="text-align: center;">
-            <img src="assets/images/cybersecurity_certified.png" style="max-width: 30%; align-self: center;"/>
-          </div>
-        </pxb-login>
-      </ng-template>
+        <!-- Project-specific login page -->
+        <ng-template #loginPage>
+            <pxb-login [customEmailValidator]="customValidator()">
+                <div pxb-login-header>
+                    <img src="assets/images/eaton_stacked_logo.png" style="max-width: 100%; max-height: 80px;" />
+                </div>
+                <div pxb-login-footer style="text-align: center;">
+                    <img src="assets/images/cybersecurity_certified.png" style="max-width: 30%; align-self: center;" />
+                </div>
+            </pxb-login>
+        </ng-template>
 
-      <!-- Custom Create Account page -->
-      <ng-template #createAccountPage>
-        <pxb-create-account [accountDetails]="accountDetails">
-          <template pxb-account-details-page-0 [ngTemplateOutlet]="accountDetailsFirstPage"></template>
-          <template pxb-account-details-page-1 [ngTemplateOutlet]="accountDetailsSecondPage"></template>
-        </pxb-create-account>
-      </ng-template>
+        <!-- Custom Create Account page -->
+        <ng-template #createAccountPage>
+            <pxb-create-account [accountDetails]="accountDetails">
+                <template pxb-account-details-page-0 [ngTemplateOutlet]="accountDetailsFirstPage"></template>
+                <template pxb-account-details-page-1 [ngTemplateOutlet]="accountDetailsSecondPage"></template>
+            </pxb-create-account>
+        </ng-template>
 
+        <!-- Custom Create Account page -->
+        <ng-template #createAccountViaInvitePage>
+            <pxb-create-account-invite [accountDetails]="accountDetails">
+                <template pxb-account-details-page-0 [ngTemplateOutlet]="accountDetailsFirstPage"></template>
+                <template pxb-account-details-page-1 [ngTemplateOutlet]="accountDetailsSecondPage"></template>
+            </pxb-create-account-invite>
+        </ng-template>
 
-      <!-- Custom Create Account page -->
-      <ng-template #createAccountViaInvitePage>
-        <pxb-create-account-invite [accountDetails]="accountDetails">
-          <template pxb-account-details-page-0 [ngTemplateOutlet]="accountDetailsFirstPage"></template>
-          <template pxb-account-details-page-1 [ngTemplateOutlet]="accountDetailsSecondPage"></template>
-        </pxb-create-account-invite>
-      </ng-template>
+        <!-- This is an example of a custom account details form.  To enable the defaults, remove this template and the accountDetails[]. -->
+        <ng-template #accountDetailsFirstPage>
+            <form>
+                <mat-form-field appearance="fill" [style.width.%]="100" [style.marginBottom.px]="8">
+                    <mat-label>Country</mat-label>
+                    <mat-select [formControl]="countryFormControl" required>
+                        <mat-option *ngFor="let country of countries" [value]="country.value">
+                            {{ country.viewValue }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="countryFormControl.hasError('required')">
+                        Country is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="fill" [style.width.%]="100" [style.marginBottom.px]="8">
+                    <mat-label>Phone Number (optional)</mat-label>
+                    <input matInput [formControl]="phoneNumberFormControl" />
+                </mat-form-field>
+            </form>
+        </ng-template>
 
-      <!-- This is an example of a custom account details form.  To enable the defaults, remove this template and the accountDetails[]. -->
-      <ng-template #accountDetailsFirstPage>
-        <form>
-          <mat-form-field appearance="fill" [style.width.%]="100" [style.marginBottom.px]="8">
-            <mat-label>Country</mat-label>
-            <mat-select [formControl]="countryFormControl" required>
-              <mat-option *ngFor="let country of countries" [value]="country.value">
-                {{ country.viewValue }}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="countryFormControl.hasError('required')">
-              Country is <strong>required</strong>
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="fill" [style.width.%]="100" [style.marginBottom.px]="8">
-            <mat-label>Phone Number (optional)</mat-label>
-            <input matInput [formControl]="phoneNumberFormControl"/>
-          </mat-form-field>
-        </form>
-      </ng-template>
+        <ng-template #accountDetailsSecondPage>
+            <form>
+                <mat-form-field appearance="fill" [style.width.%]="100" [style.marginBottom.px]="8">
+                    <mat-label>Emergency Contact Number</mat-label>
+                    <input matInput [formControl]="emergencyFormControl" required />
+                    <mat-error *ngIf="emergencyFormControl.hasError('required')">
+                        Emergency Contact is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+            </form>
+        </ng-template>
 
-      <ng-template #accountDetailsSecondPage>
-        <form>
-          <mat-form-field appearance="fill" [style.width.%]="100" [style.marginBottom.px]="8">
-            <mat-label>Emergency Contact Number</mat-label>
-            <input matInput [formControl]="emergencyFormControl" required />
-            <mat-error *ngIf="emergencyFormControl.hasError('required')">
-              Emergency Contact is <strong>required</strong>
-            </mat-error>
-          </mat-form-field>
-        </form>
-      </ng-template>
-
-      <!-- This is what accepts all page customizations and renders on screen. !-->
-      <pxb-auth [loginRef]="loginPage"
-                [createAccountRef]="createAccountPage"
-                [createAccountInviteRef]="createAccountViaInvitePage"></pxb-auth>
+        <!-- This is what accepts all page customizations and renders on screen. !-->
+        <pxb-auth
+            [loginRef]="loginPage"
+            [createAccountRef]="createAccountPage"
+            [createAccountInviteRef]="createAccountViaInvitePage"
+        ></pxb-auth>
     `,
 })
 export class AuthComponent {
     countryFormControl: FormControl;
     phoneNumberFormControl: FormControl;
-  emergencyFormControl: FormControl;
+    emergencyFormControl: FormControl;
     accountDetails: AccountDetails[];
 
     countries: any[] = [
@@ -103,21 +104,21 @@ export class AuthComponent {
         this.initCreateAccountFormControls();
     }
 
-     initCreateAccountFormControls(): void {
-         this.countryFormControl = new FormControl('', Validators.required);
-         this.phoneNumberFormControl = new FormControl('');
-         this.emergencyFormControl = new FormControl('', Validators.required);
-         this.accountDetails = [
-           {
-             formControls: [this.countryFormControl, this.phoneNumberFormControl],
-             isValid: () => this.countryFormControl.value
-           },
-           {
-             formControls: [this.emergencyFormControl],
-             isValid: () => this.emergencyFormControl.value
-           }
-         ]
-     }
+    initCreateAccountFormControls(): void {
+        this.countryFormControl = new FormControl('', Validators.required);
+        this.phoneNumberFormControl = new FormControl('');
+        this.emergencyFormControl = new FormControl('', Validators.required);
+        this.accountDetails = [
+            {
+                formControls: [this.countryFormControl, this.phoneNumberFormControl],
+                isValid: () => this.countryFormControl.value,
+            },
+            {
+                formControls: [this.emergencyFormControl],
+                isValid: () => this.emergencyFormControl.value,
+            },
+        ];
+    }
 
     customValidator(): ValidatorFn {
         return (control: AbstractControl): { [key: string]: any } | null => {
