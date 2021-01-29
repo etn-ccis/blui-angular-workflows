@@ -88,6 +88,15 @@ constructor(pxbAuthConfig: PxbAuthConfig) {
 -   **showSelfRegistration**: _`boolean`_
     -   When true, shows the Create Account button to allow for self registration.
     -   Default: true
+-   **showContactSupport**: _`boolean`_
+    -   When true, shows the Contact Support link on the Login page.
+    -   Default: true
+-   **showForgotPassword**: _`boolean`_
+    -   When true, shows the Forgot Password link to allow for resetting a password.
+    -   Default: true
+-   **showRememberMe**: _`boolean`_
+    -   When true, shows the Remember Me option on the Login Page.
+    -   Default: true
     
 
 # Services

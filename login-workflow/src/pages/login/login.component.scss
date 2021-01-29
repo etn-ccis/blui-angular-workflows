@@ -36,6 +36,9 @@ mat-form-field {
 .pxb-login-button {
     width: 150px;
 }
+.pxb-login-button-full-width {
+    width: 100%;
+}
 
 @media only screen and (max-width: 600px) {
     .pxb-login-remember-me-login-wrapper {
