@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
-import { AbstractControl, FormControl, ValidatorFn, Validators } from '@angular/forms';
+import {Component, Input, TemplateRef, ViewChild} from '@angular/core';
+import {AbstractControl, Form, FormControl, ValidatorFn, Validators} from '@angular/forms';
 import { PxbAuthConfig, AUTH_ROUTES, AccountDetails } from '@pxblue/angular-auth-workflow';
+import {MatFormField} from "@angular/material/form-field";
 
 @Component({
     selector: 'app-auth',
@@ -19,22 +20,16 @@ import { PxbAuthConfig, AUTH_ROUTES, AccountDetails } from '@pxblue/angular-auth
 
         <!-- Custom Create Account page -->
         <ng-template #createAccountPage>
-            <pxb-create-account [accountDetails]="accountDetails">
-                <template pxb-account-details-page-0 [ngTemplateOutlet]="accountDetailsFirstPage"></template>
-                <template pxb-account-details-page-1 [ngTemplateOutlet]="accountDetailsSecondPage"></template>
-            </pxb-create-account>
+            <pxb-create-account [accountDetails]="accountDetails"></pxb-create-account>
         </ng-template>
 
         <!-- Custom Create Account page -->
         <ng-template #createAccountViaInvitePage>
-            <pxb-create-account-invite [accountDetails]="accountDetails">
-                <template pxb-account-details-page-0 [ngTemplateOutlet]="accountDetailsFirstPage"></template>
-                <template pxb-account-details-page-1 [ngTemplateOutlet]="accountDetailsSecondPage"></template>
-            </pxb-create-account-invite>
+            <pxb-create-account-invite [accountDetails]="accountDetails"></pxb-create-account-invite>
         </ng-template>
 
         <!-- This is an example of a custom account details form.  To enable the defaults, remove this template and the accountDetails[]. -->
-        <ng-template #accountDetailsFirstPage>
+        <ng-template #accountDetailsPage1>
             <form>
                 <mat-form-field appearance="fill" [style.width.%]="100" [style.marginBottom.px]="8">
                     <mat-label>Country</mat-label>
@@ -54,7 +49,7 @@ import { PxbAuthConfig, AUTH_ROUTES, AccountDetails } from '@pxblue/angular-auth
             </form>
         </ng-template>
 
-        <ng-template #accountDetailsSecondPage>
+        <ng-template #accountDetailsPage2>
             <form>
                 <mat-form-field appearance="fill" [style.width.%]="100" [style.marginBottom.px]="8">
                     <mat-label>Emergency Contact Number</mat-label>
@@ -80,6 +75,9 @@ export class AuthComponent {
     emergencyFormControl: FormControl;
     accountDetails: AccountDetails[];
 
+    @ViewChild('accountDetailsPage1') accountDetailsPage1: TemplateRef<MatFormField>;
+    @ViewChild('accountDetailsPage2') accountDetailsPage2: TemplateRef<MatFormField>;
+
     countries: any[] = [
         { value: 'US', viewValue: 'US' },
         { value: 'UK', viewValue: 'UK' },
@@ -100,7 +98,7 @@ export class AuthComponent {
         }
     }
 
-    ngOnInit(): void {
+    ngAfterViewInit(): void {
         this.initCreateAccountFormControls();
     }
 
@@ -109,11 +107,16 @@ export class AuthComponent {
         this.phoneNumberFormControl = new FormControl('');
         this.emergencyFormControl = new FormControl('', Validators.required);
         this.accountDetails = [
+          {
+            form: undefined, formControls: undefined, isValid: () => true,
+          },
             {
+              form: this.accountDetailsPage1,
                 formControls: [this.countryFormControl, this.phoneNumberFormControl],
                 isValid: () => this.countryFormControl.value,
             },
             {
+              form: this.accountDetailsPage2,
                 formControls: [this.emergencyFormControl],
                 isValid: () => this.emergencyFormControl.value,
             },

@@ -58,14 +58,6 @@ export class PxbCreateAccountInviteComponent implements OnInit, OnDestroy {
         this.stateListener.unsubscribe();
     }
 
-    clearAccountDetailsInfo(): void {
-        for (const detail of this.accountDetails) {
-            for (const formControl of detail.formControls) {
-                formControl.reset();
-            }
-        }
-    }
-
     validateRegistrationLink(): void {
         this._pxbSecurityService.setLoadingMessage('Validating registration link...');
         this._pxbSecurityService.setLoading(true);
@@ -135,7 +127,7 @@ export class PxbCreateAccountInviteComponent implements OnInit, OnDestroy {
     }
 
     navigateToLogin(): void {
-        this.clearAccountDetailsInfo();
+        this.registrationUtils.clearAccountDetails();
         void this._router.navigate([`${AUTH_ROUTES.AUTH_WORKFLOW}/${AUTH_ROUTES.LOGIN}`]);
     }
 

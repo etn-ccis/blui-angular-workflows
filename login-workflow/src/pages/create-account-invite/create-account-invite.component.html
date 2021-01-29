@@ -28,29 +28,25 @@
 
     <!-- Page 1 -->
     <pxb-create-account-account-details-step
-        *ngIf="registrationUtils.showAccountDetailsPage(0)"
+        *ngIf="registrationUtils.isFirstAccountDetailsPage()"
         [showDefaultAccountDetails]="true"
         [(firstName)]="firstName"
         [(lastName)]="lastName"
         (accountNameValid)="validAccountName = $event"
         (advance)="canContinue() ? goNext() : ''"
     >
-        <ng-content pxb-account-details select="[pxb-account-details-page-0]"></ng-content>
+        <template
+            pxb-account-details
+            [ngTemplateOutlet]="registrationUtils.getCustomAccountDetailsTemplate()"
+        ></template>
     </pxb-create-account-account-details-step>
 
-    <!-- Page 2 -->
-    <pxb-create-account-account-details-step *ngIf="registrationUtils.showAccountDetailsPage(1)">
-        <ng-content pxb-account-details select="[pxb-account-details-page-1]"></ng-content>
-    </pxb-create-account-account-details-step>
-
-    <!-- Page 3 -->
-    <pxb-create-account-account-details-step *ngIf="registrationUtils.showAccountDetailsPage(2)">
-        <ng-content pxb-account-details select="[pxb-account-details-page-2]"></ng-content>
-    </pxb-create-account-account-details-step>
-
-    <!-- Page 4 -->
-    <pxb-create-account-account-details-step *ngIf="registrationUtils.showAccountDetailsPage(3)">
-        <ng-content pxb-account-details select="[pxb-account-details-page-3]"></ng-content>
+    <!-- Custom Account Details Pages -->
+    <pxb-create-account-account-details-step *ngIf="registrationUtils.isCustomAccountsDetailsPage()">
+        <template
+            pxb-account-details
+            [ngTemplateOutlet]="registrationUtils.getCustomAccountDetailsTemplate()"
+        ></template>
     </pxb-create-account-account-details-step>
 
     <pxb-create-account-account-created-step

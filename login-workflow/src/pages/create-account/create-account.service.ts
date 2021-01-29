@@ -1,4 +1,6 @@
 import { AccountDetails } from './create-account.component';
+import { TemplateRef } from '@angular/core';
+import { MatFormField } from '@angular/material/form-field';
 
 export class CreateAccountService {
     /* Account Registration Pages start with 0 index. */
@@ -21,6 +23,13 @@ export class CreateAccountService {
         return this.currentPage;
     }
 
+    /* Returns true if on-screen custom account detail forms contain valid entries. */
+    hasValidAccountDetails(): boolean {
+        const detailsIndex = this.currentPage - this.detailsStartPage; /* index of custom accountDetails to use. */
+        const hasCustomForms = this._hasDetailsAtIndex(detailsIndex);
+        return !hasCustomForms || this.accountDetails[detailsIndex].isValid();
+    }
+
     /* Returns true if the current page is an Accounts Details entry page. */
     isAccountDetailsPage(): boolean {
         return (
@@ -29,16 +38,13 @@ export class CreateAccountService {
         );
     }
 
-    /* Returns true if on-screen custom account detail forms contain valid entries. */
-    hasValidAccountDetails(): boolean {
-        const detailsIndex = this.currentPage - this.detailsStartPage; /* index of custom accountDetails to use. */
-        const hasCustomForms = this.hasDetailsAtIndex(detailsIndex);
-        return !hasCustomForms || this.accountDetails[detailsIndex].isValid();
-    }
-
     /* Returns true if current page is the first account details page. */
     isFirstAccountDetailsPage(): boolean {
         return this.currentPage === this.detailsStartPage;
+    }
+
+    isCustomAccountsDetailsPage(): boolean {
+        return !this.isFirstAccountDetailsPage() && this.isAccountDetailsPage();
     }
 
     /* Returns true if the current page is the last account details page. */
@@ -47,13 +53,13 @@ export class CreateAccountService {
     }
 
     /* Searches for custom AccountDetails and returns true if it exists. */
-    hasDetailsAtIndex(index: number): boolean {
-        return this.accountDetails && this.accountDetails[index] && this.accountDetails[index].formControls.length > 0;
-    }
-
-    /* Returns true if the potentialPage should be shown as the currentPage. */
-    showAccountDetailsPage(page: number): boolean {
-        return page < this.getNumberOfAccountDetailsPages() && this.currentPage === this.detailsStartPage + page;
+    private _hasDetailsAtIndex(index: number): boolean {
+        return (
+            this.accountDetails &&
+            this.accountDetails[index] &&
+            this.accountDetails[index].formControls &&
+            this.accountDetails[index].formControls.length > 0
+        );
     }
 
     /* Returns how many pages of account details a user will have to fill out. */
@@ -71,10 +77,18 @@ export class CreateAccountService {
         return this.detailsStartPage + this.getNumberOfAccountDetailsPages();
     }
 
+    /* Returns user-provided custom account details for the currentPage. */
+    getCustomAccountDetailsTemplate(): TemplateRef<MatFormField> {
+        const detailsIndex = this.currentPage - this.detailsStartPage; /* index of custom accountDetails to use. */
+        if (this._hasDetailsAtIndex(detailsIndex)) {
+            return this.accountDetails[detailsIndex].form;
+        }
+    }
+
     /* Called upon completing the self-registration process, empties all forms.  */
     clearAccountDetails(): void {
         for (const detail of this.accountDetails) {
-            for (const formControl of detail.formControls) {
+            for (const formControl of detail.formControls || []) {
                 formControl.reset();
             }
         }
@@ -84,7 +98,7 @@ export class CreateAccountService {
     getAccountDetailsCustomValues(): string[] {
         const customAccountDetails = [];
         for (const detail of this.accountDetails) {
-            for (const control of detail.formControls) {
+            for (const control of detail.formControls || []) {
                 customAccountDetails.push(control.value);
             }
         }
