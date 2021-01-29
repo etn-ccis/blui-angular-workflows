@@ -1,7 +1,7 @@
-import {Component, Input, TemplateRef, ViewChild} from '@angular/core';
-import {AbstractControl, Form, FormControl, ValidatorFn, Validators} from '@angular/forms';
+import { Component, Input, TemplateRef, ViewChild } from '@angular/core';
+import { AbstractControl, Form, FormControl, ValidatorFn, Validators } from '@angular/forms';
 import { PxbAuthConfig, AUTH_ROUTES, AccountDetails } from '@pxblue/angular-auth-workflow';
-import {MatFormField} from "@angular/material/form-field";
+import { MatFormField } from '@angular/material/form-field';
 
 @Component({
     selector: 'app-auth',
@@ -107,16 +107,13 @@ export class AuthComponent {
         this.phoneNumberFormControl = new FormControl('');
         this.emergencyFormControl = new FormControl('', Validators.required);
         this.accountDetails = [
-          {
-            form: undefined, formControls: undefined, isValid: () => true,
-          },
             {
-              form: this.accountDetailsPage1,
+                form: this.accountDetailsPage1,
                 formControls: [this.countryFormControl, this.phoneNumberFormControl],
                 isValid: () => this.countryFormControl.value,
             },
             {
-              form: this.accountDetailsPage2,
+                form: this.accountDetailsPage2,
                 formControls: [this.emergencyFormControl],
                 isValid: () => this.emergencyFormControl.value,
             },
