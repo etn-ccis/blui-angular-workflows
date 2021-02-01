@@ -1,6 +1,6 @@
 import { Component, Input, TemplateRef, ViewChild } from '@angular/core';
 import { AbstractControl, Form, FormControl, ValidatorFn, Validators } from '@angular/forms';
-import { PxbAuthConfig, AUTH_ROUTES, AccountDetails } from '@pxblue/angular-auth-workflow';
+import { PxbAuthConfig, AUTH_ROUTES, AccountDetails, PxbCreateAccountComponent } from '@pxblue/angular-auth-workflow';
 import { MatFormField } from '@angular/material/form-field';
 
 @Component({
@@ -20,7 +20,7 @@ import { MatFormField } from '@angular/material/form-field';
 
         <!-- Custom Create Account page -->
         <ng-template #createAccountPage>
-            <pxb-create-account [accountDetails]="accountDetails"></pxb-create-account>
+            <pxb-create-account #createAccount [accountDetails]="accountDetails"></pxb-create-account>
         </ng-template>
 
         <!-- Custom Create Account page -->
@@ -44,7 +44,8 @@ import { MatFormField } from '@angular/material/form-field';
                 </mat-form-field>
                 <mat-form-field appearance="fill" [style.width.%]="100" [style.marginBottom.px]="8">
                     <mat-label>Phone Number (optional)</mat-label>
-                    <input matInput [formControl]="phoneNumberFormControl" />
+                    <input matInput [formControl]="phoneNumberFormControl"
+                           (keyup.enter)="createAccount.canContinue() ? createAccount.goNext() : ''"/>
                 </mat-form-field>
             </form>
         </ng-template>
@@ -77,6 +78,7 @@ export class AuthComponent {
 
     @ViewChild('accountDetailsPage1') accountDetailsPage1: TemplateRef<MatFormField>;
     @ViewChild('accountDetailsPage2') accountDetailsPage2: TemplateRef<MatFormField>;
+    @ViewChild('createAccount') createAccount: PxbCreateAccountComponent;
 
     countries: any[] = [
         { value: 'US', viewValue: 'US' },
