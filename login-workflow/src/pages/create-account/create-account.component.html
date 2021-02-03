@@ -2,7 +2,7 @@
     *ngIf="registrationUtils.getCurrentPage() === 0"
     [(email)]="email"
     [(isValidEmail)]="isValidEmail"
-    (advance)="canContinue() ? goNext() : ''"
+    (advance)="attemptContinue()"
 ></pxb-create-account-provide-email-step>
 
 <pxb-create-account-eula-step
@@ -14,14 +14,14 @@
     *ngIf="registrationUtils.getCurrentPage() === 2"
     [email]="email"
     [(verificationCode)]="verificationCode"
-    (advance)="canContinue() ? goNext() : ''"
+    (advance)="attemptContinue()"
 ></pxb-create-account-verify-email-step>
 
 <pxb-create-account-create-password-step
     *ngIf="registrationUtils.getCurrentPage() === 3"
     [(password)]="password"
     [(passwordMeetsRequirements)]="passwordMeetsRequirements"
-    (advance)="canContinue() ? goNext() : ''"
+    (advance)="attemptContinue()"
 ></pxb-create-account-create-password-step>
 
 <!-- First Account Details Page -->
@@ -31,7 +31,7 @@
     [(firstName)]="firstName"
     [(lastName)]="lastName"
     (accountNameValid)="validAccountName = $event"
-    (advance)="canContinue() ? goNext() : ''"
+    (advance)="attemptContinue()"
 >
     <template pxb-account-details [ngTemplateOutlet]="registrationUtils.getCustomAccountDetailsTemplate()"></template>
 </pxb-create-account-account-details-step>

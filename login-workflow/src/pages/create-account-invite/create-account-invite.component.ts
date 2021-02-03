@@ -93,6 +93,12 @@ export class PxbCreateAccountInviteComponent implements OnInit, OnDestroy {
             });
     }
 
+    attemptContinue(): void {
+        if (this.canContinue()) {
+            this.goNext();
+        }
+    }
+
     canContinue(): boolean {
         if (this.registrationUtils.isAccountDetailsPage()) {
             return this.registrationUtils.isFirstAccountDetailsPage()

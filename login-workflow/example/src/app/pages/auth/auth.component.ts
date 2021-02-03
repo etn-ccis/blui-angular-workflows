@@ -45,7 +45,7 @@ import { MatFormField } from '@angular/material/form-field';
                 <mat-form-field appearance="fill">
                     <mat-label>Phone Number (optional)</mat-label>
                     <input matInput [formControl]="phoneNumberFormControl"
-                           (keyup.enter)="createAccount.canContinue() ? createAccount.goNext() : ''"/>
+                           (keyup.enter)="createAccountVC.attemptContinue()"/>
                 </mat-form-field>
             </form>
         </ng-template>
@@ -54,7 +54,7 @@ import { MatFormField } from '@angular/material/form-field';
             <form>
                 <mat-form-field appearance="fill">
                     <mat-label>Emergency Contact Number</mat-label>
-                    <input matInput [formControl]="emergencyFormControl" required />
+                    <input matInput [formControl]="emergencyFormControl" required (keyup.enter)="createAccountVC.attemptContinue()" />
                     <mat-error *ngIf="emergencyFormControl.hasError('required')">
                         Emergency Contact is <strong>required</strong>
                     </mat-error>

@@ -23,7 +23,7 @@
         *ngIf="registrationUtils.getCurrentPage() === 1"
         [(password)]="password"
         [(passwordMeetsRequirements)]="passwordMeetsRequirements"
-        (advance)="canContinue() ? goNext() : ''"
+        (advance)="attemptContinue()"
     ></pxb-create-account-create-password-step>
 
     <!-- Page 1 -->
@@ -33,7 +33,7 @@
         [(firstName)]="firstName"
         [(lastName)]="lastName"
         (accountNameValid)="validAccountName = $event"
-        (advance)="canContinue() ? goNext() : ''"
+        (advance)="attemptContinue()"
     >
         <template
             pxb-account-details
