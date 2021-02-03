@@ -400,6 +400,12 @@ See the example project (`./src/app/dialog/login-error-dialog.component.ts`) for
 </pxb-auth>
 ```
 
+
+# Custom Registration Requirements
+
+TODO: Custom account registration docs go here. 
+
+
 ## Auth Component
 The Auth Component is the top level `<pxb-auth>` component that houses all pages with the auth workflow.
 This component accepts @Inputs for individual page customizations.
