@@ -31,40 +31,47 @@ import { AccountDetails, AUTH_ROUTES, PxbAuthConfig, PxbCreateAccountComponent, 
         <!-- This is an example of a custom account details form.  To enable the defaults, remove this template and the accountDetails[]. -->
         <ng-template #accountDetailsPage1>
             <form>
-                <mat-form-field appearance="fill" [style.width.%]="100" [style.marginBottom.px]="8">
-                    <mat-label>Country</mat-label>
-                    <mat-select [formControl]="countryFormControl" required>
-                        <mat-option *ngFor="let country of countries" [value]="country.value">
-                            {{ country.viewValue }}
-                        </mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="countryFormControl.hasError('required')">
-                        Country is <strong>required</strong>
+              <div style="display: flex;">
+                <mat-form-field appearance="fill"  [style.maxWidth.px]="170">
+                  <mat-label>Country Code</mat-label>
+                  <mat-select [formControl]="countryFormControl" required>
+                    <mat-option *ngFor="let country of countries" [value]="country.value">
+                      {{ country.viewValue }}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="countryFormControl.hasError('required')">
+                    Code is <strong>required</strong>
+                  </mat-error>
+                </mat-form-field >
+                  <mat-form-field appearance="fill" [style.marginLeft.px]="16">
+                      <mat-label>Phone Number</mat-label>
+                      <input
+                          matInput
+                          required
+                          [formControl]="phoneNumberFormControl"
+                          (keyup.enter)="attemptGoNext()"
+                      />
+
+                    <mat-error *ngIf="phoneNumberFormControl.hasError('required')">
+                      Code is <strong>required</strong>
                     </mat-error>
-                </mat-form-field>
-                <mat-form-field appearance="fill">
-                    <mat-label>Phone Number (optional)</mat-label>
-                    <input
-                        matInput
-                        [formControl]="phoneNumberFormControl"
-                        (keyup.enter)="attemptGoNext()"
-                    />
-                </mat-form-field>
+                  </mat-form-field>
+                </div>
             </form>
         </ng-template>
 
         <ng-template #accountDetailsPage2>
             <form>
                 <mat-form-field appearance="fill">
-                    <mat-label>Emergency Contact Number</mat-label>
+                    <mat-label>Job Title</mat-label>
                     <input
                         matInput
-                        [formControl]="emergencyFormControl"
+                        [formControl]="jobTitleFromControl"
                         required
                         (keyup.enter)="attemptGoNext()"
                     />
-                    <mat-error *ngIf="emergencyFormControl.hasError('required')">
-                        Emergency Contact is <strong>required</strong>
+                    <mat-error *ngIf="jobTitleFromControl.hasError('required')">
+                        Job Title is <strong>required</strong>
                     </mat-error>
                 </mat-form-field>
             </form>
@@ -81,7 +88,7 @@ import { AccountDetails, AUTH_ROUTES, PxbAuthConfig, PxbCreateAccountComponent, 
 export class AuthComponent {
     countryFormControl: FormControl;
     phoneNumberFormControl: FormControl;
-    emergencyFormControl: FormControl;
+    jobTitleFromControl: FormControl;
     accountDetails: AccountDetails[];
 
   @ViewChild('createAccountVC') createAccountVC: PxbCreateAccountComponent;
@@ -91,8 +98,10 @@ export class AuthComponent {
     @ViewChild('accountDetailsPage2') accountDetailsPage2: TemplateRef<MatFormField>;
 
     countries: any[] = [
-        { value: 'US', viewValue: 'US' },
-        { value: 'UK', viewValue: 'UK' },
+        { value: 'US', viewValue: '+1 (USA)' },
+        { value: 'CAN', viewValue: '+1 (CAN)' },
+        { value: 'KZ', viewValue: '+7 (KZ)' },
+        { value: 'FRA', viewValue: '+33 (FRA)' },
     ];
 
     constructor(pxbAuthConfig: PxbAuthConfig) {
@@ -117,21 +126,20 @@ export class AuthComponent {
     initCreateAccountFormControls(): void {
         this.countryFormControl = new FormControl('', Validators.required);
         this.phoneNumberFormControl = new FormControl('');
-        this.emergencyFormControl = new FormControl('', Validators.required);
+        this.jobTitleFromControl = new FormControl('', Validators.required);
         this.accountDetails = [
-            undefined,
             {
                 form: this.accountDetailsPage1,
                 formControls: new Map([
                     ['country', this.countryFormControl],
                     ['phoneNumber', this.phoneNumberFormControl],
                 ]),
-                isValid: () => this.countryFormControl.value,
+                isValid: () => this.countryFormControl.value && this.phoneNumberFormControl.value
             },
             {
                 form: this.accountDetailsPage2,
-                formControls: new Map([['emergencyContact', this.emergencyFormControl]]),
-                isValid: () => this.emergencyFormControl.value,
+                formControls: new Map([['jobTitle', this.jobTitleFromControl]]),
+                isValid: () => this.jobTitleFromControl.value,
             },
         ];
     }
