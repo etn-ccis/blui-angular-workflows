@@ -401,7 +401,7 @@ See the example project (`./src/app/dialog/login-error-dialog.component.ts`) for
 ```
 
 
-# Custom Registration Requirements
+# Custom Account Details
 To add custom form fields to the self registration pages, follow the steps below:
 
 ### Create a custom `<pxb-create-account>` component.
