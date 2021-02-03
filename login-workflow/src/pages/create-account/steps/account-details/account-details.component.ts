@@ -4,6 +4,7 @@ import { PxbFormsService } from '../../../../services/forms/forms.service';
 
 @Component({
     selector: 'pxb-create-account-account-details-step',
+    styleUrls: ['account-details.component.scss'],
     template: `
         <div class="mat-title pxb-auth-title">Account Details</div>
         <div class="pxb-auth-full-height">
@@ -11,10 +12,10 @@ import { PxbFormsService } from '../../../../services/forms/forms.service';
                 Enter your details below to complete account creation.
             </p>
             <mat-divider class="pxb-auth-divider" style="margin-top: 16px; margin-bottom: 32px;"></mat-divider>
-            <div style="display: flex; flex: 1 1 0px; overflow: auto;">
-                <form [style.width.%]="100">
+            <div class="pxb-account-details-body">
+                <form>
                     <ng-container *ngIf="showDefaultAccountDetails">
-                        <mat-form-field appearance="fill" [style.width.%]="100" [style.marginBottom.px]="8">
+                        <mat-form-field appearance="fill">
                             <mat-label>First Name</mat-label>
                             <input
                                 #pxbFirst
@@ -30,7 +31,7 @@ import { PxbFormsService } from '../../../../services/forms/forms.service';
                                 First Name is <strong>required</strong>
                             </mat-error>
                         </mat-form-field>
-                        <mat-form-field appearance="fill" [style.width.%]="100" [style.marginBottom.px]="8">
+                        <mat-form-field appearance="fill">
                             <mat-label>Last Name</mat-label>
                             <input
                                 matInput

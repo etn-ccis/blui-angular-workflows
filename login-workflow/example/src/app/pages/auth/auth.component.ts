@@ -20,7 +20,7 @@ import { MatFormField } from '@angular/material/form-field';
 
         <!-- Custom Create Account page -->
         <ng-template #createAccountPage>
-            <pxb-create-account #createAccount [accountDetails]="accountDetails"></pxb-create-account>
+            <pxb-create-account #createAccountVC [accountDetails]="accountDetails"></pxb-create-account>
         </ng-template>
 
         <!-- Custom Create Account page -->
@@ -42,7 +42,7 @@ import { MatFormField } from '@angular/material/form-field';
                         Country is <strong>required</strong>
                     </mat-error>
                 </mat-form-field>
-                <mat-form-field appearance="fill" [style.width.%]="100" [style.marginBottom.px]="8">
+                <mat-form-field appearance="fill">
                     <mat-label>Phone Number (optional)</mat-label>
                     <input matInput [formControl]="phoneNumberFormControl"
                            (keyup.enter)="createAccount.canContinue() ? createAccount.goNext() : ''"/>
@@ -52,7 +52,7 @@ import { MatFormField } from '@angular/material/form-field';
 
         <ng-template #accountDetailsPage2>
             <form>
-                <mat-form-field appearance="fill" [style.width.%]="100" [style.marginBottom.px]="8">
+                <mat-form-field appearance="fill">
                     <mat-label>Emergency Contact Number</mat-label>
                     <input matInput [formControl]="emergencyFormControl" required />
                     <mat-error *ngIf="emergencyFormControl.hasError('required')">
@@ -78,7 +78,7 @@ export class AuthComponent {
 
     @ViewChild('accountDetailsPage1') accountDetailsPage1: TemplateRef<MatFormField>;
     @ViewChild('accountDetailsPage2') accountDetailsPage2: TemplateRef<MatFormField>;
-    @ViewChild('createAccount') createAccount: PxbCreateAccountComponent;
+    @ViewChild('createAccountVC') createAccountVC: PxbCreateAccountComponent;
 
     countries: any[] = [
         { value: 'US', viewValue: 'US' },
