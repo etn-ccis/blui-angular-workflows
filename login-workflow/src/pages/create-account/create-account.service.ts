@@ -88,7 +88,7 @@ export class CreateAccountService {
     /* Called upon completing the self-registration process, empties all forms.  */
     clearAccountDetails(): void {
         for (const detail of this.accountDetails) {
-            for (const formControl of detail.formControls || []) {
+            for (const formControl of detail?.formControls || []) {
                 formControl.reset();
             }
         }
@@ -98,7 +98,7 @@ export class CreateAccountService {
     getAccountDetailsCustomValues(): string[] {
         const customAccountDetails = [];
         for (const detail of this.accountDetails) {
-            for (const control of detail.formControls || []) {
+            for (const control of detail?.formControls || []) {
                 customAccountDetails.push(control.value);
             }
         }
