@@ -1,6 +1,7 @@
 import { AccountDetails } from './create-account.component';
 import { TemplateRef } from '@angular/core';
 import { MatFormField } from '@angular/material/form-field';
+import {FormControl} from "@angular/forms";
 
 export class CreateAccountService {
     /* Account Registration Pages start with 0 index. */
@@ -58,7 +59,7 @@ export class CreateAccountService {
             this.accountDetails &&
             this.accountDetails[index] &&
             this.accountDetails[index].formControls &&
-            this.accountDetails[index].formControls.length > 0
+            this.accountDetails[index].formControls.size > 0
         );
     }
 
@@ -88,18 +89,22 @@ export class CreateAccountService {
     /* Called upon completing the self-registration process, empties all forms.  */
     clearAccountDetails(): void {
         for (const detail of this.accountDetails) {
-            for (const formControl of detail?.formControls || []) {
-                formControl.reset();
+            if (detail && detail.formControls) {
+                for (const formControls of detail.formControls.values()) {
+                    formControls.reset();
+                }
             }
         }
     }
 
     /* Returns string[] of custom account detail values. */
-    getAccountDetailsCustomValues(): string[] {
-        const customAccountDetails = [];
+    getAccountDetailsCustomValues(): Map<string, FormControl> {
+        const customAccountDetails: Map<string, FormControl> = new Map();
         for (const detail of this.accountDetails) {
-            for (const control of detail?.formControls || []) {
-                customAccountDetails.push(control.value);
+            if (detail && detail.formControls) {
+                detail.formControls.forEach((formControl, key) => {
+                    customAccountDetails.set(key, formControl);
+                })
             }
         }
         return customAccountDetails;

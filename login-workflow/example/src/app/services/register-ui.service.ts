@@ -72,7 +72,7 @@ export class RegisterUIService implements IPxbRegisterUIService {
     completeRegistration(
         firstName: string,
         lastName: string,
-        customAccountDetails: string[],
+        customAccountDetails: Map<string, FormControl>,
         password: string,
         validationCode?: string,
         email?: string
@@ -85,7 +85,10 @@ export class RegisterUIService implements IPxbRegisterUIService {
         console.log(
             `Performing a sample CompleteRegistration request with the following credentials:\n firstName: ${firstName}\n lastName: ${lastName}\n password: ${password}\n validationCode: ${validationCode}\n email: ${email}`
         );
-        console.log(`Custom account details: ${customAccountDetails.toString()}`);
+        console.log(`Custom account details:`);
+        for (const key of customAccountDetails.keys()) {
+            console.log(`${key}: ${customAccountDetails.get(key).value}`);
+        }
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 if (firstName && firstName.toUpperCase() === 'FAIL') {

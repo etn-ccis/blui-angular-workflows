@@ -1,7 +1,7 @@
-import { Component, Input, TemplateRef, ViewChild } from '@angular/core';
-import { AbstractControl, Form, FormControl, ValidatorFn, Validators } from '@angular/forms';
-import { PxbAuthConfig, AUTH_ROUTES, AccountDetails, PxbCreateAccountComponent } from '@pxblue/angular-auth-workflow';
+import { Component, TemplateRef, ViewChild } from '@angular/core';
+import { AbstractControl, FormControl, ValidatorFn, Validators } from '@angular/forms';
 import { MatFormField } from '@angular/material/form-field';
+import { AccountDetails, AUTH_ROUTES, PxbAuthConfig, PxbCreateAccountComponent, PxbCreateAccountInviteComponent } from '@pxblue/angular-auth-workflow';
 
 @Component({
     selector: 'app-auth',
@@ -25,7 +25,7 @@ import { MatFormField } from '@angular/material/form-field';
 
         <!-- Custom Create Account page -->
         <ng-template #createAccountViaInvitePage>
-            <pxb-create-account-invite [accountDetails]="accountDetails"></pxb-create-account-invite>
+            <pxb-create-account-invite #createAccountInviteVC [accountDetails]="accountDetails"></pxb-create-account-invite>
         </ng-template>
 
         <!-- This is an example of a custom account details form.  To enable the defaults, remove this template and the accountDetails[]. -->
@@ -44,8 +44,11 @@ import { MatFormField } from '@angular/material/form-field';
                 </mat-form-field>
                 <mat-form-field appearance="fill">
                     <mat-label>Phone Number (optional)</mat-label>
-                    <input matInput [formControl]="phoneNumberFormControl"
-                           (keyup.enter)="createAccountVC.attemptContinue()"/>
+                    <input
+                        matInput
+                        [formControl]="phoneNumberFormControl"
+                        (keyup.enter)="attemptGoNext()"
+                    />
                 </mat-form-field>
             </form>
         </ng-template>
@@ -54,7 +57,12 @@ import { MatFormField } from '@angular/material/form-field';
             <form>
                 <mat-form-field appearance="fill">
                     <mat-label>Emergency Contact Number</mat-label>
-                    <input matInput [formControl]="emergencyFormControl" required (keyup.enter)="createAccountVC.attemptContinue()" />
+                    <input
+                        matInput
+                        [formControl]="emergencyFormControl"
+                        required
+                        (keyup.enter)="attemptGoNext()"
+                    />
                     <mat-error *ngIf="emergencyFormControl.hasError('required')">
                         Emergency Contact is <strong>required</strong>
                     </mat-error>
@@ -76,9 +84,11 @@ export class AuthComponent {
     emergencyFormControl: FormControl;
     accountDetails: AccountDetails[];
 
+  @ViewChild('createAccountVC') createAccountVC: PxbCreateAccountComponent;
+  @ViewChild('createAccountInviteVC') createAccountInviteVC: PxbCreateAccountInviteComponent;
+
     @ViewChild('accountDetailsPage1') accountDetailsPage1: TemplateRef<MatFormField>;
     @ViewChild('accountDetailsPage2') accountDetailsPage2: TemplateRef<MatFormField>;
-    @ViewChild('createAccountVC') createAccountVC: PxbCreateAccountComponent;
 
     countries: any[] = [
         { value: 'US', viewValue: 'US' },
@@ -109,14 +119,18 @@ export class AuthComponent {
         this.phoneNumberFormControl = new FormControl('');
         this.emergencyFormControl = new FormControl('', Validators.required);
         this.accountDetails = [
+            undefined,
             {
                 form: this.accountDetailsPage1,
-                formControls: [this.countryFormControl, this.phoneNumberFormControl],
+                formControls: new Map([
+                    ['country', this.countryFormControl],
+                    ['phoneNumber', this.phoneNumberFormControl],
+                ]),
                 isValid: () => this.countryFormControl.value,
             },
             {
                 form: this.accountDetailsPage2,
-                formControls: [this.emergencyFormControl],
+                formControls: new Map([['emergencyContact', this.emergencyFormControl]]),
                 isValid: () => this.emergencyFormControl.value,
             },
         ];
@@ -129,5 +143,14 @@ export class AuthComponent {
                 ? { PXB_LOGIN_VALIDATOR_ERROR_NAME: { message: 'This is a custom error, provided by end user' } }
                 : null;
         };
+    }
+
+    attemptGoNext(): void {
+      if (this.createAccountInviteVC) {
+        this.createAccountInviteVC.attemptContinue();
+      }
+      if (this.createAccountVC) {
+        this.createAccountVC.attemptContinue();
+      }
     }
 }

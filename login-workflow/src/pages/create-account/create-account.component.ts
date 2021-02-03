@@ -1,5 +1,8 @@
 import { Component, Input, OnDestroy, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { MatFormField } from '@angular/material/form-field';
+import { FormControl } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 import { AUTH_ROUTES } from '../../auth/auth.routes';
 import { PxbAuthConfig } from '../../services/config/auth-config';
@@ -7,16 +10,13 @@ import { PxbRegisterUIService } from '../../services/api/register-ui.service';
 import { PxbAuthSecurityService, SecurityContext } from '../../services/state/auth-security.service';
 import { PxbCreateAccountErrorDialogService } from '../../services/dialog/create-account-error-dialog.service';
 import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
-import { FormControl } from '@angular/forms';
-import { Subscription } from 'rxjs';
 import { CreateAccountService } from './create-account.service';
-import { MatFormField } from '@angular/material/form-field';
 
 const ACCOUNT_DETAILS_STARTING_PAGE = 4;
 
 export type AccountDetails = {
     form: TemplateRef<MatFormField>;
-    formControls: FormControl[];
+    formControls: Map<string, FormControl>;
     isValid: () => boolean;
 };
 
