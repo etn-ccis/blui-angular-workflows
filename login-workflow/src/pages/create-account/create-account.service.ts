@@ -1,7 +1,7 @@
 import { AccountDetails } from './create-account.component';
 import { TemplateRef } from '@angular/core';
 import { MatFormField } from '@angular/material/form-field';
-import {FormControl} from "@angular/forms";
+import { FormControl } from '@angular/forms';
 
 export class CreateAccountService {
     /* Account Registration Pages start with 0 index. */
@@ -104,7 +104,7 @@ export class CreateAccountService {
             if (detail && detail.formControls) {
                 detail.formControls.forEach((formControl, key) => {
                     customAccountDetails.set(key, formControl);
-                })
+                });
             }
         }
         return customAccountDetails;

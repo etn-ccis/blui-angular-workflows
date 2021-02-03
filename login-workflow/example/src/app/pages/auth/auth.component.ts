@@ -1,7 +1,13 @@
 import { Component, TemplateRef, ViewChild } from '@angular/core';
 import { AbstractControl, FormControl, ValidatorFn, Validators } from '@angular/forms';
 import { MatFormField } from '@angular/material/form-field';
-import { AccountDetails, AUTH_ROUTES, PxbAuthConfig, PxbCreateAccountComponent, PxbCreateAccountInviteComponent } from '@pxblue/angular-auth-workflow';
+import {
+    AccountDetails,
+    AUTH_ROUTES,
+    PxbAuthConfig,
+    PxbCreateAccountComponent,
+    PxbCreateAccountInviteComponent,
+} from '@pxblue/angular-auth-workflow';
 
 @Component({
     selector: 'app-auth',
@@ -25,37 +31,40 @@ import { AccountDetails, AUTH_ROUTES, PxbAuthConfig, PxbCreateAccountComponent, 
 
         <!-- Custom Create Account page -->
         <ng-template #createAccountViaInvitePage>
-            <pxb-create-account-invite #createAccountInviteVC [accountDetails]="accountDetails"></pxb-create-account-invite>
+            <pxb-create-account-invite
+                #createAccountInviteVC
+                [accountDetails]="accountDetails"
+            ></pxb-create-account-invite>
         </ng-template>
 
         <!-- This is an example of a custom account details form.  To enable the defaults, remove this template and the accountDetails[]. -->
         <ng-template #accountDetailsPage1>
             <form>
-              <div style="display: flex;">
-                <mat-form-field appearance="fill"  [style.maxWidth.px]="170">
-                  <mat-label>Country Code</mat-label>
-                  <mat-select [formControl]="countryFormControl" required>
-                    <mat-option *ngFor="let country of countries" [value]="country.value">
-                      {{ country.viewValue }}
-                    </mat-option>
-                  </mat-select>
-                  <mat-error *ngIf="countryFormControl.hasError('required')">
-                    Code is <strong>required</strong>
-                  </mat-error>
-                </mat-form-field >
-                  <mat-form-field appearance="fill" [style.marginLeft.px]="16">
-                      <mat-label>Phone Number</mat-label>
-                      <input
-                          matInput
-                          required
-                          [formControl]="phoneNumberFormControl"
-                          (keyup.enter)="attemptGoNext()"
-                      />
+                <div style="display: flex;">
+                    <mat-form-field appearance="fill" [style.maxWidth.px]="170">
+                        <mat-label>Country Code</mat-label>
+                        <mat-select [formControl]="countryFormControl" required>
+                            <mat-option *ngFor="let country of countries" [value]="country.value">
+                                {{ country.viewValue }}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="countryFormControl.hasError('required')">
+                            Code is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" [style.marginLeft.px]="16">
+                        <mat-label>Phone Number</mat-label>
+                        <input
+                            matInput
+                            required
+                            [formControl]="phoneNumberFormControl"
+                            (keyup.enter)="attemptGoNext()"
+                        />
 
-                    <mat-error *ngIf="phoneNumberFormControl.hasError('required')">
-                      Code is <strong>required</strong>
-                    </mat-error>
-                  </mat-form-field>
+                        <mat-error *ngIf="phoneNumberFormControl.hasError('required')">
+                            Code is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
                 </div>
             </form>
         </ng-template>
@@ -64,12 +73,7 @@ import { AccountDetails, AUTH_ROUTES, PxbAuthConfig, PxbCreateAccountComponent, 
             <form>
                 <mat-form-field appearance="fill">
                     <mat-label>Job Title</mat-label>
-                    <input
-                        matInput
-                        [formControl]="jobTitleFromControl"
-                        required
-                        (keyup.enter)="attemptGoNext()"
-                    />
+                    <input matInput [formControl]="jobTitleFromControl" required (keyup.enter)="attemptGoNext()" />
                     <mat-error *ngIf="jobTitleFromControl.hasError('required')">
                         Job Title is <strong>required</strong>
                     </mat-error>
@@ -91,8 +95,8 @@ export class AuthComponent {
     jobTitleFromControl: FormControl;
     accountDetails: AccountDetails[];
 
-  @ViewChild('createAccountVC') createAccountVC: PxbCreateAccountComponent;
-  @ViewChild('createAccountInviteVC') createAccountInviteVC: PxbCreateAccountInviteComponent;
+    @ViewChild('createAccountVC') createAccountVC: PxbCreateAccountComponent;
+    @ViewChild('createAccountInviteVC') createAccountInviteVC: PxbCreateAccountInviteComponent;
 
     @ViewChild('accountDetailsPage1') accountDetailsPage1: TemplateRef<MatFormField>;
     @ViewChild('accountDetailsPage2') accountDetailsPage2: TemplateRef<MatFormField>;
@@ -134,7 +138,7 @@ export class AuthComponent {
                     ['country', this.countryFormControl],
                     ['phoneNumber', this.phoneNumberFormControl],
                 ]),
-                isValid: () => this.countryFormControl.value && this.phoneNumberFormControl.value
+                isValid: () => this.countryFormControl.value && this.phoneNumberFormControl.value,
             },
             {
                 form: this.accountDetailsPage2,
@@ -154,11 +158,11 @@ export class AuthComponent {
     }
 
     attemptGoNext(): void {
-      if (this.createAccountInviteVC) {
-        this.createAccountInviteVC.attemptContinue();
-      }
-      if (this.createAccountVC) {
-        this.createAccountVC.attemptContinue();
-      }
+        if (this.createAccountInviteVC) {
+            this.createAccountInviteVC.attemptContinue();
+        }
+        if (this.createAccountVC) {
+            this.createAccountVC.attemptContinue();
+        }
     }
 }
