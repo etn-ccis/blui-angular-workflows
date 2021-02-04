@@ -465,7 +465,9 @@ ngAfterViewInit(): void {
 
 ```
 
-This solution scales so that a user can have as many pages as they want.  Adding `undefined` as the first entry of the `accountDetails[]` will shift all custom forms onto their own page. 
+This solution scales so that a user can have as many pages as they want.  Adding `undefined` as the first entry of the `accountDetails[]` will shift all custom forms onto their own page.  
+
+Check out the Example project to see an example of custom registration forms.
 
 
 ## Auth Component
