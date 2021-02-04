@@ -15,7 +15,9 @@ export type IPxbRegisterUIService = {
 
     // The user has been invited to register and has entered the necessary account and password information. The application should now complete the registration process given the user's data
     completeRegistration(
-        formControls: FormControl[],
+        firstName: string,
+        lastName: string,
+        customAccountDetails: Map<string, FormControl>,
         password: string,
         validationCode?: string,
         email?: string
@@ -47,7 +49,9 @@ export class PxbRegisterUIService implements IPxbRegisterUIService {
     }
 
     completeRegistration(
-        formControls: FormControl[],
+        firstName: string,
+        lastName: string,
+        customAccountDetails: Map<string, FormControl>,
         password: string,
         validationCode?: string,
         email?: string

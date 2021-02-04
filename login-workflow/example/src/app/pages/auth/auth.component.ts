@@ -1,6 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, TemplateRef, ViewChild } from '@angular/core';
 import { AbstractControl, FormControl, ValidatorFn, Validators } from '@angular/forms';
-import { PxbAuthConfig, AUTH_ROUTES } from '@pxblue/angular-auth-workflow';
+import { MatFormField } from '@angular/material/form-field';
+import {
+    AccountDetails,
+    AUTH_ROUTES,
+    PxbAuthConfig,
+    PxbCreateAccountComponent,
+    PxbCreateAccountInviteComponent,
+} from '@pxblue/angular-auth-workflow';
 
 @Component({
     selector: 'app-auth',
@@ -18,77 +25,87 @@ import { PxbAuthConfig, AUTH_ROUTES } from '@pxblue/angular-auth-workflow';
         </ng-template>
 
         <!-- Custom Create Account page -->
-        <!-- <ng-template #createAccountPage>
-            <pxb-create-account
-                [accountDetails]="accountDetails"
-                [hasValidAccountDetails]="accountDetailsValid()"
-                [userName]="firstNameFormControl.value + ' ' + lastNameFormControl.value"
-            >
-                <template pxb-account-details-form [ngTemplateOutlet]="accountDetailsRef"></template>
-            </pxb-create-account>
-        </ng-template> -->
+        <ng-template #createAccountPage>
+            <pxb-create-account #createAccountVC [accountDetails]="accountDetails"></pxb-create-account>
+        </ng-template>
 
-        <!-- Custom Create Account via Invite page -->
-        <!-- <ng-template #createAccountViaInvitePage>
+        <!-- Custom Create Account page -->
+        <ng-template #createAccountViaInvitePage>
             <pxb-create-account-invite
+                #createAccountInviteVC
                 [accountDetails]="accountDetails"
-                [hasValidAccountDetails]="accountDetailsValid()"
-                [userName]="firstNameFormControl.value + ' ' + lastNameFormControl.value"
-            >
-                <template pxb-account-details-form [ngTemplateOutlet]="accountDetailsRef"></template>
-            </pxb-create-account-invite>
-        </ng-template> -->
+            ></pxb-create-account-invite>
+        </ng-template>
 
         <!-- This is an example of a custom account details form.  To enable the defaults, remove this template and the accountDetails[]. -->
-        <!-- <ng-template #accountDetailsRef>
+        <ng-template #accountDetailsPage1>
             <form>
-                <mat-form-field appearance="fill" [style.width.%]="100" [style.marginBottom.px]="8">
-                    <mat-label>First Name</mat-label>
-                    <input matInput [formControl]="firstNameFormControl" required />
-                    <mat-error *ngIf="firstNameFormControl.hasError('required')">
-                        First Name is <strong>required</strong>
+                <div style="display: flex;">
+                    <mat-form-field appearance="fill" [style.maxWidth.px]="170">
+                        <mat-label>Country Code</mat-label>
+                        <mat-select [formControl]="countryFormControl" required>
+                            <mat-option *ngFor="let country of countries" [value]="country.value">
+                                {{ country.viewValue }}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="countryFormControl.hasError('required')">
+                            Code is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" [style.marginLeft.px]="16">
+                        <mat-label>Phone Number</mat-label>
+                        <input
+                            matInput
+                            required
+                            [formControl]="phoneNumberFormControl"
+                            (keyup.enter)="attemptGoNext()"
+                        />
+
+                        <mat-error *ngIf="phoneNumberFormControl.hasError('required')">
+                            Code is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </form>
+        </ng-template>
+
+        <ng-template #accountDetailsPage2>
+            <form>
+                <mat-form-field appearance="fill">
+                    <mat-label>Job Title</mat-label>
+                    <input matInput [formControl]="jobTitleFromControl" required (keyup.enter)="attemptGoNext()" />
+                    <mat-error *ngIf="jobTitleFromControl.hasError('required')">
+                        Job Title is <strong>required</strong>
                     </mat-error>
-                </mat-form-field>
-                <mat-form-field appearance="fill" [style.width.%]="100" [style.marginBottom.px]="8">
-                    <mat-label>Last Name</mat-label>
-                    <input matInput [formControl]="lastNameFormControl" required />
-                    <mat-error *ngIf="lastNameFormControl.hasError('required')">
-                        Last Name is <strong>required</strong>
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field appearance="fill" [style.width.%]="100" [style.marginBottom.px]="8">
-                    <mat-label>Country</mat-label>
-                    <mat-select [formControl]="countryFormControl" required>
-                        <mat-option *ngFor="let country of countries" [value]="country.value">
-                            {{ country.viewValue }}
-                        </mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="countryFormControl.hasError('required')">
-                        Country is <strong>required</strong>
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field appearance="fill" [style.width.%]="100" [style.marginBottom.px]="8">
-                    <mat-label>Phone Number (optional)</mat-label>
-                    <input matInput [formControl]="phoneNumberFormControl" />
                 </mat-form-field>
             </form>
-        </ng-template> -->
+        </ng-template>
 
         <!-- This is what accepts all page customizations and renders on screen. !-->
-        <pxb-auth [loginRef]="loginPage">
-        </pxb-auth>
+        <pxb-auth
+            [loginRef]="loginPage"
+            [createAccountRef]="createAccountPage"
+            [createAccountInviteRef]="createAccountViaInvitePage"
+        ></pxb-auth>
     `,
 })
 export class AuthComponent {
-    firstNameFormControl: FormControl;
-    lastNameFormControl: FormControl;
     countryFormControl: FormControl;
     phoneNumberFormControl: FormControl;
-    accountDetails: FormControl[];
+    jobTitleFromControl: FormControl;
+    accountDetails: AccountDetails[];
+
+    @ViewChild('createAccountVC') createAccountVC: PxbCreateAccountComponent;
+    @ViewChild('createAccountInviteVC') createAccountInviteVC: PxbCreateAccountInviteComponent;
+
+    @ViewChild('accountDetailsPage1') accountDetailsPage1: TemplateRef<MatFormField>;
+    @ViewChild('accountDetailsPage2') accountDetailsPage2: TemplateRef<MatFormField>;
 
     countries: any[] = [
-        { value: 'US', viewValue: 'US' },
-        { value: 'UK', viewValue: 'UK' },
+        { value: 'US', viewValue: '+1 (USA)' },
+        { value: 'CAN', viewValue: '+1 (CAN)' },
+        { value: 'KZ', viewValue: '+7 (KZ)' },
+        { value: 'FRA', viewValue: '+33 (FRA)' },
     ];
 
     constructor(pxbAuthConfig: PxbAuthConfig) {
@@ -106,33 +123,30 @@ export class AuthComponent {
         }
     }
 
-    ngOnInit(): void {
-        // this.initCreateAccountFormControls();
+    ngAfterViewInit(): void {
+        this.initCreateAccountFormControls();
     }
 
-    // initCreateAccountFormControls(): void {
-    //     this.firstNameFormControl = new FormControl('', Validators.required);
-    //     this.lastNameFormControl = new FormControl('', Validators.required);
-    //     this.countryFormControl = new FormControl('', Validators.required);
-    //     this.phoneNumberFormControl = new FormControl('');
-    //     this.accountDetails = [
-    //         this.firstNameFormControl,
-    //         this.lastNameFormControl,
-    //         this.countryFormControl,
-    //         this.phoneNumberFormControl,
-    //     ];
-    // }
-
-    // accountDetailsValid(): boolean {
-    //     return (
-    //         this.firstNameFormControl.value &&
-    //         this.firstNameFormControl.valid &&
-    //         this.lastNameFormControl.value &&
-    //         this.lastNameFormControl.valid &&
-    //         this.countryFormControl.value &&
-    //         this.countryFormControl.valid
-    //     );
-    // }
+    initCreateAccountFormControls(): void {
+        this.countryFormControl = new FormControl('', Validators.required);
+        this.phoneNumberFormControl = new FormControl('');
+        this.jobTitleFromControl = new FormControl('', Validators.required);
+        this.accountDetails = [
+            {
+                form: this.accountDetailsPage1,
+                formControls: new Map([
+                    ['country', this.countryFormControl],
+                    ['phoneNumber', this.phoneNumberFormControl],
+                ]),
+                isValid: () => this.countryFormControl.value && this.phoneNumberFormControl.value,
+            },
+            {
+                form: this.accountDetailsPage2,
+                formControls: new Map([['jobTitle', this.jobTitleFromControl]]),
+                isValid: () => this.jobTitleFromControl.value,
+            },
+        ];
+    }
 
     customValidator(): ValidatorFn {
         return (control: AbstractControl): { [key: string]: any } | null => {
@@ -141,5 +155,14 @@ export class AuthComponent {
                 ? { PXB_LOGIN_VALIDATOR_ERROR_NAME: { message: 'This is a custom error, provided by end user' } }
                 : null;
         };
+    }
+
+    attemptGoNext(): void {
+        if (this.createAccountInviteVC) {
+            this.createAccountInviteVC.attemptContinue();
+        }
+        if (this.createAccountVC) {
+            this.createAccountVC.attemptContinue();
+        }
     }
 }

@@ -1,5 +1,8 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { MatFormField } from '@angular/material/form-field';
+import { FormControl } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 import { AUTH_ROUTES } from '../../auth/auth.routes';
 import { PxbAuthConfig } from '../../services/config/auth-config';
@@ -7,21 +10,24 @@ import { PxbRegisterUIService } from '../../services/api/register-ui.service';
 import { PxbAuthSecurityService, SecurityContext } from '../../services/state/auth-security.service';
 import { PxbCreateAccountErrorDialogService } from '../../services/dialog/create-account-error-dialog.service';
 import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
-import { FormControl } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { CreateAccountService } from './create-account.service';
+
+const ACCOUNT_DETAILS_STARTING_PAGE = 4;
+
+export type AccountDetails = {
+    form: TemplateRef<MatFormField>;
+    formControls: Map<string, FormControl>;
+    isValid: () => boolean;
+};
 
 @Component({
     selector: 'pxb-create-account',
     templateUrl: './create-account.component.html',
     styleUrls: ['./create-account.component.scss'],
 })
-export class PxbCreateAccountComponent implements OnInit, OnDestroy {
-    @Input() userName: string;
-    @Input() accountDetails: FormControl[] = [];
-    @Input() hasValidAccountDetails = false;
-    @Input() useDefaultAccountDetails;
+export class PxbCreateAccountComponent implements OnDestroy {
+    @Input() accountDetails: AccountDetails[] = [];
 
-    currentPageId = 0;
     isLoading = true;
     isValidVerificationCode = true;
 
@@ -39,7 +45,13 @@ export class PxbCreateAccountComponent implements OnInit, OnDestroy {
     password: string;
     passwordMeetsRequirements: boolean;
 
+    // Account Details Page
+    validAccountName: boolean;
+    firstName: string;
+    lastName: string;
+
     stateListener: Subscription;
+    registrationUtils: CreateAccountService;
 
     constructor(
         private readonly _router: Router,
@@ -54,10 +66,7 @@ export class PxbCreateAccountComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        // Unless the user has specified otherwise, use the defaultAccountDetails if there are no custom forms provided.
-        if (this.useDefaultAccountDetails === undefined) {
-            this.useDefaultAccountDetails = this.accountDetails.length === 0;
-        }
+        this.registrationUtils = new CreateAccountService(ACCOUNT_DETAILS_STARTING_PAGE, this.accountDetails);
     }
 
     ngOnDestroy(): void {
@@ -70,28 +79,29 @@ export class PxbCreateAccountComponent implements OnInit, OnDestroy {
             .validateUserRegistrationRequest(this.verificationCode)
             .then(() => {
                 this._pxbSecurityService.setLoading(false);
-                this.currentPageId++;
+                this.registrationUtils.nextStep();
             })
             .catch((data: ErrorDialogData) => {
                 this._pxbErrorDialogService.openDialog(data);
                 this._pxbSecurityService.setLoading(false);
             });
-    }
-
-    clearAccountDetailsInfo(): void {
-        for (const formControl of this.accountDetails) {
-            formControl.reset();
-        }
     }
 
     registerAccount(): void {
         this._pxbSecurityService.setLoading(true);
         this._pxbRegisterService
-            .completeRegistration(this.accountDetails, this.password, this.verificationCode, this.email)
+            .completeRegistration(
+                this.firstName,
+                this.lastName,
+                this.registrationUtils.getAccountDetailsCustomValues(),
+                this.password,
+                this.verificationCode,
+                this.email
+            )
             .then(() => {
                 this._pxbSecurityService.setLoading(false);
                 this._pxbSecurityService.updateSecurityState({ email: this.email });
-                this.currentPageId++;
+                this.registrationUtils.nextStep();
             })
             .catch((data: ErrorDialogData) => {
                 this._pxbErrorDialogService.openDialog(data);
@@ -99,8 +109,19 @@ export class PxbCreateAccountComponent implements OnInit, OnDestroy {
             });
     }
 
+    attemptContinue(): void {
+        if (this.canContinue()) {
+            this.goNext();
+        }
+    }
+
     canContinue(): boolean {
-        switch (this.currentPageId) {
+        if (this.registrationUtils.isAccountDetailsPage()) {
+            return this.registrationUtils.isFirstAccountDetailsPage()
+                ? this.validAccountName && this.registrationUtils.hasValidAccountDetails()
+                : this.registrationUtils.hasValidAccountDetails();
+        }
+        switch (this.registrationUtils.getCurrentPage()) {
             case 0:
                 return this.isValidEmail;
             case 1:
@@ -109,51 +130,33 @@ export class PxbCreateAccountComponent implements OnInit, OnDestroy {
                 return Boolean(this.verificationCode);
             case 3:
                 return this.passwordMeetsRequirements;
-            case 4:
-                return this.hasValidAccountDetails;
             default:
-                return;
+                break;
         }
-    }
-
-    goBack(): void {
-        this.currentPageId === 0 ? this.navigateToLogin() : this.currentPageId--;
     }
 
     goNext(): any {
-        switch (this.currentPageId) {
-            case 2:
-                return this.validateVerificationCode();
-            case 3:
-                return this.skipAccountDetails() ? this.registerAccount() : this.currentPageId++;
-            case 4:
-                return this.registerAccount();
-            default:
-                return this.currentPageId++;
+        if (this.registrationUtils.isAccountDetailsPage()) {
+            return this.registrationUtils.isLastAccountDetailsPage()
+                ? this.registerAccount()
+                : this.registrationUtils.nextStep();
         }
+        if (this.registrationUtils.getCurrentPage() === 2) {
+            return this.validateVerificationCode();
+        }
+        return this.registrationUtils.nextStep();
     }
 
-    skipAccountDetails(): boolean {
-        return !this.useDefaultAccountDetails && this.accountDetails.length === 0;
-    }
-
-    getNumberOfSteps(): number {
-        return this.skipAccountDetails() ? 5 : 6;
+    goBack(): void {
+        this.registrationUtils.getCurrentPage() === 0 ? this.navigateToLogin() : this.registrationUtils.prevStep();
     }
 
     navigateToLogin(): void {
-        this.clearAccountDetailsInfo();
+        this.registrationUtils.clearAccountDetails();
         void this._router.navigate([`${AUTH_ROUTES.AUTH_WORKFLOW}/${AUTH_ROUTES.LOGIN}`]);
     }
 
-    showStepper(): boolean {
-        return this.currentPageId <= (this.skipAccountDetails() ? 3 : 4);
-    }
-
     getUserName(): string {
-        if (this.useDefaultAccountDetails) {
-            return `${this.accountDetails[0].value} ${this.accountDetails[1].value}`;
-        }
-        return this.userName;
+        return `${this.firstName} ${this.lastName}`;
     }
 }
