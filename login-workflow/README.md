@@ -98,6 +98,8 @@ constructor(pxbAuthConfig: PxbAuthConfig) {
     -   When true, shows the Remember Me option on the Login Page.
     -   Default: true
     
+> When disabling certain pages from view, make sure to remove the respective page's route from the `authSubRoutes`. 
+
 
 # Services
 
