@@ -49,9 +49,12 @@ logout(): void {
 
 `PxbAuthConfig` a configuration service; it is used to enable/disable settings in the auth workflow. These properties are typically set only once and do not change. Some UI configuration properties are also passed in.
 
+> This object must be configured on-load for all settings to correctly apply. 
+
 ### Usage
 
 ```
+// app.component.ts
 import { PxbAuthConfig } from '@pxblue/angular-auth-workflow';
 
 constructor(pxbAuthConfig: PxbAuthConfig) {
