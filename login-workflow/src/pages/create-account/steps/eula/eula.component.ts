@@ -1,4 +1,13 @@
-import { Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
+import {
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    EventEmitter,
+    Input,
+    Output,
+    ViewChild,
+    ViewEncapsulation,
+} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { PxbAuthConfig } from './../../../../services/config/auth-config';
 import { PxbRegisterUIService } from '../../../../services/api/register-ui.service';
@@ -11,6 +20,7 @@ import * as Colors from '@pxblue/colors';
     template: `
         <div class="mat-title pxb-auth-title">License Agreement</div>
         <div
+            #eulaVC
             *ngIf="eula"
             class="pxb-auth-full-height"
             style="overflow: auto"
@@ -59,6 +69,8 @@ import * as Colors from '@pxblue/colors';
 export class PxbEulaComponent {
     @Input() userAcceptsEula: boolean;
     @Output() userAcceptsEulaChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @ViewChild('eulaVC') eulaVC: ElementRef;
+
     eula: string;
     isLoading: boolean;
     userScrolledBottom = false;
@@ -66,6 +78,7 @@ export class PxbEulaComponent {
 
     constructor(
         public sanitizer: DomSanitizer,
+        private readonly _changeDetectorRef: ChangeDetectorRef,
         private readonly _pxbAuthConfig: PxbAuthConfig,
         private readonly _pxbRegisterService: PxbRegisterUIService,
         private readonly _pxbSecurityService: PxbAuthSecurityService
@@ -89,19 +102,28 @@ export class PxbEulaComponent {
 
     getEULA(): void {
         if (this._pxbAuthConfig.eula) {
-            this.eula = this._pxbAuthConfig.eula;
-            this._pxbSecurityService.setLoading(false);
+            this.afterGetEula(this._pxbAuthConfig.eula);
         } else {
             this._pxbSecurityService.setLoading(true);
             this._pxbRegisterService
                 .loadEULA()
                 .then((eula: string) => {
-                    this.eula = eula;
-                    this._pxbSecurityService.setLoading(false);
+                    this.afterGetEula(eula);
                 })
                 .catch(() => {
                     this._pxbSecurityService.setLoading(false);
                 });
+        }
+    }
+
+    afterGetEula(eula: string): void {
+        this.eula = eula;
+        this._pxbSecurityService.setLoading(false);
+        this._changeDetectorRef.detectChanges();
+        if (!this.userAcceptsEula) {
+            const el = this.eulaVC.nativeElement;
+            const isEulaScrollable = el.scrollHeight > el.clientHeight;
+            this.userScrolledBottom = !isEulaScrollable;
         }
     }
 
