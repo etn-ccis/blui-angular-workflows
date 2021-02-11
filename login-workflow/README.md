@@ -85,8 +85,11 @@ constructor(pxbAuthConfig: PxbAuthConfig) {
     -   Project image shown on splash screen and login screen.
     -   Dimensions of the image should be 534w x 152h with a transparent background. Differently sized images may not render properly on all devices.
     -   Default: Provides an example project image.
--   **showSelfRegistration**: _`boolean`_
+-   **showCreateAccount**: _`boolean`_
     -   When true, shows the Create Account button to allow for self registration.
+    -   Default: true
+-   **showCreateAccountViaInvite**: _`boolean`_
+    -   When true, enables the Create Account via Invite workflow. 
     -   Default: true
 -   **showContactSupport**: _`boolean`_
     -   When true, shows the Contact Support link on the Login page.
@@ -94,12 +97,13 @@ constructor(pxbAuthConfig: PxbAuthConfig) {
 -   **showForgotPassword**: _`boolean`_
     -   When true, shows the Forgot Password link to allow for resetting a password.
     -   Default: true
+-   **showResetPassword**: _`boolean`_
+    -   When true, enables the Reset Password workflow. 
+    -   Default: true
 -   **showRememberMe**: _`boolean`_
     -   When true, shows the Remember Me option on the Login Page.
     -   Default: true
     
-> When disabling certain pages from view, make sure to remove the respective page's route from the `authSubRoutes`. 
-
 
 # Services
 

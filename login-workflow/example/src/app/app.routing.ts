@@ -11,13 +11,9 @@ AUTH_ROUTES.AUTH_WORKFLOW = 'auth';
 AUTH_ROUTES.CONTACT_SUPPORT = 'assistance';
 
 const authWorkflowRoutes = getAuthSubRoutes();
-
-// This is an example of how to remove access to one of the workflow's built-in pages.
-// authWorkflowRoutes.delete(AUTH_ROUTES.CONTACT_SUPPORT);
-
 const routes: Routes = [
     { path: '', redirectTo: AUTH_ROUTES.AUTH_WORKFLOW, pathMatch: 'full' },
-    { path: AUTH_ROUTES.AUTH_WORKFLOW, component: AuthComponent, children: Array.from(authWorkflowRoutes.values()) },
+    { path: AUTH_ROUTES.AUTH_WORKFLOW, component: AuthComponent, children: authWorkflowRoutes },
     {
         path: '',
         canActivate: [PxbAuthGuard],

@@ -54,7 +54,7 @@ import { AuthComponent } from './pages/auth/auth.component';
 const authWorkflowRoutes = getAuthSubRoutes();
 const routes: Routes = [
     { path: '', redirectTo: AUTH_ROUTES.AUTH_WORKFLOW, pathMatch: 'full' },
-    { path: AUTH_ROUTES.AUTH_WORKFLOW, component: AuthComponent, children: children: Array.from(authWorkflowRoutes.values()) },
+    { path: AUTH_ROUTES.AUTH_WORKFLOW, component: AuthComponent, children: authWorkflowRoutes },
     {
         path: '',
         canActivate: [PxbAuthGuard],

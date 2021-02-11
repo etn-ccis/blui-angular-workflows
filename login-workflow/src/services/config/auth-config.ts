@@ -39,8 +39,12 @@ export class PxbAuthConfig implements PxbAuthConfig {
     ];
     eula: string;
     allowDebugMode = false;
-    showSelfRegistration = true;
+    showRememberMe = true;
+
+    /* Conditional Pages */
+    showCreateAccount = true;
     showContactSupport = true;
     showForgotPassword = true;
-    showRememberMe = true;
+    showResetPassword = true;
+    showCreateAccountViaInvite = true;
 }
