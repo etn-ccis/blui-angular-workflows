@@ -20,7 +20,6 @@ export class AppComponent {
         this.pxbAuthConfig.projectImage = 'assets/images/eaton_stacked_logo.png';
         this.pxbAuthConfig.backgroundImage = 'assets/images/background.svg';
         this.pxbAuthConfig.allowDebugMode = true;
-        this.pxbAuthConfig.showCreateAccount = false;
         this.pxbAuthConfig.passwordRequirements.push({
             regex: /^((?!password).)*$/,
             description: 'Does not contain "password"',
