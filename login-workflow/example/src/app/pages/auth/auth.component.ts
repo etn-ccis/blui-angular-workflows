@@ -3,8 +3,6 @@ import { AbstractControl, FormControl, ValidatorFn, Validators } from '@angular/
 import { MatFormField } from '@angular/material/form-field';
 import {
     AccountDetails,
-    AUTH_ROUTES,
-    PxbAuthConfig,
     PxbCreateAccountComponent,
     PxbCreateAccountInviteComponent,
 } from '@pxblue/angular-auth-workflow';
@@ -107,21 +105,6 @@ export class AuthComponent {
         { value: 'KZ', viewValue: '+7 (KZ)' },
         { value: 'FRA', viewValue: '+33 (FRA)' },
     ];
-
-    constructor(pxbAuthConfig: PxbAuthConfig) {
-        pxbAuthConfig.projectImage = 'assets/images/eaton_stacked_logo.png';
-        pxbAuthConfig.backgroundImage = 'assets/images/background.svg';
-        pxbAuthConfig.allowDebugMode = true;
-        pxbAuthConfig.showSelfRegistration = false;
-        pxbAuthConfig.passwordRequirements.push({
-            regex: /^((?!password).)*$/,
-            description: 'Does not contain "password"',
-        });
-        // If the ON_AUTHENTICATED route is not pre-populated by PXB auth workflow, provide it below.
-        if (!AUTH_ROUTES.ON_AUTHENTICATED || AUTH_ROUTES.ON_AUTHENTICATED === '/') {
-            AUTH_ROUTES.ON_AUTHENTICATED = 'home';
-        }
-    }
 
     ngAfterViewInit(): void {
         this.initCreateAccountFormControls();

@@ -89,10 +89,18 @@
     </button>
 </div>
 
-<div *ngIf="debugMode" class="pxb-auth-link mat-body-2" (click)="testForgotPasswordEmail()">
+<div
+    *ngIf="debugMode && pxbAuthConfig.showResetPassword"
+    class="pxb-auth-link mat-body-2"
+    (click)="testForgotPasswordEmail()"
+>
     [Test Forgot Password Email]
 </div>
-<div *ngIf="debugMode" class="pxb-auth-link mat-body-2" (click)="testInviteRegister()">
+<div
+    *ngIf="debugMode && pxbAuthConfig.showCreateAccountViaInvite"
+    class="pxb-auth-link mat-body-2"
+    (click)="testInviteRegister()"
+>
     [Test Invite Register]
 </div>
 <div
@@ -105,7 +113,7 @@
 </div>
 
 <div
-    *ngIf="debugMode || pxbAuthConfig.showSelfRegistration || pxbAuthConfig.showContactSupport"
+    *ngIf="debugMode || pxbAuthConfig.showCreateAccount || pxbAuthConfig.showContactSupport"
     class="mat-body-2"
     style="text-align: center;"
 >
@@ -113,7 +121,7 @@
 </div>
 
 <div
-    *ngIf="pxbAuthConfig.showSelfRegistration || debugMode"
+    *ngIf="pxbAuthConfig.showCreateAccount"
     class="pxb-auth-link mat-body-2"
     style="margin-bottom: 32px"
     (click)="createAccount()"
