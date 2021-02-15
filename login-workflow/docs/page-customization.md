@@ -58,9 +58,7 @@ The Login page is used to log in to an application; it is also a gateway to othe
 </div>
 
 ## Create Account
-The Create Account page is used for self-registration via a link on the Login Page.
-
-The Create Account workflow can be split into the following steps:
+The Create Account page is used for self-registration via a link on the Login Page; this workflow can be split into the following steps:
 
 1. Provide Email
 2. Accept EULA
@@ -108,9 +106,7 @@ For a more detailed explanation of how to add custom account details, check out 
 
 
 ## Create Account via Invite 
-A user has received an email invite to create an account.
-    
-The Create Account via Invite workflow can be split into the following steps:
+A user has received an email invite to create an account; this workflow can be split into the following steps:
 
 1. Accept EULA
 2. Create Password
