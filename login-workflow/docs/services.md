@@ -15,7 +15,7 @@ At a high-level, the services available are:
 
 `PxbAuthConfig` a configuration service; it is used to enable/disable settings in the auth workflow. These properties are typically set only once and do not change. Some UI configuration properties are also passed in.
 
-> This object must be configured on-load for all settings to correctly apply. 
+> This object must be configured on application load (app.component.ts) for all settings to correctly apply. 
 
 ### Usage
 
