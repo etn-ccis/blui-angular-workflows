@@ -95,31 +95,6 @@ A user has received an email invite to create an account.
 ## Create Account via Invite
 The Create Account via Invite page is used for self-registration via an email link.  This page currently has the same API as the Create Account page above. 
 
-# Custom Pages
- 
- Each page within the `@pxblue/angular-auth-workflow` can be customized with string `@Inputs` or `ng-content`.  
- 
- The Login Page will always need custom header and footer content. To provide your own `pxb-login-header` and `pxb-login-footer`, provide your own `<pxb-login>` template.  This will tell the `<pxb-auth>` component to render your custom content instead of the default.
- 
- ```
-<pxb-auth [loginRef]="loginPage">
-    <ng-template #loginPage>
-        <pxb-login [customEmailValidator]="customValidator()">
-            <div pxb-login-header>
-                <img src="assets/images/eaton_stacked_logo.png" style="max-width: 100%; max-height: 80px;" />
-            </div>
-            <div pxb-login-footer style="text-align: center;">
-                <img
-                    src="assets/images/cybersecurity_certified.png"
-                    style="max-width: 30%; align-self: center;"
-                />
-            </div>
-        </pxb-login>
-    </ng-template>
-</pxb-auth>
-```
-
-
 ## Contact Support
 The Contact Support page contains information for users who need help accessing/using the application.  
 
@@ -131,7 +106,7 @@ The Contact Support page contains information for users who need help accessing/
 | emergencySupportTitle         | Emergency support section title                                             | `string`             |                                       |  
 | generalSupportDescription     | General support section description                                         | `string`             | `pxb-general-support-description`     |   
 | generalSupportTitle           | General support section title                                               | `string `            |                                       |
-| okayButtonText                | Text that appears in the button at the bottom of the page                   | `string`             | `pxb-okay-button-text`                | 
+| okayButtonText                | Text that appears in the button at the bottom of the page                   | `string`             |                                       | 
 | pageTitle                     | Page title                                                                  | `string `            |                                       |
 
 </div>
@@ -199,13 +174,13 @@ The Forgot Password page allows a user to request a reset password email.
 | @Input                             | Description                                                                 | Type                | ng-content                                 |
 | ---------------------------------- | --------------------------------------------------------------------------- | ------------------- | ------------------------------------------ |   
 | backButtonText                     | Back button text                                                            | `string`            |                                            |
-| okayButtonText                     | Okay button text                                                            | `string`            |                                            |  
 | doneButtonText                     | Done button text                                                            | `string`            |                                            |  
+| emailFormLabel                     | Email form title                                                            | `string`            |                                            |
+| okayButtonText                     | Okay button text                                                            | `string`            |                                            |  
 | pageInstructions                   | Password reset instructions                                                 | `string`            | `pxb-page-instructions`                    |
 | phoneContactDescription            | Instructions for who to contact for help                                    | `string`            | `pxb-phone-contact-description`            | 
 | businessResponseDescription        | Description of when to expect a response                                    | `string`            | `pxb-business-response-description`        |
 | pageTitle                          | Page title                                                                  | `string`            |                                            |
-| emailFormLabel                     | Email form title                                                            | `string`            |                                            |
 | successTitle                       | Success state title when email send is successful                           | `string`            | `pxb-success-title`                        |
 | successDescription                 | Success state description email send is successful                          | `string`            | `pxb-success-description`                  |
 | includeEmailInSuccessMessage       | Whether to include the email in the success message                         | `boolean`           |                                            |
