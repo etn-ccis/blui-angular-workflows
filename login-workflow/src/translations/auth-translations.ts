@@ -8,17 +8,20 @@ export type PxbAuthTranslations = {
         CONFIRM_PASSWORD_FORM_LABEL: string;
         EMAIL_FORM_LABEL: string;
         EMAIL_INVALID_ERROR: string;
-        IS_REQUIRED_ERROR: string;
+        IS_REQUIRED_ERROR: (fieldName: string) => string;
+        LOGIN_BUTTON: string;
     },
     LOGIN: {
-        DEBUG: string;
         CONTACT_SUPPORT: string;
         CREATE_ACCOUNT: string;
         FORGOT_PASSWORD: string;
-        LOGIN_BUTTON: string;
         NEED_AN_ACCOUNT: string;
         REMEMBER_ME: string;
-    }
+        ENABLE_DEBUG_MODE: string;
+        DEBUG_MODE: string;
+        FORGOT_PASSWORD_LINK: string;
+        TEST_INVITE_LINK: string;
+    },
     FORGOT_PASSWORD: {
         TITLE: string;
         INSTRUCTIONS: string;
@@ -40,7 +43,7 @@ export type PxbAuthTranslations = {
         INSTRUCTIONS: string;
         CURRENT_PASSWORD_FORM_LABEL: string;
         NEW_PASSWORD_FORM_LABEL: string;
-        LOGIN: string;
+        CONFIRM_PASSWORD_FORM_LABEL: string;
         SUCCESS_TITLE: string;
         SUCCESS_DESCRIPTION: string;
     },
@@ -96,4 +99,4 @@ export type PxbAuthTranslations = {
         ONE_LOWERCASE_CHARACTER: string;
         ONE_SPECIAL_CHARACTER: string;
     }
-}
+};

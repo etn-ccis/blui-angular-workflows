@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { PxbAuthTranslations } from '../../translations/auth-translations';
+import {english} from "../../translations/english";
 
 export type PasswordRequirement = {
     description: string;
@@ -48,4 +50,15 @@ export class PxbAuthConfig implements PxbAuthConfig {
     showForgotPassword = true;
     showResetPassword = true;
     showCreateAccountViaInvite = true;
+
+    getTranslations(): PxbAuthTranslations {
+        switch (this.languageCode) {
+            case 'EN': {
+                return english;
+            }
+            default: {
+                return english;
+            }
+        }
+    }
 }

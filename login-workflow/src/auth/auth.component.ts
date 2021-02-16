@@ -50,7 +50,7 @@ export class PxbAuthComponent implements OnInit, OnDestroy {
         private readonly _pxbAuthConfig: PxbAuthConfig,
         private readonly _pxbAuthUIService: PxbAuthUIService,
         private readonly _changeDetectorRef: ChangeDetectorRef,
-        private readonly _pxbSecurityService: PxbAuthSecurityService,
+        private readonly _pxbSecurityService: PxbAuthSecurityService
     ) {
         this._listenForAuthLoadingStateChanges();
         this._listenForAuthRouteChanges();

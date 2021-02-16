@@ -13,6 +13,7 @@ import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
 import { PxbFormsService } from '../../services/forms/forms.service';
 import { CrossFieldErrorMatcher } from '../../util/matcher';
 import { makeEverythingUnique } from '../../util/filters';
+import { PxbAuthTranslations } from '../../translations/auth-translations';
 
 @Component({
     selector: 'pxb-change-password',
@@ -40,6 +41,7 @@ export class PxbChangePasswordComponent {
     passesStrengthCheck = false;
     confirmPasswordFocused = false;
     passwordChangeSuccess = false;
+    translate: PxbAuthTranslations;
 
     constructor(
         private readonly _router: Router,
@@ -51,6 +53,7 @@ export class PxbChangePasswordComponent {
         private readonly _pxbChangePasswordErrorDialogService: PxbChangePasswordErrorDialogService,
         public pxbFormsService: PxbFormsService
     ) {
+        this.translate = this._pxbAuthConfig.getTranslations();
         this.passwordRequirements = makeEverythingUnique(this._pxbAuthConfig.passwordRequirements, 'description');
         this.passwordFormGroup = this._formBuilder.group(
             {
