@@ -17,6 +17,7 @@ This component accepts @Inputs for individual page customizations.
 | forgotPasswordRef         | Forgot Password customizations                 | `TemplateRef<PxbForgotPasswordComponent>`      |
 | loginRef                  | Login customizations                           | `TemplateRef<PxbLoginComponent>`               |
 | resetPasswordRef          | Reset Password customizations                  | `TemplateRef<PxbResetPasswordComponent>`       |
+| translations              | Text customiations for i18n support            | `PxbAuthTranslations`                          | 
 
 </div>
 
@@ -46,17 +47,7 @@ The Login page is used to log in to an application; it is also a gateway to othe
 
 | @Input                             | Description                                                                 | Type                | ng-content                                   |
 | ---------------------------------- | --------------------------------------------------------------------------- | ------------------- | -------------------------------------------- |   
-| contactSupportText                 | Link to the Contact Support page                                            | `string`            |                                              |    
-| createAccountText                  | Link to create an account                                                   | `string`            |                                              |    
 | customEmailValidator               | Custom email regex requirements                                             | `ValidatorFn`       |                                              |
-| emailFormLabel                     | Email form label                                                            | `string`            |                                              |  
-| emailInvalidError                  | Error seen when an invalid email is entered                                 | `string`            |                                              |    
-| emailRequiredError                 | Error seen when email is missing                                            | `string`            |                                              |  
-| forgotPasswordText                 | Forgot password text                                                        | `string`            |                                              |      
-| loginButtonText                    | Login button text                                                           | `string`            |                                              |    
-| needAnAccountText                  | Need an account text                                                        | `string`            |                                              |  
-| passwordFormLabel                  | Password form label                                                         | `string`            |                                              |   
-| rememberMeText                     | Remember me text                                                            | `string`            |                                              |     
 
 </div>
 
@@ -76,36 +67,7 @@ For a more detailed explanation of how to add custom account details, check out 
 
 | @Input                                   | Description                                                                 | Type                | ng-content                                          |
 | ---------------------------------------- | --------------------------------------------------------------------------- | ------------------- | --------------------------------------------------- |   
-| accountCreatedPageTitle                  | Title on the Account Created page                                           | `string`            |                                                     |
-| accountCreatedWelcomeMessageTitle        | Welcome message seen when account is created                                | `string`            | `pxb-account-created-welcome-message-title`         |
-| accountCreatedWelcomeMessageDescription  | Welcome description seen when account is created                            | `string`            | `pxb-account-created-welcome-message-description`   |
 | accountDetails                           | Custom form controls used for self-registration                             | `AccountDetails[]`  |                                                     |
-| accountDetailsFirstNameFormLabel         | First name form field label on account details page                         | `string`            |                                                     |
-| accountDetailsFirstNameRequiredError     | Error seen when the first name is missing                                   | `string`            |                                                     |
-| accountDetailsInstructions               | Account details instructions                                                | `string`            | `pxb-account-details-instructions`                  |
-| accountDetailsLastNameFormLabel          | Last name form field label on account details page                          | `string`            |                                                     |
-| accountDetailsLastNameRequiredError      | Error seen when last name is missing                                        | `string`            |                                                     |
-| accountDetailsPageTitle                  | Title on the Account Details page                                           | `string`            |                                                     |
-| enterEmailFormLabel                      | Email form label                                                            | `string`            |                                                     |  
-| enterEmailInstructions                   | Instructions on the email input page                                        | `string`            | `pxb-enter-email-instructions`                      |       
-| enterEmailInvalidError                   | Error seen when an invalid email is entered                                 | `string`            |                                                     |   
-| enterEmailPageTitle                      | Title on the email input page                                               | `string`            |                                                     |         
-| enterEmailRequiredError                  | Error seen when email is missing                                            | `string`            |                                                     |  
-| createPasswordConfirmFormLabel           | Confirm password form label                                                 | `string`            |                                                     |
-| createPasswordFormLabel                  | Password form label                                                         | `string`            |                                                     | 
-| createPasswordInstructions               | Password creation instructions                                              | `string`            | `pxb-create-password-instructions`                  |
-| createPasswordPageTitle                  | Title on the Create Password page                                           | `string`            |                                                     | 
-| createPasswordMismatchError              | Error seen when passwords do not match                                      | `string`            |                                                     |
-| eulaPageTitle                            | Title on License Agreement page                                             | `string`            |                                                     |
-| eulaConfirmReadText                      | Text affirming the user has read the EULA                                   | `string`            |                                                     | 
-| verifyEmailPageTitle                     | Title on Verify Email page                                                  | `string`            |                                                     |
-| verifyEmailInstructions                  | Instructions on the Verify Email page                                       | `string`            | `pxb-verify-email-instructions`                     |
-| verifyEmailCodeFormLabel                 | Verification code form label                                                | `string`            |                                                     |  
-| verifyEmailCodeRequiredError             | Error seen when the verification code is missing                            | `string`            |                                                     |  
-| verifyEmailResendButton                  | Text in the Resend Verification Code button                                 | `string`            |                                                     | 
-| backButtonText                           | Back button text                                                            | `string`            |                                                     |
-| nextButtonText                           | Next button text                                                            | `string`            |                                                     |    
-| doneButtonText                           | Continue button text                                                        | `string`            |                                                     |    
 
 
 ## Create Account via Invite 
@@ -120,30 +82,7 @@ A user has received an email invite to create an account; this workflow can be s
 
 | @Input                                   | Description                                                                 | Type                | ng-content                                          |
 | ---------------------------------------- | --------------------------------------------------------------------------- | ------------------- | --------------------------------------------------- |   
-| accountCreatedPageTitle                  | Title on the Account Created page                                           | `string`            |                                                     |
-| accountCreatedWelcomeMessageTitle        | Welcome message seen when account is created                                | `string`            | `pxb-account-created-welcome-message-title`         |
-| accountCreatedWelcomeMessageDescription  | Welcome description seen when account is created                            | `string`            | `pxb-account-created-welcome-message-description`   |
 | accountDetails                           | Custom form controls used for self-registration                             | `AccountDetails[]`  |                                                     |
-| accountDetailsFirstNameFormLabel         | First name form field label on account details page                         | `string`            |                                                     |
-| accountDetailsFirstNameRequiredError     | Error seen when the first name is missing                                   | `string`            |                                                     |
-| accountDetailsInstructions               | Account details instructions                                                | `string`            | `pxb-account-details-instructions`                  |
-| accountDetailsLastNameFormLabel          | Last name form field label on account details page                          | `string`            |                                                     |
-| accountDetailsLastNameRequiredError      | Error seen when last name is missing                                        | `string`            |                                                     |
-| accountDetailsPageTitle                  | Title on the Account Details page                                           | `string`            |                                                     |
-| createPasswordConfirmFormLabel           | Confirm password form label                                                 | `string`            |                                                     |
-| createPasswordFormLabel                  | Password form label                                                         | `string`            |                                                     | 
-| createPasswordInstructions               | Password creation instructions                                              | `string`            | `pxb-create-password-instructions`                  |
-| createPasswordPageTitle                  | Title on the Create Password page                                           | `string`            |                                                     | 
-| createPasswordMismatchError              | Error seen when passwords do not match                                      | `string`            |                                                     |
-| eulaPageTitle                            | Title on License Agreement page                                             | `string`            |                                                     |
-| eulaConfirmReadText                      | Text affirming the user has read the EULA                                   | `string`            |                                                     | 
-| backButtonText                           | Back button text                                                            | `string`            |                                                     |
-| nextButtonText                           | Next button text                                                            | `string`            |                                                     |    
-| doneButtonText                           | Continue button text                                                        | `string`            |                                                     |  
-| validatingRegistrationLinkMsg            | Loading message shown when validating registration link                     | `string`            |                                                     |  
-| invalidRegistrationLinkTitle             | Error state title when registration link is invalid                         | `string`            | `pxb-invalid-registration-link-title`               |  
-| invalidRegistrationLinkDescription       | Error state description when registration link is invalid                   | `string`            | `pxb-invalid-registration-link-description`         |  
-  
 
 </div>
 
@@ -156,14 +95,7 @@ The Contact Support page contains information for users who need help accessing/
 
 | @Input                        | Description                                                                 | Type                 | ng-content                            |
 | ----------------------------- | --------------------------------------------------------------------------- | -------------------- | ------------------------------------- |  
-| contactPhoneNumber            | Contact support phone number                                                | `string`             |                                       |
-| contactEmail                  | Contact support email                                                       | `string`             |                                       |
-| emergencySupportDescription   | Emergency support section description                                       | `string`             | `pxb-emergency-support-description`   | 
-| emergencySupportTitle         | Emergency support section title                                             | `string`             |                                       |  
-| generalSupportDescription     | General support section description                                         | `string`             | `pxb-general-support-description`     |   
-| generalSupportTitle           | General support section title                                               | `string`             |                                       |
-| okayButtonText                | Text that appears in the button at the bottom of the page                   | `string`             |                                       | 
-| pageTitle                     | Page title                                                                  | `string `            |                                       |
+| instructions                  | Instructions overrides for page body                                        | `string`             | `pxb-instructions`                    |
 
 </div>
 
@@ -182,48 +114,11 @@ constructor(pxbChangePasswordService: PxbChangePasswordDialogService) {
 }
 ```
 
-### API 
-
-<div style="overflow: auto;">
-
-| Prop Name                          | Description                                                                 | Type                | 
-| ---------------------------------- | --------------------------------------------------------------------------- | ------------------- | 
-| backButtonText                     | Back button text                                                            | `string`            | 
-| confirmPasswordFormLabel           | Confirm new password form label                                             | `string`            | 
-| currentPasswordFormLabel           | Current password form label                                                 | `string`            | 
-| loginButtonText                    | Log In button text                                                          | `string`            | 
-| newPasswordFormLabel               | New password form label                                                     | `string`            | 
-| okayButtonText                     | Okay button text                                                            | `string`            | 
-| pageInstructions                   | Change password instructions                                                | `string`            | 
-| pageTitle                          | Dialog title                                                                | `string`            | 
-| passwordChangeSuccessDescription   | Success state description when password is changed                          | `string`            | 
-| passwordChangeSuccessTitle         | Success state title when password is changed                                | `string`            | 
-| passwordMismatchError              | Error shown when new password and confirm password does not match           | `string`            | 
-
-</div>
-
 ## Reset Password
 The Reset Password page is normally access via email and contains forms used to change a user's password.
    
 ![Reset Password](https://raw.githubusercontent.com/pxblue/angular-workflows/master/login-workflow/media/reset-password.png) 
  
-<div style="overflow: auto;">
-
-| @Input                             | Description                                                                 | Type                | ng-content                                 |
-| ---------------------------------- | --------------------------------------------------------------------------- | ------------------- | ------------------------------------------ |   
-| backButtonText                     | Back button text                                                            | `string`            |                                            |
-| confirmPasswordFormLabel           | Confirm password form label                                                 | `string`            |                                            |  
-| doneButtonText                     | Done button text                                                            | `string`            |                                            |
-| okayButtonText                     | Okay button text                                                            | `string`            |                                            |  
-| pageInstructions                   | Password reset instructions                                                 | `string`            | `pxb-page-instructions`                    |
-| pageTitle                          | Page title                                                                  | `string`            |                                            |
-| passwordFormLabel                  | Password form label                                                         | `string`            |                                            |
-| passwordMismatchError              | Error seen when passwords do not match                                      | `string`            |                                            |
-| resetCodeErrorTitle                | Error state title seen when reset password link is invalid                  | `string`            | `pxb-reset-code-error-title`               |
-| resetCodeErrorDescription          | Error state description seen when reset password link is invalid            | `string`            | `pxb-reset-code-error-description`         |
-| resetSuccessTitle                  | Success state title when password reset is successful                       | `string`            | `pxb-reset-success-title`                  |
-| resetSuccessDescription            | Success state description when password reset is successful                 | `string`            | `pxb-reset-success-description`            |
-
 </div>
 
 ## Forgot Password
@@ -235,20 +130,8 @@ The Forgot Password page allows a user to request a reset password email.
 
 | @Input                             | Description                                                                 | Type                | ng-content                                 |
 | ---------------------------------- | --------------------------------------------------------------------------- | ------------------- | ------------------------------------------ |   
-| backButtonText                     | Back button text                                                            | `string`            |                                            
-| businessDayResponseTime            | Number of days it takes to expect a response                                | `string`            |                                            ||
 | customEmailValidator               | Custom email regex requirements                                             | `ValidatorFn`       |                                            |
-| doneButtonText                     | Done button text                                                            | `string`            |                                            |  
-| emailFormLabel                     | Email form label                                                            | `string`            |                                            |
-| emailInvalidError                  | Error seen when an invalid email is entered                                 | `string`            |                                            |    
-| emailRequiredError                 | Error seen when email is missing                                            | `string`            |                                            |  
 | includeEmailInSuccessMessage       | Whether to include the email in the success message                         | `boolean`           |                                            |
-| okayButtonText                     | Okay button text                                                            | `string`            |                                            |  
-| pageInstructions                   | Used to add full body customization to this page                            | `string`            | `pxb-page-instructions`                    |
-| pageTitle                          | Page title                                                                  | `string`            |                                            |
-| phoneNumber                        | Contact phone number                                                        | `string`            |                                            |
-| successDescription                 | Success state description email send is successful                          | `string`            | `pxb-success-description`                  |
-| successTitle                       | Success state title when email send is successful                           | `string`            | `pxb-success-title`                        |
 
 </div>
 
