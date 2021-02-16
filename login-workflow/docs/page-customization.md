@@ -118,8 +118,14 @@ constructor(pxbChangePasswordService: PxbChangePasswordDialogService) {
 The Reset Password page is normally access via email and contains forms used to change a user's password.
    
 ![Reset Password](https://raw.githubusercontent.com/pxblue/angular-workflows/master/login-workflow/media/reset-password.png) 
- 
-</div>
+
+
+<div style="overflow: auto;">
+
+| @Input                             | Description                                                                 | Type                | ng-content                                 |
+| ---------------------------------- | --------------------------------------------------------------------------- | ------------------- | ------------------------------------------ |   
+| resetCodeErrorDescription          | Error state description seen when reset password link is invalid            | `string`            | `pxb-reset-code-error-description`         |
+
 
 ## Forgot Password
 The Forgot Password page allows a user to request a reset password email. 

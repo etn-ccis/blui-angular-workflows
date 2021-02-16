@@ -14,6 +14,7 @@ export class PxbAuthConfig implements PxbAuthConfig {
     projectImage: string;
     backgroundImage: string;
     eulaScrollLock = true;
+    languageCode: string = 'EN';
 
     passwordRequirements?: PasswordRequirement[] = [
         {

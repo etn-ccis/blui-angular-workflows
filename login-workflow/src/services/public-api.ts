@@ -14,3 +14,5 @@ export * from './dialog/login-error-dialog.service';
 export * from './dialog/reset-password-error-dialog.service';
 
 export * from './forms/forms.service';
+
+export * from './language/language-loader.service';

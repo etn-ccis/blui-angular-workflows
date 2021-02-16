@@ -9,6 +9,8 @@ import { PxbAuthConfig } from '../../services/config/auth-config';
 import { PxbLoginErrorDialogService } from '../../services/dialog/login-error-dialog.service';
 import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
 import { PxbFormsService } from '../../services/forms/forms.service';
+import {LanguageLoaderService} from "../../services/language/language-loader.service";
+import {PxbAuthTranslations} from "../../translations/auth-translations";
 
 // TODO: Find a home for this const, perhaps config folder.
 export const PXB_LOGIN_VALIDATOR_ERROR_NAME = 'PXB_LOGIN_VALIDATOR_ERROR_NAME';
@@ -40,6 +42,8 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
     idFieldActive = false;
     touchedIdField = false;
 
+    translate: PxbAuthTranslations;
+
     isEmpty = (el: ElementRef): boolean => isEmptyView(el);
 
     constructor(
@@ -49,7 +53,8 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
         private readonly _pxbUIActionsService: PxbAuthUIService,
         private readonly _pxbSecurityService: PxbAuthSecurityService,
         private readonly _pxbLoginErrorDialogService: PxbLoginErrorDialogService,
-        public pxbFormsService: PxbFormsService
+        private readonly _languageLoaderService: LanguageLoaderService,
+        public pxbFormsService: PxbFormsService,
     ) {}
 
     ngOnInit(): void {
@@ -58,6 +63,7 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
             Validators.email,
             Validators.pattern(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i),
         ];
+        this.translate = this._languageLoaderService.getTranslation();
         if (this.customEmailValidator) {
             emailValidators.push(this.customEmailValidator);
         }
