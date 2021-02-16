@@ -28,7 +28,7 @@ To use the example project as a starting point, read our [Sample Project Integra
 
 In order to provide your own custom API calls, access auth-state, or configure general auth module settings, check out our [services documentation](https://github.com/pxblue/angular-workflows/tree/master/login-workflow/docs/services.md).
 
-# Custom Content
+# Page Customization
 
 To replace the default content that is rendered on the screen, check out our [page customization documentation](https://github.com/pxblue/angular-workflows/tree/master/login-workflow/docs/page-customization.md). 
 
