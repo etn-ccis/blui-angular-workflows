@@ -39,6 +39,9 @@ This component accepts @Inputs for individual page customizations.
 ## Login 
 The Login page is used to log in to an application; it is also a gateway to other pages, such as Contact Support or Forgot Password.
 
+
+![Login](https://raw.githubusercontent.com/pxblue/angular-workflows/master/login-workflow/media/login.png) 
+
 <div style="overflow: auto;">
 
 | @Input                             | Description                                                                 | Type                | ng-content                                   |
@@ -147,14 +150,18 @@ A user has received an email invite to create an account; this workflow can be s
 ## Contact Support
 The Contact Support page contains information for users who need help accessing/using the application.  
 
+![Contact Support](https://raw.githubusercontent.com/pxblue/angular-workflows/master/login-workflow/media/contact-support.png) 
+
 <div style="overflow: auto;">
 
 | @Input                        | Description                                                                 | Type                 | ng-content                            |
 | ----------------------------- | --------------------------------------------------------------------------- | -------------------- | ------------------------------------- |  
+| contactPhoneNumber            | Contact support phone number                                                | `string`             |                                       |
+| contactEmail                  | Contact support email                                                       | `string`             |                                       |
 | emergencySupportDescription   | Emergency support section description                                       | `string`             | `pxb-emergency-support-description`   | 
 | emergencySupportTitle         | Emergency support section title                                             | `string`             |                                       |  
 | generalSupportDescription     | General support section description                                         | `string`             | `pxb-general-support-description`     |   
-| generalSupportTitle           | General support section title                                               | `string `            |                                       |
+| generalSupportTitle           | General support section title                                               | `string`             |                                       |
 | okayButtonText                | Text that appears in the button at the bottom of the page                   | `string`             |                                       | 
 | pageTitle                     | Page title                                                                  | `string `            |                                       |
 
@@ -162,6 +169,8 @@ The Contact Support page contains information for users who need help accessing/
 
 ## Change Password
 The Change Password dialog allows authenticated users to change their password. Since this is a dialog, the `PxbChangePasswordDialogService` is used for text customizations. 
+
+![Change Password](https://raw.githubusercontent.com/pxblue/angular-workflows/master/login-workflow/media/change-password.png) 
 
 ### Usage 
 
@@ -180,36 +189,38 @@ constructor(pxbChangePasswordService: PxbChangePasswordDialogService) {
 | Prop Name                          | Description                                                                 | Type                | 
 | ---------------------------------- | --------------------------------------------------------------------------- | ------------------- | 
 | backButtonText                     | Back button text                                                            | `string`            | 
-| confirmPasswordFormLabel           | Input field title for confirming new password                               | `string`            | 
-| currentPasswordFormLabel           | Input field title for current password                                      | `string`            | 
-| loginButtonText                    | Login button text                                                           | `string`            | 
+| confirmPasswordFormLabel           | Confirm new password form label                                             | `string`            | 
+| currentPasswordFormLabel           | Current password form label                                                 | `string`            | 
+| loginButtonText                    | Log In button text                                                          | `string`            | 
+| newPasswordFormLabel               | New password form label                                                     | `string`            | 
 | okayButtonText                     | Okay button text                                                            | `string`            | 
-| pageDescription                    | Change password instructions                                                | `string`            | 
+| pageInstructions                   | Change password instructions                                                | `string`            | 
 | pageTitle                          | Dialog title                                                                | `string`            | 
 | passwordChangeSuccessDescription   | Success state description when password is changed                          | `string`            | 
 | passwordChangeSuccessTitle         | Success state title when password is changed                                | `string`            | 
-| passwordFormLabel                  | Input field title for new password                                          | `string`            | 
 | passwordMismatchError              | Error shown when new password and confirm password does not match           | `string`            | 
 
 </div>
 
 ## Reset Password
 The Reset Password page is normally access via email and contains forms used to change a user's password.
-    
+   
+![Reset Password](https://raw.githubusercontent.com/pxblue/angular-workflows/master/login-workflow/media/reset-password.png) 
+ 
 <div style="overflow: auto;">
 
 | @Input                             | Description                                                                 | Type                | ng-content                                 |
 | ---------------------------------- | --------------------------------------------------------------------------- | ------------------- | ------------------------------------------ |   
 | backButtonText                     | Back button text                                                            | `string`            |                                            |
-| confirmPasswordFormLabel           | Confirm password form title                                                 | `string`            |                                            |  
+| confirmPasswordFormLabel           | Confirm password form label                                                 | `string`            |                                            |  
 | doneButtonText                     | Done button text                                                            | `string`            |                                            |
 | okayButtonText                     | Okay button text                                                            | `string`            |                                            |  
-| pageDescription                    | Password reset instructions                                                 | `string`            | `pxb-page-description`                     |
+| pageInstructions                   | Password reset instructions                                                 | `string`            | `pxb-page-instructions`                    |
 | pageTitle                          | Page title                                                                  | `string`            |                                            |
-| passwordFormLabel                  | Password form title                                                         | `string`            |                                            |
+| passwordFormLabel                  | Password form label                                                         | `string`            |                                            |
 | passwordMismatchError              | Error seen when passwords do not match                                      | `string`            |                                            |
-| resetCodeErrorTitle                | Error state title seen when link validation invalid                         | `string`            | `pxb-reset-code-error-title`               |
-| resetCodeErrorDescription          | Error state description seen when link validation is invalid                | `string`            | `pxb-reset-code-error-description`         |
+| resetCodeErrorTitle                | Error state title seen when reset password link is invalid                  | `string`            | `pxb-reset-code-error-title`               |
+| resetCodeErrorDescription          | Error state description seen when reset password link is invalid            | `string`            | `pxb-reset-code-error-description`         |
 | resetSuccessTitle                  | Success state title when password reset is successful                       | `string`            | `pxb-reset-success-title`                  |
 | resetSuccessDescription            | Success state description when password reset is successful                 | `string`            | `pxb-reset-success-description`            |
 
@@ -217,22 +228,27 @@ The Reset Password page is normally access via email and contains forms used to 
 
 ## Forgot Password
 The Forgot Password page allows a user to request a reset password email. 
+
+![Forgot Password](https://raw.githubusercontent.com/pxblue/angular-workflows/master/login-workflow/media/forgot-password.png) 
     
 <div style="overflow: auto;">
 
 | @Input                             | Description                                                                 | Type                | ng-content                                 |
 | ---------------------------------- | --------------------------------------------------------------------------- | ------------------- | ------------------------------------------ |   
-| backButtonText                     | Back button text                                                            | `string`            |                                            |
+| backButtonText                     | Back button text                                                            | `string`            |                                            
+| businessDayResponseTime            | Number of days it takes to expect a response                                | `string`            |                                            ||
+| customEmailValidator               | Custom email regex requirements                                             | `ValidatorFn`       |                                            |
 | doneButtonText                     | Done button text                                                            | `string`            |                                            |  
-| emailFormLabel                     | Email form title                                                            | `string`            |                                            |
-| okayButtonText                     | Okay button text                                                            | `string`            |                                            |  
-| pageInstructions                   | Password reset instructions                                                 | `string`            | `pxb-page-instructions`                    |
-| phoneContactDescription            | Instructions for who to contact for help                                    | `string`            | `pxb-phone-contact-description`            | 
-| businessResponseDescription        | Description of when to expect a response                                    | `string`            | `pxb-business-response-description`        |
-| pageTitle                          | Page title                                                                  | `string`            |                                            |
-| successTitle                       | Success state title when email send is successful                           | `string`            | `pxb-success-title`                        |
-| successDescription                 | Success state description email send is successful                          | `string`            | `pxb-success-description`                  |
+| emailFormLabel                     | Email form label                                                            | `string`            |                                            |
+| emailInvalidError                  | Error seen when an invalid email is entered                                 | `string`            |                                            |    
+| emailRequiredError                 | Error seen when email is missing                                            | `string`            |                                            |  
 | includeEmailInSuccessMessage       | Whether to include the email in the success message                         | `boolean`           |                                            |
+| okayButtonText                     | Okay button text                                                            | `string`            |                                            |  
+| pageInstructions                   | Used to add full body customization to this page                            | `string`            | `pxb-page-instructions`                    |
+| pageTitle                          | Page title                                                                  | `string`            |                                            |
+| phoneNumber                        | Contact phone number                                                        | `string`            |                                            |
+| successDescription                 | Success state description email send is successful                          | `string`            | `pxb-success-description`                  |
+| successTitle                       | Success state title when email send is successful                           | `string`            | `pxb-success-title`                        |
 
 </div>
 
