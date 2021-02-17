@@ -7,7 +7,6 @@ import { PxbFormsService } from '../../../../services/forms/forms.service';
 import { PasswordRequirement } from '../../../../components/password-strength-checker/pxb-password-strength-checker.component';
 
 import { CrossFieldErrorMatcher } from '../../../../util/matcher';
-import { makeEverythingUnique } from '../../../../util/filters';
 
 import { PxbAuthTranslations } from '../../../../translations/auth-translations';
 
@@ -105,7 +104,7 @@ export class PxbCreatePasswordComponent implements OnInit {
 
     ngOnInit(): void {
         this.translate = this._pxbAuthConfig.getTranslations();
-        this.passwordRequirements = makeEverythingUnique(this._pxbAuthConfig.passwordRequirements, 'description');
+        this.passwordRequirements = this._pxbAuthConfig.getPasswordRequirements();
         this.passwordFormGroup = this._formBuilder.group(
             {
                 newPassword: ['', Validators.required],

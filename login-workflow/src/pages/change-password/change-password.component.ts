@@ -11,7 +11,6 @@ import { PxbChangePasswordErrorDialogService } from '../../services/dialog/chang
 import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
 import { PxbFormsService } from '../../services/forms/forms.service';
 import { CrossFieldErrorMatcher } from '../../util/matcher';
-import { makeEverythingUnique } from '../../util/filters';
 import { PxbAuthTranslations } from '../../translations/auth-translations';
 
 @Component({
@@ -55,7 +54,7 @@ export class PxbChangePasswordComponent implements OnInit {
 
     ngOnInit(): void {
         this.translate = this._pxbAuthConfig.getTranslations();
-        this.passwordRequirements = makeEverythingUnique(this._pxbAuthConfig.passwordRequirements, 'description');
+        this.passwordRequirements = this._pxbAuthConfig.getPasswordRequirements();
         this.passwordFormGroup = this._formBuilder.group(
             {
                 currentPassword: ['', Validators.required],

@@ -44,15 +44,18 @@ constructor(pxbAuthConfig: PxbAuthConfig) {
 -   **contactPhone** (optional): _`string`_
     -   Contact phone number to be shown on the support screen (human-readable for display only).
     -   Default: provides a fake phone number
+-   **customPasswordRequirements** (optional): _`PasswordRequirement[]`_
+    -   Array of custom password requirements.
+    -   Default: `[]`
+-   **defaultPasswordRequirements** (optional): _`{characterLimit: boolean, uppercaseLetter: boolean, lowercaseLetter: boolean, requireNumber: boolean, specialCharacter: boolean }`_
+    -   A configuration object used to toggle password requirements. 
+    -   Default: Passwords must contain a number, uppercase letter, lowercase letter, special character, and be between 8 and 16 characters in length.  The default array can be extended or replaced to include custom requirements.
 -   **eulaScrollLock** (optional): _`boolean`_
     -   Requires the EULA to be completed scrolled through before a user can accept it.
     -   Default: true
 -   **languageCode** (optional): _`'EN' | 'FR'`_
     -   Language code used for auth workflow text translations.
     -   Default: `'EN'`
--   **passwordRequirements** (optional): _`PasswordRequirement[]`_
-    -   An array of `PasswordRequirement` that must be satisfied when creating or changing a password.  
-    -   Default: Passwords must contain a number, uppercase letter, lowercase letter, special character, and be between 8 and 16 characters in length.  The default array can be extended or replaced to include custom requirements.
 -   **projectImage** (optional): _`string`_
     -   Project image shown on splash screen and login screen.
     -   Dimensions of the image should be 534w x 152h with a transparent background. Differently sized images may not render properly on all devices.

@@ -50,11 +50,11 @@ export const pxbAuthFrenchTranslations: PxbAuthTranslations = {
         GENERAL_SUPPORT_TITLE: 'General Questions',
     },
     PASSWORD_CRITERIA: {
-        CHARACTER_LIMIT: '8-16 Characters',
-        ONE_NUMBER: 'One number',
-        ONE_UPPERCASE_CHARACTER: 'One uppercase letter',
-        ONE_LOWERCASE_CHARACTER: 'One lowercase letter',
-        ONE_SPECIAL_CHARACTER: 'One special character',
+        CHARACTER_LIMIT: '8-16 caractères',
+        ONE_NUMBER: 'Un nombre',
+        ONE_UPPERCASE_CHARACTER: 'Une lettre majuscule',
+        ONE_LOWERCASE_CHARACTER: 'Une lettre minuscule',
+        ONE_SPECIAL_CHARACTER: 'Un caractère spécial',
     },
     FORGOT_PASSWORD: {
         TITLE: 'Forgot Password',
