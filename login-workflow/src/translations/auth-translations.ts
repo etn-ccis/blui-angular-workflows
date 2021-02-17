@@ -3,6 +3,7 @@ export type PxbAuthTranslations = {
         BACK_BUTTON: string;
         OKAY_BUTTON: string;
         DONE_BUTTON: string;
+        NEXT_BUTTON: string;
         PASSWORD_FORM_LABEL: string;
         PASSWORD_MISMATCH_ERROR: string;
         CONFIRM_PASSWORD_FORM_LABEL: string;
@@ -70,6 +71,9 @@ export type PxbAuthTranslations = {
         EULA: {
             TITLE: string;
             CONFIRM_READ: string;
+            LOAD_ERROR_TITLE: string;
+            LOAD_ERROR_DESCRIPTION: string;
+            RELOAD_BUTTON: string;
         };
         VERIFY_EMAIL: {
             TITLE: string;
@@ -91,6 +95,7 @@ export type PxbAuthTranslations = {
             TITLE: string;
             WELCOME_MESSAGE_TITLE: (username: string) => string;
             WELCOME_MESSAGE_DESCRIPTION: (email: string) => string;
+            CONTINUE_BUTTON: string;
         };
     };
     PASSWORD_CRITERIA: {

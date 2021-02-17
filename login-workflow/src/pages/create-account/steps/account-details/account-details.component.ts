@@ -10,11 +10,13 @@ import { PxbAuthTranslations } from '../../../../translations/auth-translations'
     selector: 'pxb-create-account-account-details-step',
     styleUrls: ['account-details.component.scss'],
     template: `
-        <div class="mat-title pxb-auth-title">{{ translate.CREATE_ACCOUNT.ACCOUNT_DETAILS.TITLE }}</div>
+        <div class="mat-title pxb-auth-title" [innerHTML]="translate.CREATE_ACCOUNT.ACCOUNT_DETAILS.TITLE"></div>
         <div class="pxb-auth-full-height">
-            <p class="mat-body-1" style="margin-bottom: 24px;">
-                {{ translate.CREATE_ACCOUNT.ACCOUNT_DETAILS.INSTRUCTIONS }}
-            </p>
+            <p
+                class="mat-body-1"
+                style="margin-bottom: 24px;"
+                [innerHTML]="translate.CREATE_ACCOUNT.ACCOUNT_DETAILS.INSTRUCTIONS"
+            ></p>
             <mat-divider class="pxb-auth-divider" style="margin-top: 16px; margin-bottom: 32px;"></mat-divider>
             <div class="pxb-account-details-body">
                 <form>
@@ -31,12 +33,14 @@ import { PxbAuthTranslations } from '../../../../translations/auth-translations'
                                 (ngModelChange)="emitIfValid(); firstNameChange.emit(firstNameFormControl.value)"
                                 (keyup.enter)="pxbFormsService.advanceToNextField(lastNameInputElement)"
                             />
-                            <mat-error *ngIf="firstNameFormControl.hasError('required')">
-                                {{
+                            <mat-error
+                                *ngIf="firstNameFormControl.hasError('required')"
+                                [innerHTML]="
                                     translate.GENERAL.IS_REQUIRED_ERROR(
                                         translate.CREATE_ACCOUNT.ACCOUNT_DETAILS.FIRST_NAME_FORM_LABEL
                                     )
-                                }}
+                                "
+                            >
                             </mat-error>
                         </mat-form-field>
                         <mat-form-field appearance="fill">
@@ -51,12 +55,14 @@ import { PxbAuthTranslations } from '../../../../translations/auth-translations'
                                 (ngModelChange)="emitIfValid(); lastNameChange.emit(lastNameFormControl.value)"
                                 (keyup.enter)="advance.emit(true)"
                             />
-                            <mat-error *ngIf="lastNameFormControl.hasError('required')">
-                                {{
+                            <mat-error
+                                *ngIf="lastNameFormControl.hasError('required')"
+                                [innerHTML]="
                                     translate.GENERAL.IS_REQUIRED_ERROR(
                                         translate.CREATE_ACCOUNT.ACCOUNT_DETAILS.LAST_NAME_FORM_LABEL
                                     )
-                                }}
+                                "
+                            >
                             </mat-error>
                         </mat-form-field>
                     </ng-container>

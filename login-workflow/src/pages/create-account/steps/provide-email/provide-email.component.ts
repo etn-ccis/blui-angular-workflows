@@ -9,12 +9,12 @@ import { PxbAuthTranslations } from '../../../../translations/auth-translations'
 @Component({
     selector: 'pxb-create-account-provide-email-step',
     template: `
-        <div class="mat-title pxb-auth-title">
-            {{ translate.CREATE_ACCOUNT.ENTER_EMAIL.TITLE }}
-        </div>
-        <p class="mat-body-1" style="margin-bottom: 24px;">
-            {{ translate.CREATE_ACCOUNT.ENTER_EMAIL.INSTRUCTIONS }}
-        </p>
+        <div class="mat-title pxb-auth-title" [innerHTML]="translate.CREATE_ACCOUNT.ENTER_EMAIL.TITLE"></div>
+        <p
+            class="mat-body-1"
+            style="margin-bottom: 24px;"
+            [innerHTML]="translate.CREATE_ACCOUNT.ENTER_EMAIL.INSTRUCTIONS"
+        ></p>
         <mat-divider class="pxb-auth-divider" style="margin-top: 16px; margin-bottom: 32px;"></mat-divider>
         <div class="pxb-auth-full-height">
             <form>
@@ -30,8 +30,10 @@ import { PxbAuthTranslations } from '../../../../translations/auth-translations'
                         [errorStateMatcher]="emailMatcher"
                         (keyup.enter)="advance.emit(true)"
                     />
-                    <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-                        {{ translate.GENERAL.EMAIL_INVALID_ERROR }}
+                    <mat-error
+                        *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')"
+                        [innerHTML]="translate.GENERAL.EMAIL_INVALID_ERROR"
+                    >
                     </mat-error>
                     <mat-error
                         *ngIf="emailFormControl.hasError('required')"

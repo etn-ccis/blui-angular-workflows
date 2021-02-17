@@ -1,4 +1,4 @@
-<div class="mat-title pxb-auth-title">{{ translate.CONTACT_SUPPORT.TITLE }}</div>
+<div class="mat-title pxb-auth-title" [innerHTML]="translate.CONTACT_SUPPORT.TITLE"></div>
 
 <div style="text-align: center; margin-bottom: 26px; margin-top: 8px;">
     <div #icon>
@@ -10,9 +10,17 @@
 <div class="pxb-contact-support-description">
     <div #instructionsVC><ng-content select="[pxb-instructions]"></ng-content></div>
     <div *ngIf="isEmpty(instructionsEl)">
-        <p class="mat-body-1" style="margin-bottom: 8px;">{{ translate.CONTACT_SUPPORT.GENERAL_SUPPORT_TITLE }}</p>
+        <p
+            class="mat-body-1"
+            style="margin-bottom: 8px;"
+            [innerHTML]="translate.CONTACT_SUPPORT.GENERAL_SUPPORT_TITLE"
+        ></p>
         <p class="mat-body-1" style="margin-bottom: 32px;" [innerHTML]="getGeneralSupportDescription()"></p>
-        <p class="mat-body-1" style="margin-bottom: 8px;">{{ translate.CONTACT_SUPPORT.EMERGENCY_SUPPORT_TITLE }}</p>
+        <p
+            class="mat-body-1"
+            style="margin-bottom: 8px;"
+            [innerHTML]="translate.CONTACT_SUPPORT.EMERGENCY_SUPPORT_TITLE"
+        ></p>
         <p class="mat-body-1" [innerHTML]="getEmergencySupportDescription()"></p>
     </div>
 </div>

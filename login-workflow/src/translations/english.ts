@@ -5,6 +5,7 @@ export const english: any = {
         BACK_BUTTON: 'Back',
         OKAY_BUTTON: 'Okay',
         DONE_BUTTON: 'Done',
+        NEXT_BUTTON: 'Next',
         PASSWORD_FORM_LABEL: 'Password',
         PASSWORD_MISMATCH_ERROR: 'Passwords do not match',
         CONFIRM_PASSWORD_FORM_LABEL: 'Confirm Password',
@@ -89,6 +90,9 @@ export const english: any = {
         EULA: {
             TITLE: 'License Agreement',
             CONFIRM_READ: 'I have read and agree to the Terms & Conditions',
+            LOAD_ERROR_TITLE: 'Error',
+            LOAD_ERROR_DESCRIPTION: 'License Agreement Failed To Load',
+            RELOAD_BUTTON: 'Reload'
         },
         VERIFY_EMAIL: {
             TITLE: 'Verify Email',
@@ -117,6 +121,7 @@ export const english: any = {
                     : `Your account has been successfully created.`;
                 return `${firstSentence} Your account has already been added to the organization. Press Continue below to finish.`;
             },
+            CONTINUE_BUTTON: 'Continue',
         },
     },
 };

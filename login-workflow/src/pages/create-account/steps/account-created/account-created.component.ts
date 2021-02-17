@@ -5,13 +5,17 @@ import { PxbAuthTranslations } from '../../../../translations/auth-translations'
 @Component({
     selector: 'pxb-create-account-account-created-step',
     template: `
-        <div class="mat-title pxb-auth-title">{{ translate.CREATE_ACCOUNT.ACCOUNT_CREATED.TITLE }}</div>
+        <div class="mat-title pxb-auth-title" [innerHTML]="translate.CREATE_ACCOUNT.ACCOUNT_CREATED.TITLE"></div>
         <div class="pxb-auth-full-height" style="justify-content: center;">
-            <pxb-empty-state
-                class="pxb-account-created-empty-state"
-                [title]="translate.CREATE_ACCOUNT.ACCOUNT_CREATED.WELCOME_MESSAGE_TITLE(userName)"
-                [description]="translate.CREATE_ACCOUNT.ACCOUNT_CREATED.WELCOME_MESSAGE_DESCRIPTION(email)"
-            >
+            <pxb-empty-state class="pxb-account-created-empty-state">
+                <div pxb-title>
+                    <div [innerHTML]="translate.CREATE_ACCOUNT.ACCOUNT_CREATED.WELCOME_MESSAGE_TITLE(userName)"></div>
+                </div>
+                <div pxb-description>
+                    <div
+                        [innerHTML]="translate.CREATE_ACCOUNT.ACCOUNT_CREATED.WELCOME_MESSAGE_DESCRIPTION(email)"
+                    ></div>
+                </div>
                 <mat-icon pxb-empty-icon class="pxb-account-created-icon">check_circle</mat-icon>
             </pxb-empty-state>
         </div>

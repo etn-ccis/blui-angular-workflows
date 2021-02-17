@@ -11,6 +11,7 @@ import { PxbAuthSecurityService, SecurityContext } from '../../services/state/au
 import { PxbCreateAccountErrorDialogService } from '../../services/dialog/create-account-error-dialog.service';
 import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
 import { CreateAccountService } from './create-account.service';
+import { PxbAuthTranslations } from '../../translations/auth-translations';
 
 const ACCOUNT_DETAILS_STARTING_PAGE = 4;
 
@@ -52,6 +53,7 @@ export class PxbCreateAccountComponent implements OnDestroy {
 
     stateListener: Subscription;
     registrationUtils: CreateAccountService;
+    translate: PxbAuthTranslations;
 
     constructor(
         private readonly _router: Router,
@@ -66,6 +68,7 @@ export class PxbCreateAccountComponent implements OnDestroy {
     }
 
     ngOnInit(): void {
+        this.translate = this._pxbAuthConfig.getTranslations();
         this.registrationUtils = new CreateAccountService(ACCOUNT_DETAILS_STARTING_PAGE, this.accountDetails);
     }
 

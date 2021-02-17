@@ -14,10 +14,12 @@ import { PxbAuthTranslations } from '../../../../translations/auth-translations'
 @Component({
     selector: 'pxb-create-account-create-password-step',
     template: `
-        <div class="mat-title pxb-auth-title">{{ translate.CREATE_ACCOUNT.CREATE_PASSWORD.TITLE }}</div>
-        <p class="mat-body-1" style="margin-bottom: 24px;">
-            {{ translate.CREATE_ACCOUNT.CREATE_PASSWORD.INSTRUCTIONS }}
-        </p>
+        <div class="mat-title pxb-auth-title" [innerHTML]="translate.CREATE_ACCOUNT.CREATE_PASSWORD.TITLE"></div>
+        <p
+            class="mat-body-1"
+            style="margin-bottom: 24px;"
+            [innerHTML]="translate.CREATE_ACCOUNT.CREATE_PASSWORD.INSTRUCTIONS"
+        ></p>
         <mat-divider class="pxb-auth-divider" style="margin-top: 16px; margin-bottom: 32px;"></mat-divider>
         <div class="pxb-auth-full-height">
             <form [formGroup]="passwordFormGroup">
@@ -64,8 +66,10 @@ import { PxbAuthTranslations } from '../../../../translations/auth-translations'
                     <button type="button" mat-icon-button matSuffix (click)="toggleConfirmPasswordVisibility()">
                         <mat-icon>{{ confirmPasswordVisible ? 'visibility' : 'visibility_off' }}</mat-icon>
                     </button>
-                    <mat-error *ngIf="!confirmPasswordFocused && passwordFormGroup.hasError('passwordsDoNotMatch')"
-                        >{{ translate.GENERAL.PASSWORD_MISMATCH_ERROR }}
+                    <mat-error
+                        *ngIf="!confirmPasswordFocused && passwordFormGroup.hasError('passwordsDoNotMatch')"
+                        [innerHTML]="translate.GENERAL.PASSWORD_MISMATCH_ERROR"
+                    >
                     </mat-error>
                 </mat-form-field>
             </form>

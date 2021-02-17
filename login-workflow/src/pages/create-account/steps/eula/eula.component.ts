@@ -22,9 +22,7 @@ import { PxbAuthTranslations } from '../../../../translations/auth-translations'
     selector: 'pxb-create-account-eula-step',
     encapsulation: ViewEncapsulation.None,
     template: `
-        <div class="mat-title pxb-auth-title">
-            {{ translate.CREATE_ACCOUNT.EULA.TITLE }}
-        </div>
+        <div class="mat-title pxb-auth-title" [innerHTML]="translate.CREATE_ACCOUNT.EULA.TITLE"></div>
         <div
             #eulaVC
             *ngIf="eula"
@@ -33,16 +31,13 @@ import { PxbAuthTranslations } from '../../../../translations/auth-translations'
             (scroll)="checkScrollDistance($event)"
             [innerHTML]="sanitizer.sanitize(1, eula)"
         ></div>
-        <pxb-empty-state
-            *ngIf="!eula && !isLoading"
-            class="pxb-auth-full-height"
-            title="Error"
-            description="License Agreement Failed To Load"
-        >
+        <pxb-empty-state *ngIf="!eula && !isLoading" class="pxb-auth-full-height">
+            <div pxb-title><div [innerHTML]="translate.CREATE_ACCOUNT.EULA.LOAD_ERROR_TITLE"></div></div>
+            <div pxb-description><div [innerHTML]="translate.CREATE_ACCOUNT.EULA.LOAD_ERROR_DESCRIPTION"></div></div>
             <mat-icon pxb-empty-icon [style.color]="colors.red[500]">error</mat-icon>
             <button pxb-actions mat-raised-button color="primary" (click)="getEULA()">
                 <mat-icon>replay</mat-icon>
-                Reload
+                {{ translate.CREATE_ACCOUNT.EULA.RELOAD_BUTTON }}
             </button>
         </pxb-empty-state>
         <div *ngIf="eula" class="pxb-eula-confirm-agreement">
@@ -53,6 +48,7 @@ import { PxbAuthTranslations } from '../../../../translations/auth-translations'
                 (change)="userAcceptsEulaChange.emit(userAcceptsEula)"
                 ngDefaultControl
             >
+
                 {{ translate.CREATE_ACCOUNT.EULA.CONFIRM_READ }}
             </mat-checkbox>
         </div>

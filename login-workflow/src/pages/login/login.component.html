@@ -11,12 +11,11 @@
     class="pxb-login-debug-button"
     color="primary"
     (click)="toggleDebugMode()"
->
-    {{ translate().LOGIN.ENABLE_DEBUG_MODE }}
-</button>
+    [innerHTML]="translate().LOGIN.ENABLE_DEBUG_MODE"
+></button>
 
 <div *ngIf="debugMode" class="pxb-login-debug-message">
-    <div class="mat-title">{{ translate().LOGIN.DEBUG_MODE }}</div>
+    <div class="mat-title" [innerHTML]="translate().LOGIN.DEBUG_MODE"></div>
 </div>
 
 <form>
@@ -40,11 +39,13 @@
                 !emailFormControl.hasError('required') &&
                 !emailFormControl.hasError(customErrorName)
             "
+            [innerHTML]="translate().GENERAL.EMAIL_INVALID_ERROR"
         >
-            {{ translate().GENERAL.EMAIL_INVALID_ERROR }}
         </mat-error>
-        <mat-error *ngIf="isLoginFormDirty() && emailFormControl.hasError(customErrorName)">
-            {{ emailFormControl.errors[customErrorName].message }}
+        <mat-error
+            *ngIf="isLoginFormDirty() && emailFormControl.hasError(customErrorName)"
+            [innerHTML]="emailFormControl.errors[customErrorName].message"
+        >
         </mat-error>
         <mat-error
             *ngIf="isLoginFormDirty() && emailFormControl.hasError('required')"
