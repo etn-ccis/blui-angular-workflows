@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { PxbAuthTranslations } from '../../translations/auth-translations';
-import { english } from '../../translations/english';
+import { pxbAuthEnglishTranslations } from '../../translations/english';
+import { pxbAuthFrenchTranslations } from '../../translations/french';
 
 export type PasswordRequirement = {
     description: string;
@@ -52,12 +53,16 @@ export class PxbAuthConfig implements PxbAuthConfig {
     showCreateAccountViaInvite = true;
 
     getTranslations(): PxbAuthTranslations {
+        console.log(this.languageCode);
         switch (this.languageCode) {
             case 'EN': {
-                return english;
+                return pxbAuthEnglishTranslations;
+            }
+            case 'FR': {
+                return pxbAuthFrenchTranslations;
             }
             default: {
-                return english;
+                return pxbAuthEnglishTranslations;
             }
         }
     }

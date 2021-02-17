@@ -18,6 +18,22 @@
     <div class="mat-title" [innerHTML]="translate().LOGIN.DEBUG_MODE"></div>
 </div>
 
+<mat-form-field *ngIf="debugMode">
+    <mat-label>Language</mat-label>
+    <mat-select
+        #pxbLanguageSelect
+        (ngModelChange)="changeLanguage(pxbLanguageSelect.value)"
+        [(ngModel)]="selectedLanguage"
+    >
+        <mat-option value="EN">
+            English
+        </mat-option>
+        <mat-option value="FR">
+            French
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+
 <form>
     <mat-form-field appearance="fill">
         <mat-label>{{ translate().GENERAL.EMAIL_FORM_LABEL }}</mat-label>

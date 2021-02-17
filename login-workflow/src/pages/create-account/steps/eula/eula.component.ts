@@ -48,7 +48,6 @@ import { PxbAuthTranslations } from '../../../../translations/auth-translations'
                 (change)="userAcceptsEulaChange.emit(userAcceptsEula)"
                 ngDefaultControl
             >
-
                 {{ translate.CREATE_ACCOUNT.EULA.CONFIRM_READ }}
             </mat-checkbox>
         </div>

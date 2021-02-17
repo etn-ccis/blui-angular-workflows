@@ -41,7 +41,7 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
     idFieldActive = false;
     touchedIdField = false;
 
-    translate: () => PxbAuthTranslations;
+    selectedLanguage = 'English';
 
     isEmpty = (el: ElementRef): boolean => isEmptyView(el);
 
@@ -56,8 +56,6 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
     ) {}
 
     ngOnInit(): void {
-        // This page might support language-switching after load.
-        this.translate = this.pxbAuthConfig.getTranslations;
         const emailValidators = [
             Validators.required,
             Validators.email,
@@ -150,5 +148,13 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
         return (
             !this.idFieldActive && this.touchedIdField && (this.emailFormControl.dirty || this.emailFormControl.touched)
         );
+    }
+
+    changeLanguage(languageCode: 'EN' | 'FR'): void {
+        this.pxbAuthConfig.languageCode = languageCode;
+    }
+
+    translate(): PxbAuthTranslations {
+        return this.pxbAuthConfig.getTranslations();
     }
 }

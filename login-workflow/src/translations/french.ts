@@ -1,29 +1,29 @@
 import { PxbAuthTranslations } from './auth-translations';
 
-export const pxbAuthEnglishTranslations: PxbAuthTranslations = {
+export const pxbAuthFrenchTranslations: PxbAuthTranslations = {
     GENERAL: {
         BACK_BUTTON: 'Back',
         OKAY_BUTTON: 'Okay',
         DONE_BUTTON: 'Done',
         NEXT_BUTTON: 'Next',
-        PASSWORD_FORM_LABEL: 'Password',
+        PASSWORD_FORM_LABEL: 'Mot de passe',
         PASSWORD_MISMATCH_ERROR: 'Passwords do not match',
         CONFIRM_PASSWORD_FORM_LABEL: 'Confirm Password',
-        EMAIL_FORM_LABEL: 'Email Address',
-        EMAIL_INVALID_ERROR: 'Please enter a valid email address',
-        IS_REQUIRED_ERROR: (field: string) => `${field} is <strong>required</strong>`,
-        LOGIN_BUTTON: 'Log In',
+        EMAIL_FORM_LABEL: 'Adresse e-mail',
+        EMAIL_INVALID_ERROR: "S'il vous plaît, mettez une adresse email valide",
+        IS_REQUIRED_ERROR: (field: string) => `${field} est <strong>requis</strong>`,
+        LOGIN_BUTTON: 'Connexion',
     },
     LOGIN: {
-        CONTACT_SUPPORT: 'Contact an Eaton Support Representative',
-        CREATE_ACCOUNT: 'Create Account',
+        CONTACT_SUPPORT: "Contactez un représentant de l'assistance Eaton",
+        CREATE_ACCOUNT: 'Créer un compte\n',
         FORGOT_PASSWORD: 'Forgot your password?',
-        NEED_AN_ACCOUNT: 'Need an account?',
-        REMEMBER_ME: 'Remember Me',
-        ENABLE_DEBUG_MODE: 'DEBUG',
-        DEBUG_MODE: 'DEBUG_MODE',
-        FORGOT_PASSWORD_LINK: '[Test Forgot Password Email]',
-        TEST_INVITE_LINK: '[Test Invite Register]',
+        NEED_AN_ACCOUNT: 'Mot de passe oublié?\n',
+        REMEMBER_ME: 'Souviens-toi de moi\ne',
+        ENABLE_DEBUG_MODE: 'DÉBOGUER',
+        DEBUG_MODE: 'MODE DÉBOGAGE',
+        FORGOT_PASSWORD_LINK: '[Test Mot de passe oublié Email]',
+        TEST_INVITE_LINK: "[Tester le registre d'invitation]",
     },
     CHANGE_PASSWORD: {
         TITLE: 'Change Password',
