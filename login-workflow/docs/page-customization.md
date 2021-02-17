@@ -2,6 +2,26 @@
  
  Each page within the `@pxblue/angular-auth-workflow` can be customized with string `@Inputs` or `ng-content`.  
  
+## Text and HTML Overrides
+
+Each text element that appears with in the auth workflow has the ability to be overwritten.  
+
+```
+import { pxbAuthEnglishTranslations, PxbAuthTranslations, mergeAuthTranslations }  from '@pxblue/angular-auth-workflow';
+
+ngOnInit(): void {
+    // For single text element changes: 
+    pxbAuthEnglishTranslations.GENERAL.BACK_BUTTON = 'Go Back';
+    
+    // For multi-line or multi-language text overrides:
+    const authEnglishOverrides: PxbAuthTranslationsOverride = {
+        GENERAL: { ... }
+        LOGIN: { ... },
+        CREATE_ACCOUNT: { ... },
+    };
+    mergeAuthTranslations(pxbAuthEnglishTranslations, authEnglishOverrides);
+}
+```
 
 ## PxbAuthComponent
 The PxbAuthComponent is a wrapper component that houses the individual pages within the auth workflow.

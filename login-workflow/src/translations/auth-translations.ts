@@ -106,3 +106,26 @@ export type PxbAuthTranslations = {
         ONE_SPECIAL_CHARACTER: string;
     };
 };
+
+type DeepPartial<T> = {
+    [P in keyof T]?: DeepPartial<T[P]>;
+};
+
+export type PxbAuthTranslationsOverride = DeepPartial<PxbAuthTranslations>;
+
+export function mergeAuthTranslations(original: PxbAuthTranslations, overrides: PxbAuthTranslationsOverride) {
+    Object.assign(original.GENERAL, overrides.GENERAL);
+    Object.assign(original.CONTACT_SUPPORT, overrides.CONTACT_SUPPORT);
+    Object.assign(original.CHANGE_PASSWORD, overrides.CHANGE_PASSWORD);
+    Object.assign(original.RESET_PASSWORD, overrides.RESET_PASSWORD);
+    Object.assign(original.FORGOT_PASSWORD, overrides.FORGOT_PASSWORD);
+
+    // Create Account
+    Object.assign(original.CREATE_ACCOUNT.EULA, overrides.CREATE_ACCOUNT?.EULA);
+    Object.assign(original.CREATE_ACCOUNT.REGISTRATION_LINK, overrides.CREATE_ACCOUNT?.REGISTRATION_LINK);
+    Object.assign(original.CREATE_ACCOUNT.ACCOUNT_CREATED, overrides.CREATE_ACCOUNT?.ACCOUNT_CREATED);
+    Object.assign(original.CREATE_ACCOUNT.VERIFY_EMAIL, overrides.CREATE_ACCOUNT?.VERIFY_EMAIL);
+    Object.assign(original.CREATE_ACCOUNT.ENTER_EMAIL, overrides.CREATE_ACCOUNT?.ENTER_EMAIL);
+    Object.assign(original.CREATE_ACCOUNT.CREATE_PASSWORD, overrides.CREATE_ACCOUNT?.CREATE_PASSWORD);
+    Object.assign(original.CREATE_ACCOUNT.ACCOUNT_DETAILS, overrides.CREATE_ACCOUNT?.ACCOUNT_DETAILS);
+}
