@@ -60,9 +60,59 @@ export const english: any = {
             'If this email has an account with Eaton, you will receive a response within <strong>one business day.</strong>',
         PHONE_NUMBER: undefined,
         CONTACT_SUPPORT_BY_PHONE: (phone: string) =>
-            `For urgent account issues, please call <a class="pxb-auth-link" [href]="tel:${phone}">${phone}</a>`,
+            `For urgent account issues, please call <a class="pxb-auth-link" href="tel:${phone}">${phone}</a>.`,
         SUCCESS_TITLE: 'Email Sent',
-        SUCCESS_DESCRIPTION_WITH_EMAIL: 'A link to reset your password has been sent to ',
-        SUCCESS_DESCRIPTION_WITHOUT_EMAIL: 'A link to reset your password has been sent.',
+        SUCCESS_DESCRIPTION: (email: string) => `A link to reset your password has been sent to ${email}`,
+    },
+    RESET_PASSWORD: {
+        TITLE: 'Reset Password',
+        INSTRUCTIONS:
+            'Please select a password. Make sure that your password meets the necessary complexity requirements outlined below.',
+        RESET_CODE_ERROR_TITLE: 'Error',
+        RESET_CODE_ERROR_DESCRIPTION: 'There was an error validating your reset code.',
+        SUCCESS_TITLE: 'Your password was successfully reset.',
+        SUCCESS_DESCRIPTION:
+            "Your password was successfully updated! To ensure your account's security, you will need to log in to the application with your updated credentials.",
+    },
+
+    CREATE_ACCOUNT: {
+        REGISTRATION_LINK: {
+            VALIDATING: 'Validating',
+            INVALID_TITLE: 'Error',
+            INVALID_DESCRIPTION: 'There was an error during account registration.',
+        },
+        ENTER_EMAIL: {
+            TITLE: 'Create an Account',
+            INSTRUCTIONS:
+                'To register for an Eaton account, enter the required information below. You will need to verify your email address to continue.',
+        },
+        EULA: {
+            TITLE: 'License Agreement',
+            CONFIRM_READ: 'I have read and agree to the Terms & Conditions',
+        },
+        VERIFY_EMAIL: {
+            TITLE: 'Verify Email',
+            INSTRUCTIONS:
+                'A verification code has been sent to the email address you provided. Click the link or enter the code below to continue. This code is valid for 30 minutes.',
+            CODE_FORM_LABEL: 'Verification Code',
+            RESEND_BUTTON: 'Resend Verification Email',
+        },
+        CREATE_PASSWORD: {
+            INSTRUCTIONS:
+                'Please select a password. Make sure that your password meets the necessary complexity requirements outlined below.',
+            TITLE: 'Create Password',
+        },
+        ACCOUNT_DETAILS: {
+            FIRST_NAME_FORM_LABEL: 'First Name',
+            INSTRUCTIONS: 'Enter your details below to complete account creation.',
+            LAST_NAME_FORM_LABEL: 'Last Name',
+            TITLE: 'Account Details',
+        },
+        ACCOUNT_CREATED: {
+            TITLE: 'Account Created',
+            WELCOME_MESSAGE_TITLE: (username: string) => `Welcome, ${username}`,
+            WELCOME_MESSAGE_DESCRIPTION: (email: string) =>
+                `Your account has been successfully created with the email ${email}.`,
+        },
     },
 };

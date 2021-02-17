@@ -27,10 +27,9 @@ export type PxbAuthTranslations = {
         INSTRUCTIONS: string;
         RESPONSE_TIME_TEXT: string;
         PHONE_NUMBER: string;
-        CONTACT_SUPPORT_BY_PHONE: (phone: string) => string;
+        CONTACT_SUPPORT_BY_PHONE: (phone: string) => string; // Uses FORGOT_PASSWORD.PHONE_NUMBER or PxbConfig
         SUCCESS_TITLE: string;
-        SUCCESS_DESCRIPTION_WITH_EMAIL: (email: string) => string;
-        SUCCESS_DESCRIPTION_WITHOUT_EMAIL: string;
+        SUCCESS_DESCRIPTION: (email: string) => string;
     };
     RESET_PASSWORD: {
         TITLE: string;
@@ -53,9 +52,9 @@ export type PxbAuthTranslations = {
         TITLE: string;
         PHONE_NUMBER: string;
         EMAIL: string;
-        EMERGENCY_SUPPORT_DESCRIPTION: (phone: string) => string;
+        EMERGENCY_SUPPORT_DESCRIPTION: (phone: string) => string; // Uses CONTACT_SUPPORT.PHONE_NUMBER or PxbConfig
         EMERGENCY_SUPPORT_TITLE: string;
-        GENERAL_SUPPORT_DESCRIPTION: (email: string) => string;
+        GENERAL_SUPPORT_DESCRIPTION: (email: string) => string; // Uses CONTACT_SUPPORT.EMAIL or PxbConfig
         GENERAL_SUPPORT_TITLE: string;
     };
     CREATE_ACCOUNT: {
@@ -90,8 +89,8 @@ export type PxbAuthTranslations = {
         };
         ACCOUNT_CREATED: {
             TITLE: string;
-            WELCOME_MESSAGE_TITLE: string;
-            WELCOME_MESSAGE_DESCRIPTION: string;
+            WELCOME_MESSAGE_TITLE: (username: string) => string;
+            WELCOME_MESSAGE_DESCRIPTION: (email: string) => string;
         };
     };
     PASSWORD_CRITERIA: {

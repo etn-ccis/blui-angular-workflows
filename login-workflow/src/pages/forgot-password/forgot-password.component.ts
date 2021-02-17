@@ -17,10 +17,8 @@ import { PxbAuthTranslations } from '../..';
     styleUrls: ['./forgot-password.component.scss'],
 })
 export class PxbForgotPasswordComponent implements OnInit {
-    @Input() successTitle = 'Email Sent';
-    @Input() successDescription = 'A link to reset your password has been sent to ';
-    @Input() includeEmailInSuccessMessage = true;
     @Input() customEmailValidator: ValidatorFn;
+
     customErrorName = PXB_LOGIN_VALIDATOR_ERROR_NAME;
 
     emailFormControl: FormControl;
@@ -60,13 +58,6 @@ export class PxbForgotPasswordComponent implements OnInit {
     }
 
     resetPassword(): void {
-        // submit form
-        if (this.includeEmailInSuccessMessage) {
-            this.successDescriptionMessage = `${this.successDescription} ${this.emailFormControl.value}.`;
-        } else {
-            this.successDescriptionMessage = this.successDescription;
-        }
-
         const email = this.emailFormControl.value;
         this._pxbSecurityService.setLoading(true);
         this._pxbAuthUIActionsService
