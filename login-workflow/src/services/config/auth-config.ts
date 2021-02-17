@@ -13,11 +13,14 @@ export type PasswordRequirement = {
 export class PxbAuthConfig implements PxbAuthConfig {
     contactEmail = 'something@email.com';
     contactPhone = '1-800-123-4567';
-    // @TODO: using this for splash screen... should we use this in place of ng-content for header in the login component? Should we have an additional prop for footerImage
     projectImage: string;
     backgroundImage: string;
+    languageCode = 'EN';
+
+    eula: string;
     eulaScrollLock = true;
-    languageCode: string = 'EN';
+    allowDebugMode = false;
+    showRememberMe = true;
 
     passwordRequirements?: PasswordRequirement[] = [
         {
@@ -41,9 +44,6 @@ export class PxbAuthConfig implements PxbAuthConfig {
             regex: /[!"#$%&'()*+,-./:;<=>?@[\]^`{|}~]+/,
         },
     ];
-    eula: string;
-    allowDebugMode = false;
-    showRememberMe = true;
 
     /* Conditional Pages */
     showCreateAccount = true;
@@ -53,7 +53,6 @@ export class PxbAuthConfig implements PxbAuthConfig {
     showCreateAccountViaInvite = true;
 
     getTranslations(): PxbAuthTranslations {
-        console.log(this.languageCode);
         switch (this.languageCode) {
             case 'EN': {
                 return pxbAuthEnglishTranslations;

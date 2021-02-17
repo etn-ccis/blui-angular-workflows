@@ -16,7 +16,7 @@ import { PxbAuthTranslations } from '../../translations/auth-translations';
 export class PxbContactSupportComponent implements OnInit, AfterViewInit {
     @Input() instructions: string;
 
-    @ViewChild('icon') iconEl: ElementRef;
+    @ViewChild('iconVC') iconEl: ElementRef;
     @ViewChild('instructionsVC') instructionsEl;
 
     isEmpty = (el: ElementRef): boolean => isEmptyView(el);

@@ -3,9 +3,23 @@
     <div class="mat-title pxb-auth-title" [innerHTML]="translate.CREATE_ACCOUNT.EULA.TITLE"></div>
     <div class="pxb-create-account-invite-content-error-state">
         <pxb-empty-state>
-            <div pxb-title><div [innerHTML]="translate.CREATE_ACCOUNT.REGISTRATION_LINK.INVALID_TITLE"></div></div>
+            <div pxb-title>
+                <div #registrationLinkErrorTitleVC>
+                    <ng-content select="[pxb-registration-link-error-title]"></ng-content>
+                </div>
+                <div
+                    *ngIf="isEmpty(registrationLinkErrorTitleEl)"
+                    [innerHTML]="translate.CREATE_ACCOUNT.REGISTRATION_LINK.INVALID_TITLE"
+                ></div>
+            </div>
             <div pxb-description>
-                <div [innerHTML]="translate.CREATE_ACCOUNT.REGISTRATION_LINK.INVALID_DESCRIPTION"></div>
+                <div #registrationLinkErrorDescVC>
+                    <ng-content select="[pxb-registration-link-error-description]"></ng-content>
+                </div>
+                <div
+                    *ngIf="isEmpty(registrationLinkErrorDescEl)"
+                    [innerHTML]="translate.CREATE_ACCOUNT.REGISTRATION_LINK.INVALID_DESCRIPTION"
+                ></div>
             </div>
             <mat-icon pxb-empty-icon>error</mat-icon>
         </pxb-empty-state>

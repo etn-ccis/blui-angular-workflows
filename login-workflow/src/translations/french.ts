@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/naming-convention */
+
 import { PxbAuthTranslations } from './auth-translations';
 
 export const pxbAuthFrenchTranslations: PxbAuthTranslations = {
@@ -11,14 +13,14 @@ export const pxbAuthFrenchTranslations: PxbAuthTranslations = {
         CONFIRM_PASSWORD_FORM_LABEL: 'Confirm Password',
         EMAIL_FORM_LABEL: 'Adresse e-mail',
         EMAIL_INVALID_ERROR: "S'il vous plaît, mettez une adresse email valide",
-        IS_REQUIRED_ERROR: (field: string) => `${field} est <strong>requis</strong>`,
+        IS_REQUIRED_ERROR: (field: string): string => `${field} est <strong>requis</strong>`,
         LOGIN_BUTTON: 'Connexion',
     },
     LOGIN: {
         CONTACT_SUPPORT: "Contactez un représentant de l'assistance Eaton",
         CREATE_ACCOUNT: 'Créer un compte\n',
-        FORGOT_PASSWORD: 'Forgot your password?',
-        NEED_AN_ACCOUNT: 'Mot de passe oublié?\n',
+        FORGOT_PASSWORD: 'Mot de passe oublié?',
+        NEED_AN_ACCOUNT: "Besoin d'un compte?",
         REMEMBER_ME: 'Souviens-toi de moi\ne',
         ENABLE_DEBUG_MODE: 'DÉBOGUER',
         DEBUG_MODE: 'MODE DÉBOGAGE',
@@ -40,10 +42,10 @@ export const pxbAuthFrenchTranslations: PxbAuthTranslations = {
         TITLE: 'Contact Us',
         PHONE_NUMBER: undefined,
         EMAIL: undefined,
-        EMERGENCY_SUPPORT_DESCRIPTION: (phone: string) =>
+        EMERGENCY_SUPPORT_DESCRIPTION: (phone: string): string =>
             `For technical support, please call <a class="pxb-auth-link" href="tel:${phone}">${phone}</a>.`,
         EMERGENCY_SUPPORT_TITLE: 'Emergency Support',
-        GENERAL_SUPPORT_DESCRIPTION: (email: string) =>
+        GENERAL_SUPPORT_DESCRIPTION: (email: string): string =>
             `For questions, feedback, or support please email us at <a class="pxb-auth-link" href="mailto:${email}">${email}</a>.`,
         GENERAL_SUPPORT_TITLE: 'General Questions',
     },
@@ -60,17 +62,17 @@ export const pxbAuthFrenchTranslations: PxbAuthTranslations = {
         RESPONSE_TIME_TEXT:
             'If this email has an account with Eaton, you will receive a response within <strong>one business day.</strong>',
         PHONE_NUMBER: undefined,
-        CONTACT_SUPPORT_BY_PHONE: (phone: string) =>
+        CONTACT_SUPPORT_BY_PHONE: (phone: string): string =>
             `For urgent account issues, please call <a class="pxb-auth-link" href="tel:${phone}">${phone}</a>.`,
         SUCCESS_TITLE: 'Email Sent',
-        SUCCESS_DESCRIPTION: (email: string) => `A link to reset your password has been sent to ${email}`,
+        SUCCESS_DESCRIPTION: (email: string): string => `A link to reset your password has been sent to ${email}`,
     },
     RESET_PASSWORD: {
         TITLE: 'Reset Password',
         INSTRUCTIONS:
             'Please select a password. Make sure that your password meets the necessary complexity requirements outlined below.',
-        RESET_CODE_ERROR_TITLE: 'Error',
-        RESET_CODE_ERROR_DESCRIPTION: 'There was an error validating your reset code.',
+        RESET_LINK_ERROR_TITLE: 'Error',
+        RESET_LINK_ERROR_DESCRIPTION: 'There was an error validating your reset code.',
         SUCCESS_TITLE: 'Your password was successfully reset.',
         SUCCESS_DESCRIPTION:
             "Your password was successfully updated! To ensure your account's security, you will need to log in to the application with your updated credentials.",
@@ -114,8 +116,8 @@ export const pxbAuthFrenchTranslations: PxbAuthTranslations = {
         },
         ACCOUNT_CREATED: {
             TITLE: 'Account Created',
-            WELCOME_MESSAGE_TITLE: (username: string) => `Welcome, ${username}`,
-            WELCOME_MESSAGE_DESCRIPTION: (email: string) => {
+            WELCOME_MESSAGE_TITLE: (username: string): string => `Welcome, ${username}`,
+            WELCOME_MESSAGE_DESCRIPTION: (email: string): string => {
                 const firstSentence = email
                     ? `Your account has been successfully created with the email ${email}.`
                     : `Your account has been successfully created.`;

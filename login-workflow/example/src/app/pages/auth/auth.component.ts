@@ -29,10 +29,8 @@ import {
 
         <!-- Custom Create Account page -->
         <ng-template #createAccountViaInvitePage>
-            <pxb-create-account-invite
-                #createAccountInviteVC
-                [accountDetails]="accountDetails"
-            ></pxb-create-account-invite>
+            <pxb-create-account-invite #createAccountInviteVC [accountDetails]="accountDetails">
+            </pxb-create-account-invite>
         </ng-template>
 
         <!-- This is an example of a custom account details form.  To enable the defaults, remove this template and the accountDetails[]. -->

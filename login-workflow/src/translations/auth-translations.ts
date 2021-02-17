@@ -35,8 +35,8 @@ export type PxbAuthTranslations = {
     RESET_PASSWORD: {
         TITLE: string;
         INSTRUCTIONS: string;
-        RESET_CODE_ERROR_TITLE: string;
-        RESET_CODE_ERROR_DESCRIPTION: string;
+        RESET_LINK_ERROR_TITLE: string;
+        RESET_LINK_ERROR_DESCRIPTION: string;
         SUCCESS_TITLE: string;
         SUCCESS_DESCRIPTION: string;
     };

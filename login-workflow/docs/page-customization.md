@@ -17,7 +17,6 @@ This component accepts @Inputs for individual page customizations.
 | forgotPasswordRef         | Forgot Password customizations                 | `TemplateRef<PxbForgotPasswordComponent>`      |
 | loginRef                  | Login customizations                           | `TemplateRef<PxbLoginComponent>`               |
 | resetPasswordRef          | Reset Password customizations                  | `TemplateRef<PxbResetPasswordComponent>`       |
-| translations              | Text customiations for i18n support            | `PxbAuthTranslations`                          | 
 
 </div>
 
@@ -45,9 +44,9 @@ The Login page is used to log in to an application; it is also a gateway to othe
 
 <div style="overflow: auto;">
 
-| @Input                             | Description                                                                 | Type                | ng-content                                   |
-| ---------------------------------- | --------------------------------------------------------------------------- | ------------------- | -------------------------------------------- |   
-| customEmailValidator               | Custom email regex requirements                                             | `ValidatorFn`       |                                              |
+| @Input                             | Description                                                                 | Type                | 
+| ---------------------------------- | --------------------------------------------------------------------------- | ------------------- |   
+| customEmailValidator               | Custom email regex requirements                                             | `ValidatorFn`       | 
 
 </div>
 
@@ -65,9 +64,9 @@ For a more detailed explanation of how to add custom account details, check out 
 
 <div style="overflow: auto;">
 
-| @Input                                   | Description                                                                 | Type                | ng-content                                          |
-| ---------------------------------------- | --------------------------------------------------------------------------- | ------------------- | --------------------------------------------------- |   
-| accountDetails                           | Custom form controls used for self-registration                             | `AccountDetails[]`  |                                                     |
+| @Input                                   | Description                                                                 | Type                | 
+| ---------------------------------------- | --------------------------------------------------------------------------- | ------------------- |    
+| accountDetails                           | Custom form controls used for self-registration                             | `AccountDetails[]`  |   
 
 
 ## Create Account via Invite 
@@ -80,9 +79,18 @@ A user has received an email invite to create an account; this workflow can be s
 
 <div style="overflow: auto;">
 
-| @Input                                   | Description                                                                 | Type                | ng-content                                          |
-| ---------------------------------------- | --------------------------------------------------------------------------- | ------------------- | --------------------------------------------------- |   
-| accountDetails                           | Custom form controls used for self-registration                             | `AccountDetails[]`  |                                                     |
+| @Input                                   | Description                                                                 | Type                
+| ---------------------------------------- | --------------------------------------------------------------------------- | ------------------- |
+| accountDetails                           | Custom form controls used for self-registration                             | `AccountDetails[]`  | 
+
+</div>
+
+<div style="overflow: auto;">
+
+|  ng-content                                 | Description                                                                 |
+| ------------------------------------------- | --------------------------------------------------------------------------- |
+| `pxb-registration-link-error-title`         | Error state title seen when the registration  link is invalid               | 
+| `pxb-registration-link-error-description`   | Error state description seen when the registration link is invalid          | 
 
 </div>
 
@@ -120,13 +128,14 @@ The Reset Password page is normally access via email and contains forms used to 
    
 ![Reset Password](https://raw.githubusercontent.com/pxblue/angular-workflows/master/login-workflow/media/reset-password.png) 
 
-
 <div style="overflow: auto;">
 
-| @Input                             | Description                                                                 | Type                | ng-content                                 |
-| ---------------------------------- | --------------------------------------------------------------------------- | ------------------- | ------------------------------------------ |   
-| resetCodeErrorDescription          | Error state description seen when reset password link is invalid            | `string`            | `pxb-reset-code-error-description`         |
+|  ng-content                           | Description                                                                 |
+| ------------------------------------- | --------------------------------------------------------------------------- |
+| `pxb-reset-link-error-title`          | Error state title seen when reset password link is invalid                  | 
+| `pxb-reset-link-error-description`    | Error state description seen when reset password link is invalid            | 
 
+</div>
 
 ## Forgot Password
 The Forgot Password page allows a user to request a reset password email. 
@@ -138,7 +147,6 @@ The Forgot Password page allows a user to request a reset password email.
 | @Input                             | Description                                                                 | Type                | ng-content                                 |
 | ---------------------------------- | --------------------------------------------------------------------------- | ------------------- | ------------------------------------------ |   
 | customEmailValidator               | Custom email regex requirements                                             | `ValidatorFn`       |                                            |
-| includeEmailInSuccessMessage       | Whether to include the email in the success message                         | `boolean`           |                                            |
 
 </div>
 

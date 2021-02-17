@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AUTH_ROUTES } from '../../auth/auth.routes';
@@ -12,6 +12,7 @@ import { PxbAuthTranslations } from '../../translations/auth-translations';
 
 import { CreateAccountService } from '../create-account/create-account.service';
 import { AccountDetails } from '../create-account/create-account.component';
+import { isEmptyView } from '../../util/view-utils';
 
 const ACCOUNT_DETAILS_STARTING_PAGE = 2;
 
@@ -22,6 +23,9 @@ const ACCOUNT_DETAILS_STARTING_PAGE = 2;
 })
 export class PxbCreateAccountInviteComponent implements OnInit, OnDestroy {
     @Input() accountDetails: AccountDetails[] = [];
+
+    @ViewChild('registrationLinkErrorTitleVC') registrationLinkErrorTitleEl;
+    @ViewChild('registrationLinkErrorDescVC') registrationLinkErrorDescEl;
 
     isLoading: boolean;
     isValidRegistrationLink: boolean;
@@ -40,6 +44,7 @@ export class PxbCreateAccountInviteComponent implements OnInit, OnDestroy {
 
     stateListener: Subscription;
     registrationUtils: CreateAccountService;
+    isEmpty = (el: ElementRef): boolean => isEmptyView(el);
     translate: PxbAuthTranslations;
 
     constructor(

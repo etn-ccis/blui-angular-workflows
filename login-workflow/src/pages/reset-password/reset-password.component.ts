@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PxbAuthSecurityService, SecurityContext } from '../../services/state/auth-security.service';
@@ -12,7 +12,7 @@ import { PxbFormsService } from '../../services/forms/forms.service';
 import { CrossFieldErrorMatcher } from '../../util/matcher';
 import { makeEverythingUnique } from '../../util/filters';
 import { isEmptyView } from '../../util/view-utils';
-import { PxbAuthTranslations } from '../..';
+import { PxbAuthTranslations } from '../../translations/auth-translations';
 
 @Component({
     selector: 'pxb-reset-password',
@@ -21,6 +21,8 @@ import { PxbAuthTranslations } from '../..';
 })
 export class PxbResetPasswordComponent implements OnInit {
     @ViewChild('pxbConfirm') confirmInputElement: ElementRef;
+    @ViewChild('resetLinkErrorTitleVC') resetLinkErrorTitleEl;
+    @ViewChild('resetLinkErrorDescVC') resetLinkErrorDescEl;
 
     isValidResetCode = false;
     passwordResetSuccess = false;
@@ -31,6 +33,7 @@ export class PxbResetPasswordComponent implements OnInit {
     isLoading = true;
     passesStrengthCheck = false;
     passwordRequirements: PasswordRequirement[];
+    isEmpty = (el: ElementRef): boolean => isEmptyView(el);
     translate: PxbAuthTranslations;
 
     constructor(
