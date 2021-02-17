@@ -6,7 +6,6 @@ import { PxbChangePasswordDialogComponent } from './change-password-dialog.compo
     providedIn: 'root',
 })
 export class PxbChangePasswordDialogService {
-
     constructor(public dialog: MatDialog) {}
 
     openDialog(): MatDialogRef<PxbChangePasswordDialogComponent> {

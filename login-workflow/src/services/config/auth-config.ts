@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { PxbAuthTranslations } from '../../translations/auth-translations';
-import {english} from "../../translations/english";
+import { english } from '../../translations/english';
 
 export type PasswordRequirement = {
     description: string;
@@ -20,7 +20,7 @@ export class PxbAuthConfig implements PxbAuthConfig {
 
     passwordRequirements?: PasswordRequirement[] = [
         {
-            description: '8-16 Characters',
+            description: 'asdlkgj', //TODO: Handle alnguage changes here.
             regex: /^.{8,16}$/,
         },
         {

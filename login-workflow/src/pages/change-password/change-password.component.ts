@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -23,7 +23,7 @@ import { PxbAuthTranslations } from '../../translations/auth-translations';
         class: 'pxb-change-password',
     },
 })
-export class PxbChangePasswordComponent {
+export class PxbChangePasswordComponent implements OnInit {
     @ViewChild('pxbPassword') passwordInputElement: ElementRef;
     @ViewChild('pxbConfirm') confirmInputElement: ElementRef;
 
@@ -49,10 +49,12 @@ export class PxbChangePasswordComponent {
         private readonly _pxbAuthConfig: PxbAuthConfig,
         private readonly _pxbAuthUIService: PxbAuthUIService,
         private readonly _pxbSecurityService: PxbAuthSecurityService,
-        public pxbChangePasswordDialogService: PxbChangePasswordDialogService,
+        private readonly _pxbChangePasswordDialogService: PxbChangePasswordDialogService,
         private readonly _pxbChangePasswordErrorDialogService: PxbChangePasswordErrorDialogService,
         public pxbFormsService: PxbFormsService
-    ) {
+    ) {}
+
+    ngOnInit(): void {
         this.translate = this._pxbAuthConfig.getTranslations();
         this.passwordRequirements = makeEverythingUnique(this._pxbAuthConfig.passwordRequirements, 'description');
         this.passwordFormGroup = this._formBuilder.group(
@@ -80,7 +82,7 @@ export class PxbChangePasswordComponent {
     }
 
     closeDialog(): void {
-        this.pxbChangePasswordDialogService.closeDialog();
+        this._pxbChangePasswordDialogService.closeDialog();
     }
 
     done(): void {

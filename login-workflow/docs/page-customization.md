@@ -93,9 +93,10 @@ The Contact Support page contains information for users who need help accessing/
 
 <div style="overflow: auto;">
 
-| @Input                        | Description                                                                 | Type                 | ng-content                            |
-| ----------------------------- | --------------------------------------------------------------------------- | -------------------- | ------------------------------------- |  
-| instructions                  | Instructions overrides for page body                                        | `string`             | `pxb-instructions`                    |
+|  ng-content                   | Description                                                                 |
+| ----------------------------- | --------------------------------------------------------------------------- |
+| `pxb-icon`                    | Icon at top of the page                                                     | 
+| `pxb-instructions`            | Instructions overrides for page body                                        | 
 
 </div>
 

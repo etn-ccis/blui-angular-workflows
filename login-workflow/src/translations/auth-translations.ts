@@ -10,7 +10,7 @@ export type PxbAuthTranslations = {
         EMAIL_INVALID_ERROR: string;
         IS_REQUIRED_ERROR: (fieldName: string) => string;
         LOGIN_BUTTON: string;
-    },
+    };
     LOGIN: {
         CONTACT_SUPPORT: string;
         CREATE_ACCOUNT: string;
@@ -21,15 +21,17 @@ export type PxbAuthTranslations = {
         DEBUG_MODE: string;
         FORGOT_PASSWORD_LINK: string;
         TEST_INVITE_LINK: string;
-    },
+    };
     FORGOT_PASSWORD: {
         TITLE: string;
         INSTRUCTIONS: string;
-        BUSINESS_DAY_RESPONSE_TIME: string;
+        RESPONSE_TIME_TEXT: string;
         PHONE_NUMBER: string;
+        CONTACT_SUPPORT_BY_PHONE: (phone: string) => string;
         SUCCESS_TITLE: string;
-        SUCCESS_DESCRIPTION: string;
-    },
+        SUCCESS_DESCRIPTION_WITH_EMAIL: (email: string) => string;
+        SUCCESS_DESCRIPTION_WITHOUT_EMAIL: string;
+    };
     RESET_PASSWORD: {
         TITLE: string;
         INSTRUCTIONS: string;
@@ -37,7 +39,7 @@ export type PxbAuthTranslations = {
         RESET_CODE_ERROR_DESCRIPTION: string;
         SUCCESS_TITLE: string;
         SUCCESS_DESCRIPTION: string;
-    },
+    };
     CHANGE_PASSWORD: {
         TITLE: string;
         INSTRUCTIONS: string;
@@ -46,57 +48,57 @@ export type PxbAuthTranslations = {
         CONFIRM_PASSWORD_FORM_LABEL: string;
         SUCCESS_TITLE: string;
         SUCCESS_DESCRIPTION: string;
-    },
+    };
     CONTACT_SUPPORT: {
         TITLE: string;
         PHONE_NUMBER: string;
         EMAIL: string;
-        EMERGENCY_SUPPORT_DESCRIPTION: string;
+        EMERGENCY_SUPPORT_DESCRIPTION: (phone: string) => string;
         EMERGENCY_SUPPORT_TITLE: string;
-        GENERAL_SUPPORT_DESCRIPTION: string;
+        GENERAL_SUPPORT_DESCRIPTION: (email: string) => string;
         GENERAL_SUPPORT_TITLE: string;
-    },
+    };
     CREATE_ACCOUNT: {
         REGISTRATION_LINK: {
             VALIDATING: string;
             INVALID_TITLE: string;
             INVALID_DESCRIPTION: string;
-        },
+        };
         ENTER_EMAIL: {
             TITLE: string;
             INSTRUCTIONS: string;
-        },
+        };
         EULA: {
             TITLE: string;
             CONFIRM_READ: string;
-        },
+        };
         VERIFY_EMAIL: {
             TITLE: string;
             INSTRUCTIONS: string;
             CODE_FORM_LABEL: string;
             RESEND_BUTTON: string;
-        },
+        };
         CREATE_PASSWORD: {
             INSTRUCTIONS: string;
             TITLE: string;
-        },
+        };
         ACCOUNT_DETAILS: {
             FIRST_NAME_FORM_LABEL: string;
             INSTRUCTIONS: string;
             LAST_NAME_FORM_LABEL: string;
             TITLE: string;
-        },
+        };
         ACCOUNT_CREATED: {
             TITLE: string;
             WELCOME_MESSAGE_TITLE: string;
             WELCOME_MESSAGE_DESCRIPTION: string;
-        },
-    },
+        };
+    };
     PASSWORD_CRITERIA: {
         CHARACTER_LIMIT: string;
         ONE_NUMBER: string;
         ONE_UPPERCASE_CHARACTER: string;
         ONE_LOWERCASE_CHARACTER: string;
         ONE_SPECIAL_CHARACTER: string;
-    }
+    };
 };

@@ -9,6 +9,7 @@ import { PxbAuthConfig } from '../../services/config/auth-config';
 import { PxbAuthSecurityService } from '../../services/state/auth-security.service';
 import { PxbForgotPasswordErrorDialogService } from '../../services/dialog/forgot-password-error-dialog.service';
 import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
+import { PxbAuthTranslations } from '../..';
 
 @Component({
     selector: 'pxb-forgot-password',
@@ -26,16 +27,18 @@ export class PxbForgotPasswordComponent implements OnInit {
     matcher = new AuthErrorStateMatcher();
     passwordResetSuccess = false;
     successDescriptionMessage: string;
+    translate: PxbAuthTranslations;
 
     constructor(
         private readonly _router: Router,
-        public readonly pxbAuthConfig: PxbAuthConfig,
+        private readonly _pxbAuthConfig: PxbAuthConfig,
         private readonly _pxbAuthUIActionsService: PxbAuthUIService,
         private readonly _pxbSecurityService: PxbAuthSecurityService,
         private readonly _pxbForgotPasswordDialogService: PxbForgotPasswordErrorDialogService
     ) {}
 
     ngOnInit(): void {
+        this.translate = this._pxbAuthConfig.getTranslations();
         const emailValidators = [
             Validators.required,
             Validators.email,
@@ -49,6 +52,11 @@ export class PxbForgotPasswordComponent implements OnInit {
 
     navigateToLogin(): void {
         void this._router.navigate([`${AUTH_ROUTES.AUTH_WORKFLOW}/${AUTH_ROUTES.LOGIN}`]);
+    }
+
+    getSupportByPhone(): string {
+        const phone = this.translate.CONTACT_SUPPORT.PHONE_NUMBER || this._pxbAuthConfig.contactPhone;
+        return this.translate.FORGOT_PASSWORD.CONTACT_SUPPORT_BY_PHONE(phone);
     }
 
     resetPassword(): void {
