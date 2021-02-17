@@ -22,29 +22,6 @@ export class PxbAuthConfig implements PxbAuthConfig {
     allowDebugMode = false;
     showRememberMe = true;
 
-    passwordRequirements?: PasswordRequirement[] = [
-        {
-            description: 'asdlkgj', //TODO: Handle alnguage changes here.
-            regex: /^.{8,16}$/,
-        },
-        {
-            description: 'One number',
-            regex: /[0-9]/,
-        },
-        {
-            description: 'One uppercase letter',
-            regex: /[A-Z]/,
-        },
-        {
-            description: 'One lowercase letter',
-            regex: /[a-z]/,
-        },
-        {
-            description: 'One special character',
-            regex: /[!"#$%&'()*+,-./:;<=>?@[\]^`{|}~]+/,
-        },
-    ];
-
     /* Conditional Pages */
     showCreateAccount = true;
     showContactSupport = true;
@@ -65,4 +42,27 @@ export class PxbAuthConfig implements PxbAuthConfig {
             }
         }
     }
+
+    passwordRequirements?: PasswordRequirement[] = [
+        {
+            description: this.getTranslations().PASSWORD_CRITERIA.CHARACTER_LIMIT,
+            regex: /^.{8,16}$/,
+        },
+        {
+            description: this.getTranslations().PASSWORD_CRITERIA.ONE_NUMBER,
+            regex: /[0-9]/,
+        },
+        {
+            description: this.getTranslations().PASSWORD_CRITERIA.ONE_UPPERCASE_CHARACTER,
+            regex: /[A-Z]/,
+        },
+        {
+            description: this.getTranslations().PASSWORD_CRITERIA.ONE_LOWERCASE_CHARACTER,
+            regex: /[a-z]/,
+        },
+        {
+            description: this.getTranslations().PASSWORD_CRITERIA.ONE_SPECIAL_CHARACTER,
+            regex: /[!"#$%&'()*+,-./:;<=>?@[\]^`{|}~]+/,
+        },
+    ];
 }

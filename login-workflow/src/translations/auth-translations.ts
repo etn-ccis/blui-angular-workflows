@@ -113,7 +113,7 @@ type DeepPartial<T> = {
 
 export type PxbAuthTranslationsOverride = DeepPartial<PxbAuthTranslations>;
 
-export function mergeAuthTranslations(original: PxbAuthTranslations, overrides: PxbAuthTranslationsOverride) {
+export function mergeAuthTranslations(original: PxbAuthTranslations, overrides: PxbAuthTranslationsOverride): void {
     Object.assign(original.GENERAL, overrides.GENERAL);
     Object.assign(original.CONTACT_SUPPORT, overrides.CONTACT_SUPPORT);
     Object.assign(original.CHANGE_PASSWORD, overrides.CHANGE_PASSWORD);
