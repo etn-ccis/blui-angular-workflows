@@ -115,10 +115,6 @@ export class PxbCreateAccountInviteComponent implements OnInit, OnDestroy {
         }
     }
 
-    hasEmptyStateError(): boolean {
-        return !this.isValidRegistrationLink;
-    }
-
     goNext(): any {
         if (this.registrationUtils.isAccountDetailsPage()) {
             return this.registrationUtils.isLastAccountDetailsPage()

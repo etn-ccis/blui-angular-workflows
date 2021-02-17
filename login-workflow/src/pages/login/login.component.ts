@@ -41,7 +41,7 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
     idFieldActive = false;
     touchedIdField = false;
 
-    translate: PxbAuthTranslations;
+    translate: () => PxbAuthTranslations;
 
     isEmpty = (el: ElementRef): boolean => isEmptyView(el);
 
@@ -56,12 +56,13 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
     ) {}
 
     ngOnInit(): void {
+        // This page might support language-switching after load.
+        this.translate = this.pxbAuthConfig.getTranslations;
         const emailValidators = [
             Validators.required,
             Validators.email,
             Validators.pattern(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i),
         ];
-        this.translate = this.pxbAuthConfig.getTranslations();
         if (this.customEmailValidator) {
             emailValidators.push(this.customEmailValidator);
         }

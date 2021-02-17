@@ -1,29 +1,33 @@
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import { PasswordRequirement } from '../../../../components/password-strength-checker/pxb-password-strength-checker.component';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import { PxbAuthConfig } from '../../../../services/config/auth-config';
 import { PxbFormsService } from '../../../../services/forms/forms.service';
+
+import { PasswordRequirement } from '../../../../components/password-strength-checker/pxb-password-strength-checker.component';
+
 import { CrossFieldErrorMatcher } from '../../../../util/matcher';
 import { makeEverythingUnique } from '../../../../util/filters';
+
+import { PxbAuthTranslations } from '../../../../translations/auth-translations';
 
 @Component({
     selector: 'pxb-create-account-create-password-step',
     template: `
-        <div class="mat-title pxb-auth-title">Create Password</div>
+        <div class="mat-title pxb-auth-title">{{ translate.CREATE_ACCOUNT.CREATE_PASSWORD.TITLE }}</div>
         <p class="mat-body-1" style="margin-bottom: 24px;">
-            Please select a password. Make sure that your password meets the necessary complexity requirements outlined
-            below.
+            {{ translate.CREATE_ACCOUNT.CREATE_PASSWORD.INSTRUCTIONS }}
         </p>
         <mat-divider class="pxb-auth-divider" style="margin-top: 16px; margin-bottom: 32px;"></mat-divider>
         <div class="pxb-auth-full-height">
             <form [formGroup]="passwordFormGroup">
                 <mat-form-field appearance="fill" style="width: 100%;">
-                    <mat-label>Password</mat-label>
+                    <mat-label>{{ translate.GENERAL.PASSWORD_FORM_LABEL }}</mat-label>
                     <input
                         id="pxb-password"
                         name="password"
                         matInput
-                        placeholder="Password"
+                        [placeholder]="translate.GENERAL.PASSWORD_FORM_LABEL"
                         required
                         formControlName="newPassword"
                         [type]="newPasswordVisible ? 'text' : 'password'"
@@ -41,13 +45,13 @@ import { makeEverythingUnique } from '../../../../util/filters';
                 >
                 </pxb-password-strength-checker>
                 <mat-form-field appearance="fill" style="width: 100%;">
-                    <mat-label>Confirm Password</mat-label>
+                    <mat-label>{{ translate.GENERAL.CONFIRM_PASSWORD_FORM_LABEL }}</mat-label>
                     <input
                         #pxbConfirm
                         id="pxb-confirm"
                         name="confirm"
                         matInput
-                        placeholder="Confirm Password"
+                        [placeholder]="translate.GENERAL.CONFIRM_PASSWORD_FORM_LABEL"
                         required
                         formControlName="confirmPassword"
                         [type]="confirmPasswordVisible ? 'text' : 'password'"
@@ -61,14 +65,14 @@ import { makeEverythingUnique } from '../../../../util/filters';
                         <mat-icon>{{ confirmPasswordVisible ? 'visibility' : 'visibility_off' }}</mat-icon>
                     </button>
                     <mat-error *ngIf="!confirmPasswordFocused && passwordFormGroup.hasError('passwordsDoNotMatch')"
-                        >Passwords do not match
+                        >{{ translate.GENERAL.PASSWORD_MISMATCH_ERROR }}
                     </mat-error>
                 </mat-form-field>
             </form>
         </div>
     `,
 })
-export class PxbCreatePasswordComponent {
+export class PxbCreatePasswordComponent implements OnInit {
     @Input() password: string;
     @Input() passwordMeetsRequirements: boolean;
 
@@ -87,6 +91,8 @@ export class PxbCreatePasswordComponent {
     errorMatcher = new CrossFieldErrorMatcher();
     passwordRequirements: PasswordRequirement[];
 
+    translate: PxbAuthTranslations;
+
     constructor(
         private readonly _pxbAuthConfig: PxbAuthConfig,
         private readonly _formBuilder: FormBuilder,
@@ -94,6 +100,7 @@ export class PxbCreatePasswordComponent {
     ) {}
 
     ngOnInit(): void {
+        this.translate = this._pxbAuthConfig.getTranslations();
         this.passwordRequirements = makeEverythingUnique(this._pxbAuthConfig.passwordRequirements, 'description');
         this.passwordFormGroup = this._formBuilder.group(
             {

@@ -1,7 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-
 import { PxbAuthUIService } from '../../services/api/auth-ui.service';
 import { PxbAuthSecurityService } from '../../services/state/auth-security.service';
 import { AUTH_ROUTES } from '../../auth/auth.routes';

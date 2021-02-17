@@ -1,22 +1,26 @@
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+
 import { PxbFormsService } from '../../../../services/forms/forms.service';
+import { PxbAuthConfig } from '../../../../services/config/auth-config';
+
+import { PxbAuthTranslations } from '../../../../translations/auth-translations';
 
 @Component({
     selector: 'pxb-create-account-account-details-step',
     styleUrls: ['account-details.component.scss'],
     template: `
-        <div class="mat-title pxb-auth-title">Account Details</div>
+        <div class="mat-title pxb-auth-title">{{ translate.CREATE_ACCOUNT.ACCOUNT_DETAILS.TITLE }}</div>
         <div class="pxb-auth-full-height">
             <p class="mat-body-1" style="margin-bottom: 24px;">
-                Enter your details below to complete account creation.
+                {{ translate.CREATE_ACCOUNT.ACCOUNT_DETAILS.INSTRUCTIONS }}
             </p>
             <mat-divider class="pxb-auth-divider" style="margin-top: 16px; margin-bottom: 32px;"></mat-divider>
             <div class="pxb-account-details-body">
                 <form>
                     <ng-container *ngIf="showDefaultAccountDetails">
                         <mat-form-field appearance="fill">
-                            <mat-label>First Name</mat-label>
+                            <mat-label>{{ translate.CREATE_ACCOUNT.ACCOUNT_DETAILS.FIRST_NAME_FORM_LABEL }}</mat-label>
                             <input
                                 #pxbFirst
                                 id="pxb-first"
@@ -28,11 +32,15 @@ import { PxbFormsService } from '../../../../services/forms/forms.service';
                                 (keyup.enter)="pxbFormsService.advanceToNextField(lastNameInputElement)"
                             />
                             <mat-error *ngIf="firstNameFormControl.hasError('required')">
-                                First Name is <strong>required</strong>
+                                {{
+                                    translate.GENERAL.IS_REQUIRED_ERROR(
+                                        translate.CREATE_ACCOUNT.ACCOUNT_DETAILS.FIRST_NAME_FORM_LABEL
+                                    )
+                                }}
                             </mat-error>
                         </mat-form-field>
                         <mat-form-field appearance="fill">
-                            <mat-label>Last Name</mat-label>
+                            <mat-label>{{ translate.CREATE_ACCOUNT.ACCOUNT_DETAILS.LAST_NAME_FORM_LABEL }}</mat-label>
                             <input
                                 matInput
                                 #pxbLast
@@ -44,7 +52,11 @@ import { PxbFormsService } from '../../../../services/forms/forms.service';
                                 (keyup.enter)="advance.emit(true)"
                             />
                             <mat-error *ngIf="lastNameFormControl.hasError('required')">
-                                Last Name is <strong>required</strong>
+                                {{
+                                    translate.GENERAL.IS_REQUIRED_ERROR(
+                                        translate.CREATE_ACCOUNT.ACCOUNT_DETAILS.LAST_NAME_FORM_LABEL
+                                    )
+                                }}
                             </mat-error>
                         </mat-form-field>
                     </ng-container>
@@ -55,8 +67,8 @@ import { PxbFormsService } from '../../../../services/forms/forms.service';
     `,
 })
 /* Default Account Details consists of a First/Last Name (required) and a phone number (optional). */
-export class PxbAccountDetailsComponent {
-    @Input() showDefaultAccountDetails = false;
+export class PxbAccountDetailsComponent implements OnInit {
+    @Input() showDefaultAccountDetails = false; // Used to hide defaults whenever there are custom account detail forms.
     @Input() firstName: string;
     @Input() lastName: string;
     @Output() firstNameChange: EventEmitter<string> = new EventEmitter<string>();
@@ -69,9 +81,12 @@ export class PxbAccountDetailsComponent {
     firstNameFormControl: FormControl;
     lastNameFormControl: FormControl;
 
-    constructor(public pxbFormsService: PxbFormsService) {}
+    translate: PxbAuthTranslations;
+
+    constructor(public pxbFormsService: PxbFormsService, private readonly _pxbAuthConfig: PxbAuthConfig) {}
 
     ngOnInit(): void {
+        this.translate = this._pxbAuthConfig.getTranslations();
         if (this.showDefaultAccountDetails) {
             this.firstNameFormControl = new FormControl(this.firstName, Validators.required);
             this.lastNameFormControl = new FormControl(this.lastName, Validators.required);

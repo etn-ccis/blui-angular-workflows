@@ -1,5 +1,5 @@
 <!-- Error State -->
-<ng-container *ngIf="hasEmptyStateError() && !isLoading">
+<ng-container *ngIf="!isValidRegistrationLink && !isLoading">
     <div class="mat-title pxb-auth-title">License Agreement</div>
     <div class="pxb-create-account-invite-content-error-state">
         <!-- TODO: How should we handle error states? -->
@@ -13,7 +13,7 @@
     </div>
 </ng-container>
 
-<ng-container *ngIf="!hasEmptyStateError()">
+<ng-container *ngIf="isValidRegistrationLink">
     <pxb-create-account-eula-step
         *ngIf="registrationUtils.getCurrentPage() === 0 && isValidRegistrationLink"
         [(userAcceptsEula)]="userAcceptsEula"

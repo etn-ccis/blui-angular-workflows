@@ -9,7 +9,7 @@ import { PxbAuthConfig } from '../../services/config/auth-config';
 import { PxbAuthSecurityService } from '../../services/state/auth-security.service';
 import { PxbForgotPasswordErrorDialogService } from '../../services/dialog/forgot-password-error-dialog.service';
 import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
-import { PxbAuthTranslations } from '../..';
+import { PxbAuthTranslations } from '../../translations/auth-translations';
 
 @Component({
     selector: 'pxb-forgot-password',

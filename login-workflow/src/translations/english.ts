@@ -111,8 +111,12 @@ export const english: any = {
         ACCOUNT_CREATED: {
             TITLE: 'Account Created',
             WELCOME_MESSAGE_TITLE: (username: string) => `Welcome, ${username}`,
-            WELCOME_MESSAGE_DESCRIPTION: (email: string) =>
-                `Your account has been successfully created with the email ${email}.`,
+            WELCOME_MESSAGE_DESCRIPTION: (email: string) => {
+                const firstSentence = email
+                    ? `Your account has been successfully created with the email ${email}.`
+                    : `Your account has been successfully created.`;
+                return `${firstSentence} Your account has already been added to the organization. Press Continue below to finish.`;
+            },
         },
     },
 };

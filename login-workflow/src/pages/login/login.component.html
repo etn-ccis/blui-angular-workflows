@@ -12,16 +12,16 @@
     color="primary"
     (click)="toggleDebugMode()"
 >
-    {{ translate.LOGIN.ENABLE_DEBUG_MODE }}
+    {{ translate().LOGIN.ENABLE_DEBUG_MODE }}
 </button>
 
 <div *ngIf="debugMode" class="pxb-login-debug-message">
-    <div class="mat-title">{{ translate.LOGIN.DEBUG_MODE }}</div>
+    <div class="mat-title">{{ translate().LOGIN.DEBUG_MODE }}</div>
 </div>
 
 <form>
     <mat-form-field appearance="fill">
-        <mat-label>{{ translate.GENERAL.EMAIL_FORM_LABEL }}</mat-label>
+        <mat-label>{{ translate().GENERAL.EMAIL_FORM_LABEL }}</mat-label>
         <input
             (focus)="touchedIdField = true; idFieldActive = true"
             (blur)="idFieldActive = false"
@@ -41,20 +41,20 @@
                 !emailFormControl.hasError(customErrorName)
             "
         >
-            {{ translate.GENERAL.EMAIL_INVALID_ERROR }}
+            {{ translate().GENERAL.EMAIL_INVALID_ERROR }}
         </mat-error>
         <mat-error *ngIf="isLoginFormDirty() && emailFormControl.hasError(customErrorName)">
             {{ emailFormControl.errors[customErrorName].message }}
         </mat-error>
         <mat-error
             *ngIf="isLoginFormDirty() && emailFormControl.hasError('required')"
-            [innerHTML]="translate.GENERAL.IS_REQUIRED_ERROR(translate.GENERAL.EMAIL_FORM_LABEL)"
+            [innerHTML]="translate().GENERAL.IS_REQUIRED_ERROR(translate().GENERAL.EMAIL_FORM_LABEL)"
         >
         </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
-        <mat-label>{{ translate.GENERAL.PASSWORD_FORM_LABEL }}</mat-label>
+        <mat-label>{{ translate().GENERAL.PASSWORD_FORM_LABEL }}</mat-label>
         <input
             #pxbPassword
             id="pxb-password"
@@ -77,7 +77,7 @@
         class="pxb-login-remember-me-checkbox"
         [(ngModel)]="rememberMe"
         (change)="emitRememberMeChange()"
-        >{{ translate.LOGIN.REMEMBER_ME }}</mat-checkbox
+        >{{ translate().LOGIN.REMEMBER_ME }}</mat-checkbox
     >
     <button
         mat-flat-button
@@ -87,7 +87,7 @@
         (click)="login()"
         [disabled]="isLoading || !isValidFormEntries()"
     >
-        {{ translate.GENERAL.LOGIN_BUTTON }}
+        {{ translate().GENERAL.LOGIN_BUTTON }}
     </button>
 </div>
 
@@ -96,14 +96,14 @@
     class="pxb-auth-link mat-body-2"
     (click)="testForgotPasswordEmail()"
 >
-    {{ translate.LOGIN.FORGOT_PASSWORD_LINK }}
+    {{ translate().LOGIN.FORGOT_PASSWORD_LINK }}
 </div>
 <div
     *ngIf="debugMode && pxbAuthConfig.showCreateAccountViaInvite"
     class="pxb-auth-link mat-body-2"
     (click)="testInviteRegister()"
 >
-    {{ translate.LOGIN.TEST_INVITE_LINK }}
+    {{ translate().LOGIN.TEST_INVITE_LINK }}
 </div>
 <div
     *ngIf="pxbAuthConfig.showForgotPassword"
@@ -111,7 +111,7 @@
     (click)="forgotPassword()"
     style="margin-bottom: 32px"
 >
-    {{ translate.LOGIN.FORGOT_PASSWORD }}
+    {{ translate().LOGIN.FORGOT_PASSWORD }}
 </div>
 
 <div
@@ -119,7 +119,7 @@
     class="mat-body-2"
     style="text-align: center;"
 >
-    {{ translate.LOGIN.NEED_AN_ACCOUNT }}
+    {{ translate().LOGIN.NEED_AN_ACCOUNT }}
 </div>
 
 <div
@@ -128,7 +128,7 @@
     style="margin-bottom: 32px"
     (click)="createAccount()"
 >
-    {{ translate.LOGIN.CREATE_ACCOUNT }}
+    {{ translate().LOGIN.CREATE_ACCOUNT }}
 </div>
 
 <div
@@ -137,7 +137,7 @@
     (click)="contactSupport()"
     style="margin-bottom: 32px"
 >
-    {{ translate.LOGIN.CONTACT_SUPPORT }}
+    {{ translate().LOGIN.CONTACT_SUPPORT }}
 </div>
 
 <pxb-spacer></pxb-spacer>
