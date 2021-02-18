@@ -67,21 +67,35 @@ export class PxbAuthSecurityService {
     };
 
     // Whenever the application loads for the first time, we may want to direct the user to their original destination, before they were redirected to the login screen.
-    constructor(private readonly _router: Router, private readonly _pxbAuthConfig: PxbAuthConfig) {
-        _router.events.subscribe((event) => {
+    constructor(private readonly _router: Router, private readonly _pxbAuthConfig: PxbAuthConfig) {}
+
+    /* Call this method to parse the on-load URL to identify which page to redirect to when the user is authenticated.
+       If `defaultHomeRoute` is provided, then this route will be used when unable to identify the default redirect route via URL.
+     */
+    inferOnAuthenticatedRoute(defaultHomeRoute?: string): void {
+        this._router.events.subscribe((event) => {
             if (event instanceof NavigationStart && !this.isFirstRouteCaptured) {
                 this.isFirstRouteCaptured = true;
                 const url = event.url;
+
+                const isAuthModuleRoute =
+                    matchesRoute(url, 'LOGIN') ||
+                    matchesRoute(url, 'CONTACT_SUPPORT') ||
+                    matchesRoute(url, 'CREATE_ACCOUNT') ||
+                    matchesRoute(url, 'CREATE_ACCOUNT_INVITE') ||
+                    matchesRoute(url, 'FORGOT_PASSWORD') ||
+                    matchesRoute(url, 'RESET_PASSWORD') ||
+                    matchesRoute(url, 'AUTH_WORKFLOW');
+                const isEmptyRoute = !url || url === '' || url === '/';
+
+                // If there is no information
+                if ((isEmptyRoute || isAuthModuleRoute) && defaultHomeRoute) {
+                    AUTH_ROUTES.ON_AUTHENTICATED = defaultHomeRoute;
+                    return;
+                }
+
                 // If the initial route loaded is not part of the auth workflow, make it so authenticated users will redirect to it post-login.
-                if (
-                    !matchesRoute(url, 'LOGIN') &&
-                    !matchesRoute(url, 'CONTACT_SUPPORT') &&
-                    !matchesRoute(url, 'CREATE_ACCOUNT') &&
-                    !matchesRoute(url, 'CREATE_ACCOUNT_INVITE') &&
-                    !matchesRoute(url, 'FORGOT_PASSWORD') &&
-                    !matchesRoute(url, 'RESET_PASSWORD') &&
-                    !matchesRoute(url, 'AUTH_WORKFLOW')
-                ) {
+                if (!isAuthModuleRoute) {
                     AUTH_ROUTES.ON_AUTHENTICATED = event.url;
                 }
             }

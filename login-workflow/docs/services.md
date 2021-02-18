@@ -117,14 +117,16 @@ logout(): void {
 
 -   **getSecurityState**: _`SecurityContext`_
     -   Returns current security state
--   **updateSecurityState(newState: SecurityContext)**: _`void`_
-    -   Accepts any new state prop and applies to the the current state.
--   **securityStateChanges**: _`Observable<SecurityContext>`_
-    -   An observable that emits when the security state changes
+-   **inferOnAuthenticatedRoute(defaultHomeRoute: string)**: _`void`_
+    -  Parses the on-load URL to identify which page to redirect to when the user is authenticated.  `defaultHomeRoute` is used when default route cannot be inferred. 
 -   **onUserAuthenticated**: _`void`_
     -   Should be called when a user authenticates; updates state accordingly.
 -   **onUserNotAuthenticated**: _`Observable<SecurityContext>`_
     -   Should be called when the user is no longer authenticated; updates state accordingly. 
+-   **securityStateChanges**: _`Observable<SecurityContext>`_
+    -   An observable that emits when the security state changes
+-   **updateSecurityState(newState: SecurityContext)**: _`void`_
+    -   Accepts any new state prop and applies to the the current state.
 
 ## SecurityContext
 
