@@ -1,6 +1,6 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl, ValidatorFn, Validators } from '@angular/forms';
+import { FormControl, ValidatorFn } from '@angular/forms';
 import { isEmptyView } from '../../util/view-utils';
 import { PxbAuthSecurityService } from '../../services/state/auth-security.service';
 import { PxbAuthUIService } from '../../services/api/auth-ui.service';
@@ -10,9 +10,8 @@ import { PxbLoginErrorDialogService } from '../../services/dialog/login-error-di
 import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
 import { PxbFormsService } from '../../services/forms/forms.service';
 import { PxbAuthTranslations } from '../../translations/auth-translations';
-
-// TODO: Find a home for this const, perhaps config folder.
-export const PXB_LOGIN_VALIDATOR_ERROR_NAME = 'PXB_LOGIN_VALIDATOR_ERROR_NAME';
+import { EmailFieldComponent } from '../../components/email-field/email-field.component';
+import { PasswordFieldComponent } from '../../components/password-field/password-field.component';
 
 @Component({
     selector: 'pxb-login',
@@ -23,12 +22,12 @@ export const PXB_LOGIN_VALIDATOR_ERROR_NAME = 'PXB_LOGIN_VALIDATOR_ERROR_NAME';
     },
 })
 export class PxbLoginComponent implements OnInit, AfterViewInit {
+    @Input() customEmailValidator: ValidatorFn;
+
     @ViewChild('header', { static: false }) headerEl: ElementRef;
     @ViewChild('footer', { static: false }) footerEl: ElementRef;
-    @ViewChild('pxbPassword') passwordInputElement: ElementRef;
-
-    @Input() customEmailValidator: ValidatorFn;
-    customErrorName = PXB_LOGIN_VALIDATOR_ERROR_NAME;
+    @ViewChild(EmailFieldComponent) emailFieldComponent: EmailFieldComponent;
+    @ViewChild(PasswordFieldComponent) passwordFieldComponent: PasswordFieldComponent;
 
     emailFormControl: FormControl;
     passwordFormControl: FormControl;
@@ -38,8 +37,6 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
 
     isPasswordVisible = false;
     debugMode = false;
-    idFieldActive = false;
-    touchedIdField = false;
 
     selectedLanguage = 'English';
 
@@ -56,19 +53,6 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
     ) {}
 
     ngOnInit(): void {
-        const emailValidators = [
-            Validators.required,
-            Validators.email,
-            Validators.pattern(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i),
-        ];
-        if (this.customEmailValidator) {
-            emailValidators.push(this.customEmailValidator);
-        }
-        this.emailFormControl = new FormControl(
-            this._pxbSecurityService.getSecurityState().rememberMeDetails.email,
-            emailValidators
-        );
-        this.passwordFormControl = new FormControl('', []);
         this.rememberMe = this._pxbSecurityService.getSecurityState().rememberMeDetails.rememberMe;
         if (this._pxbSecurityService.getSecurityState().isAuthenticatedUser) {
             this.navigateToDefaultRoute();
@@ -77,6 +61,8 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit(): void {
+        this.emailFormControl = this.emailFieldComponent.emailFormControl;
+        this.passwordFormControl = this.passwordFieldComponent.passwordFormControl;
         this._changeDetectorRef.detectChanges();
     }
 
@@ -107,7 +93,11 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
             });
     }
 
-    emitRememberMeChange(): void {
+    focusPasswordField(): void {
+        this.pxbFormsService.advanceToNextField(this.passwordFieldComponent.passwordInputElement);
+    }
+
+    toggleRememberMe(): void {
         const rememberMe = this.rememberMe;
         this._pxbSecurityService.updateSecurityState({ rememberMeDetails: { rememberMe } });
     }
@@ -140,13 +130,12 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
         void this._router.navigate([`${AUTH_ROUTES.AUTH_WORKFLOW}/${AUTH_ROUTES.CONTACT_SUPPORT}`]);
     }
 
-    isValidFormEntries(): boolean {
-        return this.passwordFormControl.value && this.emailFormControl.valid;
-    }
-
-    isLoginFormDirty(): boolean {
+    hasValidFormEntries(): boolean {
         return (
-            !this.idFieldActive && this.touchedIdField && (this.emailFormControl.dirty || this.emailFormControl.touched)
+            this.passwordFormControl &&
+            this.emailFormControl &&
+            this.passwordFormControl.value &&
+            this.emailFormControl.valid
         );
     }
 

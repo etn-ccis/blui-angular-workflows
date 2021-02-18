@@ -15,7 +15,7 @@ At a high-level, the services available are:
 
 `PxbAuthConfig` a configuration service; it is used to enable/disable settings in the auth workflow. These properties are typically set only once and do not change. Some UI configuration properties are also passed in.
 
-> This object must be configured on application load (app.component.ts) for all settings to correctly apply. 
+> This object must be configured on application load (app.component.ts) for the `show[Page]` properties to take effect.  
 
 ### Usage
 
@@ -44,6 +44,9 @@ constructor(pxbAuthConfig: PxbAuthConfig) {
 -   **contactPhone** (optional): _`string`_
     -   Contact phone number to be shown on the support screen (human-readable for display only).
     -   Default: provides a fake phone number
+-   **customEmailValidator** (optional): _`ValidatorFn`_
+    -   Custom email regex requirements.
+    -   Default: `undefined`
 -   **customPasswordRequirements** (optional): _`PasswordRequirement[]`_
     -   Array of custom password requirements.
     -   Default: `[]`

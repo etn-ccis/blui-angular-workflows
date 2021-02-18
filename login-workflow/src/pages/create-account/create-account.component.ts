@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatFormField } from '@angular/material/form-field';
-import { FormControl } from '@angular/forms';
+import { FormControl, ValidatorFn } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 import { AUTH_ROUTES } from '../../auth/auth.routes';
@@ -28,6 +28,7 @@ export type AccountDetails = {
 })
 export class PxbCreateAccountComponent implements OnDestroy {
     @Input() accountDetails: AccountDetails[] = [];
+    @Input() customEmailValidator: ValidatorFn;
 
     isLoading = true;
     isValidVerificationCode = true;
@@ -161,5 +162,9 @@ export class PxbCreateAccountComponent implements OnDestroy {
 
     getUserName(): string {
         return `${this.firstName} ${this.lastName}`;
+    }
+
+    getCustomEmailValidator(): ValidatorFn {
+        return this.customEmailValidator || this._pxbAuthConfig.customEmailValidator;
     }
 }

@@ -88,6 +88,7 @@ For a more detailed explanation of how to add custom account details, check out 
 | @Input                                   | Description                                                                 | Type                | 
 | ---------------------------------------- | --------------------------------------------------------------------------- | ------------------- |    
 | accountDetails                           | Custom form controls used for self-registration                             | `AccountDetails[]`  |   
+| customEmailValidator                     | Custom email regex requirements                                             | `ValidatorFn`       | 
 
 
 ## Create Account via Invite 

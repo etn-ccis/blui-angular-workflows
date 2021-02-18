@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { PxbAuthTranslations } from '../../translations/auth-translations';
 import { pxbAuthEnglishTranslations } from '../../translations/english';
 import { pxbAuthFrenchTranslations } from '../../translations/french';
+import { ValidatorFn } from '@angular/forms';
+
+export const PXB_LOGIN_VALIDATOR_ERROR_NAME = 'PXB_LOGIN_VALIDATOR_ERROR_NAME';
 
 export type PasswordRequirement = {
     description: string;
@@ -18,7 +21,7 @@ export class PxbAuthConfig implements PxbAuthConfig {
     projectImage: string;
     backgroundImage: string;
 
-    contactEmail = 'something@email.com';
+    contactEmail = 'placeholder-support@eaton.com';
     contactPhone = '1-800-123-4567';
 
     eula: string;
@@ -40,6 +43,7 @@ export class PxbAuthConfig implements PxbAuthConfig {
         specialCharacter: true,
     };
     customPasswordRequirements: PasswordRequirement[] = [];
+    customEmailValidator: ValidatorFn;
 
     getTranslations(): PxbAuthTranslations {
         switch (this.languageCode) {

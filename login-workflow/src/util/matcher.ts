@@ -11,8 +11,8 @@ export class AuthErrorStateMatcher implements ErrorStateMatcher {
 }
 
 export class CrossFieldErrorMatcher implements ErrorStateMatcher {
-    isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-        return control.touched && form.invalid;
+    isErrorState(control: FormControl | null): boolean {
+        return (control.touched || control.dirty) && control.invalid;
     }
 }
 

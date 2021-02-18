@@ -25,67 +25,21 @@
         (ngModelChange)="changeLanguage(pxbLanguageSelect.value)"
         [(ngModel)]="selectedLanguage"
     >
-        <mat-option value="EN">
-            English
-        </mat-option>
-        <mat-option value="FR">
-            French
-        </mat-option>
+        <mat-option value="EN">English</mat-option>
+        <mat-option value="FR">French</mat-option>
     </mat-select>
 </mat-form-field>
 
 <form>
-    <mat-form-field appearance="fill">
-        <mat-label>{{ translate().GENERAL.EMAIL_FORM_LABEL }}</mat-label>
-        <input
-            (focus)="touchedIdField = true; idFieldActive = true"
-            (blur)="idFieldActive = false"
-            id="pxb-email"
-            name="email"
-            type="email"
-            matInput
-            [formControl]="emailFormControl"
-            autocomplete="off"
-            (keyup.enter)="pxbFormsService.advanceToNextField(passwordInputElement)"
-        />
-        <mat-error
-            *ngIf="
-                isLoginFormDirty() &&
-                emailFormControl.hasError('email') &&
-                !emailFormControl.hasError('required') &&
-                !emailFormControl.hasError(customErrorName)
-            "
-            [innerHTML]="translate().GENERAL.EMAIL_INVALID_ERROR"
-        >
-        </mat-error>
-        <mat-error
-            *ngIf="isLoginFormDirty() && emailFormControl.hasError(customErrorName)"
-            [innerHTML]="emailFormControl.errors[customErrorName].message"
-        >
-        </mat-error>
-        <mat-error
-            *ngIf="isLoginFormDirty() && emailFormControl.hasError('required')"
-            [innerHTML]="translate().GENERAL.IS_REQUIRED_ERROR(translate().GENERAL.EMAIL_FORM_LABEL)"
-        >
-        </mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="fill">
-        <mat-label>{{ translate().GENERAL.PASSWORD_FORM_LABEL }}</mat-label>
-        <input
-            #pxbPassword
-            id="pxb-password"
-            name="password"
-            matInput
-            [type]="isPasswordVisible ? 'text' : 'password'"
-            [formControl]="passwordFormControl"
-            autocomplete="off"
-            (keydown.enter)="isValidFormEntries() ? login() : ''"
-        />
-        <button type="button" mat-icon-button matSuffix (click)="togglePasswordVisibility()">
-            <mat-icon>{{ isPasswordVisible ? 'visibility' : 'visibility_off' }}</mat-icon>
-        </button>
-    </mat-form-field>
+    <pxb-email-field
+        [customEmailValidator]="customEmailValidator"
+        [useRememberMe]="true"
+        (enter)="focusPasswordField()"
+    ></pxb-email-field>
+    <pxb-password-field
+        [style.marginBottom.px]="24"
+        (enter)="hasValidFormEntries() ? login() : ''"
+    ></pxb-password-field>
 </form>
 
 <div class="pxb-login-remember-me-login-wrapper">
@@ -93,7 +47,7 @@
         *ngIf="pxbAuthConfig.showRememberMe"
         class="pxb-login-remember-me-checkbox"
         [(ngModel)]="rememberMe"
-        (change)="emitRememberMeChange()"
+        (change)="toggleRememberMe()"
         >{{ translate().LOGIN.REMEMBER_ME }}</mat-checkbox
     >
     <button
@@ -102,7 +56,7 @@
         class="pxb-login-button"
         [class.pxb-login-button-full-width]="!pxbAuthConfig.showRememberMe"
         (click)="login()"
-        [disabled]="isLoading || !isValidFormEntries()"
+        [disabled]="isLoading || !hasValidFormEntries()"
     >
         {{ translate().GENERAL.LOGIN_BUTTON }}
     </button>

@@ -1,14 +1,11 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl } from '@angular/forms';
 
 import { PxbAuthConfig } from '../../../../services/config/auth-config';
 import { PxbFormsService } from '../../../../services/forms/forms.service';
-
 import { PasswordRequirement } from '../../../../components/password-strength-checker/pxb-password-strength-checker.component';
-
-import { CrossFieldErrorMatcher } from '../../../../util/matcher';
-
 import { PxbAuthTranslations } from '../../../../translations/auth-translations';
+import { PasswordFieldComponent } from '../../../../components/password-field/password-field.component';
 
 @Component({
     selector: 'pxb-create-account-create-password-step',
@@ -21,56 +18,23 @@ import { PxbAuthTranslations } from '../../../../translations/auth-translations'
         ></p>
         <mat-divider class="pxb-auth-divider" style="margin-top: 16px; margin-bottom: 32px;"></mat-divider>
         <div class="pxb-auth-full-height">
-            <form [formGroup]="passwordFormGroup">
-                <mat-form-field appearance="fill" style="width: 100%;">
-                    <mat-label>{{ translate.GENERAL.PASSWORD_FORM_LABEL }}</mat-label>
-                    <input
-                        id="pxb-password"
-                        name="password"
-                        matInput
-                        [placeholder]="translate.GENERAL.PASSWORD_FORM_LABEL"
-                        required
-                        formControlName="newPassword"
-                        [type]="newPasswordVisible ? 'text' : 'password'"
-                        (ngModelChange)="updatePassword(passwordFormGroup.value.newPassword)"
-                        (keyup.enter)="pxbFormsService.advanceToNextField(confirmInputElement)"
-                    />
-                    <button type="button" mat-icon-button matSuffix (click)="toggleNewPasswordVisibility()">
-                        <mat-icon>{{ newPasswordVisible ? 'visibility' : 'visibility_off' }}</mat-icon>
-                    </button>
-                </mat-form-field>
+            <form>
+                <pxb-password-field #passwordField (enter)="focusConfirmPassword()"></pxb-password-field>
                 <pxb-password-strength-checker
-                    [requirements]="passwordRequirements"
-                    [formValue]="passwordFormGroup.value.newPassword"
                     [(meetsRequirements)]="passesStrengthCheck"
+                    [formValue]="passwordFormControl?.value"
+                    [requirements]="passwordRequirements"
                 >
                 </pxb-password-strength-checker>
-                <mat-form-field appearance="fill" style="width: 100%;">
-                    <mat-label>{{ translate.GENERAL.CONFIRM_PASSWORD_FORM_LABEL }}</mat-label>
-                    <input
-                        #pxbConfirm
-                        id="pxb-confirm"
-                        name="confirm"
-                        matInput
-                        [placeholder]="translate.GENERAL.CONFIRM_PASSWORD_FORM_LABEL"
-                        required
-                        formControlName="confirmPassword"
-                        [type]="confirmPasswordVisible ? 'text' : 'password'"
-                        (focus)="confirmPasswordFocused = true"
-                        (blur)="confirmPasswordFocused = false"
-                        (ngModelChange)="updatePassword(passwordFormGroup.value.confirmPassword)"
-                        [errorStateMatcher]="errorMatcher"
-                        (keyup.enter)="advance.emit(true)"
-                    />
-                    <button type="button" mat-icon-button matSuffix (click)="toggleConfirmPasswordVisibility()">
-                        <mat-icon>{{ confirmPasswordVisible ? 'visibility' : 'visibility_off' }}</mat-icon>
-                    </button>
-                    <mat-error
-                        *ngIf="!confirmPasswordFocused && passwordFormGroup.hasError('passwordsDoNotMatch')"
-                        [innerHTML]="translate.GENERAL.PASSWORD_MISMATCH_ERROR"
-                    >
-                    </mat-error>
-                </mat-form-field>
+                <pxb-password-field
+                    #confirmPasswordField
+                    [label]="translate.GENERAL.CONFIRM_PASSWORD_FORM_LABEL"
+                    [shouldMatch]="passwordFormControl"
+                    [(passwordsMatch)]="passwordsMatch"
+                    (edit)="updatePassword($event)"
+                    (enter)="advance.emit()"
+                >
+                </pxb-password-field>
             </form>
         </div>
     `,
@@ -81,67 +45,57 @@ export class PxbCreatePasswordComponent implements OnInit {
 
     @Output() passwordChange: EventEmitter<string> = new EventEmitter<string>();
     @Output() passwordMeetsRequirementsChange: EventEmitter<boolean> = new EventEmitter<boolean>();
-    @Output() advance: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output() advance: EventEmitter<void> = new EventEmitter<void>();
 
-    @ViewChild('pxbConfirm') confirmInputElement: ElementRef;
+    @ViewChild('passwordField') passwordFieldComponent: PasswordFieldComponent;
+    @ViewChild('confirmPasswordField') confirmPasswordFieldComponent: PasswordFieldComponent;
 
+    passwordsMatch = false;
     newPasswordVisible = false;
     passesStrengthCheck = false;
     confirmPasswordVisible = false;
     confirmPasswordFocused = false;
 
-    passwordFormGroup: FormGroup;
-    errorMatcher = new CrossFieldErrorMatcher();
-    passwordRequirements: PasswordRequirement[];
+    passwordFormControl: FormControl;
+    confirmPasswordFormControl: FormControl;
 
+    passwordRequirements: PasswordRequirement[];
     translate: PxbAuthTranslations;
 
     constructor(
         private readonly _pxbAuthConfig: PxbAuthConfig,
         private readonly _formBuilder: FormBuilder,
+        private readonly _ref: ChangeDetectorRef,
         public pxbFormsService: PxbFormsService
     ) {}
 
     ngOnInit(): void {
         this.translate = this._pxbAuthConfig.getTranslations();
         this.passwordRequirements = this._pxbAuthConfig.getPasswordRequirements();
-        this.passwordFormGroup = this._formBuilder.group(
-            {
-                newPassword: ['', Validators.required],
-                confirmPassword: ['', Validators.required],
-            },
-            {
-                validator: this._checkPasswords,
-            }
-        );
         setTimeout(() => {
             this.passwordMeetsRequirements = false;
             this.passwordMeetsRequirementsChange.emit(false);
         });
     }
 
-    toggleNewPasswordVisibility(): void {
-        this.newPasswordVisible = !this.newPasswordVisible;
-    }
-
-    toggleConfirmPasswordVisibility(): void {
-        this.confirmPasswordVisible = !this.confirmPasswordVisible;
+    ngAfterViewInit(): void {
+        this.passwordFormControl = this.passwordFieldComponent.passwordFormControl;
+        this.confirmPasswordFormControl = this.confirmPasswordFieldComponent.passwordFormControl;
+        this._ref.detectChanges();
     }
 
     updatePassword(newPassword: string): void {
         this.password = newPassword;
         this.passwordChange.emit(newPassword);
-        this.passwordMeetsRequirements = this._passwordValid();
-        this.passwordMeetsRequirementsChange.emit(this._passwordValid());
+        this.passwordMeetsRequirements = this.hasValidPasswords();
+        this.passwordMeetsRequirementsChange.emit(this.passwordMeetsRequirements);
     }
 
-    private _passwordValid(): boolean {
-        return this.passesStrengthCheck && this.passwordFormGroup.valid;
+    hasValidPasswords(): boolean {
+        return this.passwordsMatch && this.passesStrengthCheck;
     }
 
-    private _checkPasswords(group: FormGroup): any {
-        const pass = group.get('newPassword').value;
-        const confirmPass = group.get('confirmPassword').value;
-        return pass === confirmPass ? null : { passwordsDoNotMatch: true };
+    focusConfirmPassword(): void {
+        this.pxbFormsService.advanceToNextField(this.confirmPasswordFieldComponent.passwordInputElement);
     }
 }

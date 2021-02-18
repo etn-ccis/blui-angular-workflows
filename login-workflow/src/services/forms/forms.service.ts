@@ -5,6 +5,8 @@ import { ElementRef, Injectable } from '@angular/core';
 })
 export class PxbFormsService {
     advanceToNextField(fieldToNavigateTo: ElementRef): void {
-        fieldToNavigateTo.nativeElement.focus();
+        if (fieldToNavigateTo) {
+            fieldToNavigateTo.nativeElement.focus();
+        }
     }
 }
