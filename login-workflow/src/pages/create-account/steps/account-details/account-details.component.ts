@@ -53,7 +53,7 @@ import { PxbAuthTranslations } from '../../../../translations/auth-translations'
                                 [formControl]="lastNameFormControl"
                                 required
                                 (ngModelChange)="emitIfValid(); lastNameChange.emit(lastNameFormControl.value)"
-                                (keyup.enter)="advance.emit(true)"
+                                (keyup.enter)="advance.emit()"
                             />
                             <mat-error
                                 *ngIf="lastNameFormControl.hasError('required')"
@@ -80,7 +80,7 @@ export class PxbAccountDetailsComponent implements OnInit {
     @Output() firstNameChange: EventEmitter<string> = new EventEmitter<string>();
     @Output() lastNameChange: EventEmitter<string> = new EventEmitter<string>();
     @Output() accountNameValid = new EventEmitter<boolean>();
-    @Output() advance: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output() advance: EventEmitter<void> = new EventEmitter<void>();
 
     @ViewChild('pxbLast') lastNameInputElement: ElementRef;
 

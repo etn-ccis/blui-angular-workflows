@@ -63,10 +63,10 @@ export class PxbCreatePasswordComponent implements OnInit {
     translate: PxbAuthTranslations;
 
     constructor(
-        private readonly _pxbAuthConfig: PxbAuthConfig,
-        private readonly _formBuilder: FormBuilder,
         private readonly _ref: ChangeDetectorRef,
-        public pxbFormsService: PxbFormsService
+        private readonly _formBuilder: FormBuilder,
+        private readonly _pxbAuthConfig: PxbAuthConfig,
+        private readonly _pxbFormsService: PxbFormsService
     ) {}
 
     ngOnInit(): void {
@@ -96,6 +96,6 @@ export class PxbCreatePasswordComponent implements OnInit {
     }
 
     focusConfirmPassword(): void {
-        this.pxbFormsService.advanceToNextField(this.confirmPasswordFieldComponent.passwordInputElement);
+        this._pxbFormsService.advanceToNextField(this.confirmPasswordFieldComponent.passwordInputElement);
     }
 }

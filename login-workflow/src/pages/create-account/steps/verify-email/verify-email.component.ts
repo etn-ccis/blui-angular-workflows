@@ -29,7 +29,7 @@ import { PxbAuthTranslations } from '../../../../translations/auth-translations'
                         matInput
                         [formControl]="verificationCodeFormControl"
                         (ngModelChange)="updateCode(verificationCodeFormControl.value)"
-                        (keyup.enter)="advance.emit(true)"
+                        (keyup.enter)="advance.emit()"
                     />
                     <mat-error
                         *ngIf="verificationCodeFormControl.hasError('required')"
@@ -55,7 +55,7 @@ export class PxbVerifyEmailComponent {
     @Input() email: string;
 
     @Output() verificationCodeChange: EventEmitter<string> = new EventEmitter<string>();
-    @Output() advance: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output() advance: EventEmitter<void> = new EventEmitter<void>();
 
     verificationCodeFormControl: FormControl;
     translate: PxbAuthTranslations;
