@@ -7,20 +7,17 @@ import {
     OnInit,
     Output,
     ViewChild,
-    ViewEncapsulation,
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import * as Colors from '@pxblue/colors';
 
 import { PxbAuthConfig } from './../../../../services/config/auth-config';
 import { PxbRegisterUIService } from '../../../../services/api/register-ui.service';
 import { PxbAuthSecurityService, SecurityContext } from '../../../../services/state/auth-security.service';
-
 import { PxbAuthTranslations } from '../../../../translations/auth-translations';
 
 @Component({
     selector: 'pxb-create-account-eula-step',
-    encapsulation: ViewEncapsulation.None,
+    styleUrls: ['eula.component.scss'],
     template: `
         <div class="mat-title pxb-auth-title" [innerHTML]="translate.CREATE_ACCOUNT.EULA.TITLE"></div>
         <div
@@ -31,10 +28,10 @@ import { PxbAuthTranslations } from '../../../../translations/auth-translations'
             (scroll)="checkScrollDistance($event)"
             [innerHTML]="sanitizer.sanitize(1, eula)"
         ></div>
-        <pxb-empty-state *ngIf="!eula && !isLoading" class="pxb-auth-full-height">
+        <pxb-empty-state *ngIf="!eula && !isLoading" class="pxb-auth-full-height pxb-auth-eula-error">
             <div pxb-title><div [innerHTML]="translate.CREATE_ACCOUNT.EULA.LOAD_ERROR_TITLE"></div></div>
             <div pxb-description><div [innerHTML]="translate.CREATE_ACCOUNT.EULA.LOAD_ERROR_DESCRIPTION"></div></div>
-            <mat-icon pxb-empty-icon [style.color]="colors.red[500]">error</mat-icon>
+            <mat-icon pxb-empty-icon color="warn">error</mat-icon>
             <button pxb-actions mat-raised-button color="primary" (click)="getEULA()">
                 <mat-icon>replay</mat-icon>
                 {{ translate.CREATE_ACCOUNT.EULA.RELOAD_BUTTON }}
@@ -51,21 +48,8 @@ import { PxbAuthTranslations } from '../../../../translations/auth-translations'
                 {{ translate.CREATE_ACCOUNT.EULA.CONFIRM_READ }}
             </mat-checkbox>
         </div>
-    `,
-    styles: [
-        `
-            .pxb-eula-confirm-agreement {
-                margin: 24px 0;
-            }
-            ::ng-deep .pxb-eula-checkbox .mat-checkbox-inner-container {
-                width: 18px;
-                height: 18px;
-            }
-            ::ng-deep .pxb-empty-state-description {
-                color: #424e54 !important;
-            }
-        `,
-    ],
+    `
+    ,
 })
 export class PxbEulaComponent implements OnInit {
     @Input() userAcceptsEula: boolean;
@@ -75,10 +59,6 @@ export class PxbEulaComponent implements OnInit {
     eula: string;
     isLoading: boolean;
     userScrolledBottom = false;
-
-    // TODO: Remove me, this project has no dependency on colors.
-    colors = Colors;
-
     translate: PxbAuthTranslations;
 
     constructor(
