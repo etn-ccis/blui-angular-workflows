@@ -33,7 +33,7 @@ Each `accountDetails` object has 3 properties:
 | Property            | Description                                            |
 | ------------------- | ------------------------------------------------------ | 
 | form                | What to render                                         |
-| formControls        | the login screen                                       |
+| formControls        | A map listing all of the fields in the form            |
 | isValid             | function we run to determine if user-input is valid    |
 
 Each `accountDetails` represents a new page in the self-registration process.  

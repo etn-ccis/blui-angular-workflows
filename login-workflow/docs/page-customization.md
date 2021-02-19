@@ -4,7 +4,9 @@ Each page within the `@pxblue/angular-auth-workflow` can be customized with stri
  
 ## Text and HTML Overrides
 
-Each text element within the auth workflow has the ability to be overwritten.  
+Each text element within the auth workflow has the ability to be overwritten.  These text-configuration files can be located [here](https://github.com/pxblue/angular-workflows/tree/master/login-workflow/src/translations).  
+
+The example below shows how to edit the English config file: 
 
 ## Usage
 ```
@@ -14,7 +16,7 @@ ngOnInit(): void {
     // For single text element changes: 
     pxbAuthEnglishTranslations.GENERAL.BACK_BUTTON = 'Go Back';
     
-    // For multi-line or from a language config file:
+    // For multi-line or from your own config file:
     const authEnglishOverrides: PxbAuthTranslationsOverride = {
         GENERAL: { ... }
         LOGIN: { ... },
