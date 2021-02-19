@@ -1,5 +1,5 @@
 # Custom Account Details
-The `@pxblue/angular-auth-workflow` allows for custom account detail fields to be added during a user's self-registration.   To add custom form fields to the self registration pages, follow the steps below:
+The `@pxblue/angular-auth-workflow` allows for custom account detail fields to be added during a user's self-registration. To add custom form fields to the self registration pages, follow the steps below:
 
 ### Create a custom `<pxb-create-account>` component.
 
@@ -32,7 +32,7 @@ Each `accountDetails` object has 3 properties:
 
 | Property            | Description                                            |
 | ------------------- | ------------------------------------------------------ | 
-| form                | What to render                                         |
+| form                | template ref of the form                                         |
 | formControls        | A map listing all of the fields in the form            |
 | isValid             | function we run to determine if user-input is valid    |
 
