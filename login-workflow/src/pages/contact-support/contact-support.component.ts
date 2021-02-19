@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AUTH_ROUTES } from '../../auth/auth.routes';
 import { PxbAuthConfig } from '../../services/config/auth-config';
 import { isEmptyView } from '../../util/view-utils';
+import { PxbAuthTranslations } from '../../translations/auth-translations';
 
 @Component({
     selector: 'pxb-contact-support',
@@ -13,50 +14,36 @@ import { isEmptyView } from '../../util/view-utils';
     },
 })
 export class PxbContactSupportComponent implements OnInit, AfterViewInit {
-    @Input() pageTitle = 'Contact Us';
-    @Input() okayButtonText = 'Okay';
-    @Input() generalSupportTitle = 'General Questions';
-    @Input() generalSupportDescription: string;
-    @Input() emergencySupportTitle = 'Emergency Support';
-    @Input() emergencySupportDescription: string;
+    @Input() instructions: string;
 
-    @ViewChild('icon') iconEl: ElementRef;
-    @ViewChild('pageTitleVC') pageTitleEl;
-    @ViewChild('okayButtonTextVC') okayButtonTextEl;
-    @ViewChild('generalSupportTitleVC') generalSupportTitleEl;
-    @ViewChild('generalSupportDescriptionVC') generalSupportDescriptionEl;
-    @ViewChild('emergencySupportTitleVC') emergencySupportTitleEl;
-    @ViewChild('emergencySupportDescriptionVC') emergencySupportDescriptionEl;
+    @ViewChild('iconVC') iconEl: ElementRef;
+    @ViewChild('instructionsVC') instructionsEl;
+
     isEmpty = (el: ElementRef): boolean => isEmptyView(el);
+    translate: PxbAuthTranslations;
 
     constructor(
-        public authConfig: PxbAuthConfig,
+        private readonly _pxbAuthConfig: PxbAuthConfig,
         private readonly _router: Router,
         private readonly _changeDetectorRef: ChangeDetectorRef
     ) {}
 
     ngOnInit(): void {
-        if (this.generalSupportDescription === undefined) {
-            this.generalSupportDescription = `
-                For questions, feedback, or support please email us at
-                <a class="pxb-auth-link" href="mailto:${this.authConfig.contactEmail}">
-                    ${this.authConfig.contactEmail}
-                </a>.
-            `;
-        }
-
-        if (this.emergencySupportDescription === undefined) {
-            this.emergencySupportDescription = `
-                For technical support, please call
-                <a class="pxb-auth-link" href="tel:${this.authConfig.contactPhone}">
-                  ${this.authConfig.contactPhone}
-                </a>.
-            `;
-        }
+        this.translate = this._pxbAuthConfig.getTranslations();
     }
 
     ngAfterViewInit(): void {
         this._changeDetectorRef.detectChanges();
+    }
+
+    getGeneralSupportDescription(): string {
+        const email = this.translate.CONTACT_SUPPORT.EMAIL || this._pxbAuthConfig.contactEmail;
+        return this.translate.CONTACT_SUPPORT.GENERAL_SUPPORT_DESCRIPTION(email);
+    }
+
+    getEmergencySupportDescription(): string {
+        const phone = this.translate.CONTACT_SUPPORT.PHONE_NUMBER || this._pxbAuthConfig.contactPhone;
+        return this.translate.CONTACT_SUPPORT.EMERGENCY_SUPPORT_DESCRIPTION(phone);
     }
 
     navigateToLogin(): void {

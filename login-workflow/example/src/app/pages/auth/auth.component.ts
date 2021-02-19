@@ -12,7 +12,7 @@ import {
     template: `
         <!-- Project-specific login page -->
         <ng-template #loginPage>
-            <pxb-login [customEmailValidator]="customValidator()">
+            <pxb-login>
                 <div pxb-login-header>
                     <img src="assets/images/eaton_stacked_logo.png" style="max-width: 100%; max-height: 80px;" />
                 </div>
@@ -29,10 +29,8 @@ import {
 
         <!-- Custom Create Account page -->
         <ng-template #createAccountViaInvitePage>
-            <pxb-create-account-invite
-                #createAccountInviteVC
-                [accountDetails]="accountDetails"
-            ></pxb-create-account-invite>
+            <pxb-create-account-invite #createAccountInviteVC [accountDetails]="accountDetails">
+            </pxb-create-account-invite>
         </ng-template>
 
         <!-- This is an example of a custom account details form.  To enable the defaults, remove this template and the accountDetails[]. -->
@@ -129,15 +127,6 @@ export class AuthComponent {
                 isValid: () => this.jobTitleFromControl.value,
             },
         ];
-    }
-
-    customValidator(): ValidatorFn {
-        return (control: AbstractControl): { [key: string]: any } | null => {
-            const forbidden = /test/i.test(control.value);
-            return forbidden
-                ? { PXB_LOGIN_VALIDATOR_ERROR_NAME: { message: 'This is a custom error, provided by end user' } }
-                : null;
-        };
     }
 
     attemptGoNext(): void {

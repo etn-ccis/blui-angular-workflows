@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatFormField } from '@angular/material/form-field';
-import { FormControl } from '@angular/forms';
+import { FormControl, ValidatorFn } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 import { AUTH_ROUTES } from '../../auth/auth.routes';
@@ -11,6 +11,7 @@ import { PxbAuthSecurityService, SecurityContext } from '../../services/state/au
 import { PxbCreateAccountErrorDialogService } from '../../services/dialog/create-account-error-dialog.service';
 import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
 import { CreateAccountService } from './create-account.service';
+import { PxbAuthTranslations } from '../../translations/auth-translations';
 
 const ACCOUNT_DETAILS_STARTING_PAGE = 4;
 
@@ -27,6 +28,7 @@ export type AccountDetails = {
 })
 export class PxbCreateAccountComponent implements OnDestroy {
     @Input() accountDetails: AccountDetails[] = [];
+    @Input() customEmailValidator: ValidatorFn;
 
     isLoading = true;
     isValidVerificationCode = true;
@@ -52,6 +54,7 @@ export class PxbCreateAccountComponent implements OnDestroy {
 
     stateListener: Subscription;
     registrationUtils: CreateAccountService;
+    translate: PxbAuthTranslations;
 
     constructor(
         private readonly _router: Router,
@@ -66,6 +69,7 @@ export class PxbCreateAccountComponent implements OnDestroy {
     }
 
     ngOnInit(): void {
+        this.translate = this._pxbAuthConfig.getTranslations();
         this.registrationUtils = new CreateAccountService(ACCOUNT_DETAILS_STARTING_PAGE, this.accountDetails);
     }
 
@@ -158,5 +162,9 @@ export class PxbCreateAccountComponent implements OnDestroy {
 
     getUserName(): string {
         return `${this.firstName} ${this.lastName}`;
+    }
+
+    getCustomEmailValidator(): ValidatorFn {
+        return this.customEmailValidator || this._pxbAuthConfig.customEmailValidator;
     }
 }

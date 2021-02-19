@@ -1,7 +1,6 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-
 import { PxbAuthUIService } from '../../services/api/auth-ui.service';
 import { PxbAuthSecurityService } from '../../services/state/auth-security.service';
 import { AUTH_ROUTES } from '../../auth/auth.routes';
@@ -11,8 +10,8 @@ import { PxbChangePasswordDialogService } from './dialog/change-password-dialog.
 import { PxbChangePasswordErrorDialogService } from '../../services/dialog/change-password-error-dialog.service';
 import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
 import { PxbFormsService } from '../../services/forms/forms.service';
-import { CrossFieldErrorMatcher } from '../../util/matcher';
-import { makeEverythingUnique } from '../../util/filters';
+import { PxbAuthTranslations } from '../../translations/auth-translations';
+import { PasswordFieldComponent } from '../../components/password-field/password-field.component';
 
 @Component({
     selector: 'pxb-change-password',
@@ -22,62 +21,50 @@ import { makeEverythingUnique } from '../../util/filters';
         class: 'pxb-change-password',
     },
 })
-export class PxbChangePasswordComponent {
-    @ViewChild('pxbPassword') passwordInputElement: ElementRef;
-    @ViewChild('pxbConfirm') confirmInputElement: ElementRef;
+export class PxbChangePasswordComponent implements OnInit, AfterViewInit {
+    @ViewChild('currentPasswordField') currentPasswordComponent: PasswordFieldComponent;
+    @ViewChild('newPasswordField') newPasswordComponent: PasswordFieldComponent;
+    @ViewChild('confirmPasswordField') confirmPasswordComponent: PasswordFieldComponent;
 
-    passwordFormGroup: FormGroup;
-    errorMatcher = new CrossFieldErrorMatcher();
+    currentPasswordFormControl: FormControl;
+    newPasswordFormControl: FormControl;
+    confirmPasswordFormControl: FormControl;
 
     passwordRequirements: PasswordRequirement[];
 
     isLoading = false;
-
-    newPasswordVisible = false;
-    currentPasswordVisible = false;
-    confirmPasswordVisible = false;
-
     passesStrengthCheck = false;
-    confirmPasswordFocused = false;
     passwordChangeSuccess = false;
+    passwordsMatch = false;
+
+    translate: PxbAuthTranslations;
 
     constructor(
         private readonly _router: Router,
         private readonly _formBuilder: FormBuilder,
         private readonly _pxbAuthConfig: PxbAuthConfig,
+        private readonly _pxbFormsService: PxbFormsService,
         private readonly _pxbAuthUIService: PxbAuthUIService,
+        private readonly _changeDetectorRef: ChangeDetectorRef,
         private readonly _pxbSecurityService: PxbAuthSecurityService,
-        public pxbChangePasswordDialogService: PxbChangePasswordDialogService,
-        private readonly _pxbChangePasswordErrorDialogService: PxbChangePasswordErrorDialogService,
-        public pxbFormsService: PxbFormsService
-    ) {
-        this.passwordRequirements = makeEverythingUnique(this._pxbAuthConfig.passwordRequirements, 'description');
-        this.passwordFormGroup = this._formBuilder.group(
-            {
-                currentPassword: ['', Validators.required],
-                newPassword: ['', Validators.required],
-                confirmPassword: ['', Validators.required],
-            },
-            {
-                validator: this._passwordsMatch,
-            }
-        );
+        private readonly _pxbChangePasswordDialogService: PxbChangePasswordDialogService,
+        private readonly _pxbChangePasswordErrorDialogService: PxbChangePasswordErrorDialogService
+    ) {}
+
+    ngOnInit(): void {
+        this.translate = this._pxbAuthConfig.getTranslations();
+        this.passwordRequirements = this._pxbAuthConfig.getPasswordRequirements();
     }
 
-    toggleCurrentPasswordVisibility(): void {
-        this.currentPasswordVisible = !this.currentPasswordVisible;
-    }
-
-    toggleNewPasswordVisibility(): void {
-        this.newPasswordVisible = !this.newPasswordVisible;
-    }
-
-    toggleConfirmPasswordVisibility(): void {
-        this.confirmPasswordVisible = !this.confirmPasswordVisible;
+    ngAfterViewInit(): void {
+        this.currentPasswordFormControl = this.currentPasswordComponent.passwordFormControl;
+        this.newPasswordFormControl = this.newPasswordComponent.passwordFormControl;
+        this.confirmPasswordFormControl = this.confirmPasswordComponent.passwordFormControl;
+        this._changeDetectorRef.detectChanges();
     }
 
     closeDialog(): void {
-        this.pxbChangePasswordDialogService.closeDialog();
+        this._pxbChangePasswordDialogService.closeDialog();
     }
 
     done(): void {
@@ -86,8 +73,8 @@ export class PxbChangePasswordComponent {
     }
 
     changePassword(): void {
-        const oldPassword = this.passwordFormGroup.value.currentPassword;
-        const newPassword = this.passwordFormGroup.value.newPassword;
+        const oldPassword = this.currentPasswordFormControl.value;
+        const newPassword = this.newPasswordFormControl.value;
         this.isLoading = true;
         this._pxbAuthUIService
             .changePassword(oldPassword, newPassword)
@@ -103,13 +90,20 @@ export class PxbChangePasswordComponent {
             });
     }
 
-    allowPasswordChange(): boolean {
-        return this.passwordFormGroup.value.currentPassword && this.passesStrengthCheck && this.passwordFormGroup.valid;
+    focusNewPassword(): void {
+        this._pxbFormsService.advanceToNextField(this.newPasswordComponent.passwordInputElement);
     }
 
-    private _passwordsMatch(group: FormGroup): any {
-        if (group.value.newPassword !== group.value.confirmPassword) {
-            return { passwordsDoNotMatch: true };
-        }
+    focusConfirmPassword(): void {
+        this._pxbFormsService.advanceToNextField(this.confirmPasswordComponent.passwordInputElement);
+    }
+
+    allowPasswordChange(): boolean {
+        return (
+            this.currentPasswordFormControl &&
+            this.currentPasswordFormControl.value &&
+            this.passwordsMatch &&
+            this.passesStrengthCheck
+        );
     }
 }
