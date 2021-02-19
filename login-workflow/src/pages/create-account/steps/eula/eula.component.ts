@@ -48,8 +48,7 @@ import { PxbAuthTranslations } from '../../../../translations/auth-translations'
                 {{ translate.CREATE_ACCOUNT.EULA.CONFIRM_READ }}
             </mat-checkbox>
         </div>
-    `
-    ,
+    `,
 })
 export class PxbEulaComponent implements OnInit {
     @Input() userAcceptsEula: boolean;

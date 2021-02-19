@@ -10,7 +10,7 @@ import { Component, Input } from '@angular/core';
             </span>
         </mat-list-item>
     `,
-    styleUrls: ['password-strength-checker.component.scss']
+    styleUrls: ['password-strength-checker.component.scss'],
 })
 export class PasswordStrengthCheckComponent {
     @Input() icon = 'done';
