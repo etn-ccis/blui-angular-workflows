@@ -64,6 +64,7 @@
 
 <div
     *ngIf="debugMode && pxbAuthConfig.showResetPassword"
+    color="primary"
     class="pxb-auth-link mat-body-2"
     (click)="testForgotPasswordEmail()"
 >
@@ -71,6 +72,7 @@
 </div>
 <div
     *ngIf="debugMode && pxbAuthConfig.showCreateAccountViaInvite"
+    color="primary"
     class="pxb-auth-link mat-body-2"
     (click)="testInviteRegister()"
 >
@@ -78,6 +80,7 @@
 </div>
 <div
     *ngIf="pxbAuthConfig.showForgotPassword"
+    color="primary"
     class="pxb-auth-link mat-body-2"
     (click)="forgotPassword()"
     style="margin-bottom: 32px"
@@ -87,6 +90,7 @@
 
 <div
     *ngIf="debugMode || pxbAuthConfig.showCreateAccount || pxbAuthConfig.showContactSupport"
+    color="primary"
     class="mat-body-2"
     style="text-align: center;"
 >

@@ -1,11 +1,10 @@
-@import '~@pxblue/colors/palette';
-
+$primaryBlue: #007bc1;
 .pxb-auth-content {
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #007bc1;
+    background-color: $primaryBlue;
 
     .pxb-auth-inner-card {
         padding: 0;
@@ -34,7 +33,7 @@
     .pxb-auth-login {
         padding: 32px 64px;
         overflow: auto;
-        flex: 1 1 0px;
+        flex: 1 1 0;
         display: flex;
         flex-direction: column;
         > div {
@@ -47,7 +46,7 @@
     .pxb-auth-reset-password,
     .pxb-auth-create-account,
     .pxb-auth-create-account-invite {
-        flex: 1 1 0px;
+        flex: 1 1 0;
         display: flex;
         flex-direction: column;
         padding: 32px 24px 24px 24px;
@@ -67,13 +66,8 @@
 
 /* These styles are needed for the ChangePassword dialog too. */
 ::ng-deep {
-    // TODO: This can be removed when the mobile stepper spans 100% width naturally.
-    .pxb-mobile-stepper {
-        width: 100%;
-    }
-
     .pxb-auth-link {
-        color: map-get($pxb-blue, 500);
+        color: $primaryBlue;
         text-decoration: none;
         font-weight: 600;
         text-align: center;
@@ -85,7 +79,7 @@
     .pxb-auth-full-height {
         display: flex;
         flex-direction: column;
-        flex: 1 1 0px;
+        flex: 1 1 0;
     }
     .mat-divider.pxb-auth-divider {
         margin-left: -24px !important;
@@ -101,6 +95,9 @@
         padding-top: 8px;
         display: flex;
         justify-content: space-between;
+        .pxb-mobile-stepper-content button {
+            margin: 0;
+        }
     }
 
     pxb-contact-support,
@@ -109,7 +106,7 @@
     pxb-forgot-password,
     pxb-login,
     pxb-reset-password {
-        flex: 1 1 0px;
+        flex: 1 1 0;
         display: flex;
         flex-direction: column;
         height: 100%;
