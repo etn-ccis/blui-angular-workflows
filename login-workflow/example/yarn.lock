@@ -1185,10 +1185,10 @@
   dependencies:
     mkdirp "^1.0.4"
 
-"@pxblue/angular-components@^4.0.0":
-  version "4.0.0"
-  resolved "https://registry.npmjs.org/@pxblue/angular-components/-/angular-components-4.0.0.tgz#1244a22ef8e7ba17f258773ceb7d948b6adfb4b6"
-  integrity sha512-x2KjB/uTBrnl5LUN8y9BLuf2IWnh6kiwEBUwdbUKJ6YUxsng0h+nMg7qJ73eWESkObF39qeNb2+O80hTUq8eNQ==
+"@pxblue/angular-components@^4.1.0":
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/@pxblue/angular-components/-/angular-components-4.1.0.tgz#40adbbdb6e980f1d13e0cb49f00197c764cf54c8"
+  integrity sha512-7XtTsFZG+3nI353A+8Kp8oKG7CkyXKOTqDYnp37hL+DZPGV1swlW5kEFhhh0A6tT5UAR2yg4JZOPJsbvOdTDCQ==
   dependencies:
     tslib "^2.0.0"
 
