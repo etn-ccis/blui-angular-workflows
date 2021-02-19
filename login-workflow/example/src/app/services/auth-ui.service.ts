@@ -53,7 +53,7 @@ export class AuthUIService implements IPxbAuthUIService {
         console.log(`Performing a sample ForgotPassword request with the following credentials:\n email: ${email}`);
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                if (email.toLowerCase() === 'fail@test.com') {
+                if (email.toLowerCase().includes('fail')) {
                     return reject();
                 }
                 return resolve();
