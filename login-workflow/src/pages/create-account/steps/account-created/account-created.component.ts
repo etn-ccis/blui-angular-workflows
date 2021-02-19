@@ -16,7 +16,7 @@ import { PxbAuthTranslations } from '../../../../translations/auth-translations'
                         [innerHTML]="translate.CREATE_ACCOUNT.ACCOUNT_CREATED.WELCOME_MESSAGE_DESCRIPTION(email)"
                     ></div>
                 </div>
-                <mat-icon pxb-empty-icon class="pxb-account-created-icon">check_circle</mat-icon>
+                <mat-icon pxb-empty-icon class="pxb-account-created-icon" color="primary">check_circle</mat-icon>
             </pxb-empty-state>
         </div>
     `,
