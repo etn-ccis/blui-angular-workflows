@@ -19,7 +19,8 @@
   "prettier": "@pxblue/prettier-config",
   "private": false,
   "peerDependencies": {
-    "@pxblue/angular-components": "^4.1.0"
+    "@pxblue/angular-components": "^4.1.0",
+    "@pxblue/colors": "^3.0.0"
   },
   "dependencies": {
     "tslib": "^2.0.0"
@@ -42,6 +43,7 @@
     "@pxblue/angular-components": "^4.1.0",
     "@pxblue/eslint-config": "^2.0.1",
     "@pxblue/prettier-config": "^1.0.2",
+    "@pxblue/colors": "^3.0.0",
     "@types/jasmine": "~3.5.2",
     "@types/jasminewd2": "~2.0.8",
     "@types/node": "~13.5.0",

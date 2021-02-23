@@ -1,11 +1,11 @@
-$primaryBlue: #007bc1; //blue[500]
+@import '~@pxblue/colors/palette';
 
 .pxb-auth-content {
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: $primaryBlue;
+    background-color: map-get($pxb-blue, 500);
 
     .pxb-auth-inner-card {
         padding: 0;
@@ -68,7 +68,7 @@ $primaryBlue: #007bc1; //blue[500]
 /* These styles are needed for the ChangePassword dialog too. */
 ::ng-deep {
     .pxb-auth-link {
-        color: $primaryBlue;
+        color: map-get($pxb-blue, 500);
         text-decoration: none;
         font-weight: 600;
         text-align: center;
