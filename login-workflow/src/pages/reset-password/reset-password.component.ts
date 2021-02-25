@@ -65,13 +65,11 @@ export class PxbResetPasswordComponent implements OnInit {
             .then(() => {
                 this.isValidResetCode = true;
                 this._pxbSecurityService.setLoading(false);
+                this._configurePasswordControls();
             })
             .catch(() => {
                 this.isValidResetCode = false;
                 this._pxbSecurityService.setLoading(false);
-            })
-            .then(() => {
-                this._configurePasswordControls();
             });
     }
 
