@@ -4,7 +4,7 @@ import { Component, Input } from '@angular/core';
     selector: 'app-password-strength-check',
     template: `
         <mat-list-item class="pxb-auth-password-check">
-            <mat-icon [color]="success ? 'primary' : undefined">{{ icon }}</mat-icon>
+            <mat-icon class="check-icon" [color]="success ? 'primary' : undefined">{{ icon }}</mat-icon>
             <span class="validation-message mat-subheading-1" [class.success]="success">
                 {{ validationMessage }}
             </span>
