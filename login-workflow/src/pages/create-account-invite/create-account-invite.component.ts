@@ -1,14 +1,20 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AUTH_ROUTES } from '../../auth/auth.routes';
-import { PxbAuthConfig } from '../../services/config/auth-config';
 import { PxbRegisterUIService } from '../../services/api/register-ui.service';
 import { PxbAuthSecurityService, SecurityContext } from '../../services/state/auth-security.service';
 import { PxbCreateAccountInviteErrorDialogService } from '../../services/dialog/create-account-invite-error-dialog.service';
 import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
-import { FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { PxbAuthConfig } from '../../services/config/auth-config';
+import { PxbAuthTranslations } from '../../translations/auth-translations';
+
+import { CreateAccountService } from '../create-account/create-account.service';
+import { AccountDetails } from '../create-account/create-account.component';
+import { isEmptyView } from '../../util/view-utils';
+
+const ACCOUNT_DETAILS_STARTING_PAGE = 2;
 
 @Component({
     selector: 'pxb-create-account-invite',
@@ -16,12 +22,11 @@ import { Subscription } from 'rxjs';
     styleUrls: ['./create-account-invite.component.scss'],
 })
 export class PxbCreateAccountInviteComponent implements OnInit, OnDestroy {
-    @Input() userName: string;
-    @Input() accountDetails: FormControl[] = [];
-    @Input() hasValidAccountDetails = false;
-    @Input() useDefaultAccountDetails;
+    @Input() accountDetails: AccountDetails[] = [];
 
-    currentPageId = 0;
+    @ViewChild('registrationLinkErrorTitleVC') registrationLinkErrorTitleEl;
+    @ViewChild('registrationLinkErrorDescVC') registrationLinkErrorDescEl;
+
     isLoading: boolean;
     isValidRegistrationLink: boolean;
 
@@ -32,7 +37,15 @@ export class PxbCreateAccountInviteComponent implements OnInit, OnDestroy {
     password: string;
     passwordMeetsRequirements: boolean;
 
+    // Account Details Page
+    validAccountName: boolean;
+    firstName: string;
+    lastName: string;
+
     stateListener: Subscription;
+    registrationUtils: CreateAccountService;
+    isEmpty = (el: ElementRef): boolean => isEmptyView(el);
+    translate: PxbAuthTranslations;
 
     constructor(
         private readonly _router: Router,
@@ -47,11 +60,9 @@ export class PxbCreateAccountInviteComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
+        this.translate = this._pxbAuthConfig.getTranslations();
         this.validateRegistrationLink();
-        // Unless the user has specified otherwise, use the defaultAccountDetails if there are no custom forms provided.
-        if (this.useDefaultAccountDetails === undefined) {
-            this.useDefaultAccountDetails = this.accountDetails.length === 0;
-        }
+        this.registrationUtils = new CreateAccountService(ACCOUNT_DETAILS_STARTING_PAGE, this.accountDetails);
     }
 
     ngOnDestroy(): void {
@@ -77,10 +88,15 @@ export class PxbCreateAccountInviteComponent implements OnInit, OnDestroy {
     registerAccount(): void {
         this._pxbSecurityService.setLoading(true);
         this._pxbRegisterService
-            .completeRegistration(this.accountDetails, this.password)
+            .completeRegistration(
+                this.firstName,
+                this.lastName,
+                this.registrationUtils.getAccountDetailsCustomValues(),
+                this.password
+            )
             .then(() => {
                 this._pxbSecurityService.setLoading(false);
-                this.currentPageId++;
+                this.registrationUtils.nextStep();
             })
             .catch((data: ErrorDialogData) => {
                 this._pxbSecurityService.setLoading(false);
@@ -88,61 +104,47 @@ export class PxbCreateAccountInviteComponent implements OnInit, OnDestroy {
             });
     }
 
-    clearAccountDetailsInfo(): void {
-        for (const formControl of this.accountDetails) {
-            formControl.reset();
+    attemptContinue(): void {
+        if (this.canContinue()) {
+            this.goNext();
         }
     }
 
     canContinue(): boolean {
-        switch (this.currentPageId) {
+        if (this.registrationUtils.isAccountDetailsPage()) {
+            return this.registrationUtils.isFirstAccountDetailsPage()
+                ? this.validAccountName && this.registrationUtils.hasValidAccountDetails()
+                : this.registrationUtils.hasValidAccountDetails();
+        }
+        switch (this.registrationUtils.getCurrentPage()) {
             case 0:
                 return this.userAcceptsEula;
             case 1:
                 return this.passwordMeetsRequirements;
-            case 2:
-                return this.hasValidAccountDetails;
             default:
                 return;
         }
     }
 
-    hasEmptyStateError(): boolean {
-        return !this.isValidRegistrationLink;
+    goNext(): any {
+        if (this.registrationUtils.isAccountDetailsPage()) {
+            return this.registrationUtils.isLastAccountDetailsPage()
+                ? this.registerAccount()
+                : this.registrationUtils.nextStep();
+        }
+        return this.registrationUtils.nextStep();
     }
 
     goBack(): void {
-        this.currentPageId === 0 ? this.navigateToLogin() : this.currentPageId--;
-    }
-
-    goNext(): void {
-        if (this.currentPageId === 1 && this.skipAccountDetails()) {
-            return this.registerAccount();
-        }
-        this.currentPageId === 2 ? this.registerAccount() : this.currentPageId++;
-    }
-
-    skipAccountDetails(): boolean {
-        return !this.useDefaultAccountDetails && this.accountDetails.length === 0;
-    }
-
-    getNumberOfSteps(): number {
-        return this.skipAccountDetails() ? 3 : 4;
+        this.registrationUtils.getCurrentPage() === 0 ? this.navigateToLogin() : this.registrationUtils.prevStep();
     }
 
     navigateToLogin(): void {
-        this.clearAccountDetailsInfo();
+        this.registrationUtils.clearAccountDetails();
         void this._router.navigate([`${AUTH_ROUTES.AUTH_WORKFLOW}/${AUTH_ROUTES.LOGIN}`]);
     }
 
-    showStepper(): boolean {
-        return this.currentPageId <= (this.skipAccountDetails() ? 1 : 2);
-    }
-
     getUserName(): string {
-        if (this.useDefaultAccountDetails) {
-            return `${this.accountDetails[0].value} ${this.accountDetails[1].value}`;
-        }
-        return this.userName;
+        return `${this.firstName} ${this.lastName}`;
     }
 }

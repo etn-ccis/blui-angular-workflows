@@ -53,7 +53,7 @@ export class AuthUIService implements IPxbAuthUIService {
         console.log(`Performing a sample ForgotPassword request with the following credentials:\n email: ${email}`);
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                if (email.toLowerCase() === 'fail@test.com') {
+                if (email.toLowerCase().includes('fail')) {
                     return reject();
                 }
                 return resolve();
@@ -84,7 +84,7 @@ export class AuthUIService implements IPxbAuthUIService {
         console.log(`Performing a sample verifyResetCode request with the following credentials:\n code: ${resetCode}`);
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                if (!resetCode || resetCode.toUpperCase() === 'INVALID_LINK' ||  resetCode.toUpperCase() === 'FAIL') {
+                if (!resetCode || resetCode.toUpperCase() === 'INVALID_LINK' || resetCode.toUpperCase() === 'FAIL') {
                     return reject();
                 }
                 return resolve();

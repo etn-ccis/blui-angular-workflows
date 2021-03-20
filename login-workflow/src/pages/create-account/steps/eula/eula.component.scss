@@ -1,0 +1,14 @@
+.pxb-eula-confirm-agreement {
+    margin: 24px 0;
+}
+
+::ng-deep .pxb-eula-checkbox .mat-checkbox-inner-container {
+    width: 18px;
+    height: 18px;
+}
+
+.pxb-auth-eula-error {
+    ::ng-deep .pxb-empty-state-description {
+        color: inherit;
+    }
+}

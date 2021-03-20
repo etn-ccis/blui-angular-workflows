@@ -11,17 +11,25 @@ import { LoadingOverlayComponent } from './loading-overlay/loading-overlay.compo
 import { PasswordStrengthCheckComponent } from './password-strength-checker/password-strength-checker.component';
 import { PxbPasswordStrengthCheckerComponent } from './password-strength-checker/pxb-password-strength-checker.component';
 import { PxbAuthErrorDialogComponent } from './error-dialog/error-dialog.component';
+import { MatInputModule } from '@angular/material/input';
+import { EmailFieldComponent } from './email-field/email-field.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { PasswordFieldComponent } from './password-field/password-field.component';
 
 @NgModule({
     declarations: [
         LoadingOverlayComponent,
         PasswordStrengthCheckComponent,
         PxbAuthErrorDialogComponent,
+        EmailFieldComponent,
+        PasswordFieldComponent,
         PxbPasswordStrengthCheckerComponent,
     ],
     entryComponents: [PxbAuthErrorDialogComponent],
     imports: [
+        MatInputModule,
         BrowserModule,
+        ReactiveFormsModule,
         CommonModule,
         MatIconModule,
         MatDividerModule,
@@ -33,6 +41,8 @@ import { PxbAuthErrorDialogComponent } from './error-dialog/error-dialog.compone
         LoadingOverlayComponent,
         PasswordStrengthCheckComponent,
         PxbAuthErrorDialogComponent,
+        EmailFieldComponent,
+        PasswordFieldComponent,
         PxbPasswordStrengthCheckerComponent,
     ],
 })
