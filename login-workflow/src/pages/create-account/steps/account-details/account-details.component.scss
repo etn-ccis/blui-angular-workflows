@@ -1,0 +1,14 @@
+.pxb-account-details-body {
+    display: flex;
+    flex: 1 1 0;
+    overflow: auto;
+    ::ng-deep {
+        form {
+            width: 100%;
+        }
+        mat-form-field {
+            width: 100%;
+            margin-bottom: 8px;
+        }
+    }
+}

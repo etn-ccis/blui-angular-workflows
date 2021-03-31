@@ -25,6 +25,7 @@ import { PxbChangePasswordDialogComponent } from './pages/change-password/dialog
 import { PxbCreateAccountInviteModule } from './pages/create-account-invite/create-account-invite.module';
 import { PxbCommonComponentsModule } from './components/auth-common.module';
 import { PxbCreateAccountModule } from './pages/create-account/create-account.module';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
     declarations: [
@@ -44,6 +45,7 @@ import { PxbCreateAccountModule } from './pages/create-account/create-account.mo
         MatButtonModule,
         MatFormFieldModule,
         MatInputModule,
+        MatSelectModule,
         MatCardModule,
         ReactiveFormsModule,
         FormsModule,

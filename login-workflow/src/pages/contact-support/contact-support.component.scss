@@ -1,13 +1,4 @@
-@import '~@pxblue/colors/palette';
-
-.pxb-contact-support-description {
-    display: flex;
-    flex-direction: column;
-    flex: 1 1 0px;
-}
-
 .pxb-contact-support-chat-bubble-icon {
     font-size: 70px;
-    color: map-get($pxb-blue, 500);
     margin-left: -45px;
 }

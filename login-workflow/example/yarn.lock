@@ -1132,6 +1132,11 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
+"@fontsource/open-sans@^4.1.0":
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/@fontsource/open-sans/-/open-sans-4.1.0.tgz#d44b4495bd23d78018675e4e79973894e393c0ed"
+  integrity sha512-sWDAAr6ESHJdBKXse6njvZem4sTZLILkugaEfAvpdFiaKBh2RnXTa4DJllDh5LzP0MLMUrfj/JAjMbKxWFo6pQ==
+
 "@istanbuljs/schema@^0.1.2":
   version "0.1.2"
   resolved "https://registry.npmjs.org/@istanbuljs/schema/-/schema-0.1.2.tgz#26520bf09abe4a5644cd5414e37125a8954241dd"
@@ -1185,20 +1190,20 @@
   dependencies:
     mkdirp "^1.0.4"
 
-"@pxblue/angular-components@^4.0.0":
-  version "4.0.0"
-  resolved "https://registry.npmjs.org/@pxblue/angular-components/-/angular-components-4.0.0.tgz#1244a22ef8e7ba17f258773ceb7d948b6adfb4b6"
-  integrity sha512-x2KjB/uTBrnl5LUN8y9BLuf2IWnh6kiwEBUwdbUKJ6YUxsng0h+nMg7qJ73eWESkObF39qeNb2+O80hTUq8eNQ==
+"@pxblue/angular-components@^4.2.0":
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/@pxblue/angular-components/-/angular-components-4.2.0.tgz#337b50011bc0391a390bb14f1284ac7b97d7b2ab"
+  integrity sha512-fM6OVQDrX8hexzq5S7ZHe7kMs1iW08tk/2LyXp6rRdVZSMHsEdRd0Aejq/RIqtoo75A7yU/sdeeSi1J+5rWKsQ==
   dependencies:
     tslib "^2.0.0"
 
-"@pxblue/angular-themes@^5.2.0":
-  version "5.2.0"
-  resolved "https://registry.npmjs.org/@pxblue/angular-themes/-/angular-themes-5.2.0.tgz#1146a925dea96d11a6abea900be3acb55f56b383"
-  integrity sha512-lwMPdBLop2Tu9UdWIWqEC6VZishe87jmFtTUtO5gVGwqiclPdWyKcgGu5PU0/W7k/qNDYVswFmo54nOdU5QncQ==
+"@pxblue/angular-themes@^6.0.1":
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/@pxblue/angular-themes/-/angular-themes-6.0.1.tgz#706b7297a35aa47d6ded39311aeb8eaaaa557e25"
+  integrity sha512-Coc0SD5bMz8dw7AV7njZeEvHas8YIgyNbuFw7s4cdaFclD/AGh5Ca45LeOZZFTlHycglNAxUto6sU4BZpWkSLA==
   dependencies:
+    "@fontsource/open-sans" "^4.1.0"
     "@pxblue/colors" "^3.0.0"
-    typeface-open-sans "^0.0.75"
 
 "@pxblue/colors@^3.0.0":
   version "3.0.0"
@@ -1217,15 +1222,15 @@
   optionalDependencies:
     eslint-plugin-react "^7.16.0"
 
-"@pxblue/icons-svg@^1.0.0":
-  version "1.1.1"
-  resolved "https://registry.npmjs.org/@pxblue/icons-svg/-/icons-svg-1.1.1.tgz#64ba59fa7e7ae4e82d8fc218de07cd67a8c09eed"
-  integrity sha512-z77H5q2/ywBYRLhhpsbjxFHNJhW0eMm5EXVIwC8uyS0xdHaQAvWREDftWt4kYxTt8La2y+EmEQaJJ4K/mVNqbQ==
+"@pxblue/icons-svg@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@pxblue/icons-svg/-/icons-svg-1.2.0.tgz#574d9a1f478265fc23f23e6706ecf524331a8cdf"
+  integrity sha512-tjpgdwRmY+5ikUI3Ur3g7QqvpSwSNM6Jwwuwp1K4K367LxKV1UVOQDdsa4gavN3ulZ3sYCZb9vyheSBcYx1VrA==
 
-"@pxblue/icons@^1.0.0":
-  version "1.1.1"
-  resolved "https://registry.npmjs.org/@pxblue/icons/-/icons-1.1.1.tgz#93d30dc223b88bddd2e1983d8b67e33220474e8d"
-  integrity sha512-NbN60sHjf20I9Wz3M5A+GdEx7/d2AaZkXpvRuCtT4lrLUSVUJhRZm+fWyIRkeMr5rHvthI78tlZ9Lva23Ujraw==
+"@pxblue/icons@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@pxblue/icons/-/icons-1.2.0.tgz#b3115878b3e6b9c92ede81c34850ab8c4109d22e"
+  integrity sha512-VjhC9C2AYi+9s6yPN4c9Za12V/DsnsKv/zJlTrXpXZD4U6jX/bgRSmFNMMhssFFvfohZp1Zpvn+2uYNiSxE0CQ==
 
 "@pxblue/prettier-config@^1.0.0":
   version "1.0.2"
@@ -9072,11 +9077,6 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.npmjs.org/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
-
-typeface-open-sans@0.0.75, typeface-open-sans@^0.0.75:
-  version "0.0.75"
-  resolved "https://registry.npmjs.org/typeface-open-sans/-/typeface-open-sans-0.0.75.tgz#20d0c330f14c0c40463c334adbedd6005389abe4"
-  integrity sha512-0lLmB7pfj113OP4T78SbpSmC4OCdFQ0vUxdSXQccsSb6qF76F92iEuC/DghFgmPswTyidk8+Hwf+PS/htiJoRQ==
 
 typescript@4.0.2:
   version "4.0.2"
