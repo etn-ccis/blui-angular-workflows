@@ -1203,10 +1203,10 @@
     mkdirp "^1.0.4"
     rimraf "^3.0.2"
 
-"@pxblue/angular-components@^4.1.0":
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/@pxblue/angular-components/-/angular-components-4.1.0.tgz#40adbbdb6e980f1d13e0cb49f00197c764cf54c8"
-  integrity sha512-7XtTsFZG+3nI353A+8Kp8oKG7CkyXKOTqDYnp37hL+DZPGV1swlW5kEFhhh0A6tT5UAR2yg4JZOPJsbvOdTDCQ==
+"@pxblue/angular-components@^4.2.0":
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/@pxblue/angular-components/-/angular-components-4.2.0.tgz#337b50011bc0391a390bb14f1284ac7b97d7b2ab"
+  integrity sha512-fM6OVQDrX8hexzq5S7ZHe7kMs1iW08tk/2LyXp6rRdVZSMHsEdRd0Aejq/RIqtoo75A7yU/sdeeSi1J+5rWKsQ==
   dependencies:
     tslib "^2.0.0"
 

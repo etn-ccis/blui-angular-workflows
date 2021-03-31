@@ -1,6 +1,6 @@
 # Change Log
 
-## v2.0.0 (Not Published Yet)
+## v2.0.0
 
 ### Added
 
