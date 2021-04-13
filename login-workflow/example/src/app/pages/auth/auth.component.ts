@@ -122,6 +122,8 @@ export class AuthComponent {
                 isValid: () => this.countryFormControl.value && this.phoneNumberFormControl.value,
             },
             {
+                pageTitle: 'Career Details',
+                pageInstructions: 'Use the space below to enter your job <strong>title</strong>.',
                 form: this.accountDetailsPage2,
                 formControls: new Map([['jobTitle', this.jobTitleFromControl]]),
                 isValid: () => this.jobTitleFromControl.value,

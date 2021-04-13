@@ -86,6 +86,20 @@ export class CreateAccountService {
         }
     }
 
+    getCustomAccountDetailsTitle(): string {
+        const detailsIndex = this.currentPage - this.detailsStartPage; /* index of custom accountDetails to use. */
+        if (this._hasDetailsAtIndex(detailsIndex)) {
+            return this.accountDetails[detailsIndex].pageTitle;
+        }
+    }
+
+    getCustomAccountDetailsInstructions(): string {
+        const detailsIndex = this.currentPage - this.detailsStartPage; /* index of custom accountDetails to use. */
+        if (this._hasDetailsAtIndex(detailsIndex)) {
+            return this.accountDetails[detailsIndex].pageInstructions;
+        }
+    }
+
     /* Called upon completing the self-registration process, empties all forms.  */
     clearAccountDetails(): void {
         for (const detail of this.accountDetails) {

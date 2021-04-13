@@ -51,6 +51,8 @@
         [showDefaultAccountDetails]="true"
         [(firstName)]="firstName"
         [(lastName)]="lastName"
+        [pageTitle]="accountDetails[0]?.pageTitle"
+        [pageInstructions]="accountDetails[0]?.pageInstructions"
         (accountNameValid)="validAccountName = $event"
         (advance)="attemptContinue()"
     >
@@ -61,7 +63,11 @@
     </pxb-create-account-account-details-step>
 
     <!-- Custom Account Details Pages -->
-    <pxb-create-account-account-details-step *ngIf="registrationUtils.isCustomAccountsDetailsPage()">
+    <pxb-create-account-account-details-step
+        *ngIf="registrationUtils.isCustomAccountsDetailsPage()"
+        [pageTitle]="registrationUtils.getCustomAccountDetailsTitle()"
+        [pageInstructions]="registrationUtils.getCustomAccountDetailsInstructions()"
+    >
         <template
             pxb-account-details
             [ngTemplateOutlet]="registrationUtils.getCustomAccountDetailsTemplate()"

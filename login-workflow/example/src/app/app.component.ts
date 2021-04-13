@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
-import {AbstractControl, ValidatorFn} from "@angular/forms";
-import { PxbAuthSecurityService, SecurityContext, PxbAuthConfig, PXB_LOGIN_VALIDATOR_ERROR_NAME } from '@pxblue/angular-auth-workflow';
+import { AbstractControl, ValidatorFn } from '@angular/forms';
+import {
+    PxbAuthSecurityService,
+    SecurityContext,
+    PxbAuthConfig,
+    PXB_LOGIN_VALIDATOR_ERROR_NAME,
+} from '@pxblue/angular-auth-workflow';
 import { LocalStorageService } from './services/localStorage.service';
 
 @Component({
@@ -23,19 +28,21 @@ export class AppComponent {
         this.pxbAuthConfig.allowDebugMode = true;
         this.pxbAuthConfig.customEmailValidator = this._getCustomEmailValidator();
         this.pxbSecurityService.inferOnAuthenticatedRoute('home');
-        this.pxbAuthConfig.customPasswordRequirements = [{
-            regex: /^((?!password).)*$/,
-            description: 'Does not contain "password"',
-        }];
+        this.pxbAuthConfig.customPasswordRequirements = [
+            {
+                regex: /^((?!password).)*$/,
+                description: 'Does not contain "password"',
+            },
+        ];
     }
 
     private _getCustomEmailValidator(): ValidatorFn {
-      return (control: AbstractControl): { [key: string]: any } | null => {
-        const forbidden = /test/i.test(control.value);
-        return forbidden
-          ? { PXB_LOGIN_VALIDATOR_ERROR_NAME: { message: 'This is a custom error, provided by end user' } }
-          : null;
-      };
+        return (control: AbstractControl): { [key: string]: any } | null => {
+            const forbidden = /test/i.test(control.value);
+            return forbidden
+                ? { PXB_LOGIN_VALIDATOR_ERROR_NAME: { message: 'This is a custom error, provided by end user' } }
+                : null;
+        };
     }
 
     // When a user transitions between being logged in / logged out, update session information.
