@@ -24,6 +24,6 @@
 
 -   Fixed ChangeDetection-related warning when navigating.
 
-## v1.0.0 (December 20, 2021)
+## v1.0.0 (December 30, 2020)
 
 Initial release
