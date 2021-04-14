@@ -1,5 +1,5 @@
 import { Component, TemplateRef, ViewChild } from '@angular/core';
-import { AbstractControl, FormControl, ValidatorFn, Validators } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { MatFormField } from '@angular/material/form-field';
 import {
     AccountDetails,
@@ -22,9 +22,18 @@ import {
             </pxb-login>
         </ng-template>
 
+        <!-- Success Screen  -->
+        <ng-template #accountCreatedScreen>
+            <div>Way to go, I knew you could do it.</div>
+        </ng-template>
+
         <!-- Custom Create Account page -->
         <ng-template #createAccountPage>
-            <pxb-create-account #createAccountVC [accountDetails]="accountDetails"></pxb-create-account>
+            <pxb-create-account
+                #createAccountVC
+                [accountDetails]="accountDetails"
+                [accountCreatedScreen]="accountCreatedScreen"
+            ></pxb-create-account>
         </ng-template>
 
         <!-- Custom Create Account page -->
@@ -68,9 +77,18 @@ import {
         <ng-template #accountDetailsPage2>
             <form>
                 <mat-form-field appearance="fill">
+                    <mat-label>Company</mat-label>
+                    <input matInput [formControl]="companyFormControl" placeholder="Where do you work?" required />
+                    <mat-error *ngIf="companyFormControl.hasError('required')">
+                        Company is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+            </form>
+            <form>
+                <mat-form-field appearance="fill">
                     <mat-label>Job Title</mat-label>
-                    <input matInput [formControl]="jobTitleFromControl" required (keyup.enter)="attemptGoNext()" />
-                    <mat-error *ngIf="jobTitleFromControl.hasError('required')">
+                    <input matInput [formControl]="jobTitleFormControl" placeholder="What's your title?" required (keyup.enter)="attemptGoNext()" />
+                    <mat-error *ngIf="jobTitleFormControl.hasError('required')">
                         Job Title is <strong>required</strong>
                     </mat-error>
                 </mat-form-field>
@@ -88,7 +106,9 @@ import {
 export class AuthComponent {
     countryFormControl: FormControl;
     phoneNumberFormControl: FormControl;
-    jobTitleFromControl: FormControl;
+
+    companyFormControl: FormControl;
+    jobTitleFormControl: FormControl;
     accountDetails: AccountDetails[];
 
     @ViewChild('createAccountVC') createAccountVC: PxbCreateAccountComponent;
@@ -111,7 +131,8 @@ export class AuthComponent {
     initCreateAccountFormControls(): void {
         this.countryFormControl = new FormControl('', Validators.required);
         this.phoneNumberFormControl = new FormControl('');
-        this.jobTitleFromControl = new FormControl('', Validators.required);
+        this.jobTitleFormControl = new FormControl('', Validators.required);
+        this.companyFormControl = new FormControl('', Validators.required);
         this.accountDetails = [
             {
                 form: this.accountDetailsPage1,
@@ -123,8 +144,11 @@ export class AuthComponent {
             },
             {
                 form: this.accountDetailsPage2,
-                formControls: new Map([['jobTitle', this.jobTitleFromControl]]),
-                isValid: () => this.jobTitleFromControl.value,
+                formControls: new Map([
+                    ['company', this.companyFormControl],
+                    ['jobTitle', this.jobTitleFormControl],
+                ]),
+                isValid: () => this.jobTitleFormControl.value && this.companyFormControl.value,
             },
         ];
     }
