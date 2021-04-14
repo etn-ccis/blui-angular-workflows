@@ -97,6 +97,7 @@ export class PxbCreateAccountInviteComponent implements OnInit, OnDestroy {
             )
             .then(() => {
                 this._pxbSecurityService.setLoading(false);
+                this.registrationUtils.clearAccountDetails();
                 this.registrationUtils.nextStep();
             })
             .catch((data: ErrorDialogData) => {

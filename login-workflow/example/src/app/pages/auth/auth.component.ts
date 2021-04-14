@@ -2,10 +2,12 @@ import { Component, TemplateRef, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatFormField } from '@angular/material/form-field';
 import {
+    AUTH_ROUTES,
     AccountDetails,
     PxbCreateAccountComponent,
     PxbCreateAccountInviteComponent,
 } from '@pxblue/angular-auth-workflow';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-auth',
@@ -25,7 +27,7 @@ import {
         <!-- Success Screen  -->
         <ng-template #registrationSuccessScreen>
             <!-- Remove this ng-template to restore the default success screen. -->
-            <div style="margin: -32px -24px 0 -24px">
+            <div style="margin: -32px -24px 0 -24px; display: flex; flex-direction: column; flex: 1 1 0">
                 <mat-toolbar color="accent" style="border-bottom: 1px solid #a6b5d6">Account Created</mat-toolbar>
                 <img src="assets/images/waves.svg" style="width: 100%; margin-bottom: 8px;" />
                 <div style="text-align: center">
@@ -49,6 +51,14 @@ import {
                     <div class="mat-h4">Press the button below to continue.</div>
                 </div>
             </div>
+            <mat-divider class="pxb-auth-divider" style="margin-bottom: 16px;"></mat-divider>
+            <button
+                mat-flat-button
+                (click)="navigateToLogin()"
+                style="width: 100%; margin-top: 8px; color: white; background-color: #005eab;"
+            >
+                Continue
+            </button>
         </ng-template>
 
         <!-- Custom Create Account page -->
@@ -158,6 +168,8 @@ export class AuthComponent {
         { value: 'FRA', viewValue: '+33 (FRA)' },
     ];
 
+    constructor(private readonly _router: Router) {}
+
     ngAfterViewInit(): void {
         this.initCreateAccountFormControls();
     }
@@ -196,5 +208,9 @@ export class AuthComponent {
         if (this.createAccountVC) {
             this.createAccountVC.attemptContinue();
         }
+    }
+
+    navigateToLogin(): void {
+        void this._router.navigate([`${AUTH_ROUTES.AUTH_WORKFLOW}/${AUTH_ROUTES.LOGIN}`]);
     }
 }

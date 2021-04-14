@@ -1,7 +1,9 @@
 import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { PxbAuthConfig } from '../../../../services/config/auth-config';
 import { PxbAuthTranslations } from '../../../../translations/auth-translations';
 import { isEmptyView } from '../../../../util/view-utils';
+import { AUTH_ROUTES } from '../../../../auth/auth.routes';
 
 @Component({
     selector: 'pxb-create-account-account-created-step',
@@ -23,8 +25,18 @@ import { isEmptyView } from '../../../../util/view-utils';
                     <mat-icon pxb-empty-icon class="pxb-account-created-icon" color="primary">check_circle</mat-icon>
                 </pxb-empty-state>
             </div>
+            <mat-divider class="pxb-auth-divider" style="margin-bottom: 16px;"></mat-divider>
+            <div class="pxb-auth-action-button-container">
+                <button mat-flat-button color="primary" (click)="navigateToLogin()" style="width: 100%">
+                    {{ translate.CREATE_ACCOUNT.ACCOUNT_CREATED.CONTINUE_BUTTON }}
+                </button>
+            </div>
         </ng-container>
-        <div #successContent>
+        <div
+            #successContent
+            style="display: flex; flex-direction: column"
+            [style.flex]="isEmpty(successContentEl) ? '' : '1 1 0'"
+        >
             <ng-template [ngTemplateOutlet]="registrationSuccessScreen"></ng-template>
         </div>
     `,
@@ -40,6 +52,7 @@ export class PxbAccountCreatedComponent implements OnInit {
     isEmpty = (el: ElementRef): boolean => isEmptyView(el);
 
     constructor(
+        private readonly _router: Router,
         private readonly _pxbAuthConfig: PxbAuthConfig,
         private readonly _changeDetectorRef: ChangeDetectorRef
     ) {}
@@ -50,5 +63,9 @@ export class PxbAccountCreatedComponent implements OnInit {
 
     ngAfterViewInit(): void {
         this._changeDetectorRef.detectChanges();
+    }
+
+    navigateToLogin(): void {
+        void this._router.navigate([`${AUTH_ROUTES.AUTH_WORKFLOW}/${AUTH_ROUTES.LOGIN}`]);
     }
 }
