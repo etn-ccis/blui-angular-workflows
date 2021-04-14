@@ -30,7 +30,7 @@ export type AccountDetails = {
 })
 export class PxbCreateAccountComponent implements OnDestroy {
     @Input() accountDetails: AccountDetails[] = [];
-    @Input() accountCreatedScreen: TemplateRef<any>;
+    @Input() registrationSuccessScreen: TemplateRef<any>;
     @Input() customEmailValidator: ValidatorFn;
 
     isLoading = true;

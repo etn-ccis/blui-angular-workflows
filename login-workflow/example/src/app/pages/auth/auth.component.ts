@@ -23,7 +23,7 @@ import {
         </ng-template>
 
         <!-- Success Screen  -->
-        <ng-template #accountCreatedScreen>
+        <ng-template #registrationSuccessScreen>
             <div>Way to go, I knew you could do it.</div>
         </ng-template>
 
@@ -32,7 +32,7 @@ import {
             <pxb-create-account
                 #createAccountVC
                 [accountDetails]="accountDetails"
-                [accountCreatedScreen]="accountCreatedScreen"
+                [registrationSuccessScreen]="registrationSuccessScreen"
             ></pxb-create-account>
         </ng-template>
 

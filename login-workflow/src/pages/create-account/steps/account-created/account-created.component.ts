@@ -8,7 +8,7 @@ import {isEmptyView} from "../../../../util/view-utils";
     template: `
         <div class="mat-title pxb-auth-title" [innerHTML]="translate.CREATE_ACCOUNT.ACCOUNT_CREATED.TITLE"></div>
         <div class="pxb-auth-full-height" style="justify-content: center;">
-            <pxb-empty-state *ngIf="isEmpty(customContentEl)" class="pxb-account-created-empty-state">
+            <pxb-empty-state *ngIf="isEmpty(successContentEl)" class="pxb-account-created-empty-state">
                 <div pxb-title>
                     <div [innerHTML]="translate.CREATE_ACCOUNT.ACCOUNT_CREATED.WELCOME_MESSAGE_TITLE(userName)"></div>
                 </div>
@@ -19,8 +19,8 @@ import {isEmptyView} from "../../../../util/view-utils";
                 </div>
                 <mat-icon pxb-empty-icon class="pxb-account-created-icon" color="primary">check_circle</mat-icon>
             </pxb-empty-state>
-            <div #customContent>
-                <ng-template [ngTemplateOutlet]="accountCreatedScreen"></ng-template>
+            <div #successContent>
+                <ng-template [ngTemplateOutlet]="registrationSuccessScreen"></ng-template>
             </div>
         </div>
     `,
@@ -29,8 +29,8 @@ import {isEmptyView} from "../../../../util/view-utils";
 export class PxbAccountCreatedComponent implements OnInit {
     @Input() userName;
     @Input() email;
-    @ViewChild('customContent') customContentEl: ElementRef;
-    @Input() accountCreatedScreen: TemplateRef<any>;
+    @ViewChild('successContent') successContentEl: ElementRef;
+    @Input() registrationSuccessScreen: TemplateRef<any>;
 
     translate: PxbAuthTranslations;
     isEmpty = (el: ElementRef): boolean => isEmptyView(el);
