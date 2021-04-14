@@ -51,11 +51,10 @@ import { Router } from '@angular/router';
                 </div>
             </div>
             <mat-divider class="pxb-auth-divider" style="margin-bottom: 16px;"></mat-divider>
-            <button
-                mat-flat-button
-                (click)="navigateToLogin()"
-                style="width: 100%; margin-top: 8px; color: white; background-color: #007bc1;"
-            >
+            <button mat-stroked-button (click)="navigateToLogin()" color="primary" style="width: 100%; margin-top: 8px">
+                Join an Organization
+            </button>
+            <button mat-flat-button color="primary" (click)="navigateToLogin()" style="width: 100%; margin-top: 16px">
                 Continue
             </button>
         </ng-template>
