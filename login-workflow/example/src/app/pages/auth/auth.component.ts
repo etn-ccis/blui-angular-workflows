@@ -87,7 +87,13 @@ import {
             <form>
                 <mat-form-field appearance="fill">
                     <mat-label>Job Title</mat-label>
-                    <input matInput [formControl]="jobTitleFormControl" placeholder="What's your title?" required (keyup.enter)="attemptGoNext()" />
+                    <input
+                        matInput
+                        [formControl]="jobTitleFormControl"
+                        placeholder="What's your title?"
+                        required
+                        (keyup.enter)="attemptGoNext()"
+                    />
                     <mat-error *ngIf="jobTitleFormControl.hasError('required')">
                         Job Title is <strong>required</strong>
                     </mat-error>
@@ -104,11 +110,16 @@ import {
     `,
 })
 export class AuthComponent {
+
+    /* Custom Forms Page 1 */
     countryFormControl: FormControl;
     phoneNumberFormControl: FormControl;
 
+    /* Custom Forms Page 2 */
     companyFormControl: FormControl;
     jobTitleFormControl: FormControl;
+
+    /* Account Details Customizations */
     accountDetails: AccountDetails[];
 
     @ViewChild('createAccountVC') createAccountVC: PxbCreateAccountComponent;
@@ -143,12 +154,14 @@ export class AuthComponent {
                 isValid: () => this.countryFormControl.value && this.phoneNumberFormControl.value,
             },
             {
+                pageTitle: 'Career Details',
+                pageInstructions: 'Use the space below to provide <strong>work details</strong>.',
                 form: this.accountDetailsPage2,
                 formControls: new Map([
                     ['company', this.companyFormControl],
                     ['jobTitle', this.jobTitleFormControl],
                 ]),
-                isValid: () => this.jobTitleFormControl.value && this.companyFormControl.value,
+                isValid: () => this.companyFormControl.value && this.jobTitleFormControl.value,
             },
         ];
     }

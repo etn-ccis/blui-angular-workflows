@@ -10,12 +10,15 @@ import { PxbAuthTranslations } from '../../../../translations/auth-translations'
     selector: 'pxb-create-account-account-details-step',
     styleUrls: ['account-details.component.scss'],
     template: `
-        <div class="mat-title pxb-auth-title" [innerHTML]="translate.CREATE_ACCOUNT.ACCOUNT_DETAILS.TITLE"></div>
+        <div
+            class="mat-title pxb-auth-title"
+            [innerHTML]="pageTitle || translate.CREATE_ACCOUNT.ACCOUNT_DETAILS.TITLE"
+        ></div>
         <div class="pxb-auth-full-height">
             <p
                 class="mat-body-1"
                 style="margin-bottom: 24px;"
-                [innerHTML]="translate.CREATE_ACCOUNT.ACCOUNT_DETAILS.INSTRUCTIONS"
+                [innerHTML]="pageInstructions || translate.CREATE_ACCOUNT.ACCOUNT_DETAILS.INSTRUCTIONS"
             ></p>
             <mat-divider class="pxb-auth-divider" style="margin-top: 16px; margin-bottom: 32px;"></mat-divider>
             <div class="pxb-account-details-body">
@@ -77,6 +80,8 @@ export class PxbAccountDetailsComponent implements OnInit {
     @Input() showDefaultAccountDetails = false; // Used to hide defaults whenever there are custom account detail forms.
     @Input() firstName: string;
     @Input() lastName: string;
+    @Input() pageTitle: string;
+    @Input() pageInstructions: string;
     @Output() firstNameChange: EventEmitter<string> = new EventEmitter<string>();
     @Output() lastNameChange: EventEmitter<string> = new EventEmitter<string>();
     @Output() accountNameValid = new EventEmitter<boolean>();

@@ -16,6 +16,8 @@ import { PxbAuthTranslations } from '../../translations/auth-translations';
 const ACCOUNT_DETAILS_STARTING_PAGE = 4;
 
 export type AccountDetails = {
+    pageTitle?: string;
+    pageInstructions?: string;
     form: TemplateRef<MatFormField>;
     formControls: Map<string, FormControl>;
     isValid: () => boolean;

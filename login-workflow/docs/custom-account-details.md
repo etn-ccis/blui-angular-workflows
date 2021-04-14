@@ -28,13 +28,15 @@ The `@pxblue/angular-auth-workflow` allows for custom account detail fields to b
 
 ### Populate the `accountDetails` @Input
 
-Each `accountDetails` object has 3 properties:
+Each `accountDetails` object has the following properties:
 
 | Property            | Description                                            |
 | ------------------- | ------------------------------------------------------ | 
-| form                | template ref of the form                                         |
+| form                | Template ref of the form                               |
 | formControls        | A map listing all of the fields in the form            |
-| isValid             | function we run to determine if user-input is valid    |
+| isValid             | Function which determines if user-input is valid       |
+| pageInstructions    | Custom instructions for account details screen         |
+| pageTitle           | Custom title for account details screen                |
 
 Each `accountDetails` represents a new page in the self-registration process.  
 
@@ -59,6 +61,8 @@ ngAfterViewInit(): void {
           form: this.customFormRef,
           formControls: new Map([['custom', this.customFormControl]]),
           isValid: () => this.customFormControl.value,
+          pageTitle: 'Custom page title',
+          pageInstructions: 'Custom page instructions'
       }
   ];
 }
