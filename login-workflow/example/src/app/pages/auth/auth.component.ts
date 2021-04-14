@@ -28,7 +28,6 @@ import { Router } from '@angular/router';
         <ng-template #registrationSuccessScreen>
             <!-- Remove this ng-template to restore the default success screen. -->
             <div style="margin: -32px -24px 0 -24px; display: flex; flex-direction: column; flex: 1 1 0">
-                <mat-toolbar color="accent" style="border-bottom: 1px solid #a6b5d6">Account Created</mat-toolbar>
                 <img src="assets/images/waves.svg" style="width: 100%; margin-bottom: 8px;" />
                 <div style="text-align: center">
                     <mat-icon
@@ -55,7 +54,7 @@ import { Router } from '@angular/router';
             <button
                 mat-flat-button
                 (click)="navigateToLogin()"
-                style="width: 100%; margin-top: 8px; color: white; background-color: #005eab;"
+                style="width: 100%; margin-top: 8px; color: white; background-color: #007bc1;"
             >
                 Continue
             </button>
