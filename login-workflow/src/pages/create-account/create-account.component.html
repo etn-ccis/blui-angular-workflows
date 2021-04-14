@@ -52,11 +52,12 @@
     *ngIf="registrationUtils.showAccountCreatedPage()"
     [userName]="getUserName()"
     [email]="email"
+    [registrationSuccessScreen]="registrationSuccessScreen"
 ></pxb-create-account-account-created-step>
 
-<mat-divider class="pxb-auth-divider" style="margin-bottom: 16px;"></mat-divider>
-<div class="pxb-auth-action-button-container">
-    <ng-container *ngIf="!registrationUtils.showAccountCreatedPage()">
+<ng-container *ngIf="!registrationUtils.showAccountCreatedPage()">
+    <mat-divider class="pxb-auth-divider" style="margin-bottom: 16px;"></mat-divider>
+    <div class="pxb-auth-action-button-container">
         <pxb-mobile-stepper
             [steps]="registrationUtils.getNumberOfSteps()"
             [activeStep]="registrationUtils.getCurrentPage()"
@@ -75,14 +76,5 @@
                 {{ translate.GENERAL.NEXT_BUTTON }}
             </button>
         </pxb-mobile-stepper>
-    </ng-container>
-    <button
-        *ngIf="registrationUtils.showAccountCreatedPage()"
-        mat-flat-button
-        color="primary"
-        (click)="navigateToLogin()"
-        style="width: 100%"
-    >
-        {{ translate.CREATE_ACCOUNT.ACCOUNT_CREATED.CONTINUE_BUTTON }}
-    </button>
-</div>
+    </div>
+</ng-container>

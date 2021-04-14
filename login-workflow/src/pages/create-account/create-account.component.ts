@@ -30,6 +30,7 @@ export type AccountDetails = {
 })
 export class PxbCreateAccountComponent implements OnDestroy {
     @Input() accountDetails: AccountDetails[] = [];
+    @Input() registrationSuccessScreen: TemplateRef<any>;
     @Input() customEmailValidator: ValidatorFn;
 
     isLoading = true;
@@ -107,6 +108,7 @@ export class PxbCreateAccountComponent implements OnDestroy {
             .then(() => {
                 this._pxbSecurityService.setLoading(false);
                 this._pxbSecurityService.updateSecurityState({ email: this.email });
+                this.registrationUtils.clearAccountDetails();
                 this.registrationUtils.nextStep();
             })
             .catch((data: ErrorDialogData) => {

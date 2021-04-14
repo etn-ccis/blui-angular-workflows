@@ -22,23 +22,29 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { LoginErrorDialogComponent } from './dialog/login-error-dialog.component';
 import { RegisterUIService } from './services/register-ui.service';
 import { LoginErrorDialogService } from './dialog/login-error-dialog.service';
-import { MatSelect, MatSelectModule } from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
     declarations: [AppComponent, HomeComponent, AuthComponent, DashboardComponent, LoginErrorDialogComponent],
     imports: [
-        BrowserModule,
-        MatFormFieldModule,
-        MatInputModule,
-        BrowserAnimationsModule,
-        MatCardModule,
-        ReactiveFormsModule,
-        FormsModule,
-        PxbAuthModule,
-        MatSelectModule,
         AppRoutingModule,
+        BrowserModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        MatCardModule,
         MatButtonModule,
         MatDialogModule,
+        MatDividerModule,
+        MatFormFieldModule,
+        MatIconModule,
+        MatInputModule,
+        MatSelectModule,
+        MatToolbarModule,
+        PxbAuthModule,
+        ReactiveFormsModule,
     ],
     providers: [
         {

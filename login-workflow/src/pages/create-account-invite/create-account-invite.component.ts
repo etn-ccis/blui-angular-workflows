@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AUTH_ROUTES } from '../../auth/auth.routes';
@@ -23,6 +23,7 @@ const ACCOUNT_DETAILS_STARTING_PAGE = 2;
 })
 export class PxbCreateAccountInviteComponent implements OnInit, OnDestroy {
     @Input() accountDetails: AccountDetails[] = [];
+    @Input() registrationSuccessScreen: TemplateRef<any>;
 
     @ViewChild('registrationLinkErrorTitleVC') registrationLinkErrorTitleEl;
     @ViewChild('registrationLinkErrorDescVC') registrationLinkErrorDescEl;
@@ -96,6 +97,7 @@ export class PxbCreateAccountInviteComponent implements OnInit, OnDestroy {
             )
             .then(() => {
                 this._pxbSecurityService.setLoading(false);
+                this.registrationUtils.clearAccountDetails();
                 this.registrationUtils.nextStep();
             })
             .catch((data: ErrorDialogData) => {

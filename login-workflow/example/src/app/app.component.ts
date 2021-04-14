@@ -1,11 +1,6 @@
 import { Component } from '@angular/core';
 import { AbstractControl, ValidatorFn } from '@angular/forms';
-import {
-    PxbAuthSecurityService,
-    SecurityContext,
-    PxbAuthConfig,
-    PXB_LOGIN_VALIDATOR_ERROR_NAME,
-} from '@pxblue/angular-auth-workflow';
+import { PxbAuthSecurityService, SecurityContext, PxbAuthConfig } from '@pxblue/angular-auth-workflow';
 import { LocalStorageService } from './services/localStorage.service';
 
 @Component({
