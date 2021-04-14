@@ -23,6 +23,8 @@ import { LoginErrorDialogComponent } from './dialog/login-error-dialog.component
 import { RegisterUIService } from './services/register-ui.service';
 import { LoginErrorDialogService } from './dialog/login-error-dialog.service';
 import { MatSelect, MatSelectModule } from '@angular/material/select';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
     declarations: [AppComponent, HomeComponent, AuthComponent, DashboardComponent, LoginErrorDialogComponent],
@@ -39,6 +41,8 @@ import { MatSelect, MatSelectModule } from '@angular/material/select';
         AppRoutingModule,
         MatButtonModule,
         MatDialogModule,
+        MatToolbarModule,
+        MatIconModule,
     ],
     providers: [
         {
