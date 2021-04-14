@@ -91,6 +91,7 @@ For a more detailed explanation of how to add custom account details, check out 
 | ---------------------------------------- | --------------------------------------------------------------------------- | ------------------- |    
 | accountDetails                           | Custom form controls used for self-registration                             | `AccountDetails[]`  |   
 | customEmailValidator                     | Custom email regex requirements                                             | `ValidatorFn`       | 
+| registrationSuccessScreen                | Custom account registration success screen                                  | `TemplateRef`       | 
 
 
 ## Create Account via Invite 
@@ -106,6 +107,7 @@ A user has received an email invite to create an account; this workflow can be s
 | @Input                                   | Description                                                                 | Type                
 | ---------------------------------------- | --------------------------------------------------------------------------- | ------------------- |
 | accountDetails                           | Custom form controls used for self-registration                             | `AccountDetails[]`  | 
+| registrationSuccessScreen                | Custom account registration success screen                                  | `TemplateRef`       | 
 
 </div>
 
@@ -113,7 +115,7 @@ A user has received an email invite to create an account; this workflow can be s
 
 |  ng-content                                 | Description                                                                 |
 | ------------------------------------------- | --------------------------------------------------------------------------- |
-| `pxb-registration-link-error-title`         | Error state title seen when the registration  link is invalid               | 
+| `pxb-registration-link-error-title`         | Error state title seen when the registration link is invalid                | 
 | `pxb-registration-link-error-description`   | Error state description seen when the registration link is invalid          | 
 
 </div>
