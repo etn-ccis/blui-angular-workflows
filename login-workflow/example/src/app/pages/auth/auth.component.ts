@@ -68,9 +68,24 @@ import {
         <ng-template #accountDetailsPage2>
             <form>
                 <mat-form-field appearance="fill">
+                    <mat-label>Company</mat-label>
+                    <input matInput [formControl]="companyFormControl" placeholder="Where do you work?" required />
+                    <mat-error *ngIf="companyFormControl.hasError('required')">
+                        Company is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+            </form>
+            <form>
+                <mat-form-field appearance="fill">
                     <mat-label>Job Title</mat-label>
-                    <input matInput [formControl]="jobTitleFromControl" required (keyup.enter)="attemptGoNext()" />
-                    <mat-error *ngIf="jobTitleFromControl.hasError('required')">
+                    <input
+                        matInput
+                        [formControl]="jobTitleFormControl"
+                        placeholder="What's your title?"
+                        required
+                        (keyup.enter)="attemptGoNext()"
+                    />
+                    <mat-error *ngIf="jobTitleFormControl.hasError('required')">
                         Job Title is <strong>required</strong>
                     </mat-error>
                 </mat-form-field>
@@ -86,9 +101,16 @@ import {
     `,
 })
 export class AuthComponent {
+
+    /* Custom Forms Page 1 */
     countryFormControl: FormControl;
     phoneNumberFormControl: FormControl;
-    jobTitleFromControl: FormControl;
+
+    /* Custom Forms Page 2 */
+    companyFormControl: FormControl;
+    jobTitleFormControl: FormControl;
+
+    /* Account Details Customizations */
     accountDetails: AccountDetails[];
 
     @ViewChild('createAccountVC') createAccountVC: PxbCreateAccountComponent;
@@ -111,7 +133,8 @@ export class AuthComponent {
     initCreateAccountFormControls(): void {
         this.countryFormControl = new FormControl('', Validators.required);
         this.phoneNumberFormControl = new FormControl('');
-        this.jobTitleFromControl = new FormControl('', Validators.required);
+        this.companyFormControl = new FormControl('', Validators.required);
+        this.jobTitleFormControl = new FormControl('', Validators.required);
         this.accountDetails = [
             {
                 form: this.accountDetailsPage1,
@@ -122,9 +145,14 @@ export class AuthComponent {
                 isValid: () => this.countryFormControl.value && this.phoneNumberFormControl.value,
             },
             {
+                pageTitle: 'Career Details',
+                pageInstructions: 'Use the space below to provide <strong>work details</strong>.',
                 form: this.accountDetailsPage2,
-                formControls: new Map([['jobTitle', this.jobTitleFromControl]]),
-                isValid: () => this.jobTitleFromControl.value,
+                formControls: new Map([
+                    ['company', this.companyFormControl],
+                    ['jobTitle', this.jobTitleFormControl],
+                ]),
+                isValid: () => this.companyFormControl.value && this.jobTitleFormControl.value,
             },
         ];
     }

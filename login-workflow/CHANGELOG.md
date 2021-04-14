@@ -1,4 +1,8 @@
 # Change Log
+ 
+## v2.1.0 (not published)
+
+-  Added additional `pageTitle` and `pageInstructions` props onto `AccountDetails` for more customization during account registration.  
 
 ## v2.0.0 (March 31, 2021)
 
