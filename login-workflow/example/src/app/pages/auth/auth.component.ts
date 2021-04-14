@@ -31,7 +31,7 @@ import {
                 <div style="text-align: center">
                     <mat-icon
                         style="
-                        background-color: #007bc1;
+                        background-color: #005eab;
                         border-radius: 50%;
                         padding: 8px;
                         color: #e0eff8;
