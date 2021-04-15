@@ -4,6 +4,7 @@ import { getAuthSubRoutes, PxbAuthGuard, AUTH_ROUTES } from '@pxblue/angular-aut
 import { HomeComponent } from './pages/home/home.component';
 import { AuthComponent } from './pages/auth/auth.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import {PreAuthComponent} from "./pages/pre-auth/pre-auth.component";
 
 // The default workflow routes can be overwritten if needed.
 // This feature only works if ivy is enabled.
@@ -12,7 +13,7 @@ AUTH_ROUTES.CONTACT_SUPPORT = 'assistance';
 
 const authWorkflowRoutes = getAuthSubRoutes();
 const routes: Routes = [
-    { path: '', redirectTo: AUTH_ROUTES.AUTH_WORKFLOW, pathMatch: 'full' },
+    { path: '', redirectTo: 'pre-auth', pathMatch: 'full' },
     { path: AUTH_ROUTES.AUTH_WORKFLOW, component: AuthComponent, children: authWorkflowRoutes },
     {
         path: '',
@@ -22,6 +23,7 @@ const routes: Routes = [
             { path: 'dashboard', component: DashboardComponent },
         ],
     },
+    { path: 'pre-auth', component: PreAuthComponent, pathMatch: 'full' }
 ];
 
 // configures NgModule imports and exports
