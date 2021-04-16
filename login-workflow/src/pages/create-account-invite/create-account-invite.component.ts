@@ -97,6 +97,7 @@ export class PxbCreateAccountInviteComponent implements OnInit, OnDestroy {
             .then(() => {
                 this._pxbSecurityService.setLoading(false);
                 this.registrationSuccessScreenContext = {
+                    email: undefined,
                     firstName: this.firstName,
                     lastName: this.lastName,
                 };

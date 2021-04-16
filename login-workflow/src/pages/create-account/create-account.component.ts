@@ -113,6 +113,7 @@ export class PxbCreateAccountComponent implements OnDestroy {
                 this._pxbSecurityService.setLoading(false);
                 this._pxbSecurityService.updateSecurityState({ email: this.email });
                 this.registrationSuccessScreenContext = {
+                    email: this.email,
                     firstName: this.firstName,
                     lastName: this.lastName,
                 };

@@ -7,6 +7,7 @@ import { AUTH_ROUTES } from '../../../../auth/auth.routes';
 export type RegistrationSuccessScreenContext = {
     firstName: string;
     lastName: string;
+    email: string;
     //... Custom form keys appended.
 };
 
