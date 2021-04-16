@@ -25,7 +25,7 @@ import { Router } from '@angular/router';
         </ng-template>
 
         <!-- Success Screen  -->
-        <ng-template #registrationSuccessScreen>
+        <ng-template #registrationSuccessScreen let-firstName="firstName">
             <!-- Remove this ng-template to restore the default success screen. -->
             <div style="margin: -32px -24px 0 -24px; display: flex; flex-direction: column; flex: 1 1 0">
                 <img src="assets/images/waves.svg" style="width: 100%; margin-bottom: 8px;" />
@@ -44,7 +44,7 @@ import { Router } from '@angular/router';
                     >
                 </div>
                 <div style="margin: 0 24px">
-                    <div class="mat-display-1" style="margin-bottom: 24px">Welcome!</div>
+                    <div class="mat-display-1" style="margin-bottom: 24px">Welcome, {{ firstName }}!</div>
                     <div class="mat-h4">Your account has been successfully created.</div>
                     <div class="mat-h4">This is a custom success screen.</div>
                     <div class="mat-h4">Press the button below to continue.</div>

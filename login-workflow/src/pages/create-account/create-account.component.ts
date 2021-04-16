@@ -12,6 +12,7 @@ import { PxbCreateAccountErrorDialogService } from '../../services/dialog/create
 import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
 import { CreateAccountService } from './create-account.service';
 import { PxbAuthTranslations } from '../../translations/auth-translations';
+import { RegistrationSuccessScreenContext } from './steps/account-created/account-created.component';
 
 const ACCOUNT_DETAILS_STARTING_PAGE = 4;
 
@@ -59,6 +60,8 @@ export class PxbCreateAccountComponent implements OnDestroy {
     registrationUtils: CreateAccountService;
     translate: PxbAuthTranslations;
 
+    registrationSuccessScreenContext: RegistrationSuccessScreenContext;
+
     constructor(
         private readonly _router: Router,
         private readonly _pxbAuthConfig: PxbAuthConfig,
@@ -96,11 +99,12 @@ export class PxbCreateAccountComponent implements OnDestroy {
 
     registerAccount(): void {
         this._pxbSecurityService.setLoading(true);
+        const customForms = this.registrationUtils.getAccountDetailsCustomValues();
         this._pxbRegisterService
             .completeRegistration(
                 this.firstName,
                 this.lastName,
-                this.registrationUtils.getAccountDetailsCustomValues(),
+                customForms,
                 this.password,
                 this.verificationCode,
                 this.email
@@ -108,6 +112,13 @@ export class PxbCreateAccountComponent implements OnDestroy {
             .then(() => {
                 this._pxbSecurityService.setLoading(false);
                 this._pxbSecurityService.updateSecurityState({ email: this.email });
+                this.registrationSuccessScreenContext = {
+                    firstName: this.firstName,
+                    lastName: this.lastName,
+                };
+                for (const key of customForms.keys()) {
+                    this.registrationSuccessScreenContext[key] = customForms.get(key).value;
+                }
                 this.registrationUtils.clearAccountDetails();
                 this.registrationUtils.nextStep();
             })
