@@ -36,6 +36,9 @@ constructor(pxbAuthConfig: PxbAuthConfig) {
 -   **allowDebugMode** (optional): _`boolean`_
     -   When true, presents a debug button on the login screen to allow access to deep link-based screens/flows
     -   Default: false
+-   **authGuardRedirectRoute** (optional) _`string`_
+    -   Whenever the PxbAuthGuard blocks navigation to an auth-protected page, navigate to this route.
+    -   Default: ''
 -   **backgroundImage** (optional): _`string`_
     -   Background image to be used within the auth workflow
 -   **contactEmail** (optional): _`string`_

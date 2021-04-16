@@ -44,6 +44,8 @@ In your `app.routing.ts` config, add the auth-specific routes. `authSubRoutes` i
 The configuration below has the base URL redirect to the login screen. 
 All routes that require authentication can be protected using the `PxbAuthGuard`.  This guard will prevent routes from being accessed from unauthenticated users.  
 
+> By default, the `PxbAuthGuard` will redirect an unauthenticated user to the empty route; the redirect url can be configured in the `PxbAuthConfig` service. 
+
 In the example below, the `/home` route can only be accessed if a user is logged in.
 
 ```
@@ -65,6 +67,8 @@ const routes: Routes = [
 ];
 ```
 
+> If your project requires a custom pre-authentication/welcome screen, this can be supported by updating the root URL to redirect to your custom page instead of the `AUTH_ROUTES.AUTH_WORK` routes. 
+
 
 
 The following is the list of default routes found in `getAuthSubRoutes()`.  
@@ -78,7 +82,7 @@ The following is the list of default routes found in `getAuthSubRoutes()`.
 | Self Registration   | the first screen of the self-registration flow         | `'/auth/register/create-account'` |
 | Support             | the contact/support screen                             | `'/auth/support'`                 |
 
-Any route url can be overwritten by altering the `AUTH_ROUTES` object. 
+Any `@pxblue/angular-auth-workflow` route can be overwritten by editing the `AUTH_ROUTES` object. 
 
 #### Provide API Services
 
