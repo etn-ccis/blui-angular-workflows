@@ -78,6 +78,7 @@
         *ngIf="registrationUtils.showAccountCreatedPage()"
         [userName]="getUserName()"
         [registrationSuccessScreen]="registrationSuccessScreen"
+        [registrationSuccessScreenContext]="registrationSuccessScreenContext"
     ></pxb-create-account-account-created-step>
 
     <ng-container *ngIf="!registrationUtils.showAccountCreatedPage()">
