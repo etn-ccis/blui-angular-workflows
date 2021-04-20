@@ -16,7 +16,11 @@ export class PxbAuthGuard implements CanActivate {
 
     canActivate(): boolean {
         if (!this.securityService.getSecurityState().isAuthenticatedUser) {
-            void this.router.navigate([this.pxbAuthConfig.authGuardRedirectRoute || AUTH_ROUTES.AUTH_WORKFLOW]);
+            const route =
+                this.pxbAuthConfig.authGuardRedirectRoute === undefined
+                    ? AUTH_ROUTES.AUTH_WORKFLOW
+                    : this.pxbAuthConfig.authGuardRedirectRoute;
+            void this.router.navigate([route]);
             return false;
         }
         return true;
