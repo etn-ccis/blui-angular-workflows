@@ -14,7 +14,7 @@ export type PasswordRequirement = {
     providedIn: 'root',
 })
 export class PxbAuthConfig implements PxbAuthConfig {
-    authGuardRedirectRoute = '';
+    authGuardRedirectRoute = undefined;
 
     languageCode = 'EN';
     allowDebugMode = false;
