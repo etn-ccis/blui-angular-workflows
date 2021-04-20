@@ -1,14 +1,20 @@
-import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { PxbAuthConfig } from '../../../../services/config/auth-config';
 import { PxbAuthTranslations } from '../../../../translations/auth-translations';
-import { isEmptyView } from '../../../../util/view-utils';
 import { AUTH_ROUTES } from '../../../../auth/auth.routes';
+
+export type RegistrationSuccessScreenContext = {
+    firstName: string;
+    lastName: string;
+    email: string;
+    //... Custom form keys appended.
+};
 
 @Component({
     selector: 'pxb-create-account-account-created-step',
     template: `
-        <ng-container *ngIf="isEmpty(successContentEl)">
+        <ng-container *ngIf="!registrationSuccessScreen">
             <div class="mat-title pxb-auth-title" [innerHTML]="translate.CREATE_ACCOUNT.ACCOUNT_CREATED.TITLE"></div>
             <div class="pxb-auth-full-height" style="justify-content: center;">
                 <pxb-empty-state class="pxb-account-created-empty-state">
@@ -32,12 +38,11 @@ import { AUTH_ROUTES } from '../../../../auth/auth.routes';
                 </button>
             </div>
         </ng-container>
-        <div
-            #successContent
-            style="display: flex; flex-direction: column"
-            [style.flex]="isEmpty(successContentEl) ? '' : '1 1 0'"
-        >
-            <ng-template [ngTemplateOutlet]="registrationSuccessScreen"></ng-template>
+        <div style="display: flex; flex-direction: column" [style.flex]="!registrationSuccessScreen ? '' : '1 1 0'">
+            <ng-template
+                [ngTemplateOutlet]="registrationSuccessScreen"
+                [ngTemplateOutletContext]="registrationSuccessScreenContext"
+            ></ng-template>
         </div>
     `,
     styleUrls: ['./account-created.component.scss'],
@@ -45,11 +50,10 @@ import { AUTH_ROUTES } from '../../../../auth/auth.routes';
 export class PxbAccountCreatedComponent implements OnInit {
     @Input() userName;
     @Input() email;
-    @ViewChild('successContent') successContentEl: ElementRef;
-    @Input() registrationSuccessScreen: TemplateRef<any>;
+    @Input() registrationSuccessScreen: TemplateRef<RegistrationSuccessScreenContext>;
+    @Input() registrationSuccessScreenContext: RegistrationSuccessScreenContext;
 
     translate: PxbAuthTranslations;
-    isEmpty = (el: ElementRef): boolean => isEmptyView(el);
 
     constructor(
         private readonly _router: Router,

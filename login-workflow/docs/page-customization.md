@@ -93,6 +93,7 @@ For a more detailed explanation of how to add custom account details, check out 
 | customEmailValidator                     | Custom email regex requirements                                             | `ValidatorFn`       | 
 | registrationSuccessScreen                | Custom account registration success screen                                  | `TemplateRef`       | 
 
+> The `registrationSuccessScreen` TemplateRef has access to all form input values.  See the example project for more details. 
 
 ## Create Account via Invite 
 A user has received an email invite to create an account; this workflow can be split into the following steps:
