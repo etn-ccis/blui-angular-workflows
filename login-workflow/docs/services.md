@@ -36,6 +36,9 @@ constructor(pxbAuthConfig: PxbAuthConfig) {
 -   **allowDebugMode** (optional): _`boolean`_
     -   When true, presents a debug button on the login screen to allow access to deep link-based screens/flows
     -   Default: false
+-   **authGuardRedirectRoute** (optional) _`string`_
+    -   Whenever the PxbAuthGuard blocks navigation to an auth-protected page, navigate to this route.
+    -   Default: ''
 -   **backgroundImage** (optional): _`string`_
     -   Background image to be used within the auth workflow
 -   **contactEmail** (optional): _`string`_
@@ -82,26 +85,11 @@ constructor(pxbAuthConfig: PxbAuthConfig) {
     -   When true, shows the Remember Me option on the Login Page.
     -   Default: true
     
-## PxbAuthSecurityService 
 
-`PxbAuthSecurityService` is a service used to store authentication state.  Pages with the auth workflow will look to this service for information about a current user and their authentication state. 
-
-### Usage 
-
-```
-import { PxbAuthSecurityService, AUTH_ROUTE } from '@pxblue/angular-auth-workflow';
-
-constructor(private readonly _pxbSecurityService: PxbAuthSecurityService) {}
-
-logout(): void {
-   this._pxbSecurityService.updateSecurityState({ isAuthenticatedUser: false });
-   void this._router.navigate([AUTH_ROUTE]);
-}
-```
-   
 ## PxbAuthSecurityService
 
-`PxbAuthSecurityService` provides user authentication state and updates as a user logs in/out. Pages within the workflow use this service for info about whether or not a user is authenticated, check if an API call is happening, etc.  It is not meant to authenticate the user or hold credential information. 
+`PxbAuthSecurityService` stores user authentication state and updates as a user logs in/out. 
+Pages within the workflow use this service to check if a user is authenticated, check if an API call is happening, etc. 
 
 ### Usage
 

@@ -26,9 +26,17 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
+import { PreAuthComponent } from './pages/pre-auth/pre-auth.component';
 
 @NgModule({
-    declarations: [AppComponent, HomeComponent, AuthComponent, DashboardComponent, LoginErrorDialogComponent],
+    declarations: [
+        AppComponent,
+        PreAuthComponent,
+        HomeComponent,
+        AuthComponent,
+        DashboardComponent,
+        LoginErrorDialogComponent,
+    ],
     imports: [
         AppRoutingModule,
         BrowserModule,
