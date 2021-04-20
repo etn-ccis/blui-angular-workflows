@@ -10,10 +10,10 @@ import { PreAuthComponent } from './pages/pre-auth/pre-auth.component';
 // This feature only works if ivy is enabled.
 AUTH_ROUTES.AUTH_WORKFLOW = 'auth';
 AUTH_ROUTES.CONTACT_SUPPORT = 'assistance';
+AUTH_ROUTES.ON_AUTHENTICATED = 'home';
 
 const authWorkflowRoutes = getAuthSubRoutes();
 const routes: Routes = [
-    // { path: '', redirectTo: 'pre-auth', pathMatch: 'full' },
     { path: '', redirectTo: AUTH_ROUTES.AUTH_WORKFLOW, pathMatch: 'full' },
     { path: AUTH_ROUTES.AUTH_WORKFLOW, component: AuthComponent, children: authWorkflowRoutes },
     {

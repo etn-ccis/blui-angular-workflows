@@ -145,6 +145,7 @@ export class PxbAuthSecurityService {
             },
             loadingMessage: this.securityState.loadingMessage,
         });
+        void this._router.navigate([AUTH_ROUTES.ON_AUTHENTICATED]);
     }
 
     // If the user has been de-authenticated (either because they logged out or app started with no credentials),
