@@ -44,7 +44,7 @@ In your `app.routing.ts` config, add the auth-specific routes. `authSubRoutes` i
 The configuration below has the base URL redirect to the login screen. 
 All routes that require authentication can be protected using the `PxbAuthGuard`.  This guard will prevent routes from being accessed from unauthenticated users.  
 
-> By default, the `PxbAuthGuard` will redirect an unauthenticated user to the empty route; the redirect url can be configured in the `PxbAuthConfig` service. 
+> By default, the `PxbAuthGuard` will redirect an unauthenticated user to the `AUTH_ROUTES.AUTH_WORKFLOW` route. If you would like to redirect the users to a different screen, the destination url can be configured in the `PxbAuthConfig` service with the `authGuardRedirectRoute` property.
 
 In the example below, the `/home` route can only be accessed if a user is logged in.
 
