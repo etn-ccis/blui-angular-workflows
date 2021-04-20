@@ -85,23 +85,7 @@ constructor(pxbAuthConfig: PxbAuthConfig) {
     -   When true, shows the Remember Me option on the Login Page.
     -   Default: true
     
-## PxbAuthSecurityService 
 
-`PxbAuthSecurityService` is a service used to store authentication state.  Pages with the auth workflow will look to this service for information about a current user and their authentication state. 
-
-### Usage 
-
-```
-import { PxbAuthSecurityService, AUTH_ROUTE } from '@pxblue/angular-auth-workflow';
-
-constructor(private readonly _pxbSecurityService: PxbAuthSecurityService) {}
-
-logout(): void {
-   this._pxbSecurityService.updateSecurityState({ isAuthenticatedUser: false });
-   void this._router.navigate([AUTH_ROUTE]);
-}
-```
-   
 ## PxbAuthSecurityService
 
 `PxbAuthSecurityService` stores user authentication state and updates as a user logs in/out. 
