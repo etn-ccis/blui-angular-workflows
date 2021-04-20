@@ -67,7 +67,7 @@ const routes: Routes = [
 ];
 ```
 
-> If your project requires a custom pre-authentication/welcome screen, this can be supported by updating the root URL to redirect to your custom page instead of the `AUTH_ROUTES.AUTH_WORK` routes. 
+> If your project requires a custom pre-authentication/welcome screen, this can be supported by updating the root URL to redirect to your custom page instead of the `AUTH_ROUTES.AUTH_WORKFLOW` routes. 
 
 
 
