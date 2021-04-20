@@ -1,8 +1,13 @@
 import { Component } from '@angular/core';
 import { AbstractControl, ValidatorFn } from '@angular/forms';
-import { PxbAuthSecurityService, SecurityContext, PxbAuthConfig, AUTH_ROUTES } from '@pxblue/angular-auth-workflow';
+import {
+    PxbAuthSecurityService,
+    SecurityContext,
+    PxbAuthConfig,
+    AUTH_ROUTES,
+    PxbAuthUIService,
+} from '@pxblue/angular-auth-workflow';
 import { LocalStorageService } from './services/localStorage.service';
-import {PxbAuthUIService} from "../../../dist";
 
 @Component({
     selector: 'app-root',
@@ -13,7 +18,7 @@ export class AppComponent {
         private readonly pxbAuthUIService: PxbAuthUIService,
         private readonly pxbSecurityService: PxbAuthSecurityService,
         private readonly pxbAuthConfig: PxbAuthConfig,
-    private readonly localStorageService: LocalStorageService,
+        private readonly localStorageService: LocalStorageService
     ) {
         this._configurePxbAuthModule();
         this._listenForAuthStateChanges();
@@ -24,6 +29,7 @@ export class AppComponent {
         this.pxbAuthConfig.projectImage = 'assets/images/eaton_stacked_logo.png';
         this.pxbAuthConfig.backgroundImage = 'assets/images/background.svg';
         this.pxbAuthConfig.allowDebugMode = true;
+        this.pxbSecurityService.inferOnAuthenticatedRoute('');
         this.pxbAuthConfig.customEmailValidator = this._getCustomEmailValidator();
         this.pxbAuthConfig.customPasswordRequirements = [
             {

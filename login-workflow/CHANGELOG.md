@@ -8,9 +8,6 @@
 -  Added `registrationSuccessScreen` prop to `<pxb-create-account>` & `<pxb-create-account-invite>` component for success screen customization.
 -  Added `authGuardRedirectRoute` prop to `PxbAuthConfig`. 
 
-### Fixed
--  Fixed defect where `AUTH_ROUTES.ON_AUTHENTICATED` was not being automatically navigated to after a user logs in.
-
 ## v2.0.0 (March 31, 2021)
 
 ### Added

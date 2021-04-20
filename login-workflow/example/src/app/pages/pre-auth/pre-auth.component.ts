@@ -5,10 +5,11 @@ import { AUTH_ROUTES, PxbAuthSecurityService, SecurityContext } from '@pxblue/an
 @Component({
     selector: 'app-pre-auth',
     template: `
-        isAuthenticated?: {{isAuth}}
+        isAuthenticated?: {{ isAuth }}
         <br />
-        <button color="primary" (click)="router.navigate([routes.AUTH_WORKFLOW])" mat-stroked-button>Go Login</button>
-        <button color="primary" (click)="router.navigate(['/dashboard'])" mat-flat-button>Go Auth Guarded Page</button>
+        <button color="primary" (click)="goLogin()" mat-stroked-button>Go Login</button>
+        <button color="primary" (click)="goHome()" mat-stroked-button>Go Home</button>
+        <button color="primary" (click)="goDashboard()" mat-flat-button>Go Dashboard</button>
     `,
 })
 export class PreAuthComponent {
@@ -19,12 +20,23 @@ export class PreAuthComponent {
         this._listenForAuthStateChanges();
     }
 
+    goLogin(): void {
+        this.routes.ON_AUTHENTICATED = '';
+        void this.router.navigate([this.routes.AUTH_WORKFLOW]);
+    }
 
-    // When a user transitions between being logged in / logged out, update session information.
-    // This demo app stores session information in localStorage, this is just as a proof-of-concept.
+    goHome(): void {
+        this.routes.ON_AUTHENTICATED = '';
+        void this.router.navigate(['']);
+    }
+
+    goDashboard(): void {
+        this.routes.ON_AUTHENTICATED = 'dashboard';
+        void this.router.navigate(['/dashboard']);
+    }
+
     private _listenForAuthStateChanges(): void {
         this.pxbSecurityService.securityStateChanges().subscribe((state: SecurityContext) => {
-            console.log(state);
             this.isAuth = state.isAuthenticatedUser;
         });
     }
