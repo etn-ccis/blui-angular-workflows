@@ -38,7 +38,7 @@ constructor(pxbAuthConfig: PxbAuthConfig) {
     -   Default: false
 -   **authGuardRedirectRoute** (optional) _`string`_
     -   Whenever the PxbAuthGuard blocks navigation to an auth-protected page, navigate to this route.
-    -   Default: ''
+    -   Default: undefined
 -   **backgroundImage** (optional): _`string`_
     -   Background image to be used within the auth workflow
 -   **contactEmail** (optional): _`string`_

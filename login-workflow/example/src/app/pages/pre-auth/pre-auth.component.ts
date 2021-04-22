@@ -1,15 +1,43 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AUTH_ROUTES } from '@pxblue/angular-auth-workflow';
+import { AUTH_ROUTES, PxbAuthSecurityService, SecurityContext } from '@pxblue/angular-auth-workflow';
 
 @Component({
     selector: 'app-pre-auth',
     template: `
-        <button color="primary" (click)="router.navigate([routes.AUTH_WORKFLOW])" mat-stroked-button>Go Login</button>
-        <button color="primary" (click)="router.navigate(['/dashboard'])" mat-flat-button>Go Auth Guarded Page</button>
+        isAuthenticated?: {{ isAuth }}
+        <br />
+        <button color="primary" (click)="goLogin()" mat-stroked-button>Go Login</button>
+        <button color="primary" (click)="goHome()" mat-stroked-button>Go Home</button>
+        <button color="primary" (click)="goDashboard()" mat-flat-button>Go Dashboard</button>
     `,
 })
 export class PreAuthComponent {
+    isAuth = false;
     routes = AUTH_ROUTES;
-    constructor(public router: Router) {}
+
+    constructor(public router: Router, public pxbSecurityService: PxbAuthSecurityService) {
+        this._listenForAuthStateChanges();
+    }
+
+    goLogin(): void {
+        this.routes.ON_AUTHENTICATED = '';
+        void this.router.navigate([this.routes.AUTH_WORKFLOW]);
+    }
+
+    goHome(): void {
+        this.routes.ON_AUTHENTICATED = '';
+        void this.router.navigate(['']);
+    }
+
+    goDashboard(): void {
+        this.routes.ON_AUTHENTICATED = 'dashboard';
+        void this.router.navigate(['/dashboard']);
+    }
+
+    private _listenForAuthStateChanges(): void {
+        this.pxbSecurityService.securityStateChanges().subscribe((state: SecurityContext) => {
+            this.isAuth = state.isAuthenticatedUser;
+        });
+    }
 }

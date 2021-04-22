@@ -2,6 +2,8 @@
  
 ## v2.1.0 (not published)
 
+### Added 
+
 -  Added additional `pageTitle` and `pageInstructions` props onto `AccountDetails` for more customization during account registration.  
 -  Added `registrationSuccessScreen` prop to `<pxb-create-account>` & `<pxb-create-account-invite>` component for success screen customization.
 -  Added `authGuardRedirectRoute` prop to `PxbAuthConfig`. 
