@@ -12,6 +12,7 @@
     "lint:fix": "eslint \"src/**/**.ts\" --fix",
     "prettier": "prettier \"src/**/**.{ts,js,json,css,scss,html}\" --write",
     "prettier:check": "prettier \"src/**/**.{ts,js,json,css,scss,html}\" --check",
+    "publish:package": "set npm_config_yes=true && npx -p @pxblue/publish pxb-publish",
     "install:dependencies": "yarn && cd example && yarn",
     "link:workflow": "bash ./scripts/linkWorkflow.sh",
     "start:example": "yarn install:dependencies && yarn link:workflow && cd example && yarn start"
