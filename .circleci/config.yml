@@ -62,7 +62,7 @@ jobs:
       - run:
           name: Publish @pxblue/angular-auth-workflow
           command:  |
-            cd login-workflow/dist && yarn publish:package -b $CIRCLE_BRANCH
+            cd login-workflow && yarn publish:package -b $CIRCLE_BRANCH
 workflows:
   version: 2
   angular_workflows:
