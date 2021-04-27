@@ -73,6 +73,16 @@ The Login page is used to log in to an application; it is also a gateway to othe
 
 </div>
 
+<div style="overflow: auto;">
+
+|  ng-content                | Description                                                                 |
+| -------------------------- | --------------------------------------------------------------------------- |
+| `pxb-login-actions         | Custom content below the login button                                       | 
+| `pxb-login-footer`         | Custom footer content                                                       | 
+| `pxb-login-header`         | Custom header content                                                       | 
+
+</div>
+
 ## Create Account
 The Create Account page is used for self-registration via a link on the Login Page; this workflow can be split into the following steps:
 
