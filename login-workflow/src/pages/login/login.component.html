@@ -62,6 +62,8 @@
     </button>
 </div>
 
+<ng-content select="[pxb-login-actions]"></ng-content>
+
 <div
     *ngIf="debugMode && pxbAuthConfig.showResetPassword"
     color="primary"

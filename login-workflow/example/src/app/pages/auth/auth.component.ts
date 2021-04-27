@@ -21,6 +21,15 @@ import { Router } from '@angular/router';
                 <div pxb-login-footer style="text-align: center;">
                     <img src="assets/images/cybersecurity_certified.png" style="max-width: 30%; align-self: center;" />
                 </div>
+
+                <!--
+                <div pxb-login-actions style="text-align: center; margin-bottom: 24px">
+                    <button mat-stroked-button style="width: 100%">
+                        <mat-icon style="margin-right: 24px">mail_outline</mat-icon>
+                        Login with Gmail
+                    </button>
+                </div>
+                -->
             </pxb-login>
         </ng-template>
 
