@@ -1,12 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { PxbAccountCreatedComponent } from './existing-account.component';
+import { PxbExistingAccountComponent } from './existing-account.component';
 import { PxbCreateAccountStepsModule } from '../steps.module';
 import { RouterTestingModule } from '@angular/router/testing';
 import { By } from '@angular/platform-browser';
 
-describe('PxbAccountCreatedComponent', () => {
-    let component: PxbAccountCreatedComponent;
-    let fixture: ComponentFixture<PxbAccountCreatedComponent>;
+describe('PxbExistingAccountComponent', () => {
+    let component: PxbExistingAccountComponent;
+    let fixture: ComponentFixture<PxbExistingAccountComponent>;
 
     beforeEach(() => {
         void TestBed.configureTestingModule({
@@ -15,7 +15,7 @@ describe('PxbAccountCreatedComponent', () => {
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(PxbAccountCreatedComponent);
+        fixture = TestBed.createComponent(PxbExistingAccountComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
