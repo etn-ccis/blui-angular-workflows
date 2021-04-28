@@ -32,7 +32,7 @@
     </div>
 </ng-container>
 
-<ng-container *ngIf="isValidRegistrationLink">
+<ng-container *ngIf="isValidRegistrationLink && !isPXWhiteAccount">
     <pxb-create-account-eula-step
         *ngIf="registrationUtils.getCurrentPage() === 0 && isValidRegistrationLink"
         [(userAcceptsEula)]="userAcceptsEula"
@@ -104,4 +104,11 @@
             </pxb-mobile-stepper>
         </div>
     </ng-container>
+</ng-container>
+
+
+<ng-container *ngIf="isValidRegistrationLink && isPXWhiteAccount">
+    <pxb-create-account-account-existing-step
+        [registrationSuccessScreen]="registrationSuccessScreen">
+    </pxb-create-account-account-existing-step>
 </ng-container>
