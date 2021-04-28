@@ -4,7 +4,6 @@ import {
     PxbAuthSecurityService,
     SecurityContext,
     PxbAuthConfig,
-    AUTH_ROUTES,
     PxbAuthUIService,
 } from '@pxblue/angular-auth-workflow';
 import { LocalStorageService } from './services/localStorage.service';

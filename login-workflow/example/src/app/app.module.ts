@@ -27,7 +27,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { PreAuthComponent } from './pages/pre-auth/pre-auth.component';
-import { PxbCreateAccountInviteModule } from '../../../src';
 
 @NgModule({
     declarations: [
@@ -54,7 +53,6 @@ import { PxbCreateAccountInviteModule } from '../../../src';
         MatToolbarModule,
         PxbAuthModule,
         ReactiveFormsModule,
-        PxbCreateAccountInviteModule,
     ],
     providers: [
         {
