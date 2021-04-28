@@ -106,9 +106,7 @@
     </ng-container>
 </ng-container>
 
-
 <ng-container *ngIf="isValidRegistrationLink && isPXWhiteAccount">
-    <pxb-create-account-account-existing-step
-        [registrationSuccessScreen]="registrationSuccessScreen">
+    <pxb-create-account-account-existing-step [registrationSuccessScreen]="existingAccountSuccessScreen">
     </pxb-create-account-account-existing-step>
 </ng-container>

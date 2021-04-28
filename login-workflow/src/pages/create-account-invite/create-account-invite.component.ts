@@ -25,6 +25,7 @@ const ACCOUNT_DETAILS_STARTING_PAGE = 2;
 export class PxbCreateAccountInviteComponent implements OnInit, OnDestroy {
     @Input() accountDetails: AccountDetails[] = [];
     @Input() registrationSuccessScreen: TemplateRef<any>;
+    @Input() existingAccountSuccessScreen: TemplateRef<any>;
 
     @ViewChild('registrationLinkErrorTitleVC') registrationLinkErrorTitleEl;
     @ViewChild('registrationLinkErrorDescVC') registrationLinkErrorDescEl;

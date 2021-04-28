@@ -108,6 +108,7 @@ A user has received an email invite to create an account; this workflow can be s
 | @Input                                   | Description                                                                 | Type                
 | ---------------------------------------- | --------------------------------------------------------------------------- | ------------------- |
 | accountDetails                           | Custom form controls used for self-registration                             | `AccountDetails[]`  | 
+| existingAccountSuccessScreen             | Custom account registration success screen when account already exists      | `TemplateRef`       | 
 | registrationSuccessScreen                | Custom account registration success screen                                  | `TemplateRef`       | 
 
 </div>

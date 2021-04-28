@@ -44,7 +44,10 @@ import { Router } from '@angular/router';
                     >
                 </div>
                 <div style="margin: 0 24px">
-                    <div class="mat-display-1" style="margin-bottom: 24px">Welcome, {{ firstName }}!</div>
+                    <div *ngIf="firstName" class="mat-display-1" style="margin-bottom: 24px">
+                        Welcome, {{ firstName }}!
+                    </div>
+                    <div *ngIf="!firstName" class="mat-display-1" style="margin-bottom: 24px">Welcome!</div>
                     <div class="mat-h4">Your account has been successfully created.</div>
                     <div class="mat-h4">This is a custom success screen.</div>
                     <div class="mat-h4">Press the button below to continue.</div>
@@ -70,7 +73,11 @@ import { Router } from '@angular/router';
 
         <!-- Custom Create Account page -->
         <ng-template #createAccountViaInvitePage>
-            <pxb-create-account-invite #createAccountInviteVC [accountDetails]="accountDetails">
+            <pxb-create-account-invite
+                #createAccountInviteVC
+                [accountDetails]="accountDetails"
+                [existingAccountSuccessScreen]="registrationSuccessScreen"
+            >
             </pxb-create-account-invite>
         </ng-template>
 

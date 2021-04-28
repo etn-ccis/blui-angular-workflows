@@ -127,8 +127,9 @@ export const pxbAuthFrenchTranslations: PxbAuthTranslations = {
         },
         ACCOUNT_EXISTING: {
             TITLE: 'Account Created',
-            WELCOME_MESSAGE_DESCRIPTION: 'Your account has been successfully created. Please log in with your Eaton account email and password.',
-            WELCOME_MESSAGE_TITLE: 'Welcome'
-        }
+            WELCOME_MESSAGE_DESCRIPTION:
+                'Your account has been successfully created. Please log in with your Eaton account email and password.',
+            WELCOME_MESSAGE_TITLE: 'Welcome',
+        },
     },
 };

@@ -12,14 +12,10 @@ import { AUTH_ROUTES } from '../../../../auth/auth.routes';
             <div class="pxb-auth-full-height" style="justify-content: center;">
                 <pxb-empty-state class="pxb-account-existing-empty-state">
                     <div pxb-title>
-                        <div
-                            [innerHTML]="translate.CREATE_ACCOUNT.ACCOUNT_EXISTING.WELCOME_MESSAGE_TITLE"
-                        ></div>
+                        <div [innerHTML]="translate.CREATE_ACCOUNT.ACCOUNT_EXISTING.WELCOME_MESSAGE_TITLE"></div>
                     </div>
                     <div pxb-description>
-                        <div
-                            [innerHTML]="translate.CREATE_ACCOUNT.ACCOUNT_EXISTING.WELCOME_MESSAGE_DESCRIPTION"
-                        ></div>
+                        <div [innerHTML]="translate.CREATE_ACCOUNT.ACCOUNT_EXISTING.WELCOME_MESSAGE_DESCRIPTION"></div>
                     </div>
                     <mat-icon pxb-empty-icon class="pxb-account-created-icon" color="primary">check_circle</mat-icon>
                 </pxb-empty-state>
@@ -32,9 +28,7 @@ import { AUTH_ROUTES } from '../../../../auth/auth.routes';
             </div>
         </ng-container>
         <div style="display: flex; flex-direction: column" [style.flex]="!registrationSuccessScreen ? '' : '1 1 0'">
-            <ng-template
-                [ngTemplateOutlet]="registrationSuccessScreen"
-            ></ng-template>
+            <ng-template [ngTemplateOutlet]="registrationSuccessScreen"></ng-template>
         </div>
     `,
     styleUrls: ['./existing-account.component.scss'],
