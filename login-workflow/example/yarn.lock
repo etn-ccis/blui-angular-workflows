@@ -1188,14 +1188,14 @@
     mkdirp "^1.0.4"
     rimraf "^3.0.2"
 
-"@pxblue/angular-components@^4.2.0":
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/@pxblue/angular-components/-/angular-components-4.2.0.tgz#337b50011bc0391a390bb14f1284ac7b97d7b2ab"
-  integrity sha512-fM6OVQDrX8hexzq5S7ZHe7kMs1iW08tk/2LyXp6rRdVZSMHsEdRd0Aejq/RIqtoo75A7yU/sdeeSi1J+5rWKsQ==
+"@pxblue/angular-components@^4.3.0":
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/@pxblue/angular-components/-/angular-components-4.3.0.tgz#34e80485888becb02e56d3e41a90a8818d2d6be0"
+  integrity sha512-5evW0l7qA/9YT12A0FCc7IwL3DpOLF37rgwbuMmzK94fIXIzJ+WGWOYmQSCevzTK9i//r+3yAz4Jk2TDYQjiRg==
   dependencies:
     tslib "^2.0.0"
 
-"@pxblue/angular-themes@^6.0.1":
+"@pxblue/angular-themes@^6.0.3":
   version "6.0.3"
   resolved "https://registry.yarnpkg.com/@pxblue/angular-themes/-/angular-themes-6.0.3.tgz#e502219dacaf0973bb2211277dfcf119fb40ebd6"
   integrity sha512-yNjhRQZCRQI9n1a3mz81e75A5iv6NHesg0xhzONEI7Ondfgzj54ZZHiqs4n+IS2gNjKojNHZBmgGmJS+yeowIw==

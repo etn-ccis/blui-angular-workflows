@@ -32,9 +32,7 @@ import { AUTH_ROUTES } from '../../../../auth/auth.routes';
         <div style="display: flex; flex-direction: column" [style.flex]="!registrationSuccessScreen ? '' : '1 1 0'">
             <ng-template [ngTemplateOutlet]="registrationSuccessScreen"></ng-template>
         </div>
-    `,
-    styleUrls: ['./existing-account.component.scss'],
-})
+`})
 export class PxbExistingAccountComponent implements OnInit {
     @Input() email;
     @Input() registrationSuccessScreen: TemplateRef<any>;
