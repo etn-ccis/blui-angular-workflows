@@ -44,7 +44,7 @@ export type RegistrationSuccessScreenContext = {
                 [ngTemplateOutletContext]="registrationSuccessScreenContext"
             ></ng-template>
         </div>
-    `
+    `,
 })
 export class PxbAccountCreatedComponent implements OnInit {
     @Input() userName;
