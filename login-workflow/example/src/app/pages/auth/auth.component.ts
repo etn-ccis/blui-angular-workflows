@@ -86,7 +86,7 @@ import { Router } from '@angular/router';
                     </div>
                     <div *ngIf="!firstName" class="mat-display-1" style="margin-bottom: 24px">Welcome!</div>
                     <div class="mat-h4">It looks like the account created with email xxx already exists. Please click continue to log in.</div>
-                    <div class="mat-h4"> If you think this is a mistake, please contact help@eaton.com</div>
+                    <div class="mat-h4"> If you think this is a mistake, please contact xxx</div>
                 </div>
             </div>
             <mat-divider class="pxb-auth-divider" style="margin-bottom: 16px;"></mat-divider>
