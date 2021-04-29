@@ -1,91 +1,97 @@
 <ng-container *ngIf="!isPXWhiteAccount">
-<pxb-create-account-provide-email-step
-    *ngIf="registrationUtils.getCurrentPage() === 0"
-    [(email)]="email"
-    [(isValidEmail)]="isValidEmail"
-    [customEmailValidator]="getCustomEmailValidator()"
-    (advance)="attemptContinue()"
-></pxb-create-account-provide-email-step>
+    <pxb-create-account-provide-email-step
+        *ngIf="registrationUtils.getCurrentPage() === 0"
+        [(email)]="email"
+        [(isValidEmail)]="isValidEmail"
+        [customEmailValidator]="getCustomEmailValidator()"
+        (advance)="attemptContinue()"
+    ></pxb-create-account-provide-email-step>
 
-<pxb-create-account-eula-step
-    *ngIf="registrationUtils.getCurrentPage() === 1"
-    [(userAcceptsEula)]="userAcceptsEula"
-></pxb-create-account-eula-step>
+    <pxb-create-account-eula-step
+        *ngIf="registrationUtils.getCurrentPage() === 1"
+        [(userAcceptsEula)]="userAcceptsEula"
+    ></pxb-create-account-eula-step>
 
-<pxb-create-account-verify-email-step
-    *ngIf="registrationUtils.getCurrentPage() === 2"
-    [email]="email"
-    [(verificationCode)]="verificationCode"
-    (advance)="attemptContinue()"
-></pxb-create-account-verify-email-step>
+    <pxb-create-account-verify-email-step
+        *ngIf="registrationUtils.getCurrentPage() === 2"
+        [email]="email"
+        [(verificationCode)]="verificationCode"
+        (advance)="attemptContinue()"
+    ></pxb-create-account-verify-email-step>
 
-<pxb-create-account-create-password-step
-    *ngIf="registrationUtils.getCurrentPage() === 3"
-    [(password)]="password"
-    [(passwordMeetsRequirements)]="passwordMeetsRequirements"
-    (advance)="attemptContinue()"
-></pxb-create-account-create-password-step>
+    <pxb-create-account-create-password-step
+        *ngIf="registrationUtils.getCurrentPage() === 3"
+        [(password)]="password"
+        [(passwordMeetsRequirements)]="passwordMeetsRequirements"
+        (advance)="attemptContinue()"
+    ></pxb-create-account-create-password-step>
 
-<!-- First Account Details Page -->
-<pxb-create-account-account-details-step
-    *ngIf="registrationUtils.isFirstAccountDetailsPage()"
-    [showDefaultAccountDetails]="true"
-    [(firstName)]="firstName"
-    [(lastName)]="lastName"
-    [pageTitle]="accountDetails[0]?.pageTitle"
-    [pageInstructions]="accountDetails[0]?.pageInstructions"
-    (accountNameValid)="validAccountName = $event"
-    (advance)="attemptContinue()"
->
-    <template pxb-account-details [ngTemplateOutlet]="registrationUtils.getCustomAccountDetailsTemplate()"></template>
-</pxb-create-account-account-details-step>
+    <!-- First Account Details Page -->
+    <pxb-create-account-account-details-step
+        *ngIf="registrationUtils.isFirstAccountDetailsPage()"
+        [showDefaultAccountDetails]="true"
+        [(firstName)]="firstName"
+        [(lastName)]="lastName"
+        [pageTitle]="accountDetails[0]?.pageTitle"
+        [pageInstructions]="accountDetails[0]?.pageInstructions"
+        (accountNameValid)="validAccountName = $event"
+        (advance)="attemptContinue()"
+    >
+        <template
+            pxb-account-details
+            [ngTemplateOutlet]="registrationUtils.getCustomAccountDetailsTemplate()"
+        ></template>
+    </pxb-create-account-account-details-step>
 
-<!-- Custom Account Details Pages -->
-<pxb-create-account-account-details-step
-    *ngIf="registrationUtils.isCustomAccountsDetailsPage()"
-    [pageTitle]="registrationUtils.getCustomAccountDetailsTitle()"
-    [pageInstructions]="registrationUtils.getCustomAccountDetailsInstructions()"
->
-    <template pxb-account-details [ngTemplateOutlet]="registrationUtils.getCustomAccountDetailsTemplate()"></template>
-</pxb-create-account-account-details-step>
+    <!-- Custom Account Details Pages -->
+    <pxb-create-account-account-details-step
+        *ngIf="registrationUtils.isCustomAccountsDetailsPage()"
+        [pageTitle]="registrationUtils.getCustomAccountDetailsTitle()"
+        [pageInstructions]="registrationUtils.getCustomAccountDetailsInstructions()"
+    >
+        <template
+            pxb-account-details
+            [ngTemplateOutlet]="registrationUtils.getCustomAccountDetailsTemplate()"
+        ></template>
+    </pxb-create-account-account-details-step>
 
-<pxb-create-account-account-created-step
-    *ngIf="registrationUtils.showAccountCreatedPage()"
-    [userName]="getUserName()"
-    [email]="email"
-    [registrationSuccessScreen]="registrationSuccessScreen"
-    [registrationSuccessScreenContext]="registrationSuccessScreenContext"
-></pxb-create-account-account-created-step>
+    <pxb-create-account-account-created-step
+        *ngIf="registrationUtils.showAccountCreatedPage()"
+        [userName]="getUserName()"
+        [email]="email"
+        [registrationSuccessScreen]="registrationSuccessScreen"
+        [registrationSuccessScreenContext]="registrationSuccessScreenContext"
+    ></pxb-create-account-account-created-step>
 
-<ng-container *ngIf="!registrationUtils.showAccountCreatedPage()">
-    <mat-divider class="pxb-auth-divider" style="margin-bottom: 16px;"></mat-divider>
-    <div class="pxb-auth-action-button-container">
-        <pxb-mobile-stepper
-            [steps]="registrationUtils.getNumberOfSteps()"
-            [activeStep]="registrationUtils.getCurrentPage()"
-        >
-            <button pxb-back-button mat-stroked-button color="primary" style="width: 100px;" (click)="goBack()">
-                {{ translate.GENERAL.BACK_BUTTON }}
-            </button>
-            <button
-                pxb-next-button
-                mat-flat-button
-                color="primary"
-                style="width: 100px;"
-                [disabled]="!canContinue()"
-                (click)="goNext()"
+    <ng-container *ngIf="!registrationUtils.showAccountCreatedPage()">
+        <mat-divider class="pxb-auth-divider" style="margin-bottom: 16px;"></mat-divider>
+        <div class="pxb-auth-action-button-container">
+            <pxb-mobile-stepper
+                [steps]="registrationUtils.getNumberOfSteps()"
+                [activeStep]="registrationUtils.getCurrentPage()"
             >
-                {{ translate.GENERAL.NEXT_BUTTON }}
-            </button>
-        </pxb-mobile-stepper>
-    </div>
-</ng-container>
-
+                <button pxb-back-button mat-stroked-button color="primary" style="width: 100px;" (click)="goBack()">
+                    {{ translate.GENERAL.BACK_BUTTON }}
+                </button>
+                <button
+                    pxb-next-button
+                    mat-flat-button
+                    color="primary"
+                    style="width: 100px;"
+                    [disabled]="!canContinue()"
+                    (click)="goNext()"
+                >
+                    {{ translate.GENERAL.NEXT_BUTTON }}
+                </button>
+            </pxb-mobile-stepper>
+        </div>
+    </ng-container>
 </ng-container>
 
 <ng-container *ngIf="isPXWhiteAccount">
     <pxb-create-account-account-existing-step
         [email]="email"
-        [registrationSuccessScreen]="existingAccountSuccessScreen">
+        [registrationSuccessScreen]="existingAccountSuccessScreen"
+    >
     </pxb-create-account-account-existing-step>
 </ng-container>

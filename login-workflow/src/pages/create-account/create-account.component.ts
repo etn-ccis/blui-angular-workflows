@@ -39,7 +39,6 @@ export class PxbCreateAccountComponent implements OnDestroy {
     isValidVerificationCode = true;
     isPXWhiteAccount: boolean;
 
-
     // Provide Email Page
     email: string;
     isValidEmail: boolean;

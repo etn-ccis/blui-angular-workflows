@@ -77,7 +77,7 @@ import { Router } from '@angular/router';
                         font-size: 48px;
                         width: 48px;
                         margin-bottom: 24px"
-                    >person</mat-icon
+                        >person</mat-icon
                     >
                 </div>
                 <div style="margin: 0 24px">
