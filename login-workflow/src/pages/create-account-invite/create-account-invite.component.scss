@@ -13,9 +13,4 @@ pxb-create-account-account-existing-step {
     flex-direction: column;
     flex: 1 1 0;
     justify-content: center;
-    ::ng-deep {
-        .pxb-empty-state-description {
-            color: inherit;
-        }
-    }
 }
