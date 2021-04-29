@@ -1,3 +1,4 @@
+<ng-container *ngIf="!isPXWhiteAccount">
 <pxb-create-account-provide-email-step
     *ngIf="registrationUtils.getCurrentPage() === 0"
     [(email)]="email"
@@ -78,4 +79,13 @@
             </button>
         </pxb-mobile-stepper>
     </div>
+</ng-container>
+
+</ng-container>
+
+<ng-container *ngIf="isPXWhiteAccount">
+    <pxb-create-account-account-existing-step
+        [email]="email"
+        [registrationSuccessScreen]="existingAccountSuccessScreen">
+    </pxb-create-account-account-existing-step>
 </ng-container>

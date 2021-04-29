@@ -15,7 +15,7 @@ import { AUTH_ROUTES } from '../../../../auth/auth.routes';
                         <div [innerHTML]="translate.CREATE_ACCOUNT.ACCOUNT_EXISTING.WELCOME_MESSAGE_TITLE"></div>
                     </div>
                     <div pxb-description>
-                        <div [innerHTML]="translate.CREATE_ACCOUNT.ACCOUNT_EXISTING.WELCOME_MESSAGE_DESCRIPTION"></div>
+                        <div [innerHTML]="translate.CREATE_ACCOUNT.ACCOUNT_EXISTING.WELCOME_MESSAGE_DESCRIPTION(email)"></div>
                     </div>
                     <mat-icon pxb-empty-icon class="pxb-account-created-icon" color="primary">check_circle</mat-icon>
                 </pxb-empty-state>
@@ -34,7 +34,6 @@ import { AUTH_ROUTES } from '../../../../auth/auth.routes';
     styleUrls: ['./existing-account.component.scss'],
 })
 export class PxbExistingAccountComponent implements OnInit {
-    @Input() userName;
     @Input() email;
     @Input() registrationSuccessScreen: TemplateRef<any>;
 

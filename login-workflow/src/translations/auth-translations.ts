@@ -99,7 +99,7 @@ export type PxbAuthTranslations = {
         };
         ACCOUNT_EXISTING: {
             TITLE: string;
-            WELCOME_MESSAGE_DESCRIPTION: string;
+            WELCOME_MESSAGE_DESCRIPTION: (email: string) => string;
             WELCOME_MESSAGE_TITLE: string;
         };
     };

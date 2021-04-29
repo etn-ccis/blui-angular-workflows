@@ -89,8 +89,9 @@ For a more detailed explanation of how to add custom account details, check out 
 
 | @Input                                   | Description                                                                 | Type                | 
 | ---------------------------------------- | --------------------------------------------------------------------------- | ------------------- |    
-| accountDetails                           | Custom form controls used for self-registration                             | `AccountDetails[]`  |   
-| customEmailValidator                     | Custom email regex requirements                                             | `ValidatorFn`       | 
+| accountDetails                           | Custom form controls used for self-registration                             | `AccountDetails[]`  |
+| customEmailValidator                     | Custom email regex requirements                                             | `ValidatorFn`       |
+| existingAccountSuccessScreen             | Custom account registration success screen when account already exists      | `TemplateRef`       |
 | registrationSuccessScreen                | Custom account registration success screen                                  | `TemplateRef`       | 
 
 > The `registrationSuccessScreen` TemplateRef has access to all form input values.  See the example project for more details. 
