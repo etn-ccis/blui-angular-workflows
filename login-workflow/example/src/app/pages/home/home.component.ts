@@ -11,6 +11,7 @@ export class HomeComponent {
     constructor(
         private readonly _router: Router,
         private readonly _pxbSecurityService: PxbAuthSecurityService,
+        public pxbSecurityService: PxbAuthSecurityService,
         public readonly _pxbChangePasswordService: PxbChangePasswordDialogService
     ) {}
 

@@ -125,5 +125,15 @@ export const pxbAuthEnglishTranslations: PxbAuthTranslations = {
             },
             CONTINUE_BUTTON: 'Continue',
         },
+        ACCOUNT_EXISTING: {
+            TITLE: 'Account Created',
+            WELCOME_MESSAGE_TITLE: 'Welcome',
+            WELCOME_MESSAGE_DESCRIPTION: (email: string): string => {
+                const firstSentence = email
+                    ? `Your account has been successfully created with the email ${email}.`
+                    : `Your account has been successfully created.`;
+                return `${firstSentence} Please log in with your Eaton account email and password.`;
+            },
+        },
     },
 };

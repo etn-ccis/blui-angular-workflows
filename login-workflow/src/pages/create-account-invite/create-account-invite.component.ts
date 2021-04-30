@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AUTH_ROUTES } from '../../auth/auth.routes';
@@ -13,6 +13,7 @@ import { PxbAuthTranslations } from '../../translations/auth-translations';
 import { CreateAccountService } from '../create-account/create-account.service';
 import { AccountDetails } from '../create-account/create-account.component';
 import { isEmptyView } from '../../util/view-utils';
+import { RegistrationSuccessScreenContext } from '../create-account/steps/account-created/account-created.component';
 
 const ACCOUNT_DETAILS_STARTING_PAGE = 2;
 
@@ -23,12 +24,15 @@ const ACCOUNT_DETAILS_STARTING_PAGE = 2;
 })
 export class PxbCreateAccountInviteComponent implements OnInit, OnDestroy {
     @Input() accountDetails: AccountDetails[] = [];
+    @Input() registrationSuccessScreen: TemplateRef<any>;
+    @Input() existingAccountSuccessScreen: TemplateRef<any>;
 
     @ViewChild('registrationLinkErrorTitleVC') registrationLinkErrorTitleEl;
     @ViewChild('registrationLinkErrorDescVC') registrationLinkErrorDescEl;
 
     isLoading: boolean;
     isValidRegistrationLink: boolean;
+    isPXWhiteAccount: boolean;
 
     // EULA Page
     userAcceptsEula: boolean;
@@ -46,6 +50,8 @@ export class PxbCreateAccountInviteComponent implements OnInit, OnDestroy {
     registrationUtils: CreateAccountService;
     isEmpty = (el: ElementRef): boolean => isEmptyView(el);
     translate: PxbAuthTranslations;
+
+    registrationSuccessScreenContext: RegistrationSuccessScreenContext;
 
     constructor(
         private readonly _router: Router,
@@ -74,9 +80,10 @@ export class PxbCreateAccountInviteComponent implements OnInit, OnDestroy {
         this._pxbSecurityService.setLoading(true);
         this._pxbRegisterService
             .validateUserRegistrationRequest()
-            .then(() => {
+            .then((registrationComplete) => {
                 this._pxbSecurityService.setLoading(false);
                 this.isValidRegistrationLink = true;
+                this.isPXWhiteAccount = registrationComplete;
             })
             .catch((data: ErrorDialogData) => {
                 this._pxbErrorDialogService.openDialog(data);
@@ -87,15 +94,20 @@ export class PxbCreateAccountInviteComponent implements OnInit, OnDestroy {
 
     registerAccount(): void {
         this._pxbSecurityService.setLoading(true);
+        const customForms = this.registrationUtils.getAccountDetailsCustomValues();
         this._pxbRegisterService
-            .completeRegistration(
-                this.firstName,
-                this.lastName,
-                this.registrationUtils.getAccountDetailsCustomValues(),
-                this.password
-            )
+            .completeRegistration(this.firstName, this.lastName, customForms, this.password)
             .then(() => {
                 this._pxbSecurityService.setLoading(false);
+                this.registrationSuccessScreenContext = {
+                    email: undefined,
+                    firstName: this.firstName,
+                    lastName: this.lastName,
+                };
+                for (const key of customForms.keys()) {
+                    this.registrationSuccessScreenContext[key] = customForms.get(key).value;
+                }
+                this.registrationUtils.clearAccountDetails();
                 this.registrationUtils.nextStep();
             })
             .catch((data: ErrorDialogData) => {

@@ -73,6 +73,16 @@ The Login page is used to log in to an application; it is also a gateway to othe
 
 </div>
 
+<div style="overflow: auto;">
+
+|  ng-content                | Description                                                                 |
+| -------------------------- | --------------------------------------------------------------------------- |
+| `pxb-login-actions         | Custom content below the login button                                       | 
+| `pxb-login-footer`         | Custom footer content                                                       | 
+| `pxb-login-header`         | Custom header content                                                       | 
+
+</div>
+
 ## Create Account
 The Create Account page is used for self-registration via a link on the Login Page; this workflow can be split into the following steps:
 
@@ -89,9 +99,12 @@ For a more detailed explanation of how to add custom account details, check out 
 
 | @Input                                   | Description                                                                 | Type                | 
 | ---------------------------------------- | --------------------------------------------------------------------------- | ------------------- |    
-| accountDetails                           | Custom form controls used for self-registration                             | `AccountDetails[]`  |   
-| customEmailValidator                     | Custom email regex requirements                                             | `ValidatorFn`       | 
+| accountDetails                           | Custom form controls used for self-registration                             | `AccountDetails[]`  |
+| customEmailValidator                     | Custom email regex requirements                                             | `ValidatorFn`       |
+| existingAccountSuccessScreen             | Custom account registration success screen when account already exists      | `TemplateRef`       |
+| registrationSuccessScreen                | Custom account registration success screen                                  | `TemplateRef`       | 
 
+> The `registrationSuccessScreen` TemplateRef has access to all form input values.  See the example project for more details. 
 
 ## Create Account via Invite 
 A user has received an email invite to create an account; this workflow can be split into the following steps:
@@ -106,6 +119,8 @@ A user has received an email invite to create an account; this workflow can be s
 | @Input                                   | Description                                                                 | Type                
 | ---------------------------------------- | --------------------------------------------------------------------------- | ------------------- |
 | accountDetails                           | Custom form controls used for self-registration                             | `AccountDetails[]`  | 
+| existingAccountSuccessScreen             | Custom account registration success screen when account already exists      | `TemplateRef`       | 
+| registrationSuccessScreen                | Custom account registration success screen                                  | `TemplateRef`       | 
 
 </div>
 
@@ -113,7 +128,7 @@ A user has received an email invite to create an account; this workflow can be s
 
 |  ng-content                                 | Description                                                                 |
 | ------------------------------------------- | --------------------------------------------------------------------------- |
-| `pxb-registration-link-error-title`         | Error state title seen when the registration  link is invalid               | 
+| `pxb-registration-link-error-title`         | Error state title seen when the registration link is invalid                | 
 | `pxb-registration-link-error-description`   | Error state description seen when the registration link is invalid          | 
 
 </div>

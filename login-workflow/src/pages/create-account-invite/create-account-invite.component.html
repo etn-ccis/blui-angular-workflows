@@ -32,7 +32,7 @@
     </div>
 </ng-container>
 
-<ng-container *ngIf="isValidRegistrationLink">
+<ng-container *ngIf="isValidRegistrationLink && !isPXWhiteAccount">
     <pxb-create-account-eula-step
         *ngIf="registrationUtils.getCurrentPage() === 0 && isValidRegistrationLink"
         [(userAcceptsEula)]="userAcceptsEula"
@@ -51,6 +51,8 @@
         [showDefaultAccountDetails]="true"
         [(firstName)]="firstName"
         [(lastName)]="lastName"
+        [pageTitle]="accountDetails[0]?.pageTitle"
+        [pageInstructions]="accountDetails[0]?.pageInstructions"
         (accountNameValid)="validAccountName = $event"
         (advance)="attemptContinue()"
     >
@@ -61,7 +63,11 @@
     </pxb-create-account-account-details-step>
 
     <!-- Custom Account Details Pages -->
-    <pxb-create-account-account-details-step *ngIf="registrationUtils.isCustomAccountsDetailsPage()">
+    <pxb-create-account-account-details-step
+        *ngIf="registrationUtils.isCustomAccountsDetailsPage()"
+        [pageTitle]="registrationUtils.getCustomAccountDetailsTitle()"
+        [pageInstructions]="registrationUtils.getCustomAccountDetailsInstructions()"
+    >
         <template
             pxb-account-details
             [ngTemplateOutlet]="registrationUtils.getCustomAccountDetailsTemplate()"
@@ -71,11 +77,13 @@
     <pxb-create-account-account-created-step
         *ngIf="registrationUtils.showAccountCreatedPage()"
         [userName]="getUserName()"
+        [registrationSuccessScreen]="registrationSuccessScreen"
+        [registrationSuccessScreenContext]="registrationSuccessScreenContext"
     ></pxb-create-account-account-created-step>
 
-    <mat-divider class="pxb-auth-divider" style="margin-bottom: 16px;"></mat-divider>
-    <div class="pxb-auth-action-button-container">
-        <ng-container *ngIf="!registrationUtils.showAccountCreatedPage()">
+    <ng-container *ngIf="!registrationUtils.showAccountCreatedPage()">
+        <mat-divider class="pxb-auth-divider" style="margin-bottom: 16px;"></mat-divider>
+        <div class="pxb-auth-action-button-container">
             <pxb-mobile-stepper
                 [steps]="registrationUtils.getNumberOfSteps()"
                 [activeStep]="registrationUtils.getCurrentPage()"
@@ -94,15 +102,11 @@
                     {{ translate.GENERAL.NEXT_BUTTON }}
                 </button>
             </pxb-mobile-stepper>
-        </ng-container>
-        <button
-            *ngIf="registrationUtils.showAccountCreatedPage()"
-            mat-flat-button
-            color="primary"
-            (click)="navigateToLogin()"
-            style="width: 100%"
-        >
-            {{ translate.CREATE_ACCOUNT.ACCOUNT_CREATED.CONTINUE_BUTTON }}
-        </button>
-    </div>
+        </div>
+    </ng-container>
+</ng-container>
+
+<ng-container *ngIf="isValidRegistrationLink && isPXWhiteAccount">
+    <pxb-create-account-account-existing-step [registrationSuccessScreen]="existingAccountSuccessScreen">
+    </pxb-create-account-account-existing-step>
 </ng-container>

@@ -4,28 +4,19 @@ import { PxbAuthConfig } from '../../../../services/config/auth-config';
 import { PxbAuthTranslations } from '../../../../translations/auth-translations';
 import { AUTH_ROUTES } from '../../../../auth/auth.routes';
 
-export type RegistrationSuccessScreenContext = {
-    firstName: string;
-    lastName: string;
-    email: string;
-    //... Custom form keys appended.
-};
-
 @Component({
-    selector: 'pxb-create-account-account-created-step',
+    selector: 'pxb-create-account-account-existing-step',
     template: `
         <ng-container *ngIf="!registrationSuccessScreen">
-            <div class="mat-title pxb-auth-title" [innerHTML]="translate.CREATE_ACCOUNT.ACCOUNT_CREATED.TITLE"></div>
+            <div class="mat-title pxb-auth-title" [innerHTML]="translate.CREATE_ACCOUNT.ACCOUNT_EXISTING.TITLE"></div>
             <div class="pxb-auth-full-height" style="justify-content: center;">
-                <pxb-empty-state class="pxb-account-created-empty-state">
+                <pxb-empty-state class="pxb-account-existing-empty-state">
                     <div pxb-title>
-                        <div
-                            [innerHTML]="translate.CREATE_ACCOUNT.ACCOUNT_CREATED.WELCOME_MESSAGE_TITLE(userName)"
-                        ></div>
+                        <div [innerHTML]="translate.CREATE_ACCOUNT.ACCOUNT_EXISTING.WELCOME_MESSAGE_TITLE"></div>
                     </div>
                     <div pxb-description>
                         <div
-                            [innerHTML]="translate.CREATE_ACCOUNT.ACCOUNT_CREATED.WELCOME_MESSAGE_DESCRIPTION(email)"
+                            [innerHTML]="translate.CREATE_ACCOUNT.ACCOUNT_EXISTING.WELCOME_MESSAGE_DESCRIPTION(email)"
                         ></div>
                     </div>
                     <mat-icon pxb-empty-icon class="pxb-account-created-icon" color="primary">check_circle</mat-icon>
@@ -39,18 +30,13 @@ export type RegistrationSuccessScreenContext = {
             </div>
         </ng-container>
         <div style="display: flex; flex-direction: column" [style.flex]="!registrationSuccessScreen ? '' : '1 1 0'">
-            <ng-template
-                [ngTemplateOutlet]="registrationSuccessScreen"
-                [ngTemplateOutletContext]="registrationSuccessScreenContext"
-            ></ng-template>
+            <ng-template [ngTemplateOutlet]="registrationSuccessScreen"></ng-template>
         </div>
     `,
 })
-export class PxbAccountCreatedComponent implements OnInit {
-    @Input() userName;
+export class PxbExistingAccountComponent implements OnInit {
     @Input() email;
-    @Input() registrationSuccessScreen: TemplateRef<RegistrationSuccessScreenContext>;
-    @Input() registrationSuccessScreenContext: RegistrationSuccessScreenContext;
+    @Input() registrationSuccessScreen: TemplateRef<any>;
 
     translate: PxbAuthTranslations;
 

@@ -19,6 +19,7 @@ import { PxbCreatePasswordComponent } from './create-password/create-password.co
 import { PxbEulaComponent } from './eula/eula.component';
 import { PxbProvideEmailComponent } from './provide-email/provide-email.component';
 import { PxbVerifyEmailComponent } from './verify-email/verify-email.component';
+import { PxbExistingAccountComponent } from './existing-account/existing-account.component';
 
 @NgModule({
     declarations: [
@@ -28,6 +29,7 @@ import { PxbVerifyEmailComponent } from './verify-email/verify-email.component';
         PxbEulaComponent,
         PxbProvideEmailComponent,
         PxbVerifyEmailComponent,
+        PxbExistingAccountComponent,
     ],
     imports: [
         BrowserModule,
@@ -51,6 +53,7 @@ import { PxbVerifyEmailComponent } from './verify-email/verify-email.component';
         PxbEulaComponent,
         PxbProvideEmailComponent,
         PxbVerifyEmailComponent,
+        PxbExistingAccountComponent,
     ],
 })
 export class PxbCreateAccountStepsModule {}

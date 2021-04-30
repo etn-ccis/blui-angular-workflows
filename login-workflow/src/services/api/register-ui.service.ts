@@ -4,8 +4,8 @@ import { FormControl } from '@angular/forms';
 
 /* Registration Actions to be performed when a user attempts to register */
 export type IPxbRegisterUIService = {
-    // The user has tapped on an email link inviting them to register with the application. The application should validate the code provided by the link.
-    validateUserRegistrationRequest(code?: string): Promise<void>;
+    // The user has tapped on an email link inviting them to register with the application. The application should validate the code provided by the link.  Resolves true if the registration is complete, false if more account details are required. s
+    validateUserRegistrationRequest(code?: string): Promise<boolean>;
 
     // The user wants to complete an action but must first accept the EULA. The application should retrieve an application-specific EULA for the user.
     loadEULA(): Promise<string>;
@@ -33,9 +33,9 @@ export class PxbRegisterUIService implements IPxbRegisterUIService {
         console.warn('You need to provide your own PxbRegisterUIService');
     }
 
-    validateUserRegistrationRequest(code?: string): Promise<void> {
+    validateUserRegistrationRequest(code?: string): Promise<boolean> {
         this.warn();
-        return undefined;
+        return Promise.resolve(false);
     }
 
     loadEULA(): Promise<string> {

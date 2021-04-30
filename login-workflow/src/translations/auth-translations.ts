@@ -97,6 +97,11 @@ export type PxbAuthTranslations = {
             WELCOME_MESSAGE_DESCRIPTION: (email: string) => string;
             CONTINUE_BUTTON: string;
         };
+        ACCOUNT_EXISTING: {
+            TITLE: string;
+            WELCOME_MESSAGE_DESCRIPTION: (email: string) => string;
+            WELCOME_MESSAGE_TITLE: string;
+        };
     };
     PASSWORD_CRITERIA: {
         CHARACTER_LIMIT: string;

@@ -15,7 +15,7 @@ export class RegisterUIService implements IPxbRegisterUIService {
         private readonly _pxbAuthConfig: PxbAuthConfig
     ) {}
 
-    validateUserRegistrationRequest(code?: string): Promise<void> {
+    validateUserRegistrationRequest(code?: string): Promise<boolean> {
         const urlParams = new URLSearchParams(window.location.search);
         const registrationCode = code || urlParams.get('code');
         console.log(
@@ -30,7 +30,10 @@ export class RegisterUIService implements IPxbRegisterUIService {
                 ) {
                     return reject();
                 }
-                return resolve();
+                if (registrationCode.toUpperCase() === 'PXWHITE') {
+                    return resolve(true);
+                }
+                return resolve(false);
             }, TIMEOUT_MS);
         });
     }

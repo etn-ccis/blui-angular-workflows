@@ -12,10 +12,13 @@ import { PxbCreateAccountErrorDialogService } from '../../services/dialog/create
 import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
 import { CreateAccountService } from './create-account.service';
 import { PxbAuthTranslations } from '../../translations/auth-translations';
+import { RegistrationSuccessScreenContext } from './steps/account-created/account-created.component';
 
 const ACCOUNT_DETAILS_STARTING_PAGE = 4;
 
 export type AccountDetails = {
+    pageTitle?: string;
+    pageInstructions?: string;
     form: TemplateRef<MatFormField>;
     formControls: Map<string, FormControl>;
     isValid: () => boolean;
@@ -27,11 +30,14 @@ export type AccountDetails = {
     styleUrls: ['./create-account.component.scss'],
 })
 export class PxbCreateAccountComponent implements OnDestroy {
-    @Input() accountDetails: AccountDetails[] = [];
     @Input() customEmailValidator: ValidatorFn;
+    @Input() accountDetails: AccountDetails[] = [];
+    @Input() registrationSuccessScreen: TemplateRef<any>;
+    @Input() existingAccountSuccessScreen: TemplateRef<any>;
 
     isLoading = true;
     isValidVerificationCode = true;
+    isPXWhiteAccount: boolean;
 
     // Provide Email Page
     email: string;
@@ -55,6 +61,8 @@ export class PxbCreateAccountComponent implements OnDestroy {
     stateListener: Subscription;
     registrationUtils: CreateAccountService;
     translate: PxbAuthTranslations;
+
+    registrationSuccessScreenContext: RegistrationSuccessScreenContext;
 
     constructor(
         private readonly _router: Router,
@@ -81,9 +89,10 @@ export class PxbCreateAccountComponent implements OnDestroy {
         this._pxbSecurityService.setLoading(true);
         this._pxbRegisterService
             .validateUserRegistrationRequest(this.verificationCode)
-            .then(() => {
+            .then((registrationComplete) => {
                 this._pxbSecurityService.setLoading(false);
                 this.registrationUtils.nextStep();
+                this.isPXWhiteAccount = registrationComplete;
             })
             .catch((data: ErrorDialogData) => {
                 this._pxbErrorDialogService.openDialog(data);
@@ -93,11 +102,12 @@ export class PxbCreateAccountComponent implements OnDestroy {
 
     registerAccount(): void {
         this._pxbSecurityService.setLoading(true);
+        const customForms = this.registrationUtils.getAccountDetailsCustomValues();
         this._pxbRegisterService
             .completeRegistration(
                 this.firstName,
                 this.lastName,
-                this.registrationUtils.getAccountDetailsCustomValues(),
+                customForms,
                 this.password,
                 this.verificationCode,
                 this.email
@@ -105,6 +115,15 @@ export class PxbCreateAccountComponent implements OnDestroy {
             .then(() => {
                 this._pxbSecurityService.setLoading(false);
                 this._pxbSecurityService.updateSecurityState({ email: this.email });
+                this.registrationSuccessScreenContext = {
+                    email: this.email,
+                    firstName: this.firstName,
+                    lastName: this.lastName,
+                };
+                for (const key of customForms.keys()) {
+                    this.registrationSuccessScreenContext[key] = customForms.get(key).value;
+                }
+                this.registrationUtils.clearAccountDetails();
                 this.registrationUtils.nextStep();
             })
             .catch((data: ErrorDialogData) => {
