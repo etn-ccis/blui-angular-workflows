@@ -30,12 +30,14 @@ export type AccountDetails = {
     styleUrls: ['./create-account.component.scss'],
 })
 export class PxbCreateAccountComponent implements OnDestroy {
+    @Input() customEmailValidator: ValidatorFn;
     @Input() accountDetails: AccountDetails[] = [];
     @Input() registrationSuccessScreen: TemplateRef<any>;
-    @Input() customEmailValidator: ValidatorFn;
+    @Input() existingAccountSuccessScreen: TemplateRef<any>;
 
     isLoading = true;
     isValidVerificationCode = true;
+    isPXWhiteAccount: boolean;
 
     // Provide Email Page
     email: string;
@@ -87,9 +89,10 @@ export class PxbCreateAccountComponent implements OnDestroy {
         this._pxbSecurityService.setLoading(true);
         this._pxbRegisterService
             .validateUserRegistrationRequest(this.verificationCode)
-            .then(() => {
+            .then((registrationComplete) => {
                 this._pxbSecurityService.setLoading(false);
                 this.registrationUtils.nextStep();
+                this.isPXWhiteAccount = registrationComplete;
             })
             .catch((data: ErrorDialogData) => {
                 this._pxbErrorDialogService.openDialog(data);

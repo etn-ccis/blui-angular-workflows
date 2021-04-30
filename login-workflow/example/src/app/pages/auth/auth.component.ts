@@ -53,7 +53,10 @@ import { Router } from '@angular/router';
                     >
                 </div>
                 <div style="margin: 0 24px">
-                    <div class="mat-display-1" style="margin-bottom: 24px">Welcome, {{ firstName }}!</div>
+                    <div *ngIf="firstName" class="mat-display-1" style="margin-bottom: 24px">
+                        Welcome, {{ firstName }}!
+                    </div>
+                    <div *ngIf="!firstName" class="mat-display-1" style="margin-bottom: 24px">Welcome!</div>
                     <div class="mat-h4">Your account has been successfully created.</div>
                     <div class="mat-h4">This is a custom success screen.</div>
                     <div class="mat-h4">Press the button below to continue.</div>
@@ -63,6 +66,38 @@ import { Router } from '@angular/router';
             <button mat-stroked-button (click)="navigateToLogin()" color="primary" style="width: 100%; margin-top: 8px">
                 Join an Organization
             </button>
+            <button mat-flat-button color="primary" (click)="navigateToLogin()" style="width: 100%; margin-top: 16px">
+                Continue
+            </button>
+        </ng-template>
+
+        <ng-template #accountAlreadyExistsSuccessScreen let-firstName="firstName">
+            <!-- Remove this ng-template to restore the default success screen. -->
+            <div style="margin: -32px -24px 0 -24px; display: flex; flex-direction: column; flex: 1 1 0">
+                <img src="assets/images/waves.svg" style="width: 100%; margin-bottom: 8px;" />
+                <div style="text-align: center">
+                    <mat-icon
+                        style="
+                        background-color: #005eab;
+                        border-radius: 50%;
+                        padding: 8px;
+                        color: #e0eff8;
+                        height: 48px;
+                        font-size: 48px;
+                        width: 48px;
+                        margin-bottom: 24px"
+                        >person</mat-icon
+                    >
+                </div>
+                <div style="margin: 0 24px">
+                    <div *ngIf="!firstName" class="mat-display-1" style="margin-bottom: 24px">
+                        Welcome, PX White User!
+                    </div>
+                    <div class="mat-h4">Your registration has been completed successfully.</div>
+                    <div class="mat-h4">Please click continue to log in.</div>
+                </div>
+            </div>
+            <mat-divider class="pxb-auth-divider" style="margin-bottom: 16px;"></mat-divider>
             <button mat-flat-button color="primary" (click)="navigateToLogin()" style="width: 100%; margin-top: 16px">
                 Continue
             </button>
@@ -79,7 +114,11 @@ import { Router } from '@angular/router';
 
         <!-- Custom Create Account page -->
         <ng-template #createAccountViaInvitePage>
-            <pxb-create-account-invite #createAccountInviteVC [accountDetails]="accountDetails">
+            <pxb-create-account-invite
+                #createAccountInviteVC
+                [accountDetails]="accountDetails"
+                [existingAccountSuccessScreen]="accountAlreadyExistsSuccessScreen"
+            >
             </pxb-create-account-invite>
         </ng-template>
 

@@ -25,12 +25,14 @@ const ACCOUNT_DETAILS_STARTING_PAGE = 2;
 export class PxbCreateAccountInviteComponent implements OnInit, OnDestroy {
     @Input() accountDetails: AccountDetails[] = [];
     @Input() registrationSuccessScreen: TemplateRef<any>;
+    @Input() existingAccountSuccessScreen: TemplateRef<any>;
 
     @ViewChild('registrationLinkErrorTitleVC') registrationLinkErrorTitleEl;
     @ViewChild('registrationLinkErrorDescVC') registrationLinkErrorDescEl;
 
     isLoading: boolean;
     isValidRegistrationLink: boolean;
+    isPXWhiteAccount: boolean;
 
     // EULA Page
     userAcceptsEula: boolean;
@@ -78,9 +80,10 @@ export class PxbCreateAccountInviteComponent implements OnInit, OnDestroy {
         this._pxbSecurityService.setLoading(true);
         this._pxbRegisterService
             .validateUserRegistrationRequest()
-            .then(() => {
+            .then((registrationComplete) => {
                 this._pxbSecurityService.setLoading(false);
                 this.isValidRegistrationLink = true;
+                this.isPXWhiteAccount = registrationComplete;
             })
             .catch((data: ErrorDialogData) => {
                 this._pxbErrorDialogService.openDialog(data);
