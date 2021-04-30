@@ -132,7 +132,7 @@ export const pxbAuthFrenchTranslations: PxbAuthTranslations = {
                 const firstSentence = email
                     ? `Your account has been successfully created with the email ${email}.`
                     : `Your account has been successfully created.`;
-                return `${firstSentence} Your account has already been added to the organization. Press Continue below to finish.`;
+                return `${firstSentence} Please log in with your Eaton account email and password.`;
             },
         },
     },
