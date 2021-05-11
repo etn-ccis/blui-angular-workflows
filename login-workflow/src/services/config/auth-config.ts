@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
+import { ValidatorFn } from '@angular/forms';
 import { PxbAuthTranslations } from '../../translations/auth-translations';
 import { pxbAuthEnglishTranslations } from '../../translations/english';
 import { pxbAuthFrenchTranslations } from '../../translations/french';
-import { ValidatorFn } from '@angular/forms';
 import { pxbAuthSpanishTranslations } from '../../translations/spanish';
 import { pxbAuthChineseTranslations } from '../../translations/chinese';
 
@@ -51,6 +51,9 @@ export class PxbAuthConfig {
     customEmailValidator: ValidatorFn;
 
     getTranslations(): PxbAuthTranslations {
+        if (this.customTranslations) {
+            return this.customTranslations;
+        }
         switch (this.languageCode) {
             case 'EN': {
                 return pxbAuthEnglishTranslations;
@@ -65,7 +68,7 @@ export class PxbAuthConfig {
                 return pxbAuthChineseTranslations;
             }
             default: {
-                return this.customTranslations;
+                return pxbAuthEnglishTranslations;
             }
         }
     }

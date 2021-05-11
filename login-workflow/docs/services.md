@@ -54,7 +54,7 @@ constructor(pxbAuthConfig: PxbAuthConfig) {
     -   Array of custom password requirements. 
     -   Default: `[]`
 -   **customTranslations** (optional): _`PxbAuthTranslations`_
-    -   Custom translation file used for supporting additional languages.
+    -   Custom translation file used for supporting additional languages. This property overrides the `languageCode`. 
     -   Default: `undefined`
 -   **defaultPasswordRequirements** (optional): _`{characterLimit: boolean, uppercaseLetter: boolean, lowercaseLetter: boolean, requireNumber: boolean, specialCharacter: boolean }`_
     -   A configuration object used to toggle password requirements. 
@@ -62,8 +62,8 @@ constructor(pxbAuthConfig: PxbAuthConfig) {
 -   **eulaScrollLock** (optional): _`boolean`_
     -   Requires the EULA to be completed scrolled through before a user can accept it.
     -   Default: true
--   **languageCode** (optional): _`'EN' | 'FR' | 'ES' | 'ZH' | undefined`_
-    -   Language code used for auth workflow text translations.  An `undefined` language code implies a `customTranslations` has been provided.
+-   **languageCode** (optional): _`'EN' | 'FR' | 'ES' | 'ZH'`_
+    -   Language code used for auth workflow text translations.
     -   Default: `'EN'`
 -   **projectImage** (optional): _`string`_
     -   Project image shown on splash screen and login screen.
