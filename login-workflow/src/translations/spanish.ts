@@ -30,13 +30,13 @@ export const pxbAuthSpanishTranslations: PxbAuthTranslations = {
     CHANGE_PASSWORD: {
         TITLE: 'Cambiar la contraseña',
         INSTRUCTIONS:
-           'Seleccione una contraseña. Asegúrese de que su contraseña cumpla con los requisitos de complejidad necesarios que se describen a continuación.',
+            'Seleccione una contraseña. Asegúrese de que su contraseña cumpla con los requisitos de complejidad necesarios que se describen a continuación.',
         CURRENT_PASSWORD_FORM_LABEL: 'Contraseña actual',
         NEW_PASSWORD_FORM_LABEL: 'Nueva contraseña',
         CONFIRM_PASSWORD_FORM_LABEL: 'Confirmar Contraseña',
         SUCCESS_TITLE: 'Contraseña cambiada',
         SUCCESS_DESCRIPTION:
-            "¡Tu contraseña se actualizó correctamente! Para garantizar la seguridad de su cuenta, deberá iniciar sesión en la aplicación con sus credenciales actualizadas.",
+            '¡Tu contraseña se actualizó correctamente! Para garantizar la seguridad de su cuenta, deberá iniciar sesión en la aplicación con sus credenciales actualizadas.',
     },
     CONTACT_SUPPORT: {
         TITLE: 'Contacta con nosotras',
@@ -65,7 +65,8 @@ export const pxbAuthSpanishTranslations: PxbAuthTranslations = {
         CONTACT_SUPPORT_BY_PHONE: (phone: string): string =>
             `Para problemas urgentes con la cuenta, llame <a class="pxb-auth-link" href="tel:${phone}">${phone}</a>.`,
         SUCCESS_TITLE: 'Email enviado',
-        SUCCESS_DESCRIPTION: (email: string): string => `Se ha enviado un enlace para restablecer su contraseña a ${email}`,
+        SUCCESS_DESCRIPTION: (email: string): string =>
+            `Se ha enviado un enlace para restablecer su contraseña a ${email}`,
     },
     RESET_PASSWORD: {
         TITLE: 'Restablecer la contraseña',
@@ -75,7 +76,7 @@ export const pxbAuthSpanishTranslations: PxbAuthTranslations = {
         RESET_LINK_ERROR_DESCRIPTION: 'Hubo un error al validar su código de reinicio.',
         SUCCESS_TITLE: 'Tu contraseña se restableció correctamente.',
         SUCCESS_DESCRIPTION:
-            "¡Tu contraseña se actualizó correctamente! Para garantizar la seguridad de su cuenta, deberá iniciar sesión en la aplicación con sus credenciales actualizadas.",
+            '¡Tu contraseña se actualizó correctamente! Para garantizar la seguridad de su cuenta, deberá iniciar sesión en la aplicación con sus credenciales actualizadas.',
     },
 
     CREATE_ACCOUNT: {

@@ -65,17 +65,18 @@ export const pxbAuthFrenchTranslations: PxbAuthTranslations = {
         CONTACT_SUPPORT_BY_PHONE: (phone: string): string =>
             `Pour les problèmes de compte urgents, veuillez appeler <a class="pxb-auth-link" href="tel:${phone}">${phone}</a>.`,
         SUCCESS_TITLE: 'Email envoyé',
-        SUCCESS_DESCRIPTION: (email: string): string => `Un lien pour réinitialiser votre mot de passe a été envoyé à ${email}`,
+        SUCCESS_DESCRIPTION: (email: string): string =>
+            `Un lien pour réinitialiser votre mot de passe a été envoyé à ${email}`,
     },
     RESET_PASSWORD: {
         TITLE: 'Réinitialiser le mot de passe',
         INSTRUCTIONS:
             'Veuillez sélectionner un mot de passe. Assurez-vous que votre mot de passe répond aux exigences de complexité nécessaires décrites ci-dessous.',
         RESET_LINK_ERROR_TITLE: 'Erreur',
-        RESET_LINK_ERROR_DESCRIPTION: `Une erreur s\'est produite lors de la validation de votre code de réinitialisation.`,
+        RESET_LINK_ERROR_DESCRIPTION: `Une erreur s'est produite lors de la validation de votre code de réinitialisation.`,
         SUCCESS_TITLE: `Votre mot de passe a été réinitialisé avec succès`,
         SUCCESS_DESCRIPTION:
-           "Votre mot de passe a été mis à jour avec succès! Pour assurer la sécurité de votre compte, vous devrez vous connecter à l'application avec vos informations d'identification mises à jour.",
+            "Votre mot de passe a été mis à jour avec succès! Pour assurer la sécurité de votre compte, vous devrez vous connecter à l'application avec vos informations d'identification mises à jour.",
     },
 
     CREATE_ACCOUNT: {

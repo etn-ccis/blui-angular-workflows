@@ -3,8 +3,8 @@ import { PxbAuthTranslations } from '../../translations/auth-translations';
 import { pxbAuthEnglishTranslations } from '../../translations/english';
 import { pxbAuthFrenchTranslations } from '../../translations/french';
 import { ValidatorFn } from '@angular/forms';
-import {pxbAuthSpanishTranslations} from "../../translations/spanish";
-import {pxbAuthChineseTranslations} from "../../translations/chinese";
+import { pxbAuthSpanishTranslations } from '../../translations/spanish';
+import { pxbAuthChineseTranslations } from '../../translations/chinese';
 
 export const PXB_LOGIN_VALIDATOR_ERROR_NAME = 'PXB_LOGIN_VALIDATOR_ERROR_NAME';
 
