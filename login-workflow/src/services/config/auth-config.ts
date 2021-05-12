@@ -19,7 +19,7 @@ export class PxbAuthConfig {
     authGuardRedirectRoute = undefined;
 
     languageCode: 'EN' | 'ES' | 'FR' | 'ZH' = 'EN';
-    customTranslations: PxbAuthTranslations = pxbAuthEnglishTranslations;
+    customTranslations: PxbAuthTranslations;
     allowDebugMode = false;
     showRememberMe = true;
 
