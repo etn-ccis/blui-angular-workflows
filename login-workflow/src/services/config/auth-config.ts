@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
+import { ValidatorFn } from '@angular/forms';
 import { PxbAuthTranslations } from '../../translations/auth-translations';
 import { pxbAuthEnglishTranslations } from '../../translations/english';
 import { pxbAuthFrenchTranslations } from '../../translations/french';
-import { ValidatorFn } from '@angular/forms';
+import { pxbAuthSpanishTranslations } from '../../translations/spanish';
+import { pxbAuthChineseTranslations } from '../../translations/chinese';
 
 export const PXB_LOGIN_VALIDATOR_ERROR_NAME = 'PXB_LOGIN_VALIDATOR_ERROR_NAME';
 
@@ -13,10 +15,11 @@ export type PasswordRequirement = {
 @Injectable({
     providedIn: 'root',
 })
-export class PxbAuthConfig implements PxbAuthConfig {
+export class PxbAuthConfig {
     authGuardRedirectRoute = undefined;
 
-    languageCode = 'EN';
+    languageCode: 'EN' | 'ES' | 'FR' | 'ZH' = 'EN';
+    customTranslations: PxbAuthTranslations;
     allowDebugMode = false;
     showRememberMe = true;
 
@@ -48,12 +51,21 @@ export class PxbAuthConfig implements PxbAuthConfig {
     customEmailValidator: ValidatorFn;
 
     getTranslations(): PxbAuthTranslations {
+        if (this.customTranslations) {
+            return this.customTranslations;
+        }
         switch (this.languageCode) {
             case 'EN': {
                 return pxbAuthEnglishTranslations;
             }
             case 'FR': {
                 return pxbAuthFrenchTranslations;
+            }
+            case 'ES': {
+                return pxbAuthSpanishTranslations;
+            }
+            case 'ZH': {
+                return pxbAuthChineseTranslations;
             }
             default: {
                 return pxbAuthEnglishTranslations;

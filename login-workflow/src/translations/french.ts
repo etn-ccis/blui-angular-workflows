@@ -4,10 +4,10 @@ import { PxbAuthTranslations } from './auth-translations';
 
 export const pxbAuthFrenchTranslations: PxbAuthTranslations = {
     GENERAL: {
-        BACK_BUTTON: 'Back',
-        OKAY_BUTTON: 'Okay',
+        BACK_BUTTON: 'Retour',
+        OKAY_BUTTON: `D'accord`,
         DONE_BUTTON: 'Done',
-        NEXT_BUTTON: 'Next',
+        NEXT_BUTTON: 'Prochain',
         PASSWORD_FORM_LABEL: 'Mot de passe',
         PASSWORD_MISMATCH_ERROR: 'Passwords do not match',
         CONFIRM_PASSWORD_FORM_LABEL: 'Confirm Password',
@@ -18,36 +18,36 @@ export const pxbAuthFrenchTranslations: PxbAuthTranslations = {
     },
     LOGIN: {
         CONTACT_SUPPORT: "Contactez un représentant de l'assistance Eaton",
-        CREATE_ACCOUNT: 'Créer un compte\n',
+        CREATE_ACCOUNT: 'Créer un compte',
         FORGOT_PASSWORD: 'Mot de passe oublié?',
         NEED_AN_ACCOUNT: "Besoin d'un compte?",
-        REMEMBER_ME: 'Souviens-toi de moi\ne',
+        REMEMBER_ME: 'Souviens-toi de moi',
         ENABLE_DEBUG_MODE: 'DÉBOGUER',
         DEBUG_MODE: 'MODE DÉBOGAGE',
         FORGOT_PASSWORD_LINK: '[Test Mot de passe oublié Email]',
         TEST_INVITE_LINK: "[Tester le registre d'invitation]",
     },
     CHANGE_PASSWORD: {
-        TITLE: 'Change Password',
+        TITLE: 'Changer le mot de passe',
         INSTRUCTIONS:
             'Please select a password. Make sure that your password meets the necessary complexity requirements outlined below.',
-        CURRENT_PASSWORD_FORM_LABEL: 'Current Password',
-        NEW_PASSWORD_FORM_LABEL: 'New Password',
-        CONFIRM_PASSWORD_FORM_LABEL: 'Confirm Password',
-        SUCCESS_TITLE: 'Password Changed',
+        CURRENT_PASSWORD_FORM_LABEL: 'Mot de passe actuel',
+        NEW_PASSWORD_FORM_LABEL: 'Nouveau mot de passe',
+        CONFIRM_PASSWORD_FORM_LABEL: 'Confirmez le mot de passe',
+        SUCCESS_TITLE: 'Mot de passe changé',
         SUCCESS_DESCRIPTION:
-            "Your password was successfully updated! To ensure your account's security, you will need to log in to the application with your updated credentials.",
+            "Votre mot de passe a été mis à jour avec succès! Pour assurer la sécurité de votre compte, vous devrez vous connecter à l'application avec vos informations d'identification mises à jour.",
     },
     CONTACT_SUPPORT: {
-        TITLE: 'Contact Us',
+        TITLE: 'Contactez-nous',
         PHONE_NUMBER: undefined,
         EMAIL: undefined,
         EMERGENCY_SUPPORT_DESCRIPTION: (phone: string): string =>
-            `For technical support, please call <a class="pxb-auth-link" href="tel:${phone}">${phone}</a>.`,
-        EMERGENCY_SUPPORT_TITLE: 'Emergency Support',
+            `Pour une assistance technique, veuillez appeler <a class="pxb-auth-link" href="tel:${phone}">${phone}</a>.`,
+        EMERGENCY_SUPPORT_TITLE: `Assistance d'urgence`,
         GENERAL_SUPPORT_DESCRIPTION: (email: string): string =>
-            `For questions, feedback, or support please email us at <a class="pxb-auth-link" href="mailto:${email}">${email}</a>.`,
-        GENERAL_SUPPORT_TITLE: 'General Questions',
+            `Pour des questions, des commentaires ou une assistance, veuillez nous envoyer un courriel à <a class="pxb-auth-link" href="mailto:${email}">${email}</a>.`,
+        GENERAL_SUPPORT_TITLE: 'Questions générales',
     },
     PASSWORD_CRITERIA: {
         CHARACTER_LIMIT: '8-16 caractères',
@@ -57,82 +57,84 @@ export const pxbAuthFrenchTranslations: PxbAuthTranslations = {
         ONE_SPECIAL_CHARACTER: 'Un caractère spécial',
     },
     FORGOT_PASSWORD: {
-        TITLE: 'Forgot Password',
-        INSTRUCTIONS: 'Please enter the account email associated with the account.',
+        TITLE: 'Mot de passe oublié',
+        INSTRUCTIONS: `Veuillez saisir l'adresse e-mail du compte associée au compte.`,
         RESPONSE_TIME_TEXT:
-            'If this email has an account with Eaton, you will receive a response within <strong>one business day.</strong>',
+            'Si cet e-mail a un compte chez Eaton, vous recevrez une réponse dans les <strong>un jour ouvrable.</strong>',
         PHONE_NUMBER: undefined,
         CONTACT_SUPPORT_BY_PHONE: (phone: string): string =>
-            `For urgent account issues, please call <a class="pxb-auth-link" href="tel:${phone}">${phone}</a>.`,
-        SUCCESS_TITLE: 'Email Sent',
-        SUCCESS_DESCRIPTION: (email: string): string => `A link to reset your password has been sent to ${email}`,
+            `Pour les problèmes de compte urgents, veuillez appeler <a class="pxb-auth-link" href="tel:${phone}">${phone}</a>.`,
+        SUCCESS_TITLE: 'Email envoyé',
+        SUCCESS_DESCRIPTION: (email: string): string =>
+            `Un lien pour réinitialiser votre mot de passe a été envoyé à ${email}`,
     },
     RESET_PASSWORD: {
-        TITLE: 'Reset Password',
+        TITLE: 'Réinitialiser le mot de passe',
         INSTRUCTIONS:
-            'Please select a password. Make sure that your password meets the necessary complexity requirements outlined below.',
-        RESET_LINK_ERROR_TITLE: 'Error',
-        RESET_LINK_ERROR_DESCRIPTION: 'There was an error validating your reset code.',
-        SUCCESS_TITLE: 'Your password was successfully reset.',
+            'Veuillez sélectionner un mot de passe. Assurez-vous que votre mot de passe répond aux exigences de complexité nécessaires décrites ci-dessous.',
+        RESET_LINK_ERROR_TITLE: 'Erreur',
+        RESET_LINK_ERROR_DESCRIPTION: `Une erreur s'est produite lors de la validation de votre code de réinitialisation.`,
+        SUCCESS_TITLE: `Votre mot de passe a été réinitialisé avec succès`,
         SUCCESS_DESCRIPTION:
-            "Your password was successfully updated! To ensure your account's security, you will need to log in to the application with your updated credentials.",
+            "Votre mot de passe a été mis à jour avec succès! Pour assurer la sécurité de votre compte, vous devrez vous connecter à l'application avec vos informations d'identification mises à jour.",
     },
 
     CREATE_ACCOUNT: {
         REGISTRATION_LINK: {
-            VALIDATING: 'Validating',
-            INVALID_TITLE: 'Error',
-            INVALID_DESCRIPTION: 'There was an error during account registration.',
+            VALIDATING: 'Valider',
+            INVALID_TITLE: 'Erreur',
+            INVALID_DESCRIPTION: `Une erreur s'est produite lors de l'enregistrement du compte.`,
         },
         ENTER_EMAIL: {
-            TITLE: 'Create an Account',
+            TITLE: 'Créer un compte',
             INSTRUCTIONS:
-                'To register for an Eaton account, enter the required information below. You will need to verify your email address to continue.',
+                'Pour créer un compte Eaton, entrez les informations requises ci-dessous. Vous devrez vérifier votre adresse e-mail pour continuer.',
         },
         EULA: {
-            TITLE: 'License Agreement',
-            CONFIRM_READ: 'I have read and agree to the Terms & Conditions',
-            LOAD_ERROR_TITLE: 'Error',
-            LOAD_ERROR_DESCRIPTION: 'License Agreement Failed To Load',
-            RELOAD_BUTTON: 'Reload',
+            TITLE: 'Accord de licence',
+            CONFIRM_READ: `J'ai lu et j'accepte les conditions générales`,
+            LOAD_ERROR_TITLE: 'Erreur',
+            LOAD_ERROR_DESCRIPTION: 'Échec du chargement du contrat de licence',
+            RELOAD_BUTTON: 'Recharger',
         },
         VERIFY_EMAIL: {
-            TITLE: 'Verify Email',
+            TITLE: 'Vérifier les courriels',
             INSTRUCTIONS:
-                'A verification code has been sent to the email address you provided. Click the link or enter the code below to continue. This code is valid for 30 minutes.',
-            CODE_FORM_LABEL: 'Verification Code',
-            RESEND_BUTTON: 'Resend Verification Email',
+                `Un code de vérification a été envoyé à l'adresse e-mail que vous avez fournie. ` +
+                'Cliquez sur le lien ou entrez le code ci-dessous pour continuer. Ce code est valable 30 minutes.',
+            CODE_FORM_LABEL: 'Code de vérification',
+            RESEND_BUTTON: `Renvoyer l'e-mail de vérification`,
         },
         CREATE_PASSWORD: {
             INSTRUCTIONS:
-                'Please select a password. Make sure that your password meets the necessary complexity requirements outlined below.',
-            TITLE: 'Create Password',
+                'Veuillez sélectionner un mot de passe. Assurez-vous que votre mot de passe répond aux exigences de complexité nécessaires décrites ci-dessous.',
+            TITLE: 'Créer un mot de passe',
         },
         ACCOUNT_DETAILS: {
-            FIRST_NAME_FORM_LABEL: 'First Name',
-            INSTRUCTIONS: 'Enter your details below to complete account creation.',
-            LAST_NAME_FORM_LABEL: 'Last Name',
-            TITLE: 'Account Details',
+            FIRST_NAME_FORM_LABEL: 'Prénom',
+            INSTRUCTIONS: 'Entrez vos coordonnées ci-dessous pour terminer la création du compte.',
+            LAST_NAME_FORM_LABEL: 'Nom de famille',
+            TITLE: 'Détails du compte',
         },
         ACCOUNT_CREATED: {
-            TITLE: 'Account Created',
-            WELCOME_MESSAGE_TITLE: (username: string): string => `Welcome, ${username}`,
+            TITLE: 'Compte créé\n',
+            WELCOME_MESSAGE_TITLE: (username: string): string => `Bienvenu, ${username}`,
             WELCOME_MESSAGE_DESCRIPTION: (email: string): string => {
                 const firstSentence = email
-                    ? `Your account has been successfully created with the email ${email}.`
-                    : `Your account has been successfully created.`;
-                return `${firstSentence} Your account has already been added to the organization. Press Continue below to finish.`;
+                    ? `Votre compte a été créé avec succès avec l'e-mail ${email}.`
+                    : `Votre compte à été créé avec succès.`;
+                return `${firstSentence} Votre compte a déjà été ajouté à l'organisation. Appuyez sur Continuer ci-dessous pour terminer.`;
             },
             CONTINUE_BUTTON: 'Continue',
         },
         ACCOUNT_EXISTING: {
-            TITLE: 'Account Created',
-            WELCOME_MESSAGE_TITLE: 'Welcome',
+            TITLE: 'Compte créé',
+            WELCOME_MESSAGE_TITLE: 'Bienvenu',
             WELCOME_MESSAGE_DESCRIPTION: (email: string): string => {
                 const firstSentence = email
-                    ? `Your account has been successfully created with the email ${email}.`
-                    : `Your account has been successfully created.`;
-                return `${firstSentence} Please log in with your Eaton account email and password.`;
+                    ? `Votre compte a été créé avec succès avec l'e-mail ${email}.`
+                    : `Votre compte à été créé avec succès.`;
+                return `${firstSentence} Veuillez vous connecter avec l'adresse e-mail et le mot de passe de votre compte Eaton.`;
             },
         },
     },

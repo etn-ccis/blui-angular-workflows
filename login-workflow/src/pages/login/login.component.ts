@@ -139,7 +139,7 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
         );
     }
 
-    changeLanguage(languageCode: 'EN' | 'FR'): void {
+    changeLanguage(languageCode: any): void {
         this.pxbAuthConfig.languageCode = languageCode;
     }
 
