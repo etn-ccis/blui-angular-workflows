@@ -61,6 +61,10 @@
         .pxb-auth-create-account-invite {
             padding: 16px;
         }
+
+        .pxb-auth-login {
+            padding: 32px;
+        }
     }
 }
 
@@ -91,6 +95,9 @@
         margin-left: -32px !important;
         margin-right: -32px !important;
     }
+    .mat-divider.pxb-auth-action-button-divider {
+        margin-bottom: 16px;
+    }
     .pxb-auth-action-button-container {
         padding-top: 8px;
         display: flex;
@@ -120,6 +127,9 @@
         .mat-divider.pxb-auth-divider {
             margin-left: -16px !important;
             margin-right: -16px !important;
+        }
+        .mat-divider.pxb-auth-action-button-divider {
+            margin-bottom: 8px;
         }
     }
 }

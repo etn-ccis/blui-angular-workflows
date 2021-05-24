@@ -5,12 +5,14 @@
         <ng-content select="[pxb-icon]"></ng-content>
     </div>
     <mat-icon *ngIf="isEmpty(iconEl)" class="pxb-contact-support-chat-bubble-icon" color="primary"
-        >chat_bubble_outline</mat-icon
-    >
+        >chat_bubble_outline
+    </mat-icon>
 </div>
 
 <div class="pxb-auth-full-height">
-    <div #instructionsVC><ng-content select="[pxb-instructions]"></ng-content></div>
+    <div #instructionsVC>
+        <ng-content select="[pxb-instructions]"></ng-content>
+    </div>
     <div *ngIf="isEmpty(instructionsEl)">
         <p
             class="mat-body-1"
@@ -27,7 +29,7 @@
     </div>
 </div>
 
-<mat-divider style="margin-bottom: 16px" class="pxb-auth-divider"></mat-divider>
+<mat-divider class="pxb-auth-divider pxb-auth-action-button-divider"></mat-divider>
 
 <div class="pxb-auth-action-button-container">
     <button mat-flat-button color="primary" (click)="navigateToLogin()" [style.width.%]="100">

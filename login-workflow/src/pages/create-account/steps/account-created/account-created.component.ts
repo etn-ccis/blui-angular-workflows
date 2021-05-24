@@ -31,7 +31,7 @@ export type RegistrationSuccessScreenContext = {
                     <mat-icon pxb-empty-icon class="pxb-account-created-icon" color="primary">check_circle</mat-icon>
                 </pxb-empty-state>
             </div>
-            <mat-divider class="pxb-auth-divider" style="margin-bottom: 16px;"></mat-divider>
+            <mat-divider class="pxb-auth-divider pxb-auth-action-button-divider"></mat-divider>
             <div class="pxb-auth-action-button-container">
                 <button mat-flat-button color="primary" (click)="navigateToLogin()" style="width: 100%">
                     {{ translate.CREATE_ACCOUNT.ACCOUNT_CREATED.CONTINUE_BUTTON }}
