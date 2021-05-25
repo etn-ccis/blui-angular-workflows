@@ -65,6 +65,12 @@
         .pxb-auth-login {
             padding: 32px;
         }
+
+        .pxb-auth-inner-card {
+            max-width: none;
+            max-height: none;
+            border-radius: 0;
+        }
     }
 }
 
