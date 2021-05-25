@@ -3,12 +3,7 @@
 }
 
 ::ng-deep .pxb-eula-checkbox .mat-checkbox-layout {
-    max-width: 100%;
-}
-
-::ng-deep .pxb-eula-checkbox .mat-checkbox-label {
-    text-overflow: ellipsis;
-    overflow: hidden;
+    white-space: normal;
 }
 
 ::ng-deep .pxb-eula-checkbox .mat-checkbox-inner-container {
