@@ -1,7 +1,7 @@
 @import '~@pxblue/colors/palette';
 
 .pxb-auth-content {
-    height: 100vh;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -17,7 +17,7 @@
         max-width: 450px;
         max-height: 730px;
         flex-direction: column;
-        overflow: hidden;
+        overflow: scroll;
     }
 
     .pxb-auth-splash-screen {
