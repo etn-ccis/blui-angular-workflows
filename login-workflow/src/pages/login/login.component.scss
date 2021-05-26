@@ -41,6 +41,10 @@ mat-form-field {
 }
 
 @media only screen and (max-width: 600px) {
+    .pxb-login-debug-button {
+        position: static;
+        margin-bottom: 16px;
+    }
     .pxb-login-remember-me-login-wrapper {
         flex-direction: column;
 
