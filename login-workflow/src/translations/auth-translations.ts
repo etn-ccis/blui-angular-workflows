@@ -134,3 +134,5 @@ export function mergeAuthTranslations(original: PxbAuthTranslations, overrides: 
     Object.assign(original.CREATE_ACCOUNT.CREATE_PASSWORD, overrides.CREATE_ACCOUNT?.CREATE_PASSWORD);
     Object.assign(original.CREATE_ACCOUNT.ACCOUNT_DETAILS, overrides.CREATE_ACCOUNT?.ACCOUNT_DETAILS);
 }
+
+export type AuthTranslationLanguageCode = 'EN' | 'ES' | 'FR' | 'ZH';

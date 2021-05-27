@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ValidatorFn } from '@angular/forms';
-import { PxbAuthTranslations } from '../../translations/auth-translations';
+import { AuthTranslationLanguageCode, PxbAuthTranslations } from '../../translations/auth-translations';
 import { pxbAuthEnglishTranslations } from '../../translations/english';
 import { pxbAuthFrenchTranslations } from '../../translations/french';
 import { pxbAuthSpanishTranslations } from '../../translations/spanish';
@@ -18,7 +18,7 @@ export type PasswordRequirement = {
 export class PxbAuthConfig {
     authGuardRedirectRoute = undefined;
 
-    languageCode: 'EN' | 'ES' | 'FR' | 'ZH' = 'EN';
+    languageCode: AuthTranslationLanguageCode = 'EN';
     customTranslations: PxbAuthTranslations;
     allowDebugMode = false;
     showRememberMe = true;
