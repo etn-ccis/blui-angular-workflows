@@ -24,7 +24,8 @@
         [(password)]="password"
         [(passwordMeetsRequirements)]="passwordMeetsRequirements"
         (advance)="attemptContinue()"
-    ></pxb-create-account-create-password-step>
+    >
+    </pxb-create-account-create-password-step>
 
     <!-- First Account Details Page -->
     <pxb-create-account-account-details-step
@@ -64,7 +65,7 @@
     ></pxb-create-account-account-created-step>
 
     <ng-container *ngIf="!registrationUtils.showAccountCreatedPage()">
-        <mat-divider class="pxb-auth-divider" style="margin-bottom: 16px;"></mat-divider>
+        <mat-divider class="pxb-auth-divider pxb-auth-action-button-divider"></mat-divider>
         <div class="pxb-auth-action-button-container">
             <pxb-mobile-stepper
                 [steps]="registrationUtils.getNumberOfSteps()"

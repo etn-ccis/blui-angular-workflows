@@ -1,7 +1,7 @@
 @import '~@pxblue/colors/palette';
 
 .pxb-auth-content {
-    height: 100vh;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -17,7 +17,7 @@
         max-width: 450px;
         max-height: 730px;
         flex-direction: column;
-        overflow: hidden;
+        overflow: auto;
     }
 
     .pxb-auth-splash-screen {
@@ -61,6 +61,16 @@
         .pxb-auth-create-account-invite {
             padding: 16px;
         }
+
+        .pxb-auth-login {
+            padding: 32px;
+        }
+
+        .pxb-auth-inner-card {
+            max-width: none;
+            max-height: none;
+            border-radius: 0;
+        }
     }
 }
 
@@ -91,6 +101,9 @@
         margin-left: -32px !important;
         margin-right: -32px !important;
     }
+    .mat-divider.pxb-auth-action-button-divider {
+        margin-bottom: 16px;
+    }
     .pxb-auth-action-button-container {
         padding-top: 8px;
         display: flex;
@@ -120,6 +133,9 @@
         .mat-divider.pxb-auth-divider {
             margin-left: -16px !important;
             margin-right: -16px !important;
+        }
+        .mat-divider.pxb-auth-action-button-divider {
+            margin-bottom: 8px;
         }
     }
 }

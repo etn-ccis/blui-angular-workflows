@@ -14,6 +14,12 @@ import { AuthErrorStateMatcher } from '../../util/matcher';
                 width: 100%;
                 margin-bottom: 24px;
             }
+
+            @media only screen and (max-width: 600px) {
+                mat-form-field {
+                    margin-bottom: 16px;
+                }
+            }
         `,
     ],
     template: `

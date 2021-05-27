@@ -62,7 +62,7 @@ import { Router } from '@angular/router';
                     <div class="mat-h4">Press the button below to continue.</div>
                 </div>
             </div>
-            <mat-divider class="pxb-auth-divider" style="margin-bottom: 16px;"></mat-divider>
+            <mat-divider class="pxb-auth-divider pxb-auth-action-button-divider"></mat-divider>
             <button mat-stroked-button (click)="navigateToLogin()" color="primary" style="width: 100%; margin-top: 8px">
                 Join an Organization
             </button>
@@ -97,7 +97,7 @@ import { Router } from '@angular/router';
                     <div class="mat-h4">Please click continue to log in.</div>
                 </div>
             </div>
-            <mat-divider class="pxb-auth-divider" style="margin-bottom: 16px;"></mat-divider>
+            <mat-divider class="pxb-auth-divider pxb-auth-action-button-divider"></mat-divider>
             <button mat-flat-button color="primary" (click)="navigateToLogin()" style="width: 100%; margin-top: 16px">
                 Continue
             </button>

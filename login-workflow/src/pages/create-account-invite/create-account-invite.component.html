@@ -24,7 +24,7 @@
             <mat-icon pxb-empty-icon color="warn">error</mat-icon>
         </pxb-empty-state>
     </div>
-    <mat-divider class="pxb-auth-divider" style="margin-bottom: 16px;"></mat-divider>
+    <mat-divider class="pxb-auth-divider pxb-auth-action-button-divider"></mat-divider>
     <div class="pxb-auth-action-button-container">
         <button mat-flat-button color="primary" (click)="navigateToLogin()" [style.width.%]="100">
             {{ translate.GENERAL.OKAY_BUTTON }}
@@ -43,7 +43,8 @@
         [(password)]="password"
         [(passwordMeetsRequirements)]="passwordMeetsRequirements"
         (advance)="attemptContinue()"
-    ></pxb-create-account-create-password-step>
+    >
+    </pxb-create-account-create-password-step>
 
     <!-- Page 1 -->
     <pxb-create-account-account-details-step
@@ -82,7 +83,7 @@
     ></pxb-create-account-account-created-step>
 
     <ng-container *ngIf="!registrationUtils.showAccountCreatedPage()">
-        <mat-divider class="pxb-auth-divider" style="margin-bottom: 16px;"></mat-divider>
+        <mat-divider class="pxb-auth-divider pxb-auth-action-button-divider"></mat-divider>
         <div class="pxb-auth-action-button-container">
             <pxb-mobile-stepper
                 [steps]="registrationUtils.getNumberOfSteps()"
