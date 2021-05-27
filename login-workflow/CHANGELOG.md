@@ -4,7 +4,7 @@
 
 ### Changed
 
--   Updated styles to improve mobile responsiveness
+-   Updated styles to improve mobile responsiveness.
 
 ## v2.1.0 (April 30, 2021)
 
