@@ -51,15 +51,18 @@ constructor(pxbAuthConfig: PxbAuthConfig) {
     -   Custom email regex requirements.
     -   Default: `undefined`
 -   **customPasswordRequirements** (optional): _`PasswordRequirement[]`_
-    -   Array of custom password requirements.
+    -   Array of custom password requirements. 
     -   Default: `[]`
+-   **customTranslations** (optional): _`PxbAuthTranslations`_
+    -   Custom translation file used for supporting additional languages. This property overrides the `languageCode`. 
+    -   Default: `undefined`
 -   **defaultPasswordRequirements** (optional): _`{characterLimit: boolean, uppercaseLetter: boolean, lowercaseLetter: boolean, requireNumber: boolean, specialCharacter: boolean }`_
     -   A configuration object used to toggle password requirements. 
     -   Default: Passwords must contain a number, uppercase letter, lowercase letter, special character, and be between 8 and 16 characters in length.  The default array can be extended or replaced to include custom requirements.
 -   **eulaScrollLock** (optional): _`boolean`_
     -   Requires the EULA to be completed scrolled through before a user can accept it.
     -   Default: true
--   **languageCode** (optional): _`'EN' | 'FR'`_
+-   **languageCode** (optional): _`'EN' | 'FR' | 'ES' | 'ZH'`_
     -   Language code used for auth workflow text translations.
     -   Default: `'EN'`
 -   **projectImage** (optional): _`string`_

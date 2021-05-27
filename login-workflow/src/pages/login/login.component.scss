@@ -41,11 +41,15 @@ mat-form-field {
 }
 
 @media only screen and (max-width: 600px) {
-    .pxb-login-remember-me-login-wrapper {
-        flex-direction: column-reverse;
+    .pxb-login-debug-button {
+        position: static;
+        margin-bottom: 16px;
     }
+    .pxb-login-remember-me-login-wrapper {
+        flex-direction: column;
 
-    .pxb-login-button {
-        margin-bottom: 8px;
+        .pxb-login-remember-me-checkbox {
+            margin-bottom: 8px;
+        }
     }
 }

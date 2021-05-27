@@ -2,6 +2,10 @@
     margin: 24px 0;
 }
 
+::ng-deep .pxb-eula-checkbox .mat-checkbox-layout {
+    white-space: normal;
+}
+
 ::ng-deep .pxb-eula-checkbox .mat-checkbox-inner-container {
     width: 18px;
     height: 18px;

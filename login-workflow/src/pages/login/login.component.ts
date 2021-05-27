@@ -9,7 +9,7 @@ import { PxbAuthConfig } from '../../services/config/auth-config';
 import { PxbLoginErrorDialogService } from '../../services/dialog/login-error-dialog.service';
 import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
 import { PxbFormsService } from '../../services/forms/forms.service';
-import { PxbAuthTranslations } from '../../translations/auth-translations';
+import { AuthTranslationLanguageCode, PxbAuthTranslations } from '../../translations/auth-translations';
 import { EmailFieldComponent } from '../../components/email-field/email-field.component';
 import { PasswordFieldComponent } from '../../components/password-field/password-field.component';
 
@@ -139,7 +139,7 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
         );
     }
 
-    changeLanguage(languageCode: 'EN' | 'FR'): void {
+    changeLanguage(languageCode: AuthTranslationLanguageCode): void {
         this.pxbAuthConfig.languageCode = languageCode;
     }
 
