@@ -2,9 +2,14 @@
 
 ## v2.2.0 (May 27, 2021)
 
+### Added
+
+-   Added translations for simplified Chinese, French, and Spanish.
+
 ### Changed
 
 -   Updated styles to improve mobile responsiveness.
+
 
 ## v2.1.0 (April 30, 2021)
 
