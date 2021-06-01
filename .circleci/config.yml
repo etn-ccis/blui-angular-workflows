@@ -85,10 +85,10 @@ workflows:
       - coverage_report:
                 requires:
                     - build_login_workflow
-                # filters:
-                #     branches:
-                #         only:
-                #             - master
+                filters:
+                    branches:
+                        only:
+                            - master
       - publish_login_workflow:
           requires:
             - build_login_workflow
