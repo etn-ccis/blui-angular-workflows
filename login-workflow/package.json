@@ -7,7 +7,6 @@
     "watch": "ng build -c demo",
     "build": "ng build",
     "test": "ng test",
-    "test:ci": "ng test --watch false",
     "lint": "eslint \"src/**/**.ts\"",
     "lint:fix": "eslint \"src/**/**.ts\" --fix",
     "prettier": "prettier \"src/**/**.{ts,js,json,css,scss,html}\" --write",
@@ -15,7 +14,8 @@
     "publish:package": "cd dist && set npm_config_yes=true && npx -p @pxblue/publish pxb-publish",
     "install:dependencies": "yarn && cd example && yarn",
     "link:workflow": "bash ./scripts/linkWorkflow.sh",
-    "start:example": "yarn install:dependencies && yarn link:workflow && cd example && yarn start"
+    "start:example": "yarn install:dependencies && yarn link:workflow && cd example && yarn start",
+    "coverage": "yarn test --no-watch --code-coverage"
   },
   "prettier": "@pxblue/prettier-config",
   "private": false,
@@ -50,6 +50,7 @@
     "@types/node": "~13.5.0",
     "@typescript-eslint/eslint-plugin": "^3.6.0",
     "@typescript-eslint/parser": "^3.6.0",
+    "codecov": "^3.8.2",
     "codelyzer": "~5.2.1",
     "eslint": "^7.4.0",
     "eslint-config-prettier": "^6.10.0",
