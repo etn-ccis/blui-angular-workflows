@@ -4,7 +4,7 @@
   "projects": {
     "angular-auth-workflow": {
       "root": ".",
-      "sourceRoot": "angular-auth-workflow",
+      "sourceRoot": "src",
       "projectType": "library",
       "prefix": "pxb",
       "architect": {
