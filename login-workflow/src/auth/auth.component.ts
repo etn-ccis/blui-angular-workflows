@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit, TemplateRef } f
 import { NavigationEnd, Router } from '@angular/router';
 import { PxbAuthConfig } from '../services/config/auth-config';
 import { matchesRoute } from '../util/matcher';
-import { PxbAuthUIService } from '../services/api/auth-ui.service';
+import { PxbAuthUIService } from '../services/api';
 import { PxbAuthSecurityService, SecurityContext } from '../services/state/auth-security.service';
 import { PxbCreateAccountInviteComponent } from '../pages/create-account-invite/create-account-invite.component';
 import { PxbCreateAccountComponent } from '../pages/create-account/create-account.component';

@@ -2,7 +2,7 @@ import { Component, ElementRef, Input, OnDestroy, OnInit, TemplateRef, ViewChild
 import { Router } from '@angular/router';
 
 import { AUTH_ROUTES } from '../../auth/auth.routes';
-import { PxbRegisterUIService } from '../../services/api/register-ui.service';
+import { PxbRegisterUIService } from '../../services/api';
 import { PxbAuthSecurityService, SecurityContext } from '../../services/state/auth-security.service';
 import { PxbCreateAccountInviteErrorDialogService } from '../../services/dialog/create-account-invite-error-dialog.service';
 import { ErrorDialogData } from '../../services/dialog/error-dialog.service';

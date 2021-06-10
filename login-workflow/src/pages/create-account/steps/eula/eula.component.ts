@@ -11,7 +11,7 @@ import {
 import { DomSanitizer } from '@angular/platform-browser';
 
 import { PxbAuthConfig } from './../../../../services/config/auth-config';
-import { PxbRegisterUIService } from '../../../../services/api/register-ui.service';
+import { PxbRegisterUIService } from '../../../../services/api';
 import { PxbAuthSecurityService, SecurityContext } from '../../../../services/state/auth-security.service';
 import { PxbAuthTranslations } from '../../../../translations/auth-translations';
 

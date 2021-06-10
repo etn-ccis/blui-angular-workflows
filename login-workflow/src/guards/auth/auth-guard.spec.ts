@@ -1,16 +1,16 @@
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { PxbAuthGuard } from './auth-guard';
 
-describe('AuthGuard', () => {
+describe('PxbAuthGuard', () => {
     let service: PxbAuthGuard;
 
-    beforeEach(async(() => {
+    beforeEach(() => {
         void TestBed.configureTestingModule({
             imports: [RouterTestingModule],
         }).compileComponents();
-    }));
+    });
 
     beforeEach(() => {
         TestBed.configureTestingModule({});

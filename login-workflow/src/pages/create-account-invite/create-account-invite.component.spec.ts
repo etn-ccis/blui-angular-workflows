@@ -4,7 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PxbAuthModule } from '../../auth.module';
 
-describe('CreateAccountInviteComponent', () => {
+describe('PxbCreateAccountInviteComponent', () => {
     let component: PxbCreateAccountInviteComponent;
     let fixture: ComponentFixture<PxbCreateAccountInviteComponent>;
 
@@ -21,7 +21,7 @@ describe('CreateAccountInviteComponent', () => {
         fixture.detectChanges();
     });
 
-    // it('should create', () => {
-    //     void expect(component).toBeTruthy();
-    // });
+    it('should create', () => {
+        void expect(component).toBeTruthy();
+    });
 });

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { PxbAuthSecurityService } from '../services/state/auth-security.service';
-import { PxbAuthConfig } from '../services/config/auth-config';
-import { matchesRoute } from '../util/matcher';
+import { PxbAuthSecurityService } from '../../services/state/auth-security.service';
+import { PxbAuthConfig } from '../../services/config/auth-config';
+import { matchesRoute } from '../../util/matcher';
 
 @Injectable({
     providedIn: 'root',
