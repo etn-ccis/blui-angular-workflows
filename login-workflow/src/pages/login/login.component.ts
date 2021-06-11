@@ -123,7 +123,7 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
     }
 
     createAccount(): void {
-        void this._router.navigateByUrl(`${AUTH_ROUTES.AUTH_WORKFLOW}/${AUTH_ROUTES.CREATE_ACCOUNT}`);
+        void this._router.navigate([`${AUTH_ROUTES.AUTH_WORKFLOW}/${AUTH_ROUTES.CREATE_ACCOUNT}`]);
     }
 
     contactSupport(): void {
