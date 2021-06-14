@@ -14,21 +14,21 @@ describe('PxbAuthConfig', () => {
 
     it('should return french translations when FR language code is used', () => {
         authConfig.languageCode = 'FR';
-        expect(authConfig.getTranslations()).toBe(pxbAuthFrenchTranslations);
+        void expect(authConfig.getTranslations()).toBe(pxbAuthFrenchTranslations);
     });
 
     it('should return english translations when EN language code is used', () => {
         authConfig.languageCode = 'EN';
-        expect(authConfig.getTranslations()).toBe(pxbAuthEnglishTranslations);
+        void expect(authConfig.getTranslations()).toBe(pxbAuthEnglishTranslations);
     });
 
     it('should return chinese translations when ZH language code is used', () => {
         authConfig.languageCode = 'ZH';
-        expect(authConfig.getTranslations()).toBe(pxbAuthChineseTranslations);
+        void expect(authConfig.getTranslations()).toBe(pxbAuthChineseTranslations);
     });
 
     it('should return spanish translations when ES language code is used', () => {
         authConfig.languageCode = 'ES';
-        expect(authConfig.getTranslations()).toBe(pxbAuthSpanishTranslations);
+        void expect(authConfig.getTranslations()).toBe(pxbAuthSpanishTranslations);
     });
 });

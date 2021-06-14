@@ -35,8 +35,8 @@ describe('PxbEulaComponent', () => {
         const eulaLoadSpy = spyOn(registerService, 'loadEULA');
         authConfig.eula = 'pre-loaded eula';
         fixture.detectChanges();
-        expect(eulaLoadSpy).not.toHaveBeenCalled();
-        expect(component.eula).toBe(authConfig.eula);
+        void expect(eulaLoadSpy).not.toHaveBeenCalled();
+        void expect(component.eula).toBe(authConfig.eula);
     });
 
     it('should load the eula on init if not yet loaded', (done) => {
@@ -44,9 +44,9 @@ describe('PxbEulaComponent', () => {
         const eulaLoadSpy = spyOn(registerService, 'loadEULA').and.returnValue(Promise.resolve(apiEULA));
         authConfig.eula = undefined;
         fixture.detectChanges();
-        fixture.whenStable().then(() => {
-            expect(eulaLoadSpy).toHaveBeenCalledTimes(1);
-            expect(component.eula).toBe(apiEULA);
+        void fixture.whenStable().then(() => {
+            void expect(eulaLoadSpy).toHaveBeenCalledTimes(1);
+            void expect(component.eula).toBe(apiEULA);
             done();
         });
     });
@@ -69,7 +69,7 @@ describe('PxbEulaComponent', () => {
                 },
             };
             component.checkScrollDistance(event);
-            expect(component.userScrolledBottom).toBe(true);
+            void expect(component.userScrolledBottom).toBe(true);
         });
 
         it('should mark user as scrolled bottom', () => {
@@ -82,7 +82,7 @@ describe('PxbEulaComponent', () => {
                 },
             };
             component.checkScrollDistance(event);
-            expect(component.userScrolledBottom).toBe(true);
+            void expect(component.userScrolledBottom).toBe(true);
         });
 
         it('should not mark user as scrolled bottom', () => {
@@ -95,7 +95,7 @@ describe('PxbEulaComponent', () => {
                 },
             };
             component.checkScrollDistance(event);
-            expect(component.userScrolledBottom).toBe(false);
+            void expect(component.userScrolledBottom).toBe(false);
         });
     });
 });

@@ -4,8 +4,6 @@ import { PxbAuthModule } from '../../auth.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { PxbResetPasswordComponent } from './reset-password.component';
 import { PxbAuthUIService } from '../../services/api/auth-ui/auth-ui.service';
-import { PxbAuthSecurityService } from '../../services/state/auth-security.service';
-import { Router } from '@angular/router';
 
 describe('PxbResetPasswordComponent', () => {
     let component: PxbResetPasswordComponent;

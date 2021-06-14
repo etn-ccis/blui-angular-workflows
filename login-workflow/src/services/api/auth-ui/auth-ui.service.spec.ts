@@ -8,13 +8,13 @@ describe('PxbAuthUIService', () => {
 
     it('it should be a placeholder service', () => {
         const serviceSpy = spyOn(service, 'warn').and.stub();
-        service.login('email', 'password', false);
-        service.forgotPassword('email');
-        service.changePassword('old', 'new');
-        service.verifyResetCode();
-        service.setPassword('new');
+        void service.login('email', 'password', false);
+        void service.forgotPassword('email');
+        void service.changePassword('old', 'new');
+        void service.verifyResetCode();
+        void service.setPassword('new');
         service.warn();
-        service.initiateSecurity();
-        expect(serviceSpy).toHaveBeenCalledTimes(7);
+        void service.initiateSecurity();
+        void expect(serviceSpy).toHaveBeenCalledTimes(7);
     });
 });

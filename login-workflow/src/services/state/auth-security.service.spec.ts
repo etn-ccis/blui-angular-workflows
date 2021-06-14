@@ -36,8 +36,22 @@ describe('PxbAuthSecurityService', () => {
         await router.navigate(['auth/login']);
         void expect(AUTH_ROUTES.ON_AUTHENTICATED).toBe('');
         securityService.inferOnAuthenticatedRoute();
+        const routerSpy = spyOn(router, 'navigate').and.returnValue(Promise.resolve(true));
         await router.navigate(['test']).then(() => {
-            void expect(AUTH_ROUTES.ON_AUTHENTICATED).toBe('/test');
+            void expect(routerSpy).toHaveBeenCalledWith(['test']);
         });
+    });
+
+    it('should not remember the email if remember me is disabled', () => {
+        securityService.updateSecurityState({
+            rememberMeDetails: {
+                email: 'test@gmail.com',
+            },
+        });
+        securityService.onUserNotAuthenticated({
+            user: undefined,
+            rememberMe: false,
+        });
+        void expect(securityService.getSecurityState().email).toBe(undefined);
     });
 });

@@ -60,15 +60,15 @@ describe('PxbAuthComponent', () => {
         component.isSecurityInitiated = true;
         fixture.detectChanges();
         let loginPage = fixture.debugElement.query(By.css('.pxb-auth-login'));
-        expect(loginPage).toBeTruthy();
+        void expect(loginPage).toBeTruthy();
 
         await router.navigate([`${AUTH_ROUTES.AUTH_WORKFLOW}/${AUTH_ROUTES.CONTACT_SUPPORT}`]).then(() => {
             fixture.detectChanges();
             loginPage = fixture.debugElement.query(By.css('.pxb-auth-login'));
             const contactSupportPage = fixture.debugElement.query(By.css('.pxb-auth-contact-support'));
 
-            expect(loginPage).toBeFalsy();
-            expect(contactSupportPage).toBeTruthy();
+            void expect(loginPage).toBeFalsy();
+            void expect(contactSupportPage).toBeTruthy();
         });
     });
 });

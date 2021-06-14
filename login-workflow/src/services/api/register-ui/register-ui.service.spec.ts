@@ -8,11 +8,11 @@ describe('PxbRegisterUIService', () => {
 
     it('it should be a placeholder service', () => {
         const serviceSpy = spyOn(service, 'warn').and.stub();
-        service.validateUserRegistrationRequest('code');
-        service.loadEULA();
-        service.requestRegistrationCode('email');
+        void service.validateUserRegistrationRequest('code');
+        void service.loadEULA();
+        void service.requestRegistrationCode('email');
         service.warn();
-        service.completeRegistration('first', 'last', null, 'password');
-        expect(serviceSpy).toHaveBeenCalledTimes(5);
+        void service.completeRegistration('first', 'last', null, 'password');
+        void expect(serviceSpy).toHaveBeenCalledTimes(5);
     });
 });

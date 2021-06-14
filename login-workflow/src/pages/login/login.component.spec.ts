@@ -40,7 +40,7 @@ describe('LoginComponent', () => {
         securityService.updateSecurityState({ isAuthenticatedUser: true });
         const navSpy = spyOn(component, 'navigateToDefaultRoute').and.stub();
         fixture.detectChanges();
-        expect(navSpy).toHaveBeenCalledTimes(1);
+        void expect(navSpy).toHaveBeenCalledTimes(1);
     });
 
     it('should call the login fn', (done) => {
@@ -48,8 +48,8 @@ describe('LoginComponent', () => {
         fixture.detectChanges();
         component.login();
         fixture.detectChanges();
-        fixture.whenStable().then(() => {
-            expect(loginSpy).toHaveBeenCalledTimes(1);
+        void fixture.whenStable().then(() => {
+            void expect(loginSpy).toHaveBeenCalledTimes(1);
             done();
         });
     });
@@ -60,7 +60,7 @@ describe('LoginComponent', () => {
         fixture.detectChanges();
         const debugEl = fixture.nativeElement.querySelector('.pxb-login-debug-button');
         debugEl.click();
-        expect(component.debugMode).toBe(true);
+        void expect(component.debugMode).toBe(true);
     });
 
     it('should navigate user to forgot password page', () => {
@@ -69,7 +69,7 @@ describe('LoginComponent', () => {
         const navSpy = spyOn(router, 'navigate');
         const forgotPasswordLink = fixture.nativeElement.querySelector('#pxb-forgot-password-link');
         forgotPasswordLink.click();
-        expect(navSpy).toHaveBeenCalledWith(['auth/forgot-password']);
+        void expect(navSpy).toHaveBeenCalledWith(['auth/forgot-password']);
     });
 
     it('should navigate user to create account via invite page', () => {
@@ -78,7 +78,7 @@ describe('LoginComponent', () => {
         const navSpy = spyOn(router, 'navigate');
         const createAccountLink = fixture.nativeElement.querySelector('#pxb-create-account-invite-link');
         createAccountLink.click();
-        expect(navSpy).toHaveBeenCalledWith(['auth/register/invite'], {
+        void expect(navSpy).toHaveBeenCalledWith(['auth/register/invite'], {
             queryParams: {
                 code: 'DEADBEEF',
             },
@@ -91,7 +91,7 @@ describe('LoginComponent', () => {
         const navSpy = spyOn(router, 'navigate');
         const createAccountLink = fixture.nativeElement.querySelector('#pxb-create-account-link');
         createAccountLink.click();
-        expect(navSpy).toHaveBeenCalledWith(['auth/register/create-account']);
+        void expect(navSpy).toHaveBeenCalledWith(['auth/register/create-account']);
     });
 
     it('should navigate user to reset password page', () => {
@@ -100,7 +100,7 @@ describe('LoginComponent', () => {
         const navSpy = spyOn(router, 'navigate');
         const resetLink = fixture.nativeElement.querySelector('#pxb-reset-password-link');
         resetLink.click();
-        expect(navSpy).toHaveBeenCalledWith(['auth/reset-password'], {
+        void expect(navSpy).toHaveBeenCalledWith(['auth/reset-password'], {
             queryParams: {
                 code: 'DEADBEEF',
                 email: 'resetPassword@email.com',
