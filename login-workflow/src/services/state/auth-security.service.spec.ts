@@ -3,9 +3,9 @@ import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { PxbAuthModule } from '../../auth.module';
 import { AUTH_ROUTES } from '../../auth/auth.routes';
-import { AuthComponent } from '../../../example/src/app/pages/auth/auth.component';
 import { getAuthSubRoutes } from '../../auth/auth.routing';
 import { Router } from '@angular/router';
+import { PxbAuthComponent } from '../../auth/auth.component';
 
 describe('PxbAuthSecurityService', () => {
     let securityService: PxbAuthSecurityService;
@@ -18,12 +18,12 @@ describe('PxbAuthSecurityService', () => {
                 RouterTestingModule.withRoutes([
                     {
                         path: AUTH_ROUTES.AUTH_WORKFLOW,
-                        component: AuthComponent,
+                        component: PxbAuthComponent,
                         children: authWorkflowRoutes,
                     },
                     {
                         path: 'test',
-                        component: AuthComponent,
+                        component: PxbAuthComponent,
                     },
                 ]),
             ],

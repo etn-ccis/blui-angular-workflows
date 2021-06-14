@@ -8,7 +8,6 @@ import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AUTH_ROUTES } from './auth.routes';
 import { getAuthSubRoutes } from './auth.routing';
-import { AuthComponent } from '../../example/src/app/pages/auth/auth.component';
 
 describe('PxbAuthComponent', () => {
     let component: PxbAuthComponent;
@@ -24,7 +23,7 @@ describe('PxbAuthComponent', () => {
                 RouterTestingModule.withRoutes([
                     {
                         path: AUTH_ROUTES.AUTH_WORKFLOW,
-                        component: AuthComponent,
+                        component: PxbAuthComponent,
                         children: authWorkflowRoutes,
                     },
                 ]),
