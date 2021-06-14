@@ -7,7 +7,6 @@ import {
     PxbAuthUIService,
 } from '@pxblue/angular-auth-workflow';
 import { LocalStorageService } from './services/localStorage.service';
-import {PxbAuthTranslations} from "../../../dist";
 
 @Component({
     selector: 'app-root',
