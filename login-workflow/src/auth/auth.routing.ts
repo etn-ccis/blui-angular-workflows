@@ -6,7 +6,7 @@ import { PxbContactSupportComponent } from '../pages/contact-support/contact-sup
 import { PxbCreateAccountInviteComponent } from '../pages/create-account-invite/create-account-invite.component';
 import { AUTH_ROUTES } from './auth.routes';
 import { Routes } from '@angular/router';
-import { PxbAuthPageDisabledGuard } from '../guards/page-disabled-guard';
+import { PxbAuthPageDisabledGuard } from '../guards/page-disabled/page-disabled-guard';
 
 export function getAuthSubRoutes(): Routes {
     return [

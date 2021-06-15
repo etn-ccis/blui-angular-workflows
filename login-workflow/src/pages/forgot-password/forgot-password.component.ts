@@ -2,7 +2,7 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ValidatorFn, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthErrorStateMatcher } from '../../util/matcher';
-import { PxbAuthUIService } from '../../services/api/auth-ui.service';
+import { PxbAuthUIService } from '../../services/api';
 import { AUTH_ROUTES } from '../../auth/auth.routes';
 import { PxbAuthConfig } from '../../services/config/auth-config';
 import { PxbAuthSecurityService } from '../../services/state/auth-security.service';

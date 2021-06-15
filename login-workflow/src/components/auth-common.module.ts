@@ -6,43 +6,45 @@ import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { EmailFieldComponent } from './email-field/email-field.component';
 import { LoadingOverlayComponent } from './loading-overlay/loading-overlay.component';
 import { PasswordStrengthCheckComponent } from './password-strength-checker/password-strength-checker.component';
-import { PxbPasswordStrengthCheckerComponent } from './password-strength-checker/pxb-password-strength-checker.component';
-import { PxbAuthErrorDialogComponent } from './error-dialog/error-dialog.component';
-import { MatInputModule } from '@angular/material/input';
-import { EmailFieldComponent } from './email-field/email-field.component';
-import { ReactiveFormsModule } from '@angular/forms';
 import { PasswordFieldComponent } from './password-field/password-field.component';
+import { PxbAuthErrorDialogComponent } from './error-dialog/error-dialog.component';
+import { PxbPasswordStrengthCheckerComponent } from './password-strength-checker/pxb-password-strength-checker.component';
 
 @NgModule({
     declarations: [
+        EmailFieldComponent,
         LoadingOverlayComponent,
+        PasswordFieldComponent,
         PasswordStrengthCheckComponent,
         PxbAuthErrorDialogComponent,
-        EmailFieldComponent,
-        PasswordFieldComponent,
         PxbPasswordStrengthCheckerComponent,
     ],
     entryComponents: [PxbAuthErrorDialogComponent],
     imports: [
-        MatInputModule,
         BrowserModule,
-        ReactiveFormsModule,
+        BrowserAnimationsModule,
         CommonModule,
-        MatIconModule,
-        MatDividerModule,
-        MatProgressSpinnerModule,
         MatButtonModule,
+        MatDividerModule,
+        MatIconModule,
+        MatInputModule,
         MatListModule,
+        MatProgressSpinnerModule,
+        ReactiveFormsModule,
     ],
     exports: [
+        EmailFieldComponent,
         LoadingOverlayComponent,
+        PasswordFieldComponent,
         PasswordStrengthCheckComponent,
         PxbAuthErrorDialogComponent,
-        EmailFieldComponent,
-        PasswordFieldComponent,
         PxbPasswordStrengthCheckerComponent,
     ],
 })

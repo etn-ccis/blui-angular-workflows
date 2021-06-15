@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
 
 import { AUTH_ROUTES } from '../../auth/auth.routes';
 import { PxbAuthConfig } from '../../services/config/auth-config';
-import { PxbRegisterUIService } from '../../services/api/register-ui.service';
+import { PxbRegisterUIService } from '../../services/api';
 import { PxbAuthSecurityService, SecurityContext } from '../../services/state/auth-security.service';
 import { PxbCreateAccountErrorDialogService } from '../../services/dialog/create-account-error-dialog.service';
 import { ErrorDialogData } from '../../services/dialog/error-dialog.service';

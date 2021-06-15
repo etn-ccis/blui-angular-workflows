@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { FormControl, ValidatorFn } from '@angular/forms';
 import { isEmptyView } from '../../util/view-utils';
 import { PxbAuthSecurityService } from '../../services/state/auth-security.service';
-import { PxbAuthUIService } from '../../services/api/auth-ui.service';
+import { PxbAuthUIService } from '../../services/api';
 import { AUTH_ROUTES } from '../../auth/auth.routes';
 import { PxbAuthConfig } from '../../services/config/auth-config';
 import { PxbLoginErrorDialogService } from '../../services/dialog/login-error-dialog.service';
@@ -123,7 +123,7 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
     }
 
     createAccount(): void {
-        void this._router.navigateByUrl(`${AUTH_ROUTES.AUTH_WORKFLOW}/${AUTH_ROUTES.CREATE_ACCOUNT}`);
+        void this._router.navigate([`${AUTH_ROUTES.AUTH_WORKFLOW}/${AUTH_ROUTES.CREATE_ACCOUNT}`]);
     }
 
     contactSupport(): void {
