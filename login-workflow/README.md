@@ -58,3 +58,6 @@ In a new terminal, run:
 ```shell
 cd example && yarn start
 ```
+## Browser Support
+
+PX Blue Login Workflow will work with any modern browser. For details refer to our [Browser Support](https://pxblue.github.io/development/frameworks-web/angular#browser-support) documentation.
