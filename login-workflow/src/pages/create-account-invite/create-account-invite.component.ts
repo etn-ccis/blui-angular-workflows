@@ -144,11 +144,19 @@ export class PxbCreateAccountInviteComponent implements OnInit, OnDestroy {
                 ? this.registerAccount()
                 : this.registrationUtils.nextStep();
         }
+        if (this.registrationUtils.getCurrentPage() === 1) {
+            this._pxbSecurityService.updateSecurityState({ registrationPassword: this.password });
+        }
         return this.registrationUtils.nextStep();
     }
 
     goBack(): void {
-        this.registrationUtils.getCurrentPage() === 0 ? this.navigateToLogin() : this.registrationUtils.prevStep();
+        if(this.registrationUtils.getCurrentPage() === 0) {
+            this._pxbSecurityService.updateSecurityState({ registrationPassword: ''});
+            this.navigateToLogin()
+        } else {
+            this.registrationUtils.prevStep();
+        }
     }
 
     navigateToLogin(): void {

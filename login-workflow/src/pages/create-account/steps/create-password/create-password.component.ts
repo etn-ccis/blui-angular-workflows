@@ -19,7 +19,7 @@ import { PasswordFieldComponent } from '../../../../components/password-field/pa
         <mat-divider class="pxb-auth-divider" style="margin-top: 16px; margin-bottom: 32px;"></mat-divider>
         <div class="pxb-auth-full-height">
             <form>
-                <pxb-password-field #passwordField (enter)="focusConfirmPassword()"></pxb-password-field>
+                <pxb-password-field #passwordField [rememberPassword]="true" (enter)="focusConfirmPassword()"></pxb-password-field>
                 <pxb-password-strength-checker
                     [(meetsRequirements)]="passesStrengthCheck"
                     [formValue]="passwordFormControl?.value"
@@ -28,6 +28,7 @@ import { PasswordFieldComponent } from '../../../../components/password-field/pa
                 </pxb-password-strength-checker>
                 <pxb-password-field
                     #confirmPasswordField
+                    [rememberPassword]="true"
                     [label]="translate.GENERAL.CONFIRM_PASSWORD_FORM_LABEL"
                     [shouldMatch]="passwordFormControl"
                     [(passwordsMatch)]="passwordsMatch"
@@ -72,10 +73,10 @@ export class PxbCreatePasswordComponent implements OnInit {
     ngOnInit(): void {
         this.translate = this._pxbAuthConfig.getTranslations();
         this.passwordRequirements = this._pxbAuthConfig.getPasswordRequirements();
-        setTimeout(() => {
-            this.passwordMeetsRequirements = false;
-            this.passwordMeetsRequirementsChange.emit(false);
-        });
+        // setTimeout(() => {
+        //     this.passwordMeetsRequirements = false;
+        //     this.passwordMeetsRequirementsChange.emit(false);
+        // });
     }
 
     ngAfterViewInit(): void {

@@ -100,9 +100,9 @@ export class EmailFieldComponent implements OnInit {
             return this._pxbSecurityService.getSecurityState().rememberMeDetails.email;
         } else if (this.rememberUserEmail) {
             return this._pxbSecurityService.getSecurityState().email;
-        } else {
+        } 
             return '';
-        }
+        
     }
     isEmailFormDirty(): boolean {
         return (
