@@ -64,6 +64,7 @@ import { AuthErrorStateMatcher } from '../../util/matcher';
 export class EmailFieldComponent implements OnInit {
     @Input() customEmailValidator: ValidatorFn;
     @Input() useRememberMe = false;
+    @Input() rememberUserEmail = false;
     @Output() edit: EventEmitter<string> = new EventEmitter<string>();
     @Output() enter: EventEmitter<void> = new EventEmitter<void>();
 
@@ -90,11 +91,19 @@ export class EmailFieldComponent implements OnInit {
             emailValidators.push(this.customEmailValidator || this._pxbAuthConfig.customEmailValidator);
         }
         this.emailFormControl = new FormControl(
-            this.useRememberMe ? this._pxbSecurityService.getSecurityState().rememberMeDetails.email : '',
+            this.showEmail(),
             emailValidators
         );
     }
-
+    showEmail() : string {
+        if(this.useRememberMe) {
+            return this._pxbSecurityService.getSecurityState().rememberMeDetails.email;
+        } else if (this.rememberUserEmail) {
+            return this._pxbSecurityService.getSecurityState().email;
+        } else {
+            return '';
+        }
+    }
     isEmailFormDirty(): boolean {
         return (
             !this.idFieldActive && this.touchedIdField && (this.emailFormControl.dirty || this.emailFormControl.touched)
