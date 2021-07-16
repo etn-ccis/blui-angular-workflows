@@ -90,19 +90,15 @@ export class EmailFieldComponent implements OnInit {
         if (this.customEmailValidator || this._pxbAuthConfig.customEmailValidator) {
             emailValidators.push(this.customEmailValidator || this._pxbAuthConfig.customEmailValidator);
         }
-        this.emailFormControl = new FormControl(
-            this.showEmail(),
-            emailValidators
-        );
+        this.emailFormControl = new FormControl(this.showEmail(), emailValidators);
     }
-    showEmail() : string {
-        if(this.useRememberMe) {
+    showEmail(): string {
+        if (this.useRememberMe) {
             return this._pxbSecurityService.getSecurityState().rememberMeDetails.email;
         } else if (this.rememberUserEmail) {
             return this._pxbSecurityService.getSecurityState().email;
-        } 
-            return '';
-        
+        }
+        return '';
     }
     isEmailFormDirty(): boolean {
         return (

@@ -174,9 +174,9 @@ export class PxbCreateAccountComponent implements OnDestroy {
     }
 
     goBack(): void {
-        if(this.registrationUtils.getCurrentPage() === 0) {
+        if (this.registrationUtils.getCurrentPage() === 0) {
             this._pxbSecurityService.updateSecurityState({ email: '', registrationPassword: '' });
-            this.navigateToLogin()
+            this.navigateToLogin();
         } else {
             this.registrationUtils.prevStep();
         }

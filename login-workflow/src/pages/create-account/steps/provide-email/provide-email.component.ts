@@ -53,7 +53,7 @@ export class PxbProvideEmailComponent implements OnInit {
 
     ngAfterViewInit(): void {
         this.emailFormControl = this.emailFieldComponent.emailFormControl;
-        if(this.emailFormControl.valid) {
+        if (this.emailFormControl.valid) {
             this.isValidEmailChange.emit(this.emailFormControl.valid);
         }
     }
@@ -61,6 +61,8 @@ export class PxbProvideEmailComponent implements OnInit {
     updateEmail(email: string): void {
         this.emailChange.emit(email);
         this.isValidEmailChange.emit(this.emailFormControl.valid);
-        this._pxbSecurityService.updateSecurityState({ email: this.emailFormControl.valid ? this.emailFormControl.value: '' });
+        this._pxbSecurityService.updateSecurityState({
+            email: this.emailFormControl.valid ? this.emailFormControl.value : '',
+        });
     }
 }

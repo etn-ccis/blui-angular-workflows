@@ -44,7 +44,7 @@ export type SecurityContext = {
     /**
      * Save password during registration process
      */
-     registrationPassword: string;
+    registrationPassword: string;
 };
 
 export type RememberMeData = {
@@ -68,7 +68,7 @@ export class PxbAuthSecurityService {
         isAuthenticatedUser: false,
         isLoading: true,
         loadingMessage: undefined,
-        registrationPassword: undefined
+        registrationPassword: undefined,
     };
 
     // Whenever the application loads for the first time, we may want to direct the user to their original destination, before they were redirected to the login screen.

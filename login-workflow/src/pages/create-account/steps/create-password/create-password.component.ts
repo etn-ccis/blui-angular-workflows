@@ -19,7 +19,11 @@ import { PasswordFieldComponent } from '../../../../components/password-field/pa
         <mat-divider class="pxb-auth-divider" style="margin-top: 16px; margin-bottom: 32px;"></mat-divider>
         <div class="pxb-auth-full-height">
             <form>
-                <pxb-password-field #passwordField [rememberPassword]="true" (enter)="focusConfirmPassword()"></pxb-password-field>
+                <pxb-password-field
+                    #passwordField
+                    [rememberPassword]="true"
+                    (enter)="focusConfirmPassword()"
+                ></pxb-password-field>
                 <pxb-password-strength-checker
                     [(meetsRequirements)]="passesStrengthCheck"
                     [formValue]="passwordFormControl?.value"

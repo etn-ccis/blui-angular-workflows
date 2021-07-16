@@ -59,8 +59,12 @@ export class PasswordFieldComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        const rememberedPassword = this.rememberPassword ? this._pxbSecurityService.getSecurityState().registrationPassword : '';
-        this.passwordFormControl = new FormControl(rememberedPassword ? rememberedPassword : '', [this._passwordsMatchValidator()]);
+        const rememberedPassword = this.rememberPassword
+            ? this._pxbSecurityService.getSecurityState().registrationPassword
+            : '';
+        this.passwordFormControl = new FormControl(rememberedPassword ? rememberedPassword : '', [
+            this._passwordsMatchValidator(),
+        ]);
     }
 
     private _passwordsMatchValidator(): ValidatorFn {
