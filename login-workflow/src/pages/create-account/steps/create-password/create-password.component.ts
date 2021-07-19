@@ -77,10 +77,6 @@ export class PxbCreatePasswordComponent implements OnInit {
     ngOnInit(): void {
         this.translate = this._pxbAuthConfig.getTranslations();
         this.passwordRequirements = this._pxbAuthConfig.getPasswordRequirements();
-        // setTimeout(() => {
-        //     this.passwordMeetsRequirements = false;
-        //     this.passwordMeetsRequirementsChange.emit(false);
-        // });
     }
 
     ngAfterViewInit(): void {

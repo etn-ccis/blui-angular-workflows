@@ -8,6 +8,7 @@ export const pxbAuthEnglishTranslations: PxbAuthTranslations = {
         OKAY_BUTTON: 'Okay',
         DONE_BUTTON: 'Done',
         NEXT_BUTTON: 'Next',
+        CANCEL_BUTTON: 'Cancel',
         PASSWORD_FORM_LABEL: 'Password',
         PASSWORD_MISMATCH_ERROR: 'Passwords do not match',
         CONFIRM_PASSWORD_FORM_LABEL: 'Confirm Password',

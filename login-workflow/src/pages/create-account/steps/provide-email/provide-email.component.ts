@@ -19,7 +19,7 @@ import { EmailFieldComponent } from '../../../../components/email-field/email-fi
         <div class="pxb-auth-full-height">
             <form>
                 <pxb-email-field
-                    [rememberUserEmail]="true"
+                    [rememberRegistrationEmail]="true"
                     [customEmailValidator]="customEmailValidator"
                     (enter)="advance.emit()"
                     (edit)="updateEmail($event)"
