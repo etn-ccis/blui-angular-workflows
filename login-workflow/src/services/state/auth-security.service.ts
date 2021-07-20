@@ -44,7 +44,7 @@ export type SecurityContext = {
     /**
      * Save email address during registration process
      */
-     registrationEmail: string;
+    registrationEmail: string;
     /**
      * Save password during registration process
      */
