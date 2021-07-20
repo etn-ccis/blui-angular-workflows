@@ -114,7 +114,7 @@ export class PxbCreateAccountComponent implements OnDestroy {
             )
             .then(() => {
                 this._pxbSecurityService.setLoading(false);
-                this._pxbSecurityService.updateSecurityState({ email: this.email });
+                this._pxbSecurityService.updateSecurityState({ registrationEmail: this.email });
                 this.registrationSuccessScreenContext = {
                     email: this.email,
                     firstName: this.firstName,
@@ -123,7 +123,7 @@ export class PxbCreateAccountComponent implements OnDestroy {
                 for (const key of customForms.keys()) {
                     this.registrationSuccessScreenContext[key] = customForms.get(key).value;
                 }
-                this._pxbSecurityService.updateSecurityState({ email: '', registrationPassword: '' });
+                this._pxbSecurityService.updateSecurityState({ registrationEmail: '', registrationPassword: '' });
                 this.registrationUtils.clearAccountDetails();
                 this.registrationUtils.nextStep();
             })
@@ -183,7 +183,7 @@ export class PxbCreateAccountComponent implements OnDestroy {
     }
 
     navigateToLogin(): void {
-        this._pxbSecurityService.updateSecurityState({ email: '', registrationPassword: '' });
+        this._pxbSecurityService.updateSecurityState({ registrationEmail: '', registrationPassword: '' });
         this.registrationUtils.clearAccountDetails();
         void this._router.navigate([`${AUTH_ROUTES.AUTH_WORKFLOW}/${AUTH_ROUTES.LOGIN}`]);
     }

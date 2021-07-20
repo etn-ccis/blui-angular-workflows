@@ -42,6 +42,10 @@ export type SecurityContext = {
      */
     isAuthenticatedUser: boolean;
     /**
+     * Save email address during registration process
+     */
+     registrationEmail: string;
+    /**
      * Save password during registration process
      */
     registrationPassword: string;
@@ -68,6 +72,7 @@ export class PxbAuthSecurityService {
         isAuthenticatedUser: false,
         isLoading: true,
         loadingMessage: undefined,
+        registrationEmail: undefined,
         registrationPassword: undefined,
     };
 
@@ -149,6 +154,7 @@ export class PxbAuthSecurityService {
                 rememberMe,
             },
             loadingMessage: this.securityState.loadingMessage,
+            registrationEmail: undefined,
             registrationPassword: undefined,
         });
     }

@@ -62,7 +62,7 @@ export class PxbProvideEmailComponent implements OnInit {
         this.emailChange.emit(email);
         this.isValidEmailChange.emit(this.emailFormControl.valid);
         this._pxbSecurityService.updateSecurityState({
-            email: this.emailFormControl.valid ? this.emailFormControl.value : '',
+            registrationEmail: this.emailFormControl.valid ? this.emailFormControl.value : '',
         });
     }
 }

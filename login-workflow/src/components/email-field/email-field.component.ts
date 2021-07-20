@@ -96,7 +96,7 @@ export class EmailFieldComponent implements OnInit {
         if (this.rememberLoginEmail) {
             return this._pxbSecurityService.getSecurityState().rememberMeDetails.email;
         } else if (this.rememberRegistrationEmail) {
-            return this._pxbSecurityService.getSecurityState().email;
+            return this._pxbSecurityService.getSecurityState().registrationEmail;
         }
         return '';
     }
