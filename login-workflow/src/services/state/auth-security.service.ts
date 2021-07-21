@@ -41,6 +41,14 @@ export type SecurityContext = {
      * False: The user is not authenticated and the Authentication User Interface is shown.
      */
     isAuthenticatedUser: boolean;
+    /**
+     * Save email address during registration process
+     */
+    registrationEmail: string;
+    /**
+     * Save password during registration process
+     */
+    registrationPassword: string;
 };
 
 export type RememberMeData = {
@@ -64,6 +72,8 @@ export class PxbAuthSecurityService {
         isAuthenticatedUser: false,
         isLoading: true,
         loadingMessage: undefined,
+        registrationEmail: undefined,
+        registrationPassword: undefined,
     };
 
     // Whenever the application loads for the first time, we may want to direct the user to their original destination, before they were redirected to the login screen.
@@ -144,6 +154,8 @@ export class PxbAuthSecurityService {
                 rememberMe,
             },
             loadingMessage: this.securityState.loadingMessage,
+            registrationEmail: undefined,
+            registrationPassword: undefined,
         });
     }
 

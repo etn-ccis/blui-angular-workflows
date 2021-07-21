@@ -8,6 +8,7 @@ export const pxbAuthChineseTranslations: PxbAuthTranslations = {
         OKAY_BUTTON: '好的',
         DONE_BUTTON: '完成',
         NEXT_BUTTON: 'Next',
+        CANCEL_BUTTON: '取消',
         PASSWORD_FORM_LABEL: '密码',
         PASSWORD_MISMATCH_ERROR: '密码不匹配',
         CONFIRM_PASSWORD_FORM_LABEL: '确认密码',

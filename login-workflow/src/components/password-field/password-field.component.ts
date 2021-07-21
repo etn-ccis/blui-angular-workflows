@@ -2,6 +2,7 @@ import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild }
 import { AbstractControl, FormControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { PxbAuthConfig } from '../../services/config/auth-config';
 import { PxbAuthTranslations } from '../../translations/auth-translations';
+import { PxbAuthSecurityService } from '../../services/state/auth-security.service';
 import { CrossFieldErrorMatcher } from '../../util/matcher';
 
 @Component({
@@ -38,6 +39,7 @@ import { CrossFieldErrorMatcher } from '../../util/matcher';
     `,
 })
 export class PasswordFieldComponent implements OnInit {
+    @Input() rememberPassword: false;
     @Input() label: string;
     @Input() shouldMatch: FormControl;
     @Input() passwordsMatch: boolean;
@@ -51,10 +53,18 @@ export class PasswordFieldComponent implements OnInit {
     passwordFormControl: FormControl;
     matcher = new CrossFieldErrorMatcher();
 
-    constructor(private readonly _pxbAuthConfig: PxbAuthConfig) {}
+    constructor(
+        private readonly _pxbAuthConfig: PxbAuthConfig,
+        private readonly _pxbSecurityService: PxbAuthSecurityService
+    ) {}
 
     ngOnInit(): void {
-        this.passwordFormControl = new FormControl('', [this._passwordsMatchValidator()]);
+        const rememberedPassword = this.rememberPassword
+            ? this._pxbSecurityService.getSecurityState().registrationPassword
+            : '';
+        this.passwordFormControl = new FormControl(rememberedPassword ? rememberedPassword : '', [
+            this._passwordsMatchValidator(),
+        ]);
     }
 
     private _passwordsMatchValidator(): ValidatorFn {
