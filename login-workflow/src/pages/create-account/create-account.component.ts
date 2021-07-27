@@ -147,9 +147,9 @@ export class PxbCreateAccountComponent implements OnDestroy {
         }
         switch (this.registrationUtils.getCurrentPage()) {
             case 0:
-                return this.isValidEmail;
-            case 1:
                 return this.userAcceptsEula;
+            case 1:
+                return this.isValidEmail;
             case 2:
                 return Boolean(this.verificationCode);
             case 3:
