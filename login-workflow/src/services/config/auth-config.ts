@@ -53,7 +53,10 @@ export class PxbAuthConfig {
         specialCharacter: true,
     };
     customPasswordRequirements: PasswordRequirement[] = [];
+
+    /** Array of custom first name requirements used in the account registration pages. */
     customFirstNameRequirements: NameRequirement[] = [];
+    /** Array of custom last name requirements used in the account registration pages. */
     customLastNameRequirements: NameRequirement[] = [];
     customEmailValidator: ValidatorFn;
 
