@@ -2,7 +2,7 @@ import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild }
 import { FormControl, Validators } from '@angular/forms';
 
 import { PxbFormsService } from '../../../../services/forms/forms.service';
-import {NameRequirement, PxbAuthConfig} from '../../../../services/config/auth-config';
+import { NameRequirement, PxbAuthConfig } from '../../../../services/config/auth-config';
 
 import { PxbAuthTranslations } from '../../../../translations/auth-translations';
 
@@ -46,8 +46,12 @@ import { PxbAuthTranslations } from '../../../../translations/auth-translations'
                             >
                             </mat-error>
                             <mat-error
-                                *ngIf="firstNameFormControl.hasError('custom') && !firstNameFormControl.hasError('required')"
-                                [innerHTML]="firstNameCustomError">
+                                *ngIf="
+                                    firstNameFormControl.hasError('custom') &&
+                                    !firstNameFormControl.hasError('required')
+                                "
+                                [innerHTML]="firstNameCustomError"
+                            >
                             </mat-error>
                         </mat-form-field>
                         <mat-form-field appearance="fill">
@@ -72,8 +76,11 @@ import { PxbAuthTranslations } from '../../../../translations/auth-translations'
                             >
                             </mat-error>
                             <mat-error
-                                *ngIf="lastNameFormControl.hasError('custom') && !lastNameFormControl.hasError('required')"
-                                [innerHTML]="lastNameCustomError">
+                                *ngIf="
+                                    lastNameFormControl.hasError('custom') && !lastNameFormControl.hasError('required')
+                                "
+                                [innerHTML]="lastNameCustomError"
+                            >
                             </mat-error>
                         </mat-form-field>
                     </ng-container>
@@ -120,29 +127,32 @@ export class PxbAccountDetailsComponent implements OnInit {
         let isValid = true;
 
         // Enforce first & last name registration requirements.
-        this.lastNameCustomError = this._checkNameRequirements(this.lastNameFormControl,
-            this._pxbAuthConfig.customLastNameRequirements);
-        this.firstNameCustomError = this._checkNameRequirements(this.firstNameFormControl,
-            this._pxbAuthConfig.customFirstNameRequirements);
+        this.lastNameCustomError = this._checkNameRequirements(
+            this.lastNameFormControl,
+            this._pxbAuthConfig.customLastNameRequirements
+        );
+        this.firstNameCustomError = this._checkNameRequirements(
+            this.firstNameFormControl,
+            this._pxbAuthConfig.customFirstNameRequirements
+        );
         /* Check for custom errors */
-        isValid &&= Boolean(this.lastNameCustomError);
-        isValid &&= Boolean(this.firstNameCustomError);
+        isValid = isValid && Boolean(this.lastNameCustomError);
+        isValid = isValid && Boolean(this.firstNameCustomError);
 
         /* Check for required values */
-        isValid &&= this.firstNameFormControl.value;
-        isValid &&= this.lastNameFormControl.value;
+        isValid = isValid && this.firstNameFormControl.value;
+        isValid = isValid && this.lastNameFormControl.value;
         this.accountNameValid.emit(isValid);
     }
 
     /** If there is an error due to some custom first/last name form field requirement, it returns the error. */
     private _checkNameRequirements(formControl: FormControl, requirements: NameRequirement[]): string {
-        let isValid = true;
         for (const requirement of requirements || []) {
             this.lastNameCustomError = undefined;
-            isValid &&= requirement.regex.test(formControl.value);
+            const isValid = requirement.regex.test(formControl.value);
             if (!isValid) {
-                formControl.setErrors({ 'custom': requirement.description })
-                return requirement.description
+                formControl.setErrors({ custom: requirement.description });
+                return requirement.description;
             }
         }
     }

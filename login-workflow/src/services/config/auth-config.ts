@@ -16,7 +16,7 @@ export type PasswordRequirement = {
 export type NameRequirement = {
     description: string;
     regex: RegExp;
-}
+};
 @Injectable({
     providedIn: 'root',
 })
