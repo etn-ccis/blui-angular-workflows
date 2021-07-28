@@ -2,7 +2,7 @@ import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild }
 import { FormControl, Validators } from '@angular/forms';
 
 import { PxbFormsService } from '../../../../services/forms/forms.service';
-import { PxbAuthConfig } from '../../../../services/config/auth-config';
+import {NameRequirement, PxbAuthConfig} from '../../../../services/config/auth-config';
 
 import { PxbAuthTranslations } from '../../../../translations/auth-translations';
 
@@ -71,6 +71,10 @@ import { PxbAuthTranslations } from '../../../../translations/auth-translations'
                                 "
                             >
                             </mat-error>
+                            <mat-error
+                                *ngIf="lastNameFormControl.hasError('custom') && !lastNameFormControl.hasError('required')"
+                                [innerHTML]="lastNameCustomError">
+                            </mat-error>
                         </mat-form-field>
                     </ng-container>
                     <ng-content select="[pxb-account-details]"></ng-content>
@@ -114,27 +118,32 @@ export class PxbAccountDetailsComponent implements OnInit {
     /* If we are using the default account details, we need to provide the input validation required for the 'NEXT' button. */
     emitIfValid(): void {
         let isValid = true;
+
         // Enforce first & last name registration requirements.
-        for (const requirement of this._pxbAuthConfig.customFirstNameRequirements) {
-            this.firstNameCustomError = undefined;
-            isValid &&= requirement.regex.test(this.firstNameFormControl.value);
-            if (!isValid) {
-                this.firstNameCustomError = requirement.description;
-                this.accountNameValid.emit(isValid);
-                return;
-            }
-        }
-        for (const requirement of this._pxbAuthConfig.customLastNameRequirements) {
-            isValid &&= requirement.regex.test(this.lastNameFormControl.value);
-            this.lastNameCustomError = undefined;
-            if (!isValid) {
-                this.lastNameCustomError = requirement.description;
-                this.accountNameValid.emit(isValid);
-                return;
-            }
-        }
+        this.lastNameCustomError = this._checkNameRequirements(this.lastNameFormControl,
+            this._pxbAuthConfig.customLastNameRequirements);
+        this.firstNameCustomError = this._checkNameRequirements(this.firstNameFormControl,
+            this._pxbAuthConfig.customFirstNameRequirements);
+        /* Check for custom errors */
+        isValid &&= Boolean(this.lastNameCustomError);
+        isValid &&= Boolean(this.firstNameCustomError);
+
+        /* Check for required values */
         isValid &&= this.firstNameFormControl.value;
         isValid &&= this.lastNameFormControl.value;
         this.accountNameValid.emit(isValid);
+    }
+
+    /** If there is an error due to some custom first/last name form field requirement, it returns the error. */
+    private _checkNameRequirements(formControl: FormControl, requirements: NameRequirement[]): string {
+        let isValid = true;
+        for (const requirement of requirements || []) {
+            this.lastNameCustomError = undefined;
+            isValid &&= requirement.regex.test(formControl.value);
+            if (!isValid) {
+                formControl.setErrors({ 'custom': requirement.description })
+                return requirement.description
+            }
+        }
     }
 }

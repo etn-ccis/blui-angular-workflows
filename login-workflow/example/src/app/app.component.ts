@@ -37,10 +37,16 @@ export class AppComponent {
                 description: 'Does not contain "password"',
             },
         ];
+        this.pxbAuthConfig.customFirstNameRequirements = [
+            {
+                regex: /^[a-z0-9A-Z]{0,30}$/,
+                description: 'First name has exceeded <strong>30 characters</strong>.'
+            }
+        ]
         this.pxbAuthConfig.customLastNameRequirements = [
             {
-                regex: /^[A-Z]{1,10}$/,
-                description: 'Length Requirement'
+                regex: /^[a-z0-9A-Z]{0,30}$/,
+                description: 'First name has exceeded <strong>30 characters</strong>.'
             }
         ]
     }
