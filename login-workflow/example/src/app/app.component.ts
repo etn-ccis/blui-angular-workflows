@@ -46,7 +46,7 @@ export class AppComponent {
         this.pxbAuthConfig.customLastNameRequirements = [
             {
                 regex: /^[a-z0-9A-Z]{0,30}$/,
-                description: 'First name has exceeded <strong>30 characters</strong>.'
+                description: 'Last name has exceeded <strong>30 characters</strong>.'
             }
         ]
     }
