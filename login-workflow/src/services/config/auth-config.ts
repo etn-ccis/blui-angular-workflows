@@ -12,6 +12,11 @@ export type PasswordRequirement = {
     description: string;
     regex: RegExp;
 };
+
+export type NameRequirement = {
+    description: string;
+    regex: RegExp;
+}
 @Injectable({
     providedIn: 'root',
 })
@@ -48,6 +53,8 @@ export class PxbAuthConfig {
         specialCharacter: true,
     };
     customPasswordRequirements: PasswordRequirement[] = [];
+    customFirstNameRequirements: NameRequirement[] = [];
+    customLastNameRequirements: NameRequirement[] = [];
     customEmailValidator: ValidatorFn;
 
     getTranslations(): PxbAuthTranslations {
@@ -71,6 +78,14 @@ export class PxbAuthConfig {
                 return pxbAuthEnglishTranslations;
             }
         }
+    }
+
+    getFirstNameRequirements(): NameRequirement[] {
+        return this.customFirstNameRequirements;
+    }
+
+    getLastNameRequirements(): NameRequirement[] {
+        return this.customLastNameRequirements;
     }
 
     getPasswordRequirements(): PasswordRequirement[] {

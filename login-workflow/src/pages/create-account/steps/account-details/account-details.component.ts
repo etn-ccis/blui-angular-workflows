@@ -45,6 +45,10 @@ import { PxbAuthTranslations } from '../../../../translations/auth-translations'
                                 "
                             >
                             </mat-error>
+                            <mat-error
+                                *ngIf="firstNameFormControl.hasError('custom') && !firstNameFormControl.hasError('required')"
+                                [innerHTML]="firstNameCustomError">
+                            </mat-error>
                         </mat-form-field>
                         <mat-form-field appearance="fill">
                             <mat-label>{{ translate.CREATE_ACCOUNT.ACCOUNT_DETAILS.LAST_NAME_FORM_LABEL }}</mat-label>
@@ -92,6 +96,9 @@ export class PxbAccountDetailsComponent implements OnInit {
     firstNameFormControl: FormControl;
     lastNameFormControl: FormControl;
 
+    firstNameCustomError: string;
+    lastNameCustomError: string;
+
     translate: PxbAuthTranslations;
 
     constructor(public pxbFormsService: PxbFormsService, private readonly _pxbAuthConfig: PxbAuthConfig) {}
@@ -106,11 +113,28 @@ export class PxbAccountDetailsComponent implements OnInit {
 
     /* If we are using the default account details, we need to provide the input validation required for the 'NEXT' button. */
     emitIfValid(): void {
-        this.accountNameValid.emit(
-            this.firstNameFormControl.value &&
-                this.firstNameFormControl.valid &&
-                this.lastNameFormControl.value &&
-                this.lastNameFormControl.valid
-        );
+        let isValid = true;
+        // Enforce first & last name registration requirements.
+        for (const requirement of this._pxbAuthConfig.customFirstNameRequirements) {
+            this.firstNameCustomError = undefined;
+            isValid &&= requirement.regex.test(this.firstNameFormControl.value);
+            if (!isValid) {
+                this.firstNameCustomError = requirement.description;
+                this.accountNameValid.emit(isValid);
+                return;
+            }
+        }
+        for (const requirement of this._pxbAuthConfig.customLastNameRequirements) {
+            isValid &&= requirement.regex.test(this.lastNameFormControl.value);
+            this.lastNameCustomError = undefined;
+            if (!isValid) {
+                this.lastNameCustomError = requirement.description;
+                this.accountNameValid.emit(isValid);
+                return;
+            }
+        }
+        isValid &&= this.firstNameFormControl.value;
+        isValid &&= this.lastNameFormControl.value;
+        this.accountNameValid.emit(isValid);
     }
 }

@@ -37,6 +37,12 @@ export class AppComponent {
                 description: 'Does not contain "password"',
             },
         ];
+        this.pxbAuthConfig.customLastNameRequirements = [
+            {
+                regex: /^[A-Z]{1,10}$/,
+                description: 'Length Requirement'
+            }
+        ]
     }
 
     private _getCustomEmailValidator(): ValidatorFn {
