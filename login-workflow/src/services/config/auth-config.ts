@@ -54,14 +54,13 @@ export class PxbAuthConfig {
     };
     customPasswordRequirements: PasswordRequirement[] = [];
 
-
     /** Custom first name requirements used in the account registration pages. */
     customFirstNameRequirements = {
-        maxLength: 30
+        maxLength: 30,
     };
     /** Custom last name requirements used in the account registration pages. */
     customLastNameRequirements = {
-        maxLength: 30
+        maxLength: 30,
     };
     customEmailValidator: ValidatorFn;
 

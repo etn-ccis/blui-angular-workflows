@@ -109,7 +109,6 @@ export class PxbAccountDetailsComponent implements OnInit {
         }
         this.firstNameMaxLength = this._pxbAuthConfig.customFirstNameRequirements.maxLength;
         this.lastNameMaxLength = this._pxbAuthConfig.customLastNameRequirements.maxLength;
-
     }
 
     /* If we are using the default account details, we need to provide the input validation required for the 'NEXT' button. */
