@@ -2,7 +2,7 @@ import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild }
 import { FormControl, Validators } from '@angular/forms';
 
 import { PxbFormsService } from '../../../../services/forms/forms.service';
-import { NameRequirement, PxbAuthConfig } from '../../../../services/config/auth-config';
+import { PxbAuthConfig } from '../../../../services/config/auth-config';
 
 import { PxbAuthTranslations } from '../../../../translations/auth-translations';
 
@@ -31,6 +31,7 @@ import { PxbAuthTranslations } from '../../../../translations/auth-translations'
                                 id="pxb-first"
                                 name="first"
                                 matInput
+                                [maxLength]="firstNameMaxLength"
                                 [formControl]="firstNameFormControl"
                                 required
                                 (ngModelChange)="emitIfValid(); firstNameChange.emit(firstNameFormControl.value)"
@@ -45,14 +46,6 @@ import { PxbAuthTranslations } from '../../../../translations/auth-translations'
                                 "
                             >
                             </mat-error>
-                            <mat-error
-                                *ngIf="
-                                    firstNameFormControl.hasError('custom') &&
-                                    !firstNameFormControl.hasError('required')
-                                "
-                                [innerHTML]="firstNameCustomError"
-                            >
-                            </mat-error>
                         </mat-form-field>
                         <mat-form-field appearance="fill">
                             <mat-label>{{ translate.CREATE_ACCOUNT.ACCOUNT_DETAILS.LAST_NAME_FORM_LABEL }}</mat-label>
@@ -61,6 +54,7 @@ import { PxbAuthTranslations } from '../../../../translations/auth-translations'
                                 #pxbLast
                                 id="pxb-last"
                                 name="last"
+                                [maxLength]="lastNameMaxLength"
                                 [formControl]="lastNameFormControl"
                                 required
                                 (ngModelChange)="emitIfValid(); lastNameChange.emit(lastNameFormControl.value)"
@@ -73,13 +67,6 @@ import { PxbAuthTranslations } from '../../../../translations/auth-translations'
                                         translate.CREATE_ACCOUNT.ACCOUNT_DETAILS.LAST_NAME_FORM_LABEL
                                     )
                                 "
-                            >
-                            </mat-error>
-                            <mat-error
-                                *ngIf="
-                                    lastNameFormControl.hasError('custom') && !lastNameFormControl.hasError('required')
-                                "
-                                [innerHTML]="lastNameCustomError"
                             >
                             </mat-error>
                         </mat-form-field>
@@ -107,8 +94,8 @@ export class PxbAccountDetailsComponent implements OnInit {
     firstNameFormControl: FormControl;
     lastNameFormControl: FormControl;
 
-    firstNameCustomError: string;
-    lastNameCustomError: string;
+    lastNameMaxLength: number;
+    firstNameMaxLength: number;
 
     translate: PxbAuthTranslations;
 
@@ -120,40 +107,18 @@ export class PxbAccountDetailsComponent implements OnInit {
             this.firstNameFormControl = new FormControl(this.firstName, Validators.required);
             this.lastNameFormControl = new FormControl(this.lastName, Validators.required);
         }
+        this.firstNameMaxLength = this._pxbAuthConfig.customFirstNameRequirements.maxLength;
+        this.lastNameMaxLength = this._pxbAuthConfig.customLastNameRequirements.maxLength;
+
     }
 
     /* If we are using the default account details, we need to provide the input validation required for the 'NEXT' button. */
     emitIfValid(): void {
         let isValid = true;
 
-        // Enforce first & last name registration requirements.
-        this.lastNameCustomError = this._checkNameRequirements(
-            this.lastNameFormControl,
-            this._pxbAuthConfig.customLastNameRequirements
-        );
-        this.firstNameCustomError = this._checkNameRequirements(
-            this.firstNameFormControl,
-            this._pxbAuthConfig.customFirstNameRequirements
-        );
-        /* Check for custom errors */
-        isValid = isValid && Boolean(this.lastNameCustomError);
-        isValid = isValid && Boolean(this.firstNameCustomError);
-
         /* Check for required values */
         isValid = isValid && this.firstNameFormControl.value;
         isValid = isValid && this.lastNameFormControl.value;
         this.accountNameValid.emit(isValid);
-    }
-
-    /** If there is an error due to some custom first/last name form field requirement, it returns the error. */
-    private _checkNameRequirements(formControl: FormControl, requirements: NameRequirement[]): string {
-        for (const requirement of requirements || []) {
-            this.lastNameCustomError = undefined;
-            const isValid = requirement.regex.test(formControl.value);
-            if (!isValid) {
-                formControl.setErrors({ custom: requirement.description });
-                return requirement.description;
-            }
-        }
     }
 }

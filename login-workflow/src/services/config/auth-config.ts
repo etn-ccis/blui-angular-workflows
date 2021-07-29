@@ -54,10 +54,15 @@ export class PxbAuthConfig {
     };
     customPasswordRequirements: PasswordRequirement[] = [];
 
-    /** Array of custom first name requirements used in the account registration pages. */
-    customFirstNameRequirements: NameRequirement[] = [];
-    /** Array of custom last name requirements used in the account registration pages. */
-    customLastNameRequirements: NameRequirement[] = [];
+
+    /** Custom first name requirements used in the account registration pages. */
+    customFirstNameRequirements = {
+        maxLength: 30
+    };
+    /** Custom last name requirements used in the account registration pages. */
+    customLastNameRequirements = {
+        maxLength: 30
+    };
     customEmailValidator: ValidatorFn;
 
     getTranslations(): PxbAuthTranslations {
@@ -81,14 +86,6 @@ export class PxbAuthConfig {
                 return pxbAuthEnglishTranslations;
             }
         }
-    }
-
-    getFirstNameRequirements(): NameRequirement[] {
-        return this.customFirstNameRequirements;
-    }
-
-    getLastNameRequirements(): NameRequirement[] {
-        return this.customLastNameRequirements;
     }
 
     getPasswordRequirements(): PasswordRequirement[] {

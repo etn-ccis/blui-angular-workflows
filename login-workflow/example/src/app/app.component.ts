@@ -37,18 +37,12 @@ export class AppComponent {
                 description: 'Does not contain "password"',
             },
         ];
-        this.pxbAuthConfig.customFirstNameRequirements = [
-            {
-                regex: /^[a-z0-9A-Z]{0,30}$/,
-                description: 'First name has exceeded <strong>30 characters</strong>.'
-            }
-        ]
-        this.pxbAuthConfig.customLastNameRequirements = [
-            {
-                regex: /^[a-z0-9A-Z]{0,30}$/,
-                description: 'Last name has exceeded <strong>30 characters</strong>.'
-            }
-        ]
+        this.pxbAuthConfig.customFirstNameRequirements = {
+            maxLength: 30
+        };
+        this.pxbAuthConfig.customLastNameRequirements = {
+            maxLength: 30
+        };
     }
 
     private _getCustomEmailValidator(): ValidatorFn {
