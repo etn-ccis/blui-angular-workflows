@@ -90,7 +90,12 @@
                 [activeStep]="registrationUtils.getCurrentPage()"
             >
                 <button pxb-back-button mat-stroked-button color="primary" style="width: 100px;" (click)="goBack()">
-                    {{ translate.GENERAL.CANCEL_BUTTON }}
+                    <ng-container *ngIf="registrationUtils.getCurrentPage() === 0">
+                        {{ translate.GENERAL.CANCEL_BUTTON }}
+                    </ng-container>
+                    <ng-container *ngIf="registrationUtils.getCurrentPage() !== 0">
+                        {{ translate.GENERAL.BACK_BUTTON }}
+                    </ng-container>
                 </button>
                 <button
                     pxb-next-button

@@ -52,10 +52,10 @@ constructor(pxbAuthConfig: PxbAuthConfig) {
     -   Default: `undefined`
 -   **customFirstNameRequirements** (optional): _`{ maxLength: number }`_
     -   Custom first name requirements.
-    -   Default: `{ maxLength: 30 }`
+    -   Default: `{ maxLength: 1000 }`
 -   **customLastNameRequirements** (optional): _`{ maxLength: number }`_
     -   Custom last name requirements.
-    -   Default: `{ maxLength: 30 }`
+    -   Default: `{ maxLength: 1000 }`
 -   **customPasswordRequirements** (optional): _`PasswordRequirement[]`_
     -   Array of custom password requirements. 
     -   Default: `[]`
