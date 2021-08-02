@@ -107,8 +107,8 @@ export class PxbAccountDetailsComponent implements OnInit {
             this.firstNameFormControl = new FormControl(this.firstName, Validators.required);
             this.lastNameFormControl = new FormControl(this.lastName, Validators.required);
         }
-        this.firstNameMaxLength = this._pxbAuthConfig.customFirstNameRequirements.maxLength;
-        this.lastNameMaxLength = this._pxbAuthConfig.customLastNameRequirements.maxLength;
+        this.firstNameMaxLength = this._pxbAuthConfig.customFirstNameRequirements?.maxLength;
+        this.lastNameMaxLength = this._pxbAuthConfig.customLastNameRequirements?.maxLength;
     }
 
     /* If we are using the default account details, we need to provide the input validation required for the 'NEXT' button. */
