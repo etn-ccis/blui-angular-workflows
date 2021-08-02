@@ -52,11 +52,11 @@ export class PxbAuthConfig {
 
     /** Custom first name requirements used in the account registration pages. */
     customFirstNameRequirements = {
-        maxLength: 1000,
+        maxLength: undefined,
     };
     /** Custom last name requirements used in the account registration pages. */
     customLastNameRequirements = {
-        maxLength: 1000,
+        maxLength: undefined,
     };
     customEmailValidator: ValidatorFn;
 

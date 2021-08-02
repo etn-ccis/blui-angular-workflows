@@ -38,10 +38,7 @@ export class AppComponent {
             },
         ];
         this.pxbAuthConfig.customFirstNameRequirements = {
-            maxLength: 30
-        };
-        this.pxbAuthConfig.customLastNameRequirements = {
-            maxLength: 30
+            maxLength: 30,
         };
     }
 

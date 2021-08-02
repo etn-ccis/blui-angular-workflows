@@ -31,7 +31,7 @@ import { PxbAuthTranslations } from '../../../../translations/auth-translations'
                                 id="pxb-first"
                                 name="first"
                                 matInput
-                                [maxLength]="firstNameMaxLength"
+                                [attr.maxLength]="firstNameMaxLength ? firstNameMaxLength : null"
                                 [formControl]="firstNameFormControl"
                                 required
                                 (ngModelChange)="emitIfValid(); firstNameChange.emit(firstNameFormControl.value)"
@@ -54,7 +54,7 @@ import { PxbAuthTranslations } from '../../../../translations/auth-translations'
                                 #pxbLast
                                 id="pxb-last"
                                 name="last"
-                                [maxLength]="lastNameMaxLength"
+                                [attr.maxLength]="lastNameMaxLength ? lastNameMaxLength : null"
                                 [formControl]="lastNameFormControl"
                                 required
                                 (ngModelChange)="emitIfValid(); lastNameChange.emit(lastNameFormControl.value)"
