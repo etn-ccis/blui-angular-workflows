@@ -56,10 +56,7 @@ export class PxbCreatePasswordComponent implements OnInit {
     @ViewChild('confirmPasswordField') confirmPasswordFieldComponent: PasswordFieldComponent;
 
     passwordsMatch = false;
-    newPasswordVisible = false;
     passesStrengthCheck = false;
-    confirmPasswordVisible = false;
-    confirmPasswordFocused = false;
 
     passwordFormControl: FormControl;
     confirmPasswordFormControl: FormControl;

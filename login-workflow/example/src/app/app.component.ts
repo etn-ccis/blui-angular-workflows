@@ -37,6 +37,9 @@ export class AppComponent {
                 description: 'Does not contain "password"',
             },
         ];
+        this.pxbAuthConfig.customFirstNameRequirements = {
+            maxLength: 30,
+        };
     }
 
     private _getCustomEmailValidator(): ValidatorFn {

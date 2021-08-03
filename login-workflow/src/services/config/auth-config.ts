@@ -12,6 +12,7 @@ export type PasswordRequirement = {
     description: string;
     regex: RegExp;
 };
+
 @Injectable({
     providedIn: 'root',
 })
@@ -48,6 +49,12 @@ export class PxbAuthConfig {
         specialCharacter: true,
     };
     customPasswordRequirements: PasswordRequirement[] = [];
+
+    /** Custom first name requirements used in the account registration pages. */
+    customFirstNameRequirements: { maxLength: number } = undefined;
+
+    /** Custom last name requirements used in the account registration pages. */
+    customLastNameRequirements: { maxLength: number } = undefined;
     customEmailValidator: ValidatorFn;
 
     getTranslations(): PxbAuthTranslations {
