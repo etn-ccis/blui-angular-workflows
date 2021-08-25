@@ -94,7 +94,8 @@ export const pxbAuthChineseTranslations: PxbAuthTranslations = {
         },
         VERIFY_EMAIL: {
             TITLE: '验证邮箱',
-            INSTRUCTIONS: '已向您的邮箱中发送了一封验证邮件。请点击邮件中的链接，或者在此输入邮件中的验证码。验证邮件在30分钟内有效。',
+            INSTRUCTIONS:
+                '已向您的邮箱中发送了一封验证邮件。请点击邮件中的链接，或者在此输入邮件中的验证码。验证邮件在30分钟内有效。',
             CODE_FORM_LABEL: '验证码',
             RESEND_BUTTON: '重新发送验证邮件',
         },

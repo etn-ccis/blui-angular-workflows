@@ -100,8 +100,7 @@ export const pxbAuthFrenchTranslations: PxbAuthTranslations = {
         },
         VERIFY_EMAIL: {
             TITLE: 'Vérifier les courriels',
-            INSTRUCTIONS:
-                `Un code de vérification a été envoyé à l'adresse e-mail que vous avez fournie. Cliquez sur le lien ou entrez le code ci-dessous pour continuer. Ce code est valable 30 minutes.`,
+            INSTRUCTIONS: `Un code de vérification a été envoyé à l'adresse e-mail que vous avez fournie. Cliquez sur le lien ou entrez le code ci-dessous pour continuer. Ce code est valable 30 minutes.`,
             CODE_FORM_LABEL: 'Code de vérification',
             RESEND_BUTTON: `Renvoyer l'e-mail de vérification`,
         },
