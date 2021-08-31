@@ -83,7 +83,7 @@ export const pxbAuthChineseTranslations: PxbAuthTranslations = {
         },
         ENTER_EMAIL: {
             TITLE: '创建账号',
-            INSTRUCTIONS: '无法完成注册。请点击“继续”退出。',
+            INSTRUCTIONS: '请输入下列信息以注册伊顿账号。您需要先验证您的邮箱地址。',
         },
         EULA: {
             TITLE: '许可协议',
