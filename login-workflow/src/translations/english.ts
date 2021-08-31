@@ -66,7 +66,8 @@ export const pxbAuthEnglishTranslations: PxbAuthTranslations = {
         CONTACT_SUPPORT_BY_PHONE: (phone: string): string =>
             `For urgent account issues, please call <a class="pxb-auth-link" href="tel:${phone}">${phone}</a>.`,
         SUCCESS_TITLE: 'Email Sent',
-        SUCCESS_DESCRIPTION: (email: string): string => `A link to reset your password has been sent to ${email}`,
+        SUCCESS_DESCRIPTION: (email: string): string =>
+            `A link to reset your password has been sent to <strong>${email}</strong>`,
     },
     RESET_PASSWORD: {
         TITLE: 'Reset Password',
@@ -78,12 +79,11 @@ export const pxbAuthEnglishTranslations: PxbAuthTranslations = {
         SUCCESS_DESCRIPTION:
             "Your password was successfully updated! To ensure your account's security, you will need to log in to the application with your updated credentials.",
     },
-
     CREATE_ACCOUNT: {
         REGISTRATION_LINK: {
             VALIDATING: 'Validating',
             INVALID_TITLE: 'Error',
-            INVALID_DESCRIPTION: 'There was an error during account registration.',
+            INVALID_DESCRIPTION: 'We were unable to complete your registration. Press continue below to finish.',
         },
         ENTER_EMAIL: {
             TITLE: 'Create an Account',
@@ -116,7 +116,7 @@ export const pxbAuthEnglishTranslations: PxbAuthTranslations = {
             TITLE: 'Account Details',
         },
         ACCOUNT_CREATED: {
-            TITLE: 'Account Created',
+            TITLE: 'Account Created!',
             WELCOME_MESSAGE_TITLE: (username: string): string => `Welcome, ${username}`,
             WELCOME_MESSAGE_DESCRIPTION: (email: string): string => {
                 const firstSentence = email
@@ -127,7 +127,7 @@ export const pxbAuthEnglishTranslations: PxbAuthTranslations = {
             CONTINUE_BUTTON: 'Continue',
         },
         ACCOUNT_EXISTING: {
-            TITLE: 'Account Created',
+            TITLE: 'Account Created!',
             WELCOME_MESSAGE_TITLE: 'Welcome',
             WELCOME_MESSAGE_DESCRIPTION: (email: string): string => {
                 const firstSentence = email

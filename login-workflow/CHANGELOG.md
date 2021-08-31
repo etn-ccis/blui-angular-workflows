@@ -1,6 +1,6 @@
 # Change Log
 
-## v2.2.0 (Not yet published)
+## v2.3.0 (Not yet published)
 
 ### Added
 
@@ -9,6 +9,7 @@
 ### Changed
 
 -   Changed account registration page order; EULA page now occurs first.
+-   Changed default translation strings to closely match against those found in [@pxblue/react-auth-workflow](npmjs.com/package/@pxblue/react-auth-workflow).
 
 ## v2.2.0 (May 27, 2021)
 
