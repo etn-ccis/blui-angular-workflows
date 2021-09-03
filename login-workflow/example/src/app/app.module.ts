@@ -68,10 +68,11 @@ import { PreAuthComponent } from './pages/pre-auth/pre-auth.component';
             useClass: RegisterUIService, // Your custom implementation.
         },
         // Custom error handling for Login failures
-        {
+     /*   {
             provide: PxbLoginErrorDialogService,
             useClass: LoginErrorDialogService,
         },
+     */
     ],
     entryComponents: [LoginErrorDialogComponent],
     bootstrap: [AppComponent],

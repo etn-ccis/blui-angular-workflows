@@ -8,6 +8,12 @@ import { pxbAuthChineseTranslations } from '../../translations/chinese';
 
 export const PXB_LOGIN_VALIDATOR_ERROR_NAME = 'PXB_LOGIN_VALIDATOR_ERROR_NAME';
 
+export type LoginErrorDisplayConfig = {
+    mode: 'dialog' | 'message-box' | 'both' | 'none';
+    dismissible: boolean;
+    position: 'top' | 'bottom';
+};
+
 export type PasswordRequirement = {
     description: string;
     regex: RegExp;
@@ -49,6 +55,13 @@ export class PxbAuthConfig {
         specialCharacter: true,
     };
     customPasswordRequirements: PasswordRequirement[] = [];
+
+    /**
+     * Custom configuration for the error message display on the login screen.
+     *
+     * Default: {mode: 'dialog'}
+     */
+    loginErrorDisplayConfig: LoginErrorDisplayConfig = { mode: 'dialog', position: 'top', dismissible: true };
 
     /** Custom first name requirements used in the account registration pages. */
     customFirstNameRequirements: { maxLength: number } = undefined;

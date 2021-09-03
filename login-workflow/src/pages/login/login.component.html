@@ -18,6 +18,11 @@
     <div class="mat-title" [innerHTML]="translate().LOGIN.DEBUG_MODE"></div>
 </div>
 
+<ng-template #cardError>
+    <mat-icon style="float: right; cursor: pointer" (click)="showCardError = false">close</mat-icon>
+    <div class="mat-body-2">{{ errorMessage }}</div>
+</ng-template>
+
 <mat-form-field *ngIf="debugMode">
     <mat-label>Language</mat-label>
     <mat-select
@@ -32,6 +37,9 @@
     </mat-select>
 </mat-form-field>
 
+<mat-card *ngIf="showCardError && errorOptions.position === 'top'" class="mat-elevation-z0 pxb-login-box-error">
+    <ng-template [ngTemplateOutlet]="cardError"></ng-template>
+</mat-card>
 <form>
     <pxb-email-field
         [customEmailValidator]="customEmailValidator"
@@ -43,6 +51,10 @@
         (enter)="hasValidFormEntries() ? login() : ''"
     ></pxb-password-field>
 </form>
+
+<mat-card *ngIf="showCardError && errorOptions.position === 'bottom'" class="mat-elevation-z0 pxb-login-box-error">
+    <ng-template [ngTemplateOutlet]="cardError"></ng-template>
+</mat-card>
 
 <div class="pxb-login-remember-me-login-wrapper">
     <mat-checkbox

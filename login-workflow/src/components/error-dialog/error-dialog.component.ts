@@ -5,10 +5,12 @@ import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
 @Component({
     selector: 'pxb-auth-error-dialog',
     template: `
-        <div class="mat-h2">{{ title }}</div>
-        <div class="mat-subheading-2">{{ message }}</div>
-        <div style="display: flex; justify-content: flex-end; margin-top: 24px;">
-            <button mat-stroked-button (click)="dialogRef.close()">Okay</button>
+        <div style="max-width: 552px">
+            <div class="mat-h2">{{ title }}</div>
+            <div class="mat-subheading-2">{{ message }}</div>
+            <div style="display: flex; justify-content: flex-end; margin-top: 24px;">
+                <button mat-button color="primary" (click)="dialogRef.close()">Okay</button>
+            </div>
         </div>
     `,
 })

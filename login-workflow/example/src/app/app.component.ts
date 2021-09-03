@@ -28,6 +28,7 @@ export class AppComponent {
         this.pxbAuthConfig.projectImage = 'assets/images/eaton_stacked_logo.png';
         this.pxbAuthConfig.backgroundImage = 'assets/images/background.svg';
         this.pxbAuthConfig.allowDebugMode = true;
+        this.pxbAuthConfig.loginErrorDisplayConfig =  { mode: 'both', position: 'bottom', dismissible: true }
         this.pxbAuthConfig.languageCode = 'EN';
         this.pxbSecurityService.inferOnAuthenticatedRoute('');
         this.pxbAuthConfig.customEmailValidator = this._getCustomEmailValidator();

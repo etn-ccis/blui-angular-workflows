@@ -42,7 +42,10 @@ export class AuthUIService implements IPxbAuthUIService {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 if (password.toLowerCase() === 'fail') {
-                    return reject();
+                    return reject({
+                        title: 'Error!',
+                        message: 'This is an example of a custom error message.  Let\'s make this longer so we can see how the a card error looks on the login screen.',
+                    });
                 }
                 return resolve();
             }, TIMEOUT_MS);

@@ -53,3 +53,9 @@ mat-form-field {
         }
     }
 }
+
+.pxb-login-box-error {
+    background-color: map-get($pxb-red, 500);
+    color: map-get($pxb-white, 50);
+    margin-bottom: 16px;
+}
