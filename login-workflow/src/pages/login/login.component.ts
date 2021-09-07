@@ -5,13 +5,13 @@ import { isEmptyView } from '../../util/view-utils';
 import { PxbAuthSecurityService } from '../../services/state/auth-security.service';
 import { PxbAuthUIService } from '../../services/api';
 import { AUTH_ROUTES } from '../../auth/auth.routes';
-import { LoginErrorDisplayConfig, PxbAuthConfig } from '../../services/config/auth-config';
+import { PxbAuthConfig } from '../../services/config/auth-config';
 import { PxbLoginErrorDialogService } from '../../services/dialog/login-error-dialog.service';
-import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
 import { PxbFormsService } from '../../services/forms/forms.service';
 import { AuthTranslationLanguageCode, PxbAuthTranslations } from '../../translations/auth-translations';
 import { EmailFieldComponent } from '../../components/email-field/email-field.component';
 import { PasswordFieldComponent } from '../../components/password-field/password-field.component';
+import { LoginErrorDialogData } from '../../services/dialog/error-dialog.service';
 
 @Component({
     selector: 'pxb-login',
@@ -34,11 +34,17 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
 
     isLoading: boolean;
     rememberMe: boolean;
-    showCardError: boolean;
 
     isPasswordVisible = false;
     debugMode = false;
+
+    /* Error Handling */
     errorMessage: string;
+    position: 'top' | 'bottom';
+    dismissible: boolean;
+     showDialog: boolean;
+     showCardError : boolean;
+     showFormErr : boolean;
 
     selectedLanguage = 'English';
     errorOptions: LoginErrorDisplayConfig;
@@ -57,7 +63,6 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
 
     ngOnInit(): void {
         this.rememberMe = this._pxbSecurityService.getSecurityState().rememberMeDetails.rememberMe;
-        this.errorOptions = this.pxbAuthConfig.loginErrorDisplayConfig;
         if (this._pxbSecurityService.getSecurityState().isAuthenticatedUser) {
             this.navigateToDefaultRoute();
             return;
@@ -86,17 +91,21 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
                 this.navigateToDefaultRoute();
                 this._pxbSecurityService.setLoading(false);
             })
-            .catch((errorData: ErrorDialogData) => {
-                if (this.errorOptions.mode === 'both') {
-                    this.errorMessage = errorData?.message;
+            .catch((errorData: LoginErrorDialogData) => {
+                const mode = errorData.mode || ['dialog'];
+                this.position = errorData.position || 'top';
+                this.dismissible = errorData.dismissible || true;
+                this.showDialog = mode.includes('dialog');
+                this.showCardError = mode.includes('message-box');
+                this.showFormErr = mode.includes('form');
+
+                if (this.showCardError) {
                     this.showCardError = true;
-                    this._pxbLoginErrorDialogService.openDialog(errorData);
-                } else if (this.errorOptions.mode === 'message-box') {
-                    this.errorMessage = errorData?.message;
-                    this.showCardError = true;
-                } else if (this.errorOptions.mode === 'dialog') {
+                }
+                if (this.showDialog) {
                     this._pxbLoginErrorDialogService.openDialog(errorData);
                 }
+                this.errorMessage = errorData.message;
                 this._pxbSecurityService.onUserNotAuthenticated();
                 this._pxbSecurityService.setLoading(false);
             });

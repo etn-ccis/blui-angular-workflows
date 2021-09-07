@@ -37,7 +37,7 @@
     </mat-select>
 </mat-form-field>
 
-<mat-card *ngIf="showCardError && errorOptions.position === 'top'" class="mat-elevation-z0 pxb-login-box-error">
+<mat-card *ngIf="showCardError && position === 'top'" class="mat-elevation-z0 pxb-login-box-error">
     <ng-template [ngTemplateOutlet]="cardError"></ng-template>
 </mat-card>
 <form>
@@ -52,7 +52,7 @@
     ></pxb-password-field>
 </form>
 
-<mat-card *ngIf="showCardError && errorOptions.position === 'bottom'" class="mat-elevation-z0 pxb-login-box-error">
+<mat-card *ngIf="showCardError && position === 'bottom'" class="mat-elevation-z0 pxb-login-box-error">
     <ng-template [ngTemplateOutlet]="cardError"></ng-template>
 </mat-card>
 
