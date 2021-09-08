@@ -29,9 +29,24 @@ changePassword(oldPassword: string, newPassword: string): Promise<void> {
 }
 ```
 
+
+## Login Page Error Handling
+
+The Login page has been enhanced to support multiple types of error content.  The `AuthUIService` `login` API call rejects with a `LoginErrorDialogData` object that supports 3 error variants - `dialog`, `form`, and `message-box`. 
+
+```
+import { LoginErrorDialogData } from '@pxblue/angular-auth-workflow';
+```
+```
+return reject({
+    mode: ['form', 'dialog', 'message-box'],
+    message: 'Custom login page error message'
+} as LoginErrorDialogData);
+
+```
 ## Custom Error Content
 
-In situations where more a complex error dialog is needed (e.g contains a link or images) users can use their own error dialog components.
+In situations where a more complex error dialog is needed (e.g contains a link or images) users can use their own error dialog components.
 
 The example project demos this feature for the login screen; whenever an error happens, we show a custom user-provided dialog component.
 

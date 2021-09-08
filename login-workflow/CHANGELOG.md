@@ -5,6 +5,7 @@
 ### Added
 
 -   Added new properties `customFirstNameRequirements` and `customLastNameRequirements` to the `PxbAuthConfig` that allows for custom max length restrictions.
+-   Added new `LoginErrorDialogData` property that allows for custom form, dialog, or message-box errors on the Login screen. 
 
 ### Changed
 
