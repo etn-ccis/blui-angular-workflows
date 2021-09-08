@@ -42,12 +42,11 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
     errorMessage: string;
     position: 'top' | 'bottom';
     dismissible: boolean;
-     showDialog: boolean;
-     showCardError : boolean;
-     showFormErr : boolean;
+    showDialog: boolean;
+    showCardError: boolean;
+    showFormErr: boolean;
 
     selectedLanguage = 'English';
-    errorOptions: LoginErrorDisplayConfig;
 
     isEmpty = (el: ElementRef): boolean => isEmptyView(el);
 
@@ -105,7 +104,7 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
                 if (this.showDialog) {
                     this._pxbLoginErrorDialogService.openDialog(errorData);
                 }
-                this.errorMessage = errorData.message;
+                this.errorMessage = errorData.message || this.translate().LOGIN.INCORRECT_CREDENTIALS;
                 this._pxbSecurityService.onUserNotAuthenticated();
                 this._pxbSecurityService.setLoading(false);
             });
@@ -163,5 +162,9 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
 
     translate(): PxbAuthTranslations {
         return this.pxbAuthConfig.getTranslations();
+    }
+
+    clearInputErrorMessage(): void {
+        this.errorMessage = '';
     }
 }

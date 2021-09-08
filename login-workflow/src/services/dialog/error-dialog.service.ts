@@ -10,7 +10,7 @@ export type ErrorDialogData = {
 };
 
 export type LoginErrorDialogData = ErrorDialogData & {
-    mode?: Array<'dialog' | 'message-box' | 'form' | 'none'>,
+    mode?: Array<'dialog' | 'message-box' | 'form' | 'none'>;
     dismissible?: boolean;
     position?: 'top' | 'bottom';
 };

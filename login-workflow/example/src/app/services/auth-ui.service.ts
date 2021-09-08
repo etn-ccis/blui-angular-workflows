@@ -2,6 +2,7 @@
 import { Injectable } from '@angular/core';
 import { IPxbAuthUIService, PxbAuthSecurityService } from '@pxblue/angular-auth-workflow';
 import { LocalStorageService } from './localStorage.service';
+import {LoginErrorDialogData} from "../../../../dist";
 
 const TIMEOUT_MS = 1500;
 
@@ -43,9 +44,9 @@ export class AuthUIService implements IPxbAuthUIService {
             setTimeout(() => {
                 if (password.toLowerCase() === 'fail') {
                     return reject({
-                        title: 'Error!',
-                        message: 'This is an example of a custom error message.  Let\'s make this longer so we can see how the a card error looks on the login screen.',
-                    });
+                        mode: ['form', 'dialog', 'message-box'],
+                        message: 'test'
+                    } as LoginErrorDialogData);
                 }
                 return resolve();
             }, TIMEOUT_MS);

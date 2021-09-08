@@ -37,22 +37,26 @@
     </mat-select>
 </mat-form-field>
 
-<mat-card *ngIf="showCardError && position === 'top'" class="mat-elevation-z0 pxb-login-box-error">
+<mat-card *ngIf="errorMessage && showCardError && position === 'top'" class="mat-elevation-z0 pxb-login-box-error">
     <ng-template [ngTemplateOutlet]="cardError"></ng-template>
 </mat-card>
 <form>
     <pxb-email-field
+        [manualErrorMessage]="errorMessage"
         [customEmailValidator]="customEmailValidator"
         [rememberLoginEmail]="true"
         (enter)="focusPasswordField()"
+        (edit)="clearInputErrorMessage()"
     ></pxb-email-field>
     <pxb-password-field
+        [manualErrorMessage]="errorMessage"
         [style.marginBottom.px]="24"
+        (edit)="clearInputErrorMessage()"
         (enter)="hasValidFormEntries() ? login() : ''"
     ></pxb-password-field>
 </form>
 
-<mat-card *ngIf="showCardError && position === 'bottom'" class="mat-elevation-z0 pxb-login-box-error">
+<mat-card *ngIf="errorMessage && showCardError && position === 'bottom'" class="mat-elevation-z0 pxb-login-box-error">
     <ng-template [ngTemplateOutlet]="cardError"></ng-template>
 </mat-card>
 
