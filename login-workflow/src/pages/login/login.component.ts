@@ -101,7 +101,7 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
 
                 this.position = errorData.position || 'top';
 
-                this.dismissible =  errorData.dismissible === undefined ? true : errorData.dismissible;
+                this.dismissible = errorData.dismissible === undefined ? true : errorData.dismissible;
                 this.showDialog = mode.includes('dialog');
                 this.showCardError = mode.includes('message-box');
                 this.showFormErr = mode.includes('form');

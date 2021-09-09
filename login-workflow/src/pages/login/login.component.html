@@ -56,7 +56,10 @@
     ></pxb-password-field>
 </form>
 
-<mat-card *ngIf="errorMessage && showCardError && position === 'bottom'" class="mat-elevation-z0 pxb-login-box-error pxb-login-box-error-bottom">
+<mat-card
+    *ngIf="errorMessage && showCardError && position === 'bottom'"
+    class="mat-elevation-z0 pxb-login-box-error pxb-login-box-error-bottom"
+>
     <ng-template [ngTemplateOutlet]="cardError"></ng-template>
 </mat-card>
 
