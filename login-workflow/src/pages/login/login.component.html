@@ -19,8 +19,8 @@
 </div>
 
 <ng-template #cardError>
-    <mat-icon style="float: right; cursor: pointer" (click)="showCardError = false">close</mat-icon>
-    <div class="mat-body-2">{{ errorMessage }}</div>
+    <mat-icon *ngIf="dismissible" style="float: right; cursor: pointer" (click)="showCardError = false">close</mat-icon>
+    <div class="mat-body-2" style="font-weight: 400">{{ errorMessage }}</div>
 </ng-template>
 
 <mat-form-field *ngIf="debugMode">
@@ -56,7 +56,7 @@
     ></pxb-password-field>
 </form>
 
-<mat-card *ngIf="errorMessage && showCardError && position === 'bottom'" class="mat-elevation-z0 pxb-login-box-error">
+<mat-card *ngIf="errorMessage && showCardError && position === 'bottom'" class="mat-elevation-z0 pxb-login-box-error pxb-login-box-error-bottom">
     <ng-template [ngTemplateOutlet]="cardError"></ng-template>
 </mat-card>
 

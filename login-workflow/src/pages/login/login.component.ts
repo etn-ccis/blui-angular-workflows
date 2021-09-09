@@ -92,8 +92,16 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
             })
             .catch((errorData: LoginErrorDialogData) => {
                 const mode = errorData.mode || ['dialog'];
+
+                if (mode.includes('none')) {
+                    this._pxbSecurityService.onUserNotAuthenticated();
+                    this._pxbSecurityService.setLoading(false);
+                    return;
+                }
+
                 this.position = errorData.position || 'top';
-                this.dismissible = errorData.dismissible || true;
+
+                this.dismissible =  errorData.dismissible === undefined ? true : errorData.dismissible;
                 this.showDialog = mode.includes('dialog');
                 this.showCardError = mode.includes('message-box');
                 this.showFormErr = mode.includes('form');
