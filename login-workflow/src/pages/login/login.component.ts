@@ -11,7 +11,7 @@ import { PxbFormsService } from '../../services/forms/forms.service';
 import { AuthTranslationLanguageCode, PxbAuthTranslations } from '../../translations/auth-translations';
 import { EmailFieldComponent } from '../../components/email-field/email-field.component';
 import { PasswordFieldComponent } from '../../components/password-field/password-field.component';
-import { LoginErrorDialogData } from '../../services/dialog/error-dialog.service';
+import { LoginErrorData } from '../../services/dialog/error-dialog.service';
 
 @Component({
     selector: 'pxb-login',
@@ -90,7 +90,7 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
                 this.navigateToDefaultRoute();
                 this._pxbSecurityService.setLoading(false);
             })
-            .catch((errorData: LoginErrorDialogData) => {
+            .catch((errorData: LoginErrorData) => {
                 const mode = errorData.mode || ['dialog'];
 
                 if (mode.includes('none')) {
@@ -112,7 +112,7 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
                 if (this.showDialog) {
                     this._pxbLoginErrorDialogService.openDialog(errorData);
                 }
-                this.errorMessage = errorData.message || this.translate().LOGIN.INCORRECT_CREDENTIALS;
+                this.errorMessage = errorData.message || this.translate().LOGIN.INVALID_CREDENTIALS ;
                 this._pxbSecurityService.onUserNotAuthenticated();
                 this._pxbSecurityService.setLoading(false);
             });

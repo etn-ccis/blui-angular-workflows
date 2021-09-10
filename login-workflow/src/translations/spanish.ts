@@ -27,7 +27,7 @@ export const pxbAuthSpanishTranslations: PxbAuthTranslations = {
         DEBUG_MODE: 'MODO DE DEPURACIÓN',
         FORGOT_PASSWORD_LINK: '[Prueba Olvidé mi contraseña Correo electrónico]',
         TEST_INVITE_LINK: '[Prueba Invitar Registrarse]',
-        INCORRECT_CREDENTIALS: 'Correo electrónico o contraseña incorrectos',
+        INVALID_CREDENTIALS : 'Correo electrónico o contraseña incorrectos',
     },
     CHANGE_PASSWORD: {
         TITLE: 'Contraseña cambiada',
