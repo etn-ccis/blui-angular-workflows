@@ -112,7 +112,7 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
                 if (this.showDialog) {
                     this._pxbLoginErrorDialogService.openDialog(errorData);
                 }
-                this.errorMessage = errorData.message || this.translate().LOGIN.INVALID_CREDENTIALS ;
+                this.errorMessage = errorData.message || this.translate().LOGIN.INVALID_CREDENTIALS;
                 this._pxbSecurityService.onUserNotAuthenticated();
                 this._pxbSecurityService.setLoading(false);
             });

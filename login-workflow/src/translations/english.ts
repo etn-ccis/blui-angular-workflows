@@ -27,7 +27,7 @@ export const pxbAuthEnglishTranslations: PxbAuthTranslations = {
         DEBUG_MODE: 'DEBUG_MODE',
         FORGOT_PASSWORD_LINK: '[Test Forgot Password Email]',
         TEST_INVITE_LINK: '[Test Invite Register]',
-        INVALID_CREDENTIALS : 'Incorrect Email or Password',
+        INVALID_CREDENTIALS: 'Incorrect Email or Password',
     },
     CHANGE_PASSWORD: {
         TITLE: 'Change Password',
