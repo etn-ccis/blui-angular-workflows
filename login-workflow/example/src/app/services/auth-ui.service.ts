@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { Injectable } from '@angular/core';
-import { IPxbAuthUIService, PxbAuthSecurityService, LoginErrorDialogData } from '@pxblue/angular-auth-workflow';
+import { IPxbAuthUIService, PxbAuthSecurityService, LoginErrorData } from '@pxblue/angular-auth-workflow';
 import { LocalStorageService } from './localStorage.service';
 
 const TIMEOUT_MS = 1500;
@@ -45,7 +45,7 @@ export class AuthUIService implements IPxbAuthUIService {
                     return reject({
                         mode: ['dialog', 'message-box'],
                         message: 'Sample Error Message'
-                    } as LoginErrorDialogData);
+                    } as LoginErrorData);
                 }
                 return resolve();
             }, TIMEOUT_MS);

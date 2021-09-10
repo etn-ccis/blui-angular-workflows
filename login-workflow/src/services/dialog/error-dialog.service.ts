@@ -9,7 +9,7 @@ export type ErrorDialogData = {
     message: string;
 };
 
-export type LoginErrorDialogData = ErrorDialogData & {
+export type LoginErrorData = ErrorDialogData & {
     mode?: Array<'dialog' | 'message-box' | 'form' | 'none'>;
     dismissible?: boolean;
     position?: 'top' | 'bottom';
