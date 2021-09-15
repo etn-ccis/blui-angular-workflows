@@ -1,7 +1,7 @@
 import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { PxbAuthUIService } from '../../services/api/auth-ui.service';
+import { PxbAuthUIService } from '../../services/api';
 import { PxbAuthSecurityService } from '../../services/state/auth-security.service';
 import { AUTH_ROUTES } from '../../auth/auth.routes';
 import { PxbAuthConfig } from '../../services/config/auth-config';

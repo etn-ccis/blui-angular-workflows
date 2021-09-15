@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
 
 import { AUTH_ROUTES } from '../../auth/auth.routes';
 import { PxbAuthConfig } from '../../services/config/auth-config';
-import { PxbRegisterUIService } from '../../services/api/register-ui.service';
+import { PxbRegisterUIService } from '../../services/api';
 import { PxbAuthSecurityService, SecurityContext } from '../../services/state/auth-security.service';
 import { PxbCreateAccountErrorDialogService } from '../../services/dialog/create-account-error-dialog.service';
 import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
@@ -114,7 +114,7 @@ export class PxbCreateAccountComponent implements OnDestroy {
             )
             .then(() => {
                 this._pxbSecurityService.setLoading(false);
-                this._pxbSecurityService.updateSecurityState({ email: this.email });
+                this._pxbSecurityService.updateSecurityState({ registrationEmail: this.email });
                 this.registrationSuccessScreenContext = {
                     email: this.email,
                     firstName: this.firstName,
@@ -123,6 +123,7 @@ export class PxbCreateAccountComponent implements OnDestroy {
                 for (const key of customForms.keys()) {
                     this.registrationSuccessScreenContext[key] = customForms.get(key).value;
                 }
+                this._pxbSecurityService.updateSecurityState({ registrationEmail: '', registrationPassword: '' });
                 this.registrationUtils.clearAccountDetails();
                 this.registrationUtils.nextStep();
             })
@@ -146,9 +147,9 @@ export class PxbCreateAccountComponent implements OnDestroy {
         }
         switch (this.registrationUtils.getCurrentPage()) {
             case 0:
-                return this.isValidEmail;
-            case 1:
                 return this.userAcceptsEula;
+            case 1:
+                return this.isValidEmail;
             case 2:
                 return Boolean(this.verificationCode);
             case 3:
@@ -167,14 +168,22 @@ export class PxbCreateAccountComponent implements OnDestroy {
         if (this.registrationUtils.getCurrentPage() === 2) {
             return this.validateVerificationCode();
         }
+        if (this.registrationUtils.getCurrentPage() === 3) {
+            this._pxbSecurityService.updateSecurityState({ registrationPassword: this.password });
+        }
         return this.registrationUtils.nextStep();
     }
 
     goBack(): void {
-        this.registrationUtils.getCurrentPage() === 0 ? this.navigateToLogin() : this.registrationUtils.prevStep();
+        if (this.registrationUtils.getCurrentPage() === 0) {
+            this.navigateToLogin();
+        } else {
+            this.registrationUtils.prevStep();
+        }
     }
 
     navigateToLogin(): void {
+        this._pxbSecurityService.updateSecurityState({ registrationEmail: '', registrationPassword: '' });
         this.registrationUtils.clearAccountDetails();
         void this._router.navigate([`${AUTH_ROUTES.AUTH_WORKFLOW}/${AUTH_ROUTES.LOGIN}`]);
     }

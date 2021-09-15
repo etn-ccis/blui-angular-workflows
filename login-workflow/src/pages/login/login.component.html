@@ -35,7 +35,7 @@
 <form>
     <pxb-email-field
         [customEmailValidator]="customEmailValidator"
-        [useRememberMe]="true"
+        [rememberLoginEmail]="true"
         (enter)="focusPasswordField()"
     ></pxb-email-field>
     <pxb-password-field
@@ -70,6 +70,7 @@
     *ngIf="debugMode && pxbAuthConfig.showResetPassword"
     color="primary"
     class="pxb-auth-link mat-body-2"
+    id="pxb-reset-password-link"
     (click)="testForgotPasswordEmail()"
 >
     {{ translate().LOGIN.FORGOT_PASSWORD_LINK }}
@@ -78,6 +79,7 @@
     *ngIf="debugMode && pxbAuthConfig.showCreateAccountViaInvite"
     color="primary"
     class="pxb-auth-link mat-body-2"
+    id="pxb-create-account-invite-link"
     (click)="testInviteRegister()"
 >
     {{ translate().LOGIN.TEST_INVITE_LINK }}
@@ -86,6 +88,7 @@
     *ngIf="pxbAuthConfig.showForgotPassword"
     color="primary"
     class="pxb-auth-link mat-body-2"
+    id="pxb-forgot-password-link"
     (click)="forgotPassword()"
     style="margin-bottom: 32px"
 >
@@ -104,6 +107,7 @@
 <div
     *ngIf="pxbAuthConfig.showCreateAccount"
     class="pxb-auth-link mat-body-2"
+    id="pxb-create-account-link"
     style="margin-bottom: 32px"
     (click)="createAccount()"
 >

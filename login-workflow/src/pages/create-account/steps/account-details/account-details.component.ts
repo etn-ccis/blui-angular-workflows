@@ -31,6 +31,7 @@ import { PxbAuthTranslations } from '../../../../translations/auth-translations'
                                 id="pxb-first"
                                 name="first"
                                 matInput
+                                [attr.maxLength]="firstNameMaxLength ? firstNameMaxLength : null"
                                 [formControl]="firstNameFormControl"
                                 required
                                 (ngModelChange)="emitIfValid(); firstNameChange.emit(firstNameFormControl.value)"
@@ -53,6 +54,7 @@ import { PxbAuthTranslations } from '../../../../translations/auth-translations'
                                 #pxbLast
                                 id="pxb-last"
                                 name="last"
+                                [attr.maxLength]="lastNameMaxLength ? lastNameMaxLength : null"
                                 [formControl]="lastNameFormControl"
                                 required
                                 (ngModelChange)="emitIfValid(); lastNameChange.emit(lastNameFormControl.value)"
@@ -92,6 +94,9 @@ export class PxbAccountDetailsComponent implements OnInit {
     firstNameFormControl: FormControl;
     lastNameFormControl: FormControl;
 
+    lastNameMaxLength: number;
+    firstNameMaxLength: number;
+
     translate: PxbAuthTranslations;
 
     constructor(public pxbFormsService: PxbFormsService, private readonly _pxbAuthConfig: PxbAuthConfig) {}
@@ -102,15 +107,17 @@ export class PxbAccountDetailsComponent implements OnInit {
             this.firstNameFormControl = new FormControl(this.firstName, Validators.required);
             this.lastNameFormControl = new FormControl(this.lastName, Validators.required);
         }
+        this.firstNameMaxLength = this._pxbAuthConfig.customFirstNameRequirements?.maxLength;
+        this.lastNameMaxLength = this._pxbAuthConfig.customLastNameRequirements?.maxLength;
     }
 
     /* If we are using the default account details, we need to provide the input validation required for the 'NEXT' button. */
     emitIfValid(): void {
-        this.accountNameValid.emit(
-            this.firstNameFormControl.value &&
-                this.firstNameFormControl.valid &&
-                this.lastNameFormControl.value &&
-                this.lastNameFormControl.valid
-        );
+        let isValid = true;
+
+        /* Check for required values */
+        isValid = isValid && this.firstNameFormControl.value;
+        isValid = isValid && this.lastNameFormControl.value;
+        this.accountNameValid.emit(isValid);
     }
 }

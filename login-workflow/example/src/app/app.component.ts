@@ -7,7 +7,6 @@ import {
     PxbAuthUIService,
 } from '@pxblue/angular-auth-workflow';
 import { LocalStorageService } from './services/localStorage.service';
-import {PxbAuthTranslations} from "../../../dist";
 
 @Component({
     selector: 'app-root',
@@ -38,6 +37,9 @@ export class AppComponent {
                 description: 'Does not contain "password"',
             },
         ];
+        this.pxbAuthConfig.customFirstNameRequirements = {
+            maxLength: 30,
+        };
     }
 
     private _getCustomEmailValidator(): ValidatorFn {

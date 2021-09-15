@@ -4,6 +4,7 @@ export type PxbAuthTranslations = {
         OKAY_BUTTON: string;
         DONE_BUTTON: string;
         NEXT_BUTTON: string;
+        CANCEL_BUTTON: string;
         PASSWORD_FORM_LABEL: string;
         PASSWORD_MISMATCH_ERROR: string;
         CONFIRM_PASSWORD_FORM_LABEL: string;

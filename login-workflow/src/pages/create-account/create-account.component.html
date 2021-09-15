@@ -1,16 +1,16 @@
 <ng-container *ngIf="!isPXWhiteAccount">
-    <pxb-create-account-provide-email-step
+    <pxb-create-account-eula-step
         *ngIf="registrationUtils.getCurrentPage() === 0"
+        [(userAcceptsEula)]="userAcceptsEula"
+    ></pxb-create-account-eula-step>
+
+    <pxb-create-account-provide-email-step
+        *ngIf="registrationUtils.getCurrentPage() === 1"
         [(email)]="email"
         [(isValidEmail)]="isValidEmail"
         [customEmailValidator]="getCustomEmailValidator()"
         (advance)="attemptContinue()"
     ></pxb-create-account-provide-email-step>
-
-    <pxb-create-account-eula-step
-        *ngIf="registrationUtils.getCurrentPage() === 1"
-        [(userAcceptsEula)]="userAcceptsEula"
-    ></pxb-create-account-eula-step>
 
     <pxb-create-account-verify-email-step
         *ngIf="registrationUtils.getCurrentPage() === 2"
@@ -72,7 +72,12 @@
                 [activeStep]="registrationUtils.getCurrentPage()"
             >
                 <button pxb-back-button mat-stroked-button color="primary" style="width: 100px;" (click)="goBack()">
-                    {{ translate.GENERAL.BACK_BUTTON }}
+                    <ng-container *ngIf="registrationUtils.getCurrentPage() === 0">
+                        {{ translate.GENERAL.CANCEL_BUTTON }}
+                    </ng-container>
+                    <ng-container *ngIf="registrationUtils.getCurrentPage() !== 0">
+                        {{ translate.GENERAL.BACK_BUTTON }}
+                    </ng-container>
                 </button>
                 <button
                     pxb-next-button

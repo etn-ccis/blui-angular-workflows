@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@an
 import { FormBuilder, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PxbAuthSecurityService, SecurityContext } from '../../services/state/auth-security.service';
-import { PxbAuthUIService } from '../../services/api/auth-ui.service';
+import { PxbAuthUIService } from '../../services/api';
 import { AUTH_ROUTES } from '../../auth/auth.routes';
 import { PxbAuthConfig } from '../../services/config/auth-config';
 import { PxbResetPasswordErrorDialogService } from '../../services/dialog/reset-password-error-dialog.service';

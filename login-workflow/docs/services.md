@@ -50,6 +50,12 @@ constructor(pxbAuthConfig: PxbAuthConfig) {
 -   **customEmailValidator** (optional): _`ValidatorFn`_
     -   Custom email regex requirements.
     -   Default: `undefined`
+-   **customFirstNameRequirements** (optional): _`{ maxLength: number }`_
+    -   Custom first name requirements.
+    -   Default: `undefined`
+-   **customLastNameRequirements** (optional): _`{ maxLength: number }`_
+    -   Custom last name requirements.
+    -   Default: `undefined`
 -   **customPasswordRequirements** (optional): _`PasswordRequirement[]`_
     -   Array of custom password requirements. 
     -   Default: `[]`

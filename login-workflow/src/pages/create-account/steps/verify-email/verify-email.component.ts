@@ -3,7 +3,7 @@ import { FormControl, Validators } from '@angular/forms';
 
 import { PxbAuthSecurityService } from '../../../../services/state/auth-security.service';
 import { PxbCreateAccountErrorDialogService } from '../../../../services/dialog/create-account-error-dialog.service';
-import { PxbRegisterUIService } from '../../../../services/api/register-ui.service';
+import { PxbRegisterUIService } from '../../../../services/api';
 import { ErrorDialogData } from '../../../../services/dialog/error-dialog.service';
 import { PxbAuthConfig } from './../../../../services/config/auth-config';
 

@@ -26,6 +26,6 @@ describe('PxbExistingAccountComponent', () => {
 
     it('should render "Account Created" in the title', () => {
         const titleEl = fixture.debugElement.query(By.css('.pxb-auth-title'));
-        void expect(titleEl.nativeElement.innerHTML).toBe('Account Created');
+        void expect(titleEl.nativeElement.innerHTML).toBe('Account Created!');
     });
 });

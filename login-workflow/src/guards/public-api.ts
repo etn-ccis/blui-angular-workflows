@@ -1,2 +1,2 @@
-export * from './auth-guard';
-export * from './page-disabled-guard';
+export * from './auth/auth-guard';
+export * from './page-disabled/page-disabled-guard';

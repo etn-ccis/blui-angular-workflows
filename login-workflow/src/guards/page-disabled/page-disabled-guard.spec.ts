@@ -1,20 +1,19 @@
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { PxbAuthPageDisabledGuard } from './page-disabled-guard';
 
-import { PxbAuthGuard } from './auth-guard';
+describe('PxbAuthPageDisabledGuard', () => {
+    let service: PxbAuthPageDisabledGuard;
 
-describe('AuthGuard', () => {
-    let service: PxbAuthGuard;
-
-    beforeEach(async(() => {
+    beforeEach(() => {
         void TestBed.configureTestingModule({
             imports: [RouterTestingModule],
         }).compileComponents();
-    }));
+    });
 
     beforeEach(() => {
         TestBed.configureTestingModule({});
-        service = TestBed.inject(PxbAuthGuard);
+        service = TestBed.inject(PxbAuthPageDisabledGuard);
     });
 
     it('should be created', () => {
