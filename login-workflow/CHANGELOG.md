@@ -1,11 +1,16 @@
 # Change Log
 
-## v2.3.0 (September 13, 2021)
+## v2.4.0 (Not published)
+
+### Added 
+
+- Added new `LoginErrorDialogData` property that allows for custom form, dialog, or message-box errors on the Login screen.
+
+## v2.3.0 (September 15, 2021)
 
 ### Added
 
 -   Added new properties `customFirstNameRequirements` and `customLastNameRequirements` to the `PxbAuthConfig` that allows for custom max length restrictions.
--   Added new `LoginErrorDialogData` property that allows for custom form, dialog, or message-box errors on the Login screen. 
 
 ### Changed
 
