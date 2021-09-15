@@ -6,7 +6,8 @@ jobs:
   build_login_workflow:
     working_directory: ~/login-workflow
     docker:
-      - image: circleci/node:12.6-browsers
+      - image: circleci/node:12.9.1-browsers
+
     steps:
       - checkout
       - restore_cache:
@@ -53,7 +54,8 @@ jobs:
   coverage_report:
         working_directory: ~/angular-workflows
         docker:
-            - image: circleci/node:12.6-browsers
+            - image: circleci/node:12.9.1-browsers
+
         steps:
             - checkout
             - attach_workspace:
@@ -64,7 +66,8 @@ jobs:
 
   publish_login_workflow:
     docker:
-      - image: circleci/node:12.6-browsers
+      - image: circleci/node:12.9.1-browsers
+
     steps:
       - checkout
       - attach_workspace:
@@ -81,7 +84,8 @@ jobs:
 
   tag_login_workflow:
     docker:
-      - image: circleci/node:12.6-browsers
+      - image: circleci/node:12.9.1-browsers
+
     steps:
       - checkout
       - gh/setup
