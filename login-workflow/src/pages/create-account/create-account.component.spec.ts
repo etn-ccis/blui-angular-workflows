@@ -7,6 +7,7 @@ import { PxbRegisterUIService } from '../../services/api';
 
 describe('CreateAccountComponent', () => {
     let component: PxbCreateAccountComponent;
+    let registrationService: PxbRegisterUIService;
     let fixture: ComponentFixture<PxbCreateAccountComponent>;
 
     beforeEach(() => {
@@ -18,6 +19,8 @@ describe('CreateAccountComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(PxbCreateAccountComponent);
         component = fixture.componentInstance;
+        registrationService = TestBed.inject(PxbRegisterUIService);
+        spyOn(registrationService, 'loadEULA').and.returnValue(Promise.resolve('EULA'));
         fixture.detectChanges();
     });
 

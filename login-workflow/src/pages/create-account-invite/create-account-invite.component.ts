@@ -107,6 +107,7 @@ export class PxbCreateAccountInviteComponent implements OnInit, OnDestroy {
                 for (const key of customForms.keys()) {
                     this.registrationSuccessScreenContext[key] = customForms.get(key).value;
                 }
+                this._pxbSecurityService.updateSecurityState({ registrationPassword: '' });
                 this.registrationUtils.clearAccountDetails();
                 this.registrationUtils.nextStep();
             })
@@ -144,14 +145,22 @@ export class PxbCreateAccountInviteComponent implements OnInit, OnDestroy {
                 ? this.registerAccount()
                 : this.registrationUtils.nextStep();
         }
+        if (this.registrationUtils.getCurrentPage() === 1) {
+            this._pxbSecurityService.updateSecurityState({ registrationPassword: this.password });
+        }
         return this.registrationUtils.nextStep();
     }
 
     goBack(): void {
-        this.registrationUtils.getCurrentPage() === 0 ? this.navigateToLogin() : this.registrationUtils.prevStep();
+        if (this.registrationUtils.getCurrentPage() === 0) {
+            this.navigateToLogin();
+        } else {
+            this.registrationUtils.prevStep();
+        }
     }
 
     navigateToLogin(): void {
+        this._pxbSecurityService.updateSecurityState({ registrationPassword: '' });
         this.registrationUtils.clearAccountDetails();
         void this._router.navigate([`${AUTH_ROUTES.AUTH_WORKFLOW}/${AUTH_ROUTES.LOGIN}`]);
     }

@@ -1,5 +1,16 @@
 # Change Log
 
+## v2.3.0 (September 13, 2021)
+
+### Added
+
+-   Added new properties `customFirstNameRequirements` and `customLastNameRequirements` to the `PxbAuthConfig` that allows for custom max length restrictions.
+
+### Changed
+
+-   Changed account registration page order; EULA page now occurs first.
+-   Changed default translation strings to closely match against those found in [@pxblue/react-auth-workflow](npmjs.com/package/@pxblue/react-auth-workflow).
+
 ## v2.2.0 (May 27, 2021)
 
 ### Added

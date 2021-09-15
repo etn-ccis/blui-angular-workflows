@@ -3,6 +3,7 @@ import { FormControl, ValidatorFn } from '@angular/forms';
 
 import { PxbAuthConfig } from './../../../../services/config/auth-config';
 import { PxbAuthTranslations } from '../../../../translations/auth-translations';
+import { PxbAuthSecurityService } from '../../../../services/state/auth-security.service';
 import { EmailFieldComponent } from '../../../../components/email-field/email-field.component';
 
 @Component({
@@ -18,6 +19,7 @@ import { EmailFieldComponent } from '../../../../components/email-field/email-fi
         <div class="pxb-auth-full-height">
             <form>
                 <pxb-email-field
+                    [rememberRegistrationEmail]="true"
                     [customEmailValidator]="customEmailValidator"
                     (enter)="advance.emit()"
                     (edit)="updateEmail($event)"
@@ -40,7 +42,10 @@ export class PxbProvideEmailComponent implements OnInit {
     emailFormControl: FormControl;
     translate: PxbAuthTranslations;
 
-    constructor(private readonly _pxbAuthConfig: PxbAuthConfig) {}
+    constructor(
+        private readonly _pxbAuthConfig: PxbAuthConfig,
+        private readonly _pxbSecurityService: PxbAuthSecurityService
+    ) {}
 
     ngOnInit(): void {
         this.translate = this._pxbAuthConfig.getTranslations();
@@ -48,10 +53,16 @@ export class PxbProvideEmailComponent implements OnInit {
 
     ngAfterViewInit(): void {
         this.emailFormControl = this.emailFieldComponent.emailFormControl;
+        if (this.emailFormControl.valid) {
+            this.isValidEmailChange.emit(this.emailFormControl.valid);
+        }
     }
 
     updateEmail(email: string): void {
         this.emailChange.emit(email);
         this.isValidEmailChange.emit(this.emailFormControl.valid);
+        this._pxbSecurityService.updateSecurityState({
+            registrationEmail: this.emailFormControl.valid ? this.emailFormControl.value : '',
+        });
     }
 }

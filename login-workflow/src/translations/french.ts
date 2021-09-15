@@ -6,22 +6,23 @@ export const pxbAuthFrenchTranslations: PxbAuthTranslations = {
     GENERAL: {
         BACK_BUTTON: 'Retour',
         OKAY_BUTTON: `D'accord`,
-        DONE_BUTTON: 'Done',
+        DONE_BUTTON: 'Fini',
         NEXT_BUTTON: 'Prochain',
+        CANCEL_BUTTON: 'Annuler',
         PASSWORD_FORM_LABEL: 'Mot de passe',
-        PASSWORD_MISMATCH_ERROR: 'Passwords do not match',
-        CONFIRM_PASSWORD_FORM_LABEL: 'Confirm Password',
+        PASSWORD_MISMATCH_ERROR: 'Les mots de passe ne correspondent pas',
+        CONFIRM_PASSWORD_FORM_LABEL: 'Confirmez',
         EMAIL_FORM_LABEL: 'Adresse e-mail',
-        EMAIL_INVALID_ERROR: "S'il vous plaît, mettez une adresse email valide",
+        EMAIL_INVALID_ERROR: "S'il vous plaît entrer un email valide",
         IS_REQUIRED_ERROR: (field: string): string => `${field} est <strong>requis</strong>`,
         LOGIN_BUTTON: 'Connexion',
     },
     LOGIN: {
-        CONTACT_SUPPORT: "Contactez un représentant de l'assistance Eaton",
+        CONTACT_SUPPORT: 'Contacter un représentant du support Eaton',
         CREATE_ACCOUNT: 'Créer un compte',
         FORGOT_PASSWORD: 'Mot de passe oublié?',
-        NEED_AN_ACCOUNT: "Besoin d'un compte?",
-        REMEMBER_ME: 'Souviens-toi de moi',
+        NEED_AN_ACCOUNT: 'Besoin dun compte?',
+        REMEMBER_ME: 'Souvenez-vous de moi',
         ENABLE_DEBUG_MODE: 'DÉBOGUER',
         DEBUG_MODE: 'MODE DÉBOGAGE',
         FORGOT_PASSWORD_LINK: '[Test Mot de passe oublié Email]',
@@ -30,13 +31,13 @@ export const pxbAuthFrenchTranslations: PxbAuthTranslations = {
     CHANGE_PASSWORD: {
         TITLE: 'Changer le mot de passe',
         INSTRUCTIONS:
-            'Please select a password. Make sure that your password meets the necessary complexity requirements outlined below.',
+            'Veuillez sélectionner un mot de passe. Assurez-vous que votre mot de passe répond aux exigences de complexité nécessaires décrites ci-dessous.',
         CURRENT_PASSWORD_FORM_LABEL: 'Mot de passe actuel',
         NEW_PASSWORD_FORM_LABEL: 'Nouveau mot de passe',
         CONFIRM_PASSWORD_FORM_LABEL: 'Confirmez le mot de passe',
         SUCCESS_TITLE: 'Mot de passe changé',
         SUCCESS_DESCRIPTION:
-            "Votre mot de passe a été mis à jour avec succès! Pour assurer la sécurité de votre compte, vous devrez vous connecter à l'application avec vos informations d'identification mises à jour.",
+            "Votre mot de passe a été mis à jour avec succès! Pour garantir la sécurité de votre compte, vous devrez vous connecter à l'application avec vos informations d'identification mises à jour.",
     },
     CONTACT_SUPPORT: {
         TITLE: 'Contactez-nous',
@@ -46,27 +47,27 @@ export const pxbAuthFrenchTranslations: PxbAuthTranslations = {
             `Pour une assistance technique, veuillez appeler <a class="pxb-auth-link" href="tel:${phone}">${phone}</a>.`,
         EMERGENCY_SUPPORT_TITLE: `Assistance d'urgence`,
         GENERAL_SUPPORT_DESCRIPTION: (email: string): string =>
-            `Pour des questions, des commentaires ou une assistance, veuillez nous envoyer un courriel à <a class="pxb-auth-link" href="mailto:${email}">${email}</a>.`,
+            `Pour les questions, commentaires ou assistance par e-mail, veuillez nous envoyer un e-mail à <a class="pxb-auth-link" href="mailto:${email}">${email}</a>.`,
         GENERAL_SUPPORT_TITLE: 'Questions générales',
     },
     PASSWORD_CRITERIA: {
-        CHARACTER_LIMIT: '8-16 caractères',
+        CHARACTER_LIMIT: '8-16 Caractères',
         ONE_NUMBER: 'Un nombre',
         ONE_UPPERCASE_CHARACTER: 'Une lettre majuscule',
-        ONE_LOWERCASE_CHARACTER: 'Une lettre minuscule',
+        ONE_LOWERCASE_CHARACTER: 'Une lettre miniscule',
         ONE_SPECIAL_CHARACTER: 'Un caractère spécial',
     },
     FORGOT_PASSWORD: {
-        TITLE: 'Mot de passe oublié',
-        INSTRUCTIONS: `Veuillez saisir l'adresse e-mail du compte associée au compte.`,
+        TITLE: 'Mot de passe oublié?',
+        INSTRUCTIONS: `Entrez l'adresse e-mail du compte associée au compte.`,
         RESPONSE_TIME_TEXT:
-            'Si cet e-mail a un compte chez Eaton, vous recevrez une réponse dans les <strong>un jour ouvrable.</strong>',
+            'Si ce courrier électronique a un compte chez Eaton, vous recevrez une réponse sous <strong>un jour ouvrable</strong>',
         PHONE_NUMBER: undefined,
         CONTACT_SUPPORT_BY_PHONE: (phone: string): string =>
-            `Pour les problèmes de compte urgents, veuillez appeler <a class="pxb-auth-link" href="tel:${phone}">${phone}</a>.`,
+            `Pour les problèmes de compte urgents, veuillez appeler le <a class="pxb-auth-link" href="tel:${phone}">${phone}</a>.`,
         SUCCESS_TITLE: 'Email envoyé',
         SUCCESS_DESCRIPTION: (email: string): string =>
-            `Un lien pour réinitialiser votre mot de passe a été envoyé à ${email}`,
+            `Un lien pour réinitialiser votre mot de passe a été envoyé à <strong>${email}</strong>`,
     },
     RESET_PASSWORD: {
         TITLE: 'Réinitialiser le mot de passe',
@@ -83,7 +84,7 @@ export const pxbAuthFrenchTranslations: PxbAuthTranslations = {
         REGISTRATION_LINK: {
             VALIDATING: 'Valider',
             INVALID_TITLE: 'Erreur',
-            INVALID_DESCRIPTION: `Une erreur s'est produite lors de l'enregistrement du compte.`,
+            INVALID_DESCRIPTION: `Nous n'avons pas pu terminer votre inscription. Appuyez sur Continuer ci-dessous pour finir.`,
         },
         ENTER_EMAIL: {
             TITLE: 'Créer un compte',
@@ -99,16 +100,14 @@ export const pxbAuthFrenchTranslations: PxbAuthTranslations = {
         },
         VERIFY_EMAIL: {
             TITLE: 'Vérifier les courriels',
-            INSTRUCTIONS:
-                `Un code de vérification a été envoyé à l'adresse e-mail que vous avez fournie. ` +
-                'Cliquez sur le lien ou entrez le code ci-dessous pour continuer. Ce code est valable 30 minutes.',
+            INSTRUCTIONS: `Un code de vérification a été envoyé à l'adresse e-mail que vous avez fournie. Cliquez sur le lien ou entrez le code ci-dessous pour continuer. Ce code est valable 30 minutes.`,
             CODE_FORM_LABEL: 'Code de vérification',
             RESEND_BUTTON: `Renvoyer l'e-mail de vérification`,
         },
         CREATE_PASSWORD: {
             INSTRUCTIONS:
                 'Veuillez sélectionner un mot de passe. Assurez-vous que votre mot de passe répond aux exigences de complexité nécessaires décrites ci-dessous.',
-            TITLE: 'Créer un mot de passe',
+            TITLE: 'Créer un Mot de Passe',
         },
         ACCOUNT_DETAILS: {
             FIRST_NAME_FORM_LABEL: 'Prénom',
@@ -117,8 +116,8 @@ export const pxbAuthFrenchTranslations: PxbAuthTranslations = {
             TITLE: 'Détails du compte',
         },
         ACCOUNT_CREATED: {
-            TITLE: 'Compte créé\n',
-            WELCOME_MESSAGE_TITLE: (username: string): string => `Bienvenu, ${username}`,
+            TITLE: 'Compte créé',
+            WELCOME_MESSAGE_TITLE: (username: string): string => `Bienvenue, ${username}`,
             WELCOME_MESSAGE_DESCRIPTION: (email: string): string => {
                 const firstSentence = email
                     ? `Votre compte a été créé avec succès avec l'e-mail ${email}.`
@@ -129,7 +128,7 @@ export const pxbAuthFrenchTranslations: PxbAuthTranslations = {
         },
         ACCOUNT_EXISTING: {
             TITLE: 'Compte créé',
-            WELCOME_MESSAGE_TITLE: 'Bienvenu',
+            WELCOME_MESSAGE_TITLE: 'Bienvenue',
             WELCOME_MESSAGE_DESCRIPTION: (email: string): string => {
                 const firstSentence = email
                     ? `Votre compte a été créé avec succès avec l'e-mail ${email}.`
