@@ -3,7 +3,6 @@ import { FormControl, ValidatorFn, Validators } from '@angular/forms';
 import { PXB_LOGIN_VALIDATOR_ERROR_NAME, PxbAuthConfig } from '../../services/config/auth-config';
 import { PxbAuthTranslations } from '../../translations/auth-translations';
 import { PxbAuthSecurityService } from '../../services/state/auth-security.service';
-import { PxbFormsService } from '../../services/forms/forms.service';
 import { AuthErrorStateMatcher } from '../../util/matcher';
 
 @Component({
@@ -40,6 +39,7 @@ import { AuthErrorStateMatcher } from '../../util/matcher';
             />
             <mat-error
                 *ngIf="
+                    !manualErrorMessage &&
                     isEmailFormDirty() &&
                     emailFormControl.hasError('email') &&
                     !emailFormControl.hasError('required') &&
@@ -49,21 +49,23 @@ import { AuthErrorStateMatcher } from '../../util/matcher';
             >
             </mat-error>
             <mat-error
-                *ngIf="isEmailFormDirty() && emailFormControl.hasError('required')"
+                *ngIf="!manualErrorMessage && isEmailFormDirty() && emailFormControl.hasError('required')"
                 [innerHTML]="translate().GENERAL.IS_REQUIRED_ERROR(translate().GENERAL.EMAIL_FORM_LABEL)"
             >
             </mat-error>
             <mat-error
-                *ngIf="isEmailFormDirty() && emailFormControl.hasError(customErrorName)"
+                *ngIf="!manualErrorMessage && isEmailFormDirty() && emailFormControl.hasError(customErrorName)"
                 [innerHTML]="emailFormControl.errors[customErrorName].message"
             >
             </mat-error>
+            <mat-error *ngIf="manualErrorMessage" [innerHTML]="manualErrorMessage"> </mat-error>
         </mat-form-field>
     `,
 })
 export class EmailFieldComponent implements OnInit {
     @Input() customEmailValidator: ValidatorFn;
     @Input() rememberLoginEmail = false;
+    @Input() manualErrorMessage: string;
     @Input() rememberRegistrationEmail = false;
     @Output() edit: EventEmitter<string> = new EventEmitter<string>();
     @Output() enter: EventEmitter<void> = new EventEmitter<void>();
@@ -76,7 +78,6 @@ export class EmailFieldComponent implements OnInit {
     customErrorName = PXB_LOGIN_VALIDATOR_ERROR_NAME;
 
     constructor(
-        public pxbFormsService: PxbFormsService,
         private readonly _pxbAuthConfig: PxbAuthConfig,
         private readonly _pxbSecurityService: PxbAuthSecurityService
     ) {}
@@ -92,6 +93,11 @@ export class EmailFieldComponent implements OnInit {
         }
         this.emailFormControl = new FormControl(this.showEmail(), emailValidators);
     }
+
+    ngOnChanges(): void {
+        this.matcher.setManualError(this.manualErrorMessage);
+    }
+
     showEmail(): string {
         if (this.rememberLoginEmail) {
             return this._pxbSecurityService.getSecurityState().rememberMeDetails.email;
@@ -100,6 +106,7 @@ export class EmailFieldComponent implements OnInit {
         }
         return '';
     }
+
     isEmailFormDirty(): boolean {
         return (
             !this.idFieldActive && this.touchedIdField && (this.emailFormControl.dirty || this.emailFormControl.touched)

@@ -27,6 +27,7 @@ export const pxbAuthChineseTranslations: PxbAuthTranslations = {
         DEBUG_MODE: '调试模式',
         FORGOT_PASSWORD_LINK: '[测试忘记密码的电子邮件]',
         TEST_INVITE_LINK: '[测试邀请注册]',
+        INVALID_CREDENTIALS: '邮箱地址或密码错误',
     },
     CHANGE_PASSWORD: {
         TITLE: '修改密码',

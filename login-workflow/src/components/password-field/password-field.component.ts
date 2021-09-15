@@ -32,9 +32,10 @@ import { CrossFieldErrorMatcher } from '../../util/matcher';
                 <mat-icon>{{ isPasswordVisible ? 'visibility' : 'visibility_off' }}</mat-icon>
             </button>
             <mat-error
-                *ngIf="passwordFormControl.hasError('mismatch')"
+                *ngIf="!manualErrorMessage && passwordFormControl.hasError('mismatch')"
                 [innerHTML]="translate().GENERAL.PASSWORD_MISMATCH_ERROR"
             ></mat-error>
+            <mat-error *ngIf="manualErrorMessage" [innerHTML]="manualErrorMessage"> </mat-error>
         </mat-form-field>
     `,
 })
@@ -43,6 +44,7 @@ export class PasswordFieldComponent implements OnInit {
     @Input() label: string;
     @Input() shouldMatch: FormControl;
     @Input() passwordsMatch: boolean;
+    @Input() manualErrorMessage: string;
 
     @Output() passwordsMatchChange: EventEmitter<boolean> = new EventEmitter<boolean>();
     @Output() enter: EventEmitter<void> = new EventEmitter<void>();
@@ -65,6 +67,10 @@ export class PasswordFieldComponent implements OnInit {
         this.passwordFormControl = new FormControl(rememberedPassword ? rememberedPassword : '', [
             this._passwordsMatchValidator(),
         ]);
+    }
+
+    ngOnChanges(): void {
+        this.matcher.setManualError(this.manualErrorMessage);
     }
 
     private _passwordsMatchValidator(): ValidatorFn {

@@ -5,7 +5,7 @@ import { MatDialogRef } from '@angular/material/dialog';
     selector: 'app-login-error-modal',
     template: `
         <div style="max-width: 300px">
-            <div class="mat-h2">Login Error</div>
+            <div class="mat-h2">Custom Login Error</div>
             <div class="mat-subheading-2">
                 This account needs to be approved manually by your station manager; please allow 24 hours for
                 activation. If it has been more than 24 hours, please
