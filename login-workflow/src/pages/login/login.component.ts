@@ -92,7 +92,7 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
             })
             .catch((errorData: LoginErrorData) => {
                 // If a user provides `undefined` rejection data, don't throw an error.
-                const rejectionData = errorData || {} as LoginErrorData;
+                const rejectionData = errorData || ({} as LoginErrorData);
                 const mode = rejectionData.mode || ['dialog'];
 
                 if (mode.includes('none')) {
@@ -115,7 +115,7 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
                 if (this.showDialog) {
                     this._pxbLoginErrorDialogService.openDialog({
                         title: errorTitle,
-                        message: this.errorMessage
+                        message: this.errorMessage,
                     });
                 }
                 this._pxbSecurityService.onUserNotAuthenticated();
