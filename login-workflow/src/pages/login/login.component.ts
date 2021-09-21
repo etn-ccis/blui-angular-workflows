@@ -91,7 +91,9 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
                 this._pxbSecurityService.setLoading(false);
             })
             .catch((errorData: LoginErrorData) => {
-                const mode = errorData.mode || ['dialog'];
+                // If a user provides `undefined` rejection data, don't throw an error.
+                const rejectionData = errorData || {} as LoginErrorData;
+                const mode = rejectionData.mode || ['dialog'];
 
                 if (mode.includes('none')) {
                     this._pxbSecurityService.onUserNotAuthenticated();
@@ -99,20 +101,23 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
                     return;
                 }
 
-                this.position = errorData.position || 'top';
-
-                this.dismissible = errorData.dismissible === undefined ? true : errorData.dismissible;
+                this.position = rejectionData.position || 'top';
+                this.dismissible = rejectionData.dismissible === undefined ? true : rejectionData.dismissible;
                 this.showDialog = mode.includes('dialog');
                 this.showCardError = mode.includes('message-box');
                 this.showFormErr = mode.includes('form');
+                const errorTitle = rejectionData.title || this.translate().LOGIN.ERROR_TITLE;
+                this.errorMessage = rejectionData.message || this.translate().LOGIN.INVALID_CREDENTIALS;
 
                 if (this.showCardError) {
                     this.showCardError = true;
                 }
                 if (this.showDialog) {
-                    this._pxbLoginErrorDialogService.openDialog(errorData);
+                    this._pxbLoginErrorDialogService.openDialog({
+                        title: errorTitle,
+                        message: this.errorMessage
+                    });
                 }
-                this.errorMessage = errorData.message || this.translate().LOGIN.INVALID_CREDENTIALS;
                 this._pxbSecurityService.onUserNotAuthenticated();
                 this._pxbSecurityService.setLoading(false);
             });
