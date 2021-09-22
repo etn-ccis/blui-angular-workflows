@@ -24,6 +24,7 @@ export type PxbAuthTranslations = {
         FORGOT_PASSWORD_LINK: string;
         TEST_INVITE_LINK: string;
         INVALID_CREDENTIALS: string;
+        ERROR_TITLE: string;
     };
     FORGOT_PASSWORD: {
         TITLE: string;
