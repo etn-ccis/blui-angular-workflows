@@ -42,7 +42,7 @@
   },
   "peerDependencies": {
     "@pxblue/angular-components": ">=4.3.0",
-    "@pxblue/colors": ">=3.0.1"
+    "@pxblue/colors": "^3.0.1"
   },
   "dependencies": {
     "tslib": "^2.0.0"
