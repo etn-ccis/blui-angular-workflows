@@ -1,7 +1,7 @@
 {
   "name": "@pxblue/angular-auth-workflow",
   "description": "Re-usable workflow components for Authentication and Registration within Eaton applications.",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "scripts": {
     "ng": "ng",
     "watch": "ng build -c demo",
@@ -12,6 +12,7 @@
     "prettier": "prettier \"src/**/**.{ts,js,json,css,scss,html}\" --write",
     "prettier:check": "prettier \"src/**/**.{ts,js,json,css,scss,html}\" --check",
     "publish:package": "cd dist && set npm_config_yes=true && npx -p @pxblue/publish pxb-publish",
+    "tag:package": "npx -p @pxblue/tag pxb-tag",
     "install:dependencies": "yarn && cd example && yarn",
     "link:workflow": "bash ./scripts/linkWorkflow.sh",
     "start:example": "yarn install:dependencies && yarn link:workflow && cd example && yarn start",
@@ -19,8 +20,28 @@
   },
   "prettier": "@pxblue/prettier-config",
   "private": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pxblue/angular-workflows.git"
+  },
+  "keywords": [
+    "angular",
+    "workflow",
+    "authentication",
+    "auth",
+    "pxblue"
+  ],
+  "author": "pxblue <pxblue@eaton.com>",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/pxblue/angular-workflows/issues"
+  },
+  "homepage": "https://github.com/pxblue/angular-workflows#readme",
+  "directories": {
+    "doc": "docs"
+  },
   "peerDependencies": {
-    "@pxblue/angular-components": "^4.3.0",
+    "@pxblue/angular-components": ">=4.3.0",
     "@pxblue/colors": "^3.0.1"
   },
   "dependencies": {

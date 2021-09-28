@@ -28,6 +28,7 @@ mat-form-field {
 
 .pxb-login-remember-me-login-wrapper {
     display: flex;
+    margin-top: 16px;
     justify-content: space-between;
     margin-bottom: 40px;
     align-items: center;
@@ -51,5 +52,14 @@ mat-form-field {
         .pxb-login-remember-me-checkbox {
             margin-bottom: 8px;
         }
+    }
+}
+
+.pxb-login-box-error {
+    background-color: map-get($pxb-red, 500);
+    color: map-get($pxb-white, 50);
+    margin-bottom: 16px;
+    &.pxb-login-box-error-bottom {
+        margin-top: 24px;
     }
 }

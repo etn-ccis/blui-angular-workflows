@@ -7,11 +7,11 @@ import { PxbAuthUIService } from '../../services/api';
 import { AUTH_ROUTES } from '../../auth/auth.routes';
 import { PxbAuthConfig } from '../../services/config/auth-config';
 import { PxbLoginErrorDialogService } from '../../services/dialog/login-error-dialog.service';
-import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
 import { PxbFormsService } from '../../services/forms/forms.service';
 import { AuthTranslationLanguageCode, PxbAuthTranslations } from '../../translations/auth-translations';
 import { EmailFieldComponent } from '../../components/email-field/email-field.component';
 import { PasswordFieldComponent } from '../../components/password-field/password-field.component';
+import { LoginErrorData } from '../../services/dialog/error-dialog.service';
 
 @Component({
     selector: 'pxb-login',
@@ -37,6 +37,14 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
 
     isPasswordVisible = false;
     debugMode = false;
+
+    /* Error Handling */
+    errorMessage: string;
+    position: 'top' | 'bottom';
+    dismissible: boolean;
+    showDialog: boolean;
+    showCardError: boolean;
+    showFormErr: boolean;
 
     selectedLanguage = 'English';
 
@@ -66,10 +74,6 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
         this._changeDetectorRef.detectChanges();
     }
 
-    togglePasswordVisibility(): void {
-        this.isPasswordVisible = !this.isPasswordVisible;
-    }
-
     toggleDebugMode(): void {
         this.debugMode = !this.debugMode;
     }
@@ -86,8 +90,34 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
                 this.navigateToDefaultRoute();
                 this._pxbSecurityService.setLoading(false);
             })
-            .catch((data: ErrorDialogData) => {
-                this._pxbLoginErrorDialogService.openDialog(data);
+            .catch((errorData: LoginErrorData) => {
+                // If a user provides `undefined` rejection data, don't throw an error.
+                const rejectionData = errorData || ({} as LoginErrorData);
+                const mode = rejectionData.mode || ['dialog'];
+
+                if (mode.includes('none')) {
+                    this._pxbSecurityService.onUserNotAuthenticated();
+                    this._pxbSecurityService.setLoading(false);
+                    return;
+                }
+
+                this.position = rejectionData.position || 'top';
+                this.dismissible = rejectionData.dismissible === undefined ? true : rejectionData.dismissible;
+                this.showDialog = mode.includes('dialog');
+                this.showCardError = mode.includes('message-box');
+                this.showFormErr = mode.includes('form');
+                const errorTitle = rejectionData.title || this.translate().LOGIN.ERROR_TITLE;
+                this.errorMessage = rejectionData.message || this.translate().LOGIN.INVALID_CREDENTIALS;
+
+                if (this.showCardError) {
+                    this.showCardError = true;
+                }
+                if (this.showDialog) {
+                    this._pxbLoginErrorDialogService.openDialog({
+                        title: errorTitle,
+                        message: this.errorMessage,
+                    });
+                }
                 this._pxbSecurityService.onUserNotAuthenticated();
                 this._pxbSecurityService.setLoading(false);
             });
@@ -145,5 +175,9 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
 
     translate(): PxbAuthTranslations {
         return this.pxbAuthConfig.getTranslations();
+    }
+
+    clearInputErrorMessage(): void {
+        this.errorMessage = '';
     }
 }
