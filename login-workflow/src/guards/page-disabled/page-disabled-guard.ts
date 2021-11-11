@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { PxbAuthSecurityService } from '../../services/state/auth-security.service';
-import { PxbAuthConfig } from '../../services/config/auth-config';
+import { BluiAuthSecurityService } from '../../services/state/auth-security.service';
+import { BluiAuthConfig } from '../../services/config/auth-config';
 import { matchesRoute } from '../../util/matcher';
 
 @Injectable({
     providedIn: 'root',
 })
-export class PxbAuthPageDisabledGuard implements CanActivate {
+export class BluiAuthPageDisabledGuard implements CanActivate {
     constructor(
-        public securityService: PxbAuthSecurityService,
-        private readonly _pxbAuthConfig: PxbAuthConfig,
+        public securityService: BluiAuthSecurityService,
+        private readonly _bluiAuthConfig: BluiAuthConfig,
         public router: Router
     ) {}
 
@@ -32,19 +32,19 @@ export class PxbAuthPageDisabledGuard implements CanActivate {
         if (showLogin || isEmptyUrl) {
             return true;
         }
-        if (!this._pxbAuthConfig.showContactSupport && showContactSupport) {
+        if (!this._bluiAuthConfig.showContactSupport && showContactSupport) {
             return this.navigateRoot();
         }
-        if (!this._pxbAuthConfig.showCreateAccount && showCreateAccount) {
+        if (!this._bluiAuthConfig.showCreateAccount && showCreateAccount) {
             return this.navigateRoot();
         }
-        if (!this._pxbAuthConfig.showForgotPassword && showForgotPassword) {
+        if (!this._bluiAuthConfig.showForgotPassword && showForgotPassword) {
             return this.navigateRoot();
         }
-        if (!this._pxbAuthConfig.showResetPassword && showResetPassword) {
+        if (!this._bluiAuthConfig.showResetPassword && showResetPassword) {
             return this.navigateRoot();
         }
-        if (!this._pxbAuthConfig.showCreateAccountViaInvite && showCreateAccountInvite) {
+        if (!this._bluiAuthConfig.showCreateAccountViaInvite && showCreateAccountInvite) {
             return this.navigateRoot();
         }
         // Enable direct routing to internal auth pages if the config has not disabled them.

@@ -4,9 +4,9 @@ import { MatFormField } from '@angular/material/form-field';
 import {
     AUTH_ROUTES,
     AccountDetails,
-    PxbCreateAccountComponent,
-    PxbCreateAccountInviteComponent,
-} from '@pxblue/angular-auth-workflow';
+    BluiCreateAccountComponent,
+    BluiCreateAccountInviteComponent,
+} from '@brightlayer-ui/angular-auth-workflow';
 import { Router } from '@angular/router';
 
 @Component({
@@ -14,23 +14,23 @@ import { Router } from '@angular/router';
     template: `
         <!-- Project-specific login page -->
         <ng-template #loginPage>
-            <pxb-login>
-                <div pxb-login-header>
+            <blui-login>
+                <div blui-login-header>
                     <img src="assets/images/eaton_stacked_logo.png" style="max-width: 100%; max-height: 80px;" />
                 </div>
-                <div pxb-login-footer style="text-align: center;">
+                <div blui-login-footer style="text-align: center;">
                     <img src="assets/images/cybersecurity_certified.png" style="max-width: 30%; align-self: center;" />
                 </div>
 
                 <!--
-                <div pxb-login-actions style="text-align: center; margin-bottom: 24px">
+                <div Blui-login-actions style="text-align: center; margin-bottom: 24px">
                     <button mat-stroked-button style="width: 100%">
                         <mat-icon style="margin-right: 24px">mail_outline</mat-icon>
                         Login with Gmail
                     </button>
                 </div>
                 -->
-            </pxb-login>
+            </blui-login>
         </ng-template>
 
         <!-- Success Screen  -->
@@ -62,7 +62,7 @@ import { Router } from '@angular/router';
                     <div class="mat-h4">Press the button below to continue.</div>
                 </div>
             </div>
-            <mat-divider class="pxb-auth-divider pxb-auth-action-button-divider"></mat-divider>
+            <mat-divider class="blui-auth-divider blui-auth-action-button-divider"></mat-divider>
             <button mat-stroked-button (click)="navigateToLogin()" color="primary" style="width: 100%; margin-top: 8px">
                 Join an Organization
             </button>
@@ -97,7 +97,7 @@ import { Router } from '@angular/router';
                     <div class="mat-h4">Please click continue to log in.</div>
                 </div>
             </div>
-            <mat-divider class="pxb-auth-divider pxb-auth-action-button-divider"></mat-divider>
+            <mat-divider class="blui-auth-divider blui-auth-action-button-divider"></mat-divider>
             <button mat-flat-button color="primary" (click)="navigateToLogin()" style="width: 100%; margin-top: 16px">
                 Continue
             </button>
@@ -105,21 +105,21 @@ import { Router } from '@angular/router';
 
         <!-- Custom Create Account page -->
         <ng-template #createAccountPage>
-            <pxb-create-account
+            <blui-create-account
                 #createAccountVC
                 [accountDetails]="accountDetails"
                 [registrationSuccessScreen]="registrationSuccessScreen"
-            ></pxb-create-account>
+            ></blui-create-account>
         </ng-template>
 
         <!-- Custom Create Account page -->
         <ng-template #createAccountViaInvitePage>
-            <pxb-create-account-invite
+            <blui-create-account-invite
                 #createAccountInviteVC
                 [accountDetails]="accountDetails"
                 [existingAccountSuccessScreen]="accountAlreadyExistsSuccessScreen"
             >
-            </pxb-create-account-invite>
+            </blui-create-account-invite>
         </ng-template>
 
         <!-- This is an example of a custom account details form.  To enable the defaults, remove this template and the accountDetails[]. -->
@@ -182,11 +182,11 @@ import { Router } from '@angular/router';
         </ng-template>
 
         <!-- This is what accepts all page customizations and renders on screen. !-->
-        <pxb-auth
+        <blui-auth
             [loginRef]="loginPage"
             [createAccountRef]="createAccountPage"
             [createAccountInviteRef]="createAccountViaInvitePage"
-        ></pxb-auth>
+        ></blui-auth>
     `,
 })
 export class AuthComponent {
@@ -201,8 +201,8 @@ export class AuthComponent {
     /* Account Details Customizations */
     accountDetails: AccountDetails[];
 
-    @ViewChild('createAccountVC') createAccountVC: PxbCreateAccountComponent;
-    @ViewChild('createAccountInviteVC') createAccountInviteVC: PxbCreateAccountInviteComponent;
+    @ViewChild('createAccountVC') createAccountVC: BluiCreateAccountComponent;
+    @ViewChild('createAccountInviteVC') createAccountInviteVC: BluiCreateAccountInviteComponent;
 
     @ViewChild('accountDetailsPage1') accountDetailsPage1: TemplateRef<MatFormField>;
     @ViewChild('accountDetailsPage2') accountDetailsPage2: TemplateRef<MatFormField>;

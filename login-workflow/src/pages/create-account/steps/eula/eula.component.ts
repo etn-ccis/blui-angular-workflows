@@ -10,36 +10,36 @@ import {
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
-import { PxbAuthConfig } from './../../../../services/config/auth-config';
-import { PxbRegisterUIService } from '../../../../services/api';
-import { PxbAuthSecurityService, SecurityContext } from '../../../../services/state/auth-security.service';
-import { PxbAuthTranslations } from '../../../../translations/auth-translations';
+import { BluiAuthConfig } from './../../../../services/config/auth-config';
+import { BluiRegisterUIService } from '../../../../services/api';
+import { BluiAuthSecurityService, SecurityContext } from '../../../../services/state/auth-security.service';
+import { BluiAuthTranslations } from '../../../../translations/auth-translations';
 
 @Component({
-    selector: 'pxb-create-account-eula-step',
+    selector: 'blui-create-account-eula-step',
     styleUrls: ['eula.component.scss'],
     template: `
-        <div class="mat-title pxb-auth-title" [innerHTML]="translate.CREATE_ACCOUNT.EULA.TITLE"></div>
+        <div class="mat-title blui-auth-title" [innerHTML]="translate.CREATE_ACCOUNT.EULA.TITLE"></div>
         <div
             #eulaVC
             *ngIf="eula"
-            class="pxb-auth-full-height"
+            class="blui-auth-full-height"
             style="overflow: auto"
             (scroll)="checkScrollDistance($event)"
             [innerHTML]="sanitizer.sanitize(1, eula)"
         ></div>
-        <pxb-empty-state *ngIf="!eula && !isLoading" class="pxb-auth-full-height pxb-auth-eula-error">
-            <div pxb-title><div [innerHTML]="translate.CREATE_ACCOUNT.EULA.LOAD_ERROR_TITLE"></div></div>
-            <div pxb-description><div [innerHTML]="translate.CREATE_ACCOUNT.EULA.LOAD_ERROR_DESCRIPTION"></div></div>
-            <mat-icon pxb-empty-icon color="warn">error</mat-icon>
-            <button pxb-actions mat-raised-button color="primary" (click)="getEULA()">
+        <blui-empty-state *ngIf="!eula && !isLoading" class="blui-auth-full-height blui-auth-eula-error">
+            <div blui-title><div [innerHTML]="translate.CREATE_ACCOUNT.EULA.LOAD_ERROR_TITLE"></div></div>
+            <div blui-description><div [innerHTML]="translate.CREATE_ACCOUNT.EULA.LOAD_ERROR_DESCRIPTION"></div></div>
+            <mat-icon blui-empty-icon color="warn">error</mat-icon>
+            <button blui-actions mat-raised-button color="primary" (click)="getEULA()">
                 <mat-icon>replay</mat-icon>
                 {{ translate.CREATE_ACCOUNT.EULA.RELOAD_BUTTON }}
             </button>
-        </pxb-empty-state>
-        <div *ngIf="eula" class="pxb-eula-confirm-agreement">
+        </blui-empty-state>
+        <div *ngIf="eula" class="blui-eula-confirm-agreement">
             <mat-checkbox
-                class="pxb-eula-checkbox"
+                class="blui-eula-checkbox"
                 [disabled]="!userScrolledBottom"
                 [(ngModel)]="userAcceptsEula"
                 (change)="userAcceptsEulaChange.emit(userAcceptsEula)"
@@ -50,7 +50,7 @@ import { PxbAuthTranslations } from '../../../../translations/auth-translations'
         </div>
     `,
 })
-export class PxbEulaComponent implements OnInit {
+export class BluiEulaComponent implements OnInit {
     @Input() userAcceptsEula: boolean;
     @Output() userAcceptsEulaChange: EventEmitter<boolean> = new EventEmitter<boolean>();
     @ViewChild('eulaVC') eulaVC: ElementRef;
@@ -58,24 +58,24 @@ export class PxbEulaComponent implements OnInit {
     eula: string;
     isLoading: boolean;
     userScrolledBottom = false;
-    translate: PxbAuthTranslations;
+    translate: BluiAuthTranslations;
 
     constructor(
         public sanitizer: DomSanitizer,
         private readonly _changeDetectorRef: ChangeDetectorRef,
-        private readonly _pxbAuthConfig: PxbAuthConfig,
-        private readonly _pxbRegisterService: PxbRegisterUIService,
-        private readonly _pxbSecurityService: PxbAuthSecurityService
+        private readonly _bluiAuthConfig: BluiAuthConfig,
+        private readonly _bluiRegisterService: BluiRegisterUIService,
+        private readonly _bluiSecurityService: BluiAuthSecurityService
     ) {
-        this._pxbSecurityService.securityStateChanges().subscribe((state: SecurityContext) => {
+        this._bluiSecurityService.securityStateChanges().subscribe((state: SecurityContext) => {
             this.isLoading = state.isLoading;
         });
     }
 
     ngOnInit(): void {
-        this.translate = this._pxbAuthConfig.getTranslations();
+        this.translate = this._bluiAuthConfig.getTranslations();
         // Configurable option to require users to scroll to bottom of EULA before accepting.
-        if (!this._pxbAuthConfig.eulaScrollLock) {
+        if (!this._bluiAuthConfig.eulaScrollLock) {
             this.userScrolledBottom = true;
         }
         // User has already scrolled to the bottom and accepted the EULA.
@@ -86,24 +86,24 @@ export class PxbEulaComponent implements OnInit {
     }
 
     getEULA(): void {
-        if (this._pxbAuthConfig.eula) {
-            this.afterGetEula(this._pxbAuthConfig.eula);
+        if (this._bluiAuthConfig.eula) {
+            this.afterGetEula(this._bluiAuthConfig.eula);
         } else {
-            this._pxbSecurityService.setLoading(true);
-            this._pxbRegisterService
+            this._bluiSecurityService.setLoading(true);
+            this._bluiRegisterService
                 .loadEULA()
                 .then((eula: string) => {
                     this.afterGetEula(eula);
                 })
                 .catch(() => {
-                    this._pxbSecurityService.setLoading(false);
+                    this._bluiSecurityService.setLoading(false);
                 });
         }
     }
 
     afterGetEula(eula: string): void {
         this.eula = eula;
-        this._pxbSecurityService.setLoading(false);
+        this._bluiSecurityService.setLoading(false);
         this._changeDetectorRef.detectChanges();
         if (!this.userAcceptsEula) {
             const el = this.eulaVC.nativeElement;

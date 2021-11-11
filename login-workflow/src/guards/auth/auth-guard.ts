@@ -1,25 +1,25 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate } from '@angular/router';
-import { PxbAuthSecurityService } from '../../services/state/auth-security.service';
-import { PxbAuthConfig } from '../../services/config/auth-config';
+import { BluiAuthSecurityService } from '../../services/state/auth-security.service';
+import { BluiAuthConfig } from '../../services/config/auth-config';
 import { AUTH_ROUTES } from '../../auth/auth.routes';
 
 @Injectable({
     providedIn: 'root',
 })
-export class PxbAuthGuard implements CanActivate {
+export class BluiAuthGuard implements CanActivate {
     constructor(
-        public pxbAuthConfig: PxbAuthConfig,
-        public securityService: PxbAuthSecurityService,
+        public bluiAuthConfig: BluiAuthConfig,
+        public securityService: BluiAuthSecurityService,
         public router: Router
     ) {}
 
     canActivate(): boolean {
         if (!this.securityService.getSecurityState().isAuthenticatedUser) {
             const route =
-                this.pxbAuthConfig.authGuardRedirectRoute === undefined
+                this.bluiAuthConfig.authGuardRedirectRoute === undefined
                     ? AUTH_ROUTES.AUTH_WORKFLOW
-                    : this.pxbAuthConfig.authGuardRedirectRoute;
+                    : this.bluiAuthConfig.authGuardRedirectRoute;
             void this.router.navigate([route]);
             return false;
         }

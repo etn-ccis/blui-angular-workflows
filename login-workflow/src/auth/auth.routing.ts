@@ -1,41 +1,41 @@
-import { PxbLoginComponent } from '../pages/login/login.component';
-import { PxbForgotPasswordComponent } from '../pages/forgot-password/forgot-password.component';
-import { PxbResetPasswordComponent } from '../pages/reset-password/reset-password.component';
-import { PxbCreateAccountComponent } from '../pages/create-account/create-account.component';
-import { PxbContactSupportComponent } from '../pages/contact-support/contact-support.component';
-import { PxbCreateAccountInviteComponent } from '../pages/create-account-invite/create-account-invite.component';
+import { BluiLoginComponent } from '../pages/login/login.component';
+import { BluiForgotPasswordComponent } from '../pages/forgot-password/forgot-password.component';
+import { BluiResetPasswordComponent } from '../pages/reset-password/reset-password.component';
+import { BluiCreateAccountComponent } from '../pages/create-account/create-account.component';
+import { BluiContactSupportComponent } from '../pages/contact-support/contact-support.component';
+import { BluiCreateAccountInviteComponent } from '../pages/create-account-invite/create-account-invite.component';
 import { AUTH_ROUTES } from './auth.routes';
 import { Routes } from '@angular/router';
-import { PxbAuthPageDisabledGuard } from '../guards/page-disabled/page-disabled-guard';
+import { BluiAuthPageDisabledGuard } from '../guards/page-disabled/page-disabled-guard';
 
 export function getAuthSubRoutes(): Routes {
     return [
         { path: '', redirectTo: AUTH_ROUTES.LOGIN, pathMatch: 'full' },
-        { path: AUTH_ROUTES.LOGIN, component: PxbLoginComponent },
+        { path: AUTH_ROUTES.LOGIN, component: BluiLoginComponent },
         {
             path: AUTH_ROUTES.RESET_PASSWORD,
-            component: PxbResetPasswordComponent,
-            canActivate: [PxbAuthPageDisabledGuard],
+            component: BluiResetPasswordComponent,
+            canActivate: [BluiAuthPageDisabledGuard],
         },
         {
             path: AUTH_ROUTES.FORGOT_PASSWORD,
-            component: PxbForgotPasswordComponent,
-            canActivate: [PxbAuthPageDisabledGuard],
+            component: BluiForgotPasswordComponent,
+            canActivate: [BluiAuthPageDisabledGuard],
         },
         {
             path: AUTH_ROUTES.CREATE_ACCOUNT,
-            component: PxbCreateAccountComponent,
-            canActivate: [PxbAuthPageDisabledGuard],
+            component: BluiCreateAccountComponent,
+            canActivate: [BluiAuthPageDisabledGuard],
         },
         {
             path: AUTH_ROUTES.CONTACT_SUPPORT,
-            component: PxbContactSupportComponent,
-            canActivate: [PxbAuthPageDisabledGuard],
+            component: BluiContactSupportComponent,
+            canActivate: [BluiAuthPageDisabledGuard],
         },
         {
             path: AUTH_ROUTES.CREATE_ACCOUNT_INVITE,
-            component: PxbCreateAccountInviteComponent,
-            canActivate: [PxbAuthPageDisabledGuard],
+            component: BluiCreateAccountInviteComponent,
+            canActivate: [BluiAuthPageDisabledGuard],
         },
     ];
 }

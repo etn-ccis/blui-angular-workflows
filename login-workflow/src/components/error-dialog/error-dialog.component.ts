@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
 
 @Component({
-    selector: 'pxb-auth-error-dialog',
+    selector: 'blui-auth-error-dialog',
     template: `
         <div style="max-width: 552px">
             <div class="mat-h2">{{ title }}</div>
@@ -14,14 +14,14 @@ import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
         </div>
     `,
 })
-export class PxbAuthErrorDialogComponent implements OnInit {
+export class BluiAuthErrorDialogComponent implements OnInit {
     // These are the defaults when no ErrorDialogData is provided by users or our ErrorDialogServices.
     title = 'Error!';
     message = 'Unable to process your request.';
 
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: ErrorDialogData,
-        public dialogRef: MatDialogRef<PxbAuthErrorDialogComponent>
+        public dialogRef: MatDialogRef<BluiAuthErrorDialogComponent>
     ) {}
 
     // Use ErrorDialogData values if they are provided by an ErrorDialogService or directly from the user via a catch block.

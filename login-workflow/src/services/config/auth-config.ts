@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { ValidatorFn } from '@angular/forms';
-import { AuthTranslationLanguageCode, PxbAuthTranslations } from '../../translations/auth-translations';
-import { pxbAuthEnglishTranslations } from '../../translations/english';
-import { pxbAuthFrenchTranslations } from '../../translations/french';
-import { pxbAuthSpanishTranslations } from '../../translations/spanish';
-import { pxbAuthChineseTranslations } from '../../translations/chinese';
+import { AuthTranslationLanguageCode, BluiAuthTranslations } from '../../translations/auth-translations';
+import { bluiAuthEnglishTranslations } from '../../translations/english';
+import { bluiAuthFrenchTranslations } from '../../translations/french';
+import {  bluiAuthSpanishTranslations } from '../../translations/spanish';
+import { bluiAuthChineseTranslations } from '../../translations/chinese';
 
-export const PXB_LOGIN_VALIDATOR_ERROR_NAME = 'PXB_LOGIN_VALIDATOR_ERROR_NAME';
+export const BLUI_LOGIN_VALIDATOR_ERROR_NAME = 'BLUI_LOGIN_VALIDATOR_ERROR_NAME';
 
 export type PasswordRequirement = {
     description: string;
@@ -16,11 +16,11 @@ export type PasswordRequirement = {
 @Injectable({
     providedIn: 'root',
 })
-export class PxbAuthConfig {
+export class BluiAuthConfig {
     authGuardRedirectRoute = undefined;
 
     languageCode: AuthTranslationLanguageCode = 'EN';
-    customTranslations: PxbAuthTranslations;
+    customTranslations: BluiAuthTranslations;
     allowDebugMode = false;
     showRememberMe = true;
 
@@ -57,25 +57,25 @@ export class PxbAuthConfig {
     customLastNameRequirements: { maxLength: number } = undefined;
     customEmailValidator: ValidatorFn;
 
-    getTranslations(): PxbAuthTranslations {
+    getTranslations(): BluiAuthTranslations {
         if (this.customTranslations) {
             return this.customTranslations;
         }
         switch (this.languageCode) {
             case 'EN': {
-                return pxbAuthEnglishTranslations;
+                return bluiAuthEnglishTranslations;
             }
             case 'FR': {
-                return pxbAuthFrenchTranslations;
+                return bluiAuthFrenchTranslations;
             }
             case 'ES': {
-                return pxbAuthSpanishTranslations;
+                return bluiAuthSpanishTranslations;
             }
             case 'ZH': {
-                return pxbAuthChineseTranslations;
+                return bluiAuthChineseTranslations;
             }
             default: {
-                return pxbAuthEnglishTranslations;
+                return bluiAuthEnglishTranslations;
             }
         }
     }

@@ -1,41 +1,41 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { PxbLoginComponent } from './pages/login/login.component';
-import { PxbForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
-import { PxbResetPasswordComponent } from './pages/reset-password/reset-password.component';
-import { PxbCreateAccountComponent } from './pages/create-account/create-account.component';
+import { BluiLoginComponent } from './pages/login/login.component';
+import { BluiForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
+import { BluiResetPasswordComponent } from './pages/reset-password/reset-password.component';
+import { BluiCreateAccountComponent } from './pages/create-account/create-account.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
-import { PxbAuthComponent } from './auth/auth.component';
+import { BluiAuthComponent } from './auth/auth.component';
 import { RouterModule } from '@angular/router';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
-import { EmptyStateModule, SpacerModule } from '@pxblue/angular-components';
+import { EmptyStateModule, SpacerModule } from '@brightlayer-ui/angular-components';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { CommonModule } from '@angular/common';
-import { PxbContactSupportComponent } from './pages/contact-support/contact-support.component';
-import { PxbChangePasswordComponent } from './pages/change-password/change-password.component';
+import { BluiContactSupportComponent } from './pages/contact-support/contact-support.component';
+import { BluiChangePasswordComponent } from './pages/change-password/change-password.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import { PxbChangePasswordDialogComponent } from './pages/change-password/dialog/change-password-dialog.component';
-import { PxbCreateAccountInviteModule } from './pages/create-account-invite/create-account-invite.module';
-import { PxbCommonComponentsModule } from './components/auth-common.module';
-import { PxbCreateAccountModule } from './pages/create-account/create-account.module';
+import { BluiChangePasswordDialogComponent } from './pages/change-password/dialog/change-password-dialog.component';
+import { BluiCreateAccountInviteModule } from './pages/create-account-invite/create-account-invite.module';
+import { BluiCommonComponentsModule } from './components/auth-common.module';
+import { BluiCreateAccountModule } from './pages/create-account/create-account.module';
 import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
     declarations: [
-        PxbLoginComponent,
-        PxbForgotPasswordComponent,
-        PxbResetPasswordComponent,
-        PxbAuthComponent,
-        PxbContactSupportComponent,
-        PxbChangePasswordComponent,
-        PxbChangePasswordDialogComponent,
+        BluiLoginComponent,
+        BluiForgotPasswordComponent,
+        BluiResetPasswordComponent,
+        BluiAuthComponent,
+        BluiContactSupportComponent,
+        BluiChangePasswordComponent,
+        BluiChangePasswordDialogComponent,
     ],
     imports: [
         BrowserModule,
@@ -56,21 +56,21 @@ import { MatSelectModule } from '@angular/material/select';
         EmptyStateModule,
         MatListModule,
         MatDialogModule,
-        PxbCreateAccountModule,
-        PxbCreateAccountInviteModule,
-        PxbCommonComponentsModule,
+        BluiCreateAccountModule,
+        BluiCreateAccountInviteModule,
+        BluiCommonComponentsModule,
     ],
-    entryComponents: [PxbChangePasswordDialogComponent],
+    entryComponents: [BluiChangePasswordDialogComponent],
     exports: [
-        PxbAuthComponent,
-        PxbLoginComponent,
-        PxbForgotPasswordComponent,
-        PxbCreateAccountComponent,
-        PxbResetPasswordComponent,
-        PxbContactSupportComponent,
-        PxbChangePasswordComponent,
-        PxbCreateAccountModule,
-        PxbCreateAccountInviteModule,
+        BluiAuthComponent,
+        BluiLoginComponent,
+        BluiForgotPasswordComponent,
+        BluiCreateAccountComponent,
+        BluiResetPasswordComponent,
+        BluiContactSupportComponent,
+        BluiChangePasswordComponent,
+        BluiCreateAccountModule,
+        BluiCreateAccountInviteModule,
     ],
 })
-export class PxbAuthModule {}
+export class BluiAuthModule {}

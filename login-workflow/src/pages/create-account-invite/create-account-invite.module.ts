@@ -2,18 +2,18 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
-import { EmptyStateModule, MobileStepperModule } from '@pxblue/angular-components';
+import { EmptyStateModule, MobileStepperModule } from '@brightlayer-ui/angular-components';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { CommonModule } from '@angular/common';
-import { PxbCreateAccountInviteComponent } from './create-account-invite.component';
+import { BluiCreateAccountInviteComponent } from './create-account-invite.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import { PxbCreateAccountStepsModule } from '../create-account/steps/steps.module';
-import { PxbCommonComponentsModule } from '../../components/auth-common.module';
+import { BluiCreateAccountStepsModule } from '../create-account/steps/steps.module';
+import { BluiCommonComponentsModule } from '../../components/auth-common.module';
 
 @NgModule({
-    declarations: [PxbCreateAccountInviteComponent],
+    declarations: [BluiCreateAccountInviteComponent],
     imports: [
         BrowserModule,
         CommonModule,
@@ -25,9 +25,9 @@ import { PxbCommonComponentsModule } from '../../components/auth-common.module';
         EmptyStateModule,
         MobileStepperModule,
         MatDialogModule,
-        PxbCreateAccountStepsModule,
-        PxbCommonComponentsModule,
+        BluiCreateAccountStepsModule,
+        BluiCommonComponentsModule,
     ],
-    exports: [PxbCreateAccountInviteComponent, PxbCreateAccountStepsModule],
+    exports: [BluiCreateAccountInviteComponent, BluiCreateAccountStepsModule],
 })
-export class PxbCreateAccountInviteModule {}
+export class BluiCreateAccountInviteModule {}

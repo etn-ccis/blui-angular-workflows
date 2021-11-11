@@ -1,13 +1,13 @@
-@import '~@pxblue/colors/palette';
+@import '~@brightlayer-ui/colors/palette';
 
-.pxb-auth-content {
+.blui-auth-content {
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: map-get($pxb-blue, 500);
+    background-color: map-get($blui-blue, 500);
 
-    .pxb-auth-inner-card {
+    .blui-auth-inner-card {
         padding: 0;
         box-sizing: border-box;
         width: 100%;
@@ -20,18 +20,18 @@
         overflow: auto;
     }
 
-    .pxb-auth-splash-screen {
+    .blui-auth-splash-screen {
         align-items: center;
         justify-content: center;
     }
 
-    .pxb-auth-splash-screen-content {
+    .blui-auth-splash-screen-content {
         display: flex;
         flex-direction: column;
         align-items: center;
     }
 
-    .pxb-auth-login {
+    .blui-auth-login {
         padding: 32px 64px;
         overflow: auto;
         flex: 1 1 0;
@@ -42,11 +42,11 @@
         }
     }
 
-    .pxb-auth-contact-support,
-    .pxb-auth-forgot-password,
-    .pxb-auth-reset-password,
-    .pxb-auth-create-account,
-    .pxb-auth-create-account-invite {
+    .blui-auth-contact-support,
+    .blui-auth-forgot-password,
+    .blui-auth-reset-password,
+    .blui-auth-create-account,
+    .blui-auth-create-account-invite {
         flex: 1 1 0;
         display: flex;
         flex-direction: column;
@@ -54,19 +54,19 @@
     }
 
     @media only screen and (max-width: 600px) {
-        .pxb-auth-contact-support,
-        .pxb-auth-forgot-password,
-        .pxb-auth-reset-password,
-        .pxb-auth-create-account,
-        .pxb-auth-create-account-invite {
+        .blui-auth-contact-support,
+        .blui-auth-forgot-password,
+        .blui-auth-reset-password,
+        .blui-auth-create-account,
+        .blui-auth-create-account-invite {
             padding: 16px;
         }
 
-        .pxb-auth-login {
+        .blui-auth-login {
             padding: 32px;
         }
 
-        .pxb-auth-inner-card {
+        .blui-auth-inner-card {
             max-width: none;
             max-height: none;
             border-radius: 0;
@@ -76,65 +76,65 @@
 
 /* These styles are needed for the ChangePassword dialog too. */
 ::ng-deep {
-    .pxb-auth-link {
-        color: map-get($pxb-blue, 500);
+    .blui-auth-link {
+        color: map-get($blui-blue, 500);
         text-decoration: none;
         font-weight: 600;
         text-align: center;
         cursor: pointer;
     }
-    .pxb-auth-title {
+    .blui-auth-title {
         padding-bottom: 16px;
     }
-    .pxb-auth-full-height {
+    .blui-auth-full-height {
         display: flex;
         flex-direction: column;
         flex: 1 1 0;
     }
-    .mat-divider.pxb-auth-divider {
+    .mat-divider.blui-auth-divider {
         margin-left: -24px !important;
         margin-right: -24px !important;
         position: static !important;
         width: auto !important;
     }
-    .mat-divider.pxb-auth-divider-32 {
+    .mat-divider.blui-auth-divider-32 {
         margin-left: -32px !important;
         margin-right: -32px !important;
     }
-    .mat-divider.pxb-auth-action-button-divider {
+    .mat-divider.blui-auth-action-button-divider {
         margin-bottom: 16px;
     }
-    .pxb-auth-action-button-container {
+    .blui-auth-action-button-container {
         padding-top: 8px;
         display: flex;
         justify-content: space-between;
-        .pxb-mobile-stepper-content button {
+        .blui-mobile-stepper-content button {
             margin: 0;
         }
     }
 
-    pxb-contact-support,
-    pxb-create-account,
-    pxb-create-account-invite,
-    pxb-forgot-password,
-    pxb-login,
-    pxb-reset-password {
+    blui-contact-support,
+    blui-create-account,
+    blui-create-account-invite,
+    blui-forgot-password,
+    blui-login,
+    blui-reset-password {
         flex: 1 1 0;
         display: flex;
         flex-direction: column;
         height: 100%;
     }
-    pxb-password-strength-checker {
+    blui-password-strength-checker {
         margin-bottom: 24px;
         margin-top: -16px;
     }
 
     @media only screen and (max-width: 600px) {
-        .mat-divider.pxb-auth-divider {
+        .mat-divider.blui-auth-divider {
             margin-left: -16px !important;
             margin-right: -16px !important;
         }
-        .mat-divider.pxb-auth-action-button-divider {
+        .mat-divider.blui-auth-action-button-divider {
             margin-bottom: 8px;
         }
     }

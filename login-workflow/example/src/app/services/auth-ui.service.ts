@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { Injectable } from '@angular/core';
-import { IPxbAuthUIService, PxbAuthSecurityService, LoginErrorData } from '@pxblue/angular-auth-workflow';
+import { IBluiAuthUIService, BluiAuthSecurityService, LoginErrorData } from '@brightlayer-ui/angular-auth-workflow';
 import { LocalStorageService } from './localStorage.service';
 
 const TIMEOUT_MS = 1500;
@@ -8,27 +8,27 @@ const TIMEOUT_MS = 1500;
 @Injectable({
     providedIn: 'root',
 })
-export class AuthUIService implements IPxbAuthUIService {
+export class AuthUIService implements IBluiAuthUIService {
     constructor(
         private readonly _localStorageService: LocalStorageService,
-        private readonly _pxbSecurityService: PxbAuthSecurityService
+        private readonly _bluiSecurityService: BluiAuthSecurityService
     ) {}
 
-    // This method is called at the start of the application to check if a remembered user is returning to the app and initiate pxb SecurityContext.
+    // This method is called at the start of the application to check if a remembered user is returning to the app and initiate Blui SecurityContext.
     initiateSecurity(): Promise<void> {
         return new Promise((resolve) => {
             setTimeout(() => {
                 const authData = this._localStorageService.readAuthData();
                 if (authData.isAuthenticated) {
                     console.log('User is authenticated.');
-                    this._pxbSecurityService.onUserAuthenticated(authData.email, undefined, true);
+                    this._bluiSecurityService.onUserAuthenticated(authData.email, undefined, true);
                     return resolve();
                 } else if (authData.email) {
                     console.log('User is not authenticated, but we have remembered their Email.');
-                    this._pxbSecurityService.onUserNotAuthenticated({ rememberMe: true, user: authData.email });
+                    this._bluiSecurityService.onUserNotAuthenticated({ rememberMe: true, user: authData.email });
                 } else {
                     console.log('User is not authenticated and not remembered.');
-                    this._pxbSecurityService.onUserNotAuthenticated();
+                    this._bluiSecurityService.onUserNotAuthenticated();
                 }
                 return resolve();
             }, TIMEOUT_MS);

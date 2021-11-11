@@ -1,35 +1,35 @@
-import { PxbAuthSecurityService } from './auth-security.service';
+import { BluiAuthSecurityService } from './auth-security.service';
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { PxbAuthModule } from '../../auth.module';
+import { BluiAuthModule } from '../../auth.module';
 import { AUTH_ROUTES } from '../../auth/auth.routes';
 import { getAuthSubRoutes } from '../../auth/auth.routing';
 import { Router } from '@angular/router';
-import { PxbAuthComponent } from '../../auth/auth.component';
+import { BluiAuthComponent } from '../../auth/auth.component';
 
-describe('PxbAuthSecurityService', () => {
-    let securityService: PxbAuthSecurityService;
+describe('BluiAuthSecurityService', () => {
+    let securityService: BluiAuthSecurityService;
     const authWorkflowRoutes = getAuthSubRoutes();
     let router: Router;
     beforeEach(() => {
         void TestBed.configureTestingModule({
             imports: [
-                PxbAuthModule,
+                BluiAuthModule,
                 RouterTestingModule.withRoutes([
                     {
                         path: AUTH_ROUTES.AUTH_WORKFLOW,
-                        component: PxbAuthComponent,
+                        component: BluiAuthComponent,
                         children: authWorkflowRoutes,
                     },
                     {
                         path: 'test',
-                        component: PxbAuthComponent,
+                        component: BluiAuthComponent,
                     },
                 ]),
             ],
         }).compileComponents();
         router = TestBed.inject(Router);
-        securityService = TestBed.inject(PxbAuthSecurityService);
+        securityService = TestBed.inject(BluiAuthSecurityService);
     });
 
     it('should listen for route changes and infer default home route when inferOnAuthenticatedRoute is called', async () => {

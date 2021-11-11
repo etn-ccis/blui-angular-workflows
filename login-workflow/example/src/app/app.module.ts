@@ -4,11 +4,11 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { AppRoutingModule } from './app.routing';
 import {
-    PxbAuthModule,
-    PxbAuthUIService,
-    PxbRegisterUIService,
-    PxbLoginErrorDialogService,
-} from '@pxblue/angular-auth-workflow';
+    BluiAuthModule,
+    BluiAuthUIService,
+    BluiRegisterUIService,
+    BluiLoginErrorDialogService,
+} from '@brightlayer-ui/angular-auth-workflow';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
@@ -51,25 +51,25 @@ import { PreAuthComponent } from './pages/pre-auth/pre-auth.component';
         MatInputModule,
         MatSelectModule,
         MatToolbarModule,
-        PxbAuthModule,
+        BluiAuthModule,
         ReactiveFormsModule,
     ],
     providers: [
         {
             provide: 'APP_NAME',
-            useValue: 'PXB_AUTH_DEMO_APP',
+            useValue: 'BLUI_AUTH_DEMO_APP',
         },
         {
-            provide: PxbAuthUIService, // AuthUI Service you will overwrite (dont change this name)
+            provide: BluiAuthUIService, // AuthUI Service you will overwrite (dont change this name)
             useClass: AuthUIService, // Your custom implementation.
         },
         {
-            provide: PxbRegisterUIService, // RegistrationUI Service you will overwrite (dont change this name)
+            provide: BluiRegisterUIService, // RegistrationUI Service you will overwrite (dont change this name)
             useClass: RegisterUIService, // Your custom implementation.
         },
         // Custom error handling for Login failures
         /* {
-            provide: PxbLoginErrorDialogService,
+            provide: BluiLoginErrorDialogService,
             useClass: LoginErrorDialogService,
         }, */
 

@@ -1,27 +1,27 @@
 import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { PxbAuthUIService } from '../../services/api';
-import { PxbAuthSecurityService } from '../../services/state/auth-security.service';
+import { BluiAuthUIService } from '../../services/api';
+import { BluiAuthSecurityService } from '../../services/state/auth-security.service';
 import { AUTH_ROUTES } from '../../auth/auth.routes';
-import { PxbAuthConfig } from '../../services/config/auth-config';
-import { PasswordRequirement } from '../../components/password-strength-checker/pxb-password-strength-checker.component';
-import { PxbChangePasswordDialogService } from './dialog/change-password-dialog.service';
-import { PxbChangePasswordErrorDialogService } from '../../services/dialog/change-password-error-dialog.service';
+import { BluiAuthConfig } from '../../services/config/auth-config';
+import { PasswordRequirement } from '../../components/password-strength-checker/blui-password-strength-checker.component';
+import { BluiChangePasswordDialogService } from './dialog/change-password-dialog.service';
+import { BluiChangePasswordErrorDialogService } from '../../services/dialog/change-password-error-dialog.service';
 import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
-import { PxbFormsService } from '../../services/forms/forms.service';
-import { PxbAuthTranslations } from '../../translations/auth-translations';
+import { BluiFormsService } from '../../services/forms/forms.service';
+import { BluiAuthTranslations } from '../../translations/auth-translations';
 import { PasswordFieldComponent } from '../../components/password-field/password-field.component';
 
 @Component({
-    selector: 'pxb-change-password',
+    selector: 'blui-change-password',
     templateUrl: './change-password.component.html',
     styleUrls: ['./change-password.component.scss'],
     host: {
-        class: 'pxb-change-password',
+        class: 'blui-change-password',
     },
 })
-export class PxbChangePasswordComponent implements OnInit, AfterViewInit {
+export class BluiChangePasswordComponent implements OnInit, AfterViewInit {
     @ViewChild('currentPasswordField') currentPasswordComponent: PasswordFieldComponent;
     @ViewChild('newPasswordField') newPasswordComponent: PasswordFieldComponent;
     @ViewChild('confirmPasswordField') confirmPasswordComponent: PasswordFieldComponent;
@@ -37,23 +37,23 @@ export class PxbChangePasswordComponent implements OnInit, AfterViewInit {
     passwordChangeSuccess = false;
     passwordsMatch = false;
 
-    translate: PxbAuthTranslations;
+    translate: BluiAuthTranslations;
 
     constructor(
         private readonly _router: Router,
         private readonly _formBuilder: FormBuilder,
-        private readonly _pxbAuthConfig: PxbAuthConfig,
-        private readonly _pxbFormsService: PxbFormsService,
-        private readonly _pxbAuthUIService: PxbAuthUIService,
+        private readonly _bluiAuthConfig: BluiAuthConfig,
+        private readonly _bluiFormsService: BluiFormsService,
+        private readonly _bluiAuthUIService: BluiAuthUIService,
         private readonly _changeDetectorRef: ChangeDetectorRef,
-        private readonly _pxbSecurityService: PxbAuthSecurityService,
-        private readonly _pxbChangePasswordDialogService: PxbChangePasswordDialogService,
-        private readonly _pxbChangePasswordErrorDialogService: PxbChangePasswordErrorDialogService
+        private readonly _bluiSecurityService: BluiAuthSecurityService,
+        private readonly _bluiChangePasswordDialogService: BluiChangePasswordDialogService,
+        private readonly _bluiChangePasswordErrorDialogService: BluiChangePasswordErrorDialogService
     ) {}
 
     ngOnInit(): void {
-        this.translate = this._pxbAuthConfig.getTranslations();
-        this.passwordRequirements = this._pxbAuthConfig.getPasswordRequirements();
+        this.translate = this._bluiAuthConfig.getTranslations();
+        this.passwordRequirements = this._bluiAuthConfig.getPasswordRequirements();
     }
 
     ngAfterViewInit(): void {
@@ -64,7 +64,7 @@ export class PxbChangePasswordComponent implements OnInit, AfterViewInit {
     }
 
     closeDialog(): void {
-        this._pxbChangePasswordDialogService.closeDialog();
+        this._bluiChangePasswordDialogService.closeDialog();
     }
 
     done(): void {
@@ -76,26 +76,26 @@ export class PxbChangePasswordComponent implements OnInit, AfterViewInit {
         const oldPassword = this.currentPasswordFormControl.value;
         const newPassword = this.newPasswordFormControl.value;
         this.isLoading = true;
-        this._pxbAuthUIService
+        this._bluiAuthUIService
             .changePassword(oldPassword, newPassword)
             .then(() => {
                 this.passwordChangeSuccess = true;
-                this._pxbSecurityService.onUserNotAuthenticated();
+                this._bluiSecurityService.onUserNotAuthenticated();
                 this.isLoading = false;
             })
             .catch((data: ErrorDialogData) => {
                 this.passwordChangeSuccess = false;
                 this.isLoading = false;
-                this._pxbChangePasswordErrorDialogService.openDialog(data);
+                this._bluiChangePasswordErrorDialogService.openDialog(data);
             });
     }
 
     focusNewPassword(): void {
-        this._pxbFormsService.advanceToNextField(this.newPasswordComponent.passwordInputElement);
+        this._bluiFormsService.advanceToNextField(this.newPasswordComponent.passwordInputElement);
     }
 
     focusConfirmPassword(): void {
-        this._pxbFormsService.advanceToNextField(this.confirmPasswordComponent.passwordInputElement);
+        this._bluiFormsService.advanceToNextField(this.confirmPasswordComponent.passwordInputElement);
     }
 
     allowPasswordChange(): boolean {

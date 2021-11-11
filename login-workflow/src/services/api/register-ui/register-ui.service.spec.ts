@@ -1,9 +1,9 @@
-import { PxbRegisterUIService } from './register-ui.service';
+import { BluiRegisterUIService } from './register-ui.service';
 
-describe('PxbRegisterUIService', () => {
-    let service: PxbRegisterUIService;
+describe('BluiRegisterUIService', () => {
+    let service: BluiRegisterUIService;
     beforeEach(() => {
-        service = new PxbRegisterUIService();
+        service = new BluiRegisterUIService();
     });
 
     it('it should be a placeholder service', () => {

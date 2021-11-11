@@ -1,41 +1,41 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 
-import { PxbFormsService } from '../../../../services/forms/forms.service';
-import { PxbAuthConfig } from '../../../../services/config/auth-config';
+import { BluiFormsService } from '../../../../services/forms/forms.service';
+import { BluiAuthConfig } from '../../../../services/config/auth-config';
 
-import { PxbAuthTranslations } from '../../../../translations/auth-translations';
+import { BluiAuthTranslations } from '../../../../translations/auth-translations';
 
 @Component({
-    selector: 'pxb-create-account-account-details-step',
+    selector: 'blui-create-account-account-details-step',
     styleUrls: ['account-details.component.scss'],
     template: `
         <div
-            class="mat-title pxb-auth-title"
+            class="mat-title blui-auth-title"
             [innerHTML]="pageTitle || translate.CREATE_ACCOUNT.ACCOUNT_DETAILS.TITLE"
         ></div>
-        <div class="pxb-auth-full-height">
+        <div class="blui-auth-full-height">
             <p
                 class="mat-body-1"
                 style="margin-bottom: 24px;"
                 [innerHTML]="pageInstructions || translate.CREATE_ACCOUNT.ACCOUNT_DETAILS.INSTRUCTIONS"
             ></p>
-            <mat-divider class="pxb-auth-divider" style="margin-top: 16px; margin-bottom: 32px;"></mat-divider>
-            <div class="pxb-account-details-body">
+            <mat-divider class="blui-auth-divider" style="margin-top: 16px; margin-bottom: 32px;"></mat-divider>
+            <div class="blui-account-details-body">
                 <form>
                     <ng-container *ngIf="showDefaultAccountDetails">
                         <mat-form-field appearance="fill">
                             <mat-label>{{ translate.CREATE_ACCOUNT.ACCOUNT_DETAILS.FIRST_NAME_FORM_LABEL }}</mat-label>
                             <input
-                                #pxbFirst
-                                id="pxb-first"
+                                #BluiFirst
+                                id="blui-first"
                                 name="first"
                                 matInput
                                 [attr.maxLength]="firstNameMaxLength ? firstNameMaxLength : null"
                                 [formControl]="firstNameFormControl"
                                 required
                                 (ngModelChange)="emitIfValid(); firstNameChange.emit(firstNameFormControl.value)"
-                                (keyup.enter)="pxbFormsService.advanceToNextField(lastNameInputElement)"
+                                (keyup.enter)="BluiFormsService.advanceToNextField(lastNameInputElement)"
                             />
                             <mat-error
                                 *ngIf="firstNameFormControl.hasError('required')"
@@ -51,8 +51,8 @@ import { PxbAuthTranslations } from '../../../../translations/auth-translations'
                             <mat-label>{{ translate.CREATE_ACCOUNT.ACCOUNT_DETAILS.LAST_NAME_FORM_LABEL }}</mat-label>
                             <input
                                 matInput
-                                #pxbLast
-                                id="pxb-last"
+                                #bluiLast
+                                id="blui-last"
                                 name="last"
                                 [attr.maxLength]="lastNameMaxLength ? lastNameMaxLength : null"
                                 [formControl]="lastNameFormControl"
@@ -71,14 +71,14 @@ import { PxbAuthTranslations } from '../../../../translations/auth-translations'
                             </mat-error>
                         </mat-form-field>
                     </ng-container>
-                    <ng-content select="[pxb-account-details]"></ng-content>
+                    <ng-content select="[blui-account-details]"></ng-content>
                 </form>
             </div>
         </div>
     `,
 })
 /* Default Account Details consists of a First/Last Name (required) and a phone number (optional). */
-export class PxbAccountDetailsComponent implements OnInit {
+export class BluiAccountDetailsComponent implements OnInit {
     @Input() showDefaultAccountDetails = false; // Used to hide defaults whenever there are custom account detail forms.
     @Input() firstName: string;
     @Input() lastName: string;
@@ -89,7 +89,7 @@ export class PxbAccountDetailsComponent implements OnInit {
     @Output() accountNameValid = new EventEmitter<boolean>();
     @Output() advance: EventEmitter<void> = new EventEmitter<void>();
 
-    @ViewChild('pxbLast') lastNameInputElement: ElementRef;
+    @ViewChild('bluiLast') lastNameInputElement: ElementRef;
 
     firstNameFormControl: FormControl;
     lastNameFormControl: FormControl;
@@ -97,18 +97,18 @@ export class PxbAccountDetailsComponent implements OnInit {
     lastNameMaxLength: number;
     firstNameMaxLength: number;
 
-    translate: PxbAuthTranslations;
+    translate: BluiAuthTranslations;
 
-    constructor(public pxbFormsService: PxbFormsService, private readonly _pxbAuthConfig: PxbAuthConfig) {}
+    constructor(public BluiFormsService: BluiFormsService, private readonly _BluiAuthConfig: BluiAuthConfig) {}
 
     ngOnInit(): void {
-        this.translate = this._pxbAuthConfig.getTranslations();
+        this.translate = this._BluiAuthConfig.getTranslations();
         if (this.showDefaultAccountDetails) {
             this.firstNameFormControl = new FormControl(this.firstName, Validators.required);
             this.lastNameFormControl = new FormControl(this.lastName, Validators.required);
         }
-        this.firstNameMaxLength = this._pxbAuthConfig.customFirstNameRequirements?.maxLength;
-        this.lastNameMaxLength = this._pxbAuthConfig.customLastNameRequirements?.maxLength;
+        this.firstNameMaxLength = this._BluiAuthConfig.customFirstNameRequirements?.maxLength;
+        this.lastNameMaxLength = this._BluiAuthConfig.customLastNameRequirements?.maxLength;
     }
 
     /* If we are using the default account details, we need to provide the input validation required for the 'NEXT' button. */

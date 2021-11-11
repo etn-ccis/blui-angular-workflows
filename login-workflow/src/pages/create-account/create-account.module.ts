@@ -8,14 +8,14 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
-import { EmptyStateModule, MobileStepperModule } from '@pxblue/angular-components';
+import { EmptyStateModule, MobileStepperModule } from '@brightlayer-ui/angular-components';
 
-import { PxbCreateAccountComponent } from './create-account.component';
-import { PxbCreateAccountStepsModule } from './steps/steps.module';
-import { PxbCommonComponentsModule } from '../../components/auth-common.module';
+import { BluiCreateAccountComponent } from './create-account.component';
+import { BluiCreateAccountStepsModule } from './steps/steps.module';
+import { BluiCommonComponentsModule } from '../../components/auth-common.module';
 
 @NgModule({
-    declarations: [PxbCreateAccountComponent],
+    declarations: [BluiCreateAccountComponent],
     imports: [
         BrowserModule,
         CommonModule,
@@ -27,9 +27,9 @@ import { PxbCommonComponentsModule } from '../../components/auth-common.module';
         MobileStepperModule,
         EmptyStateModule,
         MatDialogModule,
-        PxbCreateAccountStepsModule,
-        PxbCommonComponentsModule,
+        BluiCreateAccountStepsModule,
+        BluiCommonComponentsModule,
     ],
-    exports: [PxbCreateAccountComponent, PxbCreateAccountStepsModule],
+    exports: [BluiCreateAccountComponent, BluiCreateAccountStepsModule],
 })
-export class PxbCreateAccountModule {}
+export class BluiCreateAccountModule {}

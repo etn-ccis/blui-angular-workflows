@@ -1,9 +1,9 @@
-import { PxbAuthUIService } from './auth-ui.service';
+import { BluiAuthUIService } from './auth-ui.service';
 
-describe('PxbAuthUIService', () => {
-    let service: PxbAuthUIService;
+describe('BluiAuthUIService', () => {
+    let service: BluiAuthUIService;
     beforeEach(() => {
-        service = new PxbAuthUIService();
+        service = new BluiAuthUIService();
     });
 
     it('it should be a placeholder service', () => {

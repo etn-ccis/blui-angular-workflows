@@ -1240,6 +1240,58 @@
     "@babel/helper-validator-identifier" "^7.14.0"
     to-fast-properties "^2.0.0"
 
+"@brightlayer-ui/angular-components@^6.0.0":
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/@brightlayer-ui/angular-components/-/angular-components-6.0.0.tgz#510461d4c895e4ceee9f81cb0747953f9e772046"
+  integrity sha512-uk0LjQv+HOWvX80M2UhpfDMEcbTgJYXLRitsJU3fOUa/fhoKkg/MCQGputVXjJCaaKbTvZ75tGRxnKnEQn7VFg==
+  dependencies:
+    tslib "^2.0.0"
+
+"@brightlayer-ui/angular-themes@^6.3.0":
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/@brightlayer-ui/angular-themes/-/angular-themes-6.3.0.tgz#b15eba57e05fd39beff09435c99ae7892d1d0e72"
+  integrity sha512-lrCyQTBtaPvqb66kq1Bzwg3777zsVeyIQxPpn9MnzO9uzhlM/xLlkoZU2GCjhZYTxAUfGwxi22Ukxt7kNL8tGQ==
+  dependencies:
+    "@brightlayer-ui/colors" "^3.0.0"
+    "@fontsource/open-sans" "^4.1.0"
+
+"@brightlayer-ui/colors@^3.0.0", "@brightlayer-ui/colors@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@brightlayer-ui/colors/-/colors-3.0.1.tgz#f085acf6b6b4266a01798c78bc25841d15e44b3e"
+  integrity sha512-AE9F6FN1EQWMoqFTak6q8MN3wg9et2u2SUs6HjYhcS3GVSHjMWVSsuJZ2aD5Lu9409Gfi6pBHDWsJZ5PyeLsdQ==
+  dependencies:
+    "@brightlayer-ui/types" "^2.0.0"
+
+"@brightlayer-ui/eslint-config@^2.0.5":
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/@brightlayer-ui/eslint-config/-/eslint-config-2.0.5.tgz#b7ee0c47f4669d2ecefc45d5fc37d7a9e209ccc9"
+  integrity sha512-qUxNX/1z+cmBWzbOeFftxGD7SPT+xkT1rUj++xsZjIQajEkwF1Ka+0mRlSY5qqAsQpRLGDCHDszx8uztmSm1lA==
+  dependencies:
+    "@typescript-eslint/parser" "^4.8.0"
+    eslint-config-prettier ">= 6.3.0"
+  optionalDependencies:
+    eslint-plugin-react "^7.16.0"
+
+"@brightlayer-ui/icons-svg@^1.7.0":
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/@brightlayer-ui/icons-svg/-/icons-svg-1.7.0.tgz#8e80ce276eaa1b9d6aa1f736f3857856d3e1179a"
+  integrity sha512-z6LZgr0XFJ+HSDR7PxEHXavClsfR8I7FQww53vmFU0jv4fW5e3m5z2iYQjTi5MddgZJDX1CHvsvX+Mls8Z9iow==
+
+"@brightlayer-ui/icons@^1.7.1":
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/@brightlayer-ui/icons/-/icons-1.7.1.tgz#9ac6c648f5e5c33d588dcb2fafa96abca6a515dc"
+  integrity sha512-Oh8iTXSXmchnU/FFDSgVUFW2H3w1sJbUoidMBE/aLKdKwUIX8+z4pxEhJoqxb9QG99PUT3A/Jz3B9NumiYoDjQ==
+
+"@brightlayer-ui/prettier-config@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@brightlayer-ui/prettier-config/-/prettier-config-1.0.3.tgz#e40a7ae7435c6fd5118acbf249080e0aa81e93af"
+  integrity sha512-EYm3+V7Qd+oYEF+8FadsXAZqXryEHHbGnrV1BMp9selhABjceqUqXPVE4Sn3SKWQdBNJ3En2A3EzgrzRbvRTaw==
+
+"@brightlayer-ui/types@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@brightlayer-ui/types/-/types-2.0.0.tgz#d8adc0cdb96c164943adbad6e74043128a8b4112"
+  integrity sha512-DTCVwND6YC9qrkQl7pkFlN6QxDReJHtjuAiFU9HkXJN368vlw+fzHQ5/j4sB1sZl2eNwOgccv5ecl2XrlolOCw==
+
 "@discoveryjs/json-ext@0.5.2":
   version "0.5.2"
   resolved "https://registry.yarnpkg.com/@discoveryjs/json-ext/-/json-ext-0.5.2.tgz#8f03a22a04de437254e8ce8cc84ba39689288752"
@@ -1368,65 +1420,6 @@
     infer-owner "^1.0.4"
     node-gyp "^7.1.0"
     read-package-json-fast "^2.0.1"
-
-"@pxblue/angular-components@^4.3.0":
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/@pxblue/angular-components/-/angular-components-4.3.0.tgz#34e80485888becb02e56d3e41a90a8818d2d6be0"
-  integrity sha512-5evW0l7qA/9YT12A0FCc7IwL3DpOLF37rgwbuMmzK94fIXIzJ+WGWOYmQSCevzTK9i//r+3yAz4Jk2TDYQjiRg==
-  dependencies:
-    tslib "^2.0.0"
-
-"@pxblue/angular-themes@^6.0.3":
-  version "6.0.3"
-  resolved "https://registry.yarnpkg.com/@pxblue/angular-themes/-/angular-themes-6.0.3.tgz#e502219dacaf0973bb2211277dfcf119fb40ebd6"
-  integrity sha512-yNjhRQZCRQI9n1a3mz81e75A5iv6NHesg0xhzONEI7Ondfgzj54ZZHiqs4n+IS2gNjKojNHZBmgGmJS+yeowIw==
-  dependencies:
-    "@fontsource/open-sans" "^4.1.0"
-    "@pxblue/colors" "^3.0.0"
-
-"@pxblue/colors@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@pxblue/colors/-/colors-3.0.0.tgz#080fb5cfd5a08fea018ece7cac8022ed38f7878f"
-  integrity sha512-rMFW4an1V9M5KX4BiNzrbbaYe2fic4o9iGL8/bPYvITbeiwgAapyFX0VbMIoo8XKlIbNaxyn7oWnrxzI/tp8Rw==
-  dependencies:
-    "@pxblue/types" "^2.0.0"
-
-"@pxblue/colors@^3.0.1":
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/@pxblue/colors/-/colors-3.0.1.tgz#4f89fc9ed10d754eac1ea699b722f5ac8c723173"
-  integrity sha512-3iROA/tvf7BiXRA4R9DobWeEE4Tg7bFgFWNuLzqqwHBEz/uI/J83XTW913g/wba9V5IAVt2DYAQFb/qbqYyjKQ==
-  dependencies:
-    "@pxblue/types" "^2.0.0"
-
-"@pxblue/eslint-config@^2.0.0":
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/@pxblue/eslint-config/-/eslint-config-2.0.4.tgz#b22d637e2e8bbf1d8606de99bfd7e95f3af2ce34"
-  integrity sha512-PDBj5dhi/6c14/QYhoFLTkMnrYRTKw8hW7AuFq/9wc7pJ4MdSOF3i5MJH1NZ1p9chBl9na4ZASPeHWsDCvvk8A==
-  dependencies:
-    "@typescript-eslint/parser" "^4.8.0"
-    eslint-config-prettier ">= 6.3.0"
-  optionalDependencies:
-    eslint-plugin-react "^7.16.0"
-
-"@pxblue/icons-svg@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@pxblue/icons-svg/-/icons-svg-1.2.0.tgz#574d9a1f478265fc23f23e6706ecf524331a8cdf"
-  integrity sha512-tjpgdwRmY+5ikUI3Ur3g7QqvpSwSNM6Jwwuwp1K4K367LxKV1UVOQDdsa4gavN3ulZ3sYCZb9vyheSBcYx1VrA==
-
-"@pxblue/icons@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@pxblue/icons/-/icons-1.2.0.tgz#b3115878b3e6b9c92ede81c34850ab8c4109d22e"
-  integrity sha512-VjhC9C2AYi+9s6yPN4c9Za12V/DsnsKv/zJlTrXpXZD4U6jX/bgRSmFNMMhssFFvfohZp1Zpvn+2uYNiSxE0CQ==
-
-"@pxblue/prettier-config@^1.0.0":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@pxblue/prettier-config/-/prettier-config-1.0.2.tgz#fb00503df6557b66c3d91d43c9101e614c35d2ec"
-  integrity sha512-/3cLBoTjZs3kV1ATPA/Sp0tsL7XmlV/b8HW/qt0jqR/uP5+cdXL2YIhMXQngLRa7PhpSkEiRIYK5sl0rKsXTUg==
-
-"@pxblue/types@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@pxblue/types/-/types-2.0.0.tgz#3df970352aca5256974a10a97d75a2264bad1eba"
-  integrity sha512-rHABCqYALGjrDxdCfw/v4mFsHhE9y9+vdSD3VHfIzA3HY1g1Bp/VWwEuEXWbtj2H5n75D+jkMQZ0rTqSKY3vLw==
 
 "@schematics/angular@11.2.13":
   version "11.2.13"

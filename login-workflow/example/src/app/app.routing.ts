@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { getAuthSubRoutes, PxbAuthGuard, AUTH_ROUTES } from '@pxblue/angular-auth-workflow';
+import { getAuthSubRoutes, BluiAuthGuard, AUTH_ROUTES } from '@brightlayer-ui/angular-auth-workflow';
 import { HomeComponent } from './pages/home/home.component';
 import { AuthComponent } from './pages/auth/auth.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
@@ -17,7 +17,7 @@ const routes: Routes = [
     { path: AUTH_ROUTES.AUTH_WORKFLOW, component: AuthComponent, children: authWorkflowRoutes },
     {
         path: '',
-        canActivate: [PxbAuthGuard],
+        canActivate: [BluiAuthGuard],
         children: [
             { path: '', component: HomeComponent },
             { path: 'dashboard', component: DashboardComponent },
