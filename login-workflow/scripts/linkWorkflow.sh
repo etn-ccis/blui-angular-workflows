@@ -13,20 +13,20 @@ echo -e "${BLUE}Building workflow package...${NC}"
 yarn build
 
 echo -en "${BLUE}Creating new folder in node_modules...${NC}"
-rm -rf "./example/node_modules/@pxblue/angular-auth-workflow"
-mkdir -p "./example/node_modules/@pxblue/angular-auth-workflow"
+rm -rf "./example/node_modules/@brightlayer-ui/angular-auth-workflow"
+mkdir -p "./example/node_modules/@brightlayer-ui/angular-auth-workflow"
 
 echo -en "${BLUE}Copying build output into node_modules...${NC}";
-cp -r ./package.json ./example/node_modules/@pxblue/angular-auth-workflow/package.json
-cp -r ./dist/. ./example/node_modules/@pxblue/angular-auth-workflow
+cp -r ./package.json ./example/node_modules/@brightlayer-ui/angular-auth-workflow/package.json
+cp -r ./dist/. ./example/node_modules/@brightlayer-ui/angular-auth-workflow
 
 echo -e "${GREEN}Done${NC}"
 
 echo -en "\r\n${BLUE}Linking Components: ${NC}"
-if [ ! -f ./example/node_modules/@pxblue/angular-auth-workflow/package.json ]; then echo -e "${BRED}Not Linked${NC}" && exit 1; fi
-if [ ! -s ./example/node_modules/@pxblue/angular-auth-workflow ];
+if [ ! -f ./example/node_modules/@brightlayer-ui/angular-auth-workflow/package.json ]; then echo -e "${BRED}Not Linked${NC}" && exit 1; fi
+if [ ! -s ./example/node_modules/@brightlayer-ui/angular-auth-workflow ];
     then
-        if [ ! -f ./example/node_modules/@pxblue/angular-auth-workflow/index.d.ts ];
+        if [ ! -f ./example/node_modules/@brightlayer-ui/angular-auth-workflow/index.d.ts ];
         then echo -e "${BRED}Not Linked${NC}" && exit 1;
         fi;
 fi

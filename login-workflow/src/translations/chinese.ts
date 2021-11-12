@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
-import { PxbAuthTranslations } from './auth-translations';
+import { BluiAuthTranslations } from './auth-translations';
 
-export const pxbAuthChineseTranslations: PxbAuthTranslations = {
+export const bluiAuthChineseTranslations: BluiAuthTranslations = {
     GENERAL: {
         BACK_BUTTON: '上一步',
         OKAY_BUTTON: '好的',
@@ -44,10 +44,10 @@ export const pxbAuthChineseTranslations: PxbAuthTranslations = {
         PHONE_NUMBER: undefined,
         EMAIL: undefined,
         EMERGENCY_SUPPORT_DESCRIPTION: (phone: string): string =>
-            `如需技术协助，请拨打 <a class="pxb-auth-link" href="tel:${phone}">${phone}</a>.`,
+            `如需技术协助，请拨打 <a class="blui-auth-link" href="tel:${phone}">${phone}</a>.`,
         EMERGENCY_SUPPORT_TITLE: '紧急协助',
         GENERAL_SUPPORT_DESCRIPTION: (email: string): string =>
-            `如果您有疑问、建议或需要协助，欢迎用邮件联系我们： <a class="pxb-auth-link" href="mailto:${email}">${email}</a>.`,
+            `如果您有疑问、建议或需要协助，欢迎用邮件联系我们： <a class="blui-auth-link" href="mailto:${email}">${email}</a>.`,
         GENERAL_SUPPORT_TITLE: '一般问题',
     },
     PASSWORD_CRITERIA: {
@@ -64,7 +64,7 @@ export const pxbAuthChineseTranslations: PxbAuthTranslations = {
             '如果伊顿系统中存在此邮箱地址注册的账号的话，您会在<strong>一个工作日</strong>内收到我们的回复。',
         PHONE_NUMBER: undefined,
         CONTACT_SUPPORT_BY_PHONE: (phone: string): string =>
-            `如遇紧急账户问题，请拨打联系电话<a class="pxb-auth-link" href="tel:${phone}">${phone}</a>.`,
+            `如遇紧急账户问题，请拨打联系电话<a class="blui-auth-link" href="tel:${phone}">${phone}</a>.`,
         SUCCESS_TITLE: '邮件已发送',
         SUCCESS_DESCRIPTION: (email: string): string => `重设密码的链接已发送至 <strong>${email}</strong>`,
     },

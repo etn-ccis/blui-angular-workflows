@@ -1,8 +1,8 @@
 # Error Handling
 
-The `@pxblue/angular-auth-workflow` allows for custom error handling.  
+The `@brightlayer-ui/angular-auth-workflow` allows for custom error handling.  
 
-Each `PxbRegisterUIService` and `PxbAuthUIService` API call has a default error message that a user will see when an API call fails.  Each error message can be customized by rejecting a promise with an `ErrorDialogData` object, or by providing your own custom error dialog component. 
+Each `BluiRegisterUIService` and `BluiAuthUIService` API call has a default error message that a user will see when an API call fails.  Each error message can be customized by rejecting a promise with an `ErrorDialogData` object, or by providing your own custom error dialog component. 
 
 ## Custom Error Title or Message
 
@@ -12,7 +12,7 @@ Rejecting an API call with an `ErrorDialogData` object allows for custom Dialog 
 ### Usage
 
 ```
-import { ErrorDialogData } from '@pxblue/angular-auth-workflow';
+import { ErrorDialogData } from '@brightlayer-ui/angular-auth-workflow';
 ```
 
 ```
@@ -42,7 +42,7 @@ The Login page has been enhanced to support multiple types of errors.  The `Auth
 
 ### Usage
 ```
-import { LoginErrorData } from '@pxblue/angular-auth-workflow';
+import { LoginErrorData } from '@brightlayer-ui/angular-auth-workflow';
 ```
 ```
 return reject({
@@ -78,26 +78,26 @@ To provide your own dialog component, replace the default page-specific `ErrorDi
 
 ```
 // app.module.ts
-import { PxbLoginErrorDialogService } from '@pxblue/angular-auth-workflow';
+import { BluiLoginErrorDialogService } from '@brightlayer-ui/angular-auth-workflow';
 import { LoginErrorDialogService } from 'dialog/login-error-dialog.service';
 
 providers: [
     {
-        provide: PxbLoginErrorDialogService,
+        provide: BluiLoginErrorDialogService,
         useClass: LoginErrorDialogService,
     }
 ]
 ```
 
-To enforce type-safety, your `ErrorDialogService` should implement `IPxbAuthErrorDialogService`.
+To enforce type-safety, your `ErrorDialogService` should implement `IBluiAuthErrorDialogService`.
 
 ```
-import { IPxbAuthErrorDialogService } from '@pxblue/angular-auth-workflow';
+import { IBluiAuthErrorDialogService } from '@brightlayer-ui/angular-auth-workflow';
 
 @Injectable({
     providedIn: 'root',
 })
-export class LoginErrorDialogService implements IPxbAuthErrorDialogService {
+export class LoginErrorDialogService implements IBluiAuthErrorDialogService {
     constructor(private dialog: MatDialog) {}
     openDialog(): MatDialogRef<[YourDialogComponent]> {
         return this.dialog.open([YourDialogComponent], {

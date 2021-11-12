@@ -3,8 +3,8 @@
   "lib": {
     "entryFile": "src/index.ts",
     "umdModuleIds": {
-      "@pxblue/angular-components": "angularComponents",
-      "@pxblue/colors": "Colors"
+      "@brightlayer-ui/angular-components": "angularComponents",
+      "@brightlayer-ui/colors": "Colors"
     }
   }
 }

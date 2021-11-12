@@ -1,14 +1,14 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { PxbAuthGuard } from './auth-guard';
-import { PxbAuthSecurityService } from '../../services/state/auth-security.service';
+import { BluiAuthGuard } from './auth-guard';
+import { BluiAuthSecurityService } from '../../services/state/auth-security.service';
 import { Router } from '@angular/router';
 
-describe('PxbAuthGuard', () => {
-    let guard: PxbAuthGuard;
+describe('BluiAuthGuard', () => {
+    let guard: BluiAuthGuard;
     let router: Router;
-    let securityService: PxbAuthSecurityService;
+    let securityService: BluiAuthSecurityService;
 
     beforeEach(() => {
         void TestBed.configureTestingModule({
@@ -18,9 +18,9 @@ describe('PxbAuthGuard', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({});
-        guard = TestBed.inject(PxbAuthGuard);
+        guard = TestBed.inject(BluiAuthGuard);
         router = TestBed.inject(Router);
-        securityService = TestBed.inject(PxbAuthSecurityService);
+        securityService = TestBed.inject(BluiAuthSecurityService);
         spyOn(router, 'navigate').and.stub();
     });
 

@@ -1,12 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, ValidatorFn, Validators } from '@angular/forms';
-import { PXB_LOGIN_VALIDATOR_ERROR_NAME, PxbAuthConfig } from '../../services/config/auth-config';
-import { PxbAuthTranslations } from '../../translations/auth-translations';
-import { PxbAuthSecurityService } from '../../services/state/auth-security.service';
+import { BLUI_LOGIN_VALIDATOR_ERROR_NAME, BluiAuthConfig } from '../../services/config/auth-config';
+import { BluiAuthTranslations } from '../../translations/auth-translations';
+import { BluiAuthSecurityService } from '../../services/state/auth-security.service';
 import { AuthErrorStateMatcher } from '../../util/matcher';
 
 @Component({
-    selector: 'pxb-email-field',
+    selector: 'blui-email-field',
     styles: [
         `
             mat-form-field {
@@ -25,7 +25,7 @@ import { AuthErrorStateMatcher } from '../../util/matcher';
         <mat-form-field appearance="fill">
             <mat-label>{{ translate().GENERAL.EMAIL_FORM_LABEL }}</mat-label>
             <input
-                id="pxb-email"
+                id="blui-email"
                 name="email"
                 type="email"
                 matInput
@@ -75,11 +75,11 @@ export class EmailFieldComponent implements OnInit {
     touchedIdField: boolean;
 
     matcher = new AuthErrorStateMatcher();
-    customErrorName = PXB_LOGIN_VALIDATOR_ERROR_NAME;
+    customErrorName = BLUI_LOGIN_VALIDATOR_ERROR_NAME;
 
     constructor(
-        private readonly _pxbAuthConfig: PxbAuthConfig,
-        private readonly _pxbSecurityService: PxbAuthSecurityService
+        private readonly _bluiAuthConfig: BluiAuthConfig,
+        private readonly _bluiSecurityService: BluiAuthSecurityService
     ) {}
 
     ngOnInit(): void {
@@ -88,8 +88,8 @@ export class EmailFieldComponent implements OnInit {
             Validators.email,
             Validators.pattern(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i),
         ];
-        if (this.customEmailValidator || this._pxbAuthConfig.customEmailValidator) {
-            emailValidators.push(this.customEmailValidator || this._pxbAuthConfig.customEmailValidator);
+        if (this.customEmailValidator || this._bluiAuthConfig.customEmailValidator) {
+            emailValidators.push(this.customEmailValidator || this._bluiAuthConfig.customEmailValidator);
         }
         this.emailFormControl = new FormControl(this.showEmail(), emailValidators);
     }
@@ -100,9 +100,9 @@ export class EmailFieldComponent implements OnInit {
 
     showEmail(): string {
         if (this.rememberLoginEmail) {
-            return this._pxbSecurityService.getSecurityState().rememberMeDetails.email;
+            return this._bluiSecurityService.getSecurityState().rememberMeDetails.email;
         } else if (this.rememberRegistrationEmail) {
-            return this._pxbSecurityService.getSecurityState().registrationEmail;
+            return this._bluiSecurityService.getSecurityState().registrationEmail;
         }
         return '';
     }
@@ -113,7 +113,7 @@ export class EmailFieldComponent implements OnInit {
         );
     }
 
-    translate(): PxbAuthTranslations {
-        return this._pxbAuthConfig.getTranslations();
+    translate(): BluiAuthTranslations {
+        return this._bluiAuthConfig.getTranslations();
     }
 }

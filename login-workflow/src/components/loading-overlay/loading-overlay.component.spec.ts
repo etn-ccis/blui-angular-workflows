@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { PxbCommonComponentsModule } from '../auth-common.module';
+import { BluiCommonComponentsModule } from '../auth-common.module';
 import { RouterTestingModule } from '@angular/router/testing';
 import { LoadingOverlayComponent } from './loading-overlay.component';
 
@@ -9,7 +9,7 @@ describe('LoadingOverlayComponent', () => {
 
     beforeEach(() => {
         void TestBed.configureTestingModule({
-            imports: [PxbCommonComponentsModule, RouterTestingModule],
+            imports: [BluiCommonComponentsModule, RouterTestingModule],
         }).compileComponents();
     });
 

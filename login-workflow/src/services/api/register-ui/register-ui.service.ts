@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 /* Registration Actions to be performed when a user attempts to register */
-export type IPxbRegisterUIService = {
+export type IBluiRegisterUIService = {
     // The user has tapped on an email link inviting them to register with the application. The application should validate the code provided by the link.  Resolves true if the registration is complete, false if more account details are required. s
     validateUserRegistrationRequest(code?: string): Promise<boolean>;
 
@@ -27,10 +27,10 @@ export type IPxbRegisterUIService = {
 @Injectable({
     providedIn: 'root',
 })
-export class PxbRegisterUIService implements IPxbRegisterUIService {
+export class BluiRegisterUIService implements IBluiRegisterUIService {
     warn(): void {
         /* eslint-disable no-console */
-        console.warn('You need to provide your own PxbRegisterUIService');
+        console.warn('You need to provide your own BluiRegisterUIService');
     }
 
     validateUserRegistrationRequest(code?: string): Promise<boolean> {

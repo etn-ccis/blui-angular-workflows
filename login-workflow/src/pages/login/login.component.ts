@@ -2,26 +2,26 @@ import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, OnInit,
 import { Router } from '@angular/router';
 import { FormControl, ValidatorFn } from '@angular/forms';
 import { isEmptyView } from '../../util/view-utils';
-import { PxbAuthSecurityService } from '../../services/state/auth-security.service';
-import { PxbAuthUIService } from '../../services/api';
+import { BluiAuthSecurityService } from '../../services/state/auth-security.service';
+import { BluiAuthUIService } from '../../services/api';
 import { AUTH_ROUTES } from '../../auth/auth.routes';
-import { PxbAuthConfig } from '../../services/config/auth-config';
-import { PxbLoginErrorDialogService } from '../../services/dialog/login-error-dialog.service';
-import { PxbFormsService } from '../../services/forms/forms.service';
-import { AuthTranslationLanguageCode, PxbAuthTranslations } from '../../translations/auth-translations';
+import { BluiAuthConfig } from '../../services/config/auth-config';
+import { BluiLoginErrorDialogService } from '../../services/dialog/login-error-dialog.service';
+import { BluiFormsService } from '../../services/forms/forms.service';
+import { AuthTranslationLanguageCode, BluiAuthTranslations } from '../../translations/auth-translations';
 import { EmailFieldComponent } from '../../components/email-field/email-field.component';
 import { PasswordFieldComponent } from '../../components/password-field/password-field.component';
 import { LoginErrorData } from '../../services/dialog/error-dialog.service';
 
 @Component({
-    selector: 'pxb-login',
+    selector: 'blui-login',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss'],
     host: {
-        class: 'pxb-login',
+        class: 'Blui-login',
     },
 })
-export class PxbLoginComponent implements OnInit, AfterViewInit {
+export class BluiLoginComponent implements OnInit, AfterViewInit {
     @Input() customEmailValidator: ValidatorFn;
 
     @ViewChild('header', { static: false }) headerEl: ElementRef;
@@ -51,18 +51,18 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
     isEmpty = (el: ElementRef): boolean => isEmptyView(el);
 
     constructor(
-        public pxbAuthConfig: PxbAuthConfig,
+        public bluiAuthConfig: BluiAuthConfig,
         private readonly _router: Router,
         private readonly _changeDetectorRef: ChangeDetectorRef,
-        private readonly _pxbUIActionsService: PxbAuthUIService,
-        private readonly _pxbSecurityService: PxbAuthSecurityService,
-        private readonly _pxbLoginErrorDialogService: PxbLoginErrorDialogService,
-        public pxbFormsService: PxbFormsService
+        private readonly _bluiUIActionsService: BluiAuthUIService,
+        private readonly _bluiSecurityService: BluiAuthSecurityService,
+        private readonly _bluiLoginErrorDialogService: BluiLoginErrorDialogService,
+        public bluiFormsService: BluiFormsService
     ) {}
 
     ngOnInit(): void {
-        this.rememberMe = this._pxbSecurityService.getSecurityState().rememberMeDetails.rememberMe;
-        if (this._pxbSecurityService.getSecurityState().isAuthenticatedUser) {
+        this.rememberMe = this._bluiSecurityService.getSecurityState().rememberMeDetails.rememberMe;
+        if (this._bluiSecurityService.getSecurityState().isAuthenticatedUser) {
             this.navigateToDefaultRoute();
             return;
         }
@@ -82,13 +82,13 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
         const email = this.emailFormControl.value;
         const password = this.passwordFormControl.value;
         const rememberMe = Boolean(this.rememberMe);
-        this._pxbSecurityService.setLoading(true);
-        this._pxbUIActionsService
+        this._bluiSecurityService.setLoading(true);
+        this._bluiUIActionsService
             .login(email, password, rememberMe)
             .then(() => {
-                this._pxbSecurityService.onUserAuthenticated(email, password, rememberMe);
+                this._bluiSecurityService.onUserAuthenticated(email, password, rememberMe);
                 this.navigateToDefaultRoute();
-                this._pxbSecurityService.setLoading(false);
+                this._bluiSecurityService.setLoading(false);
             })
             .catch((errorData: LoginErrorData) => {
                 // If a user provides `undefined` rejection data, don't throw an error.
@@ -96,8 +96,8 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
                 const mode = rejectionData.mode || ['dialog'];
 
                 if (mode.includes('none')) {
-                    this._pxbSecurityService.onUserNotAuthenticated();
-                    this._pxbSecurityService.setLoading(false);
+                    this._bluiSecurityService.onUserNotAuthenticated();
+                    this._bluiSecurityService.setLoading(false);
                     return;
                 }
 
@@ -113,23 +113,23 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
                     this.showCardError = true;
                 }
                 if (this.showDialog) {
-                    this._pxbLoginErrorDialogService.openDialog({
+                    this._bluiLoginErrorDialogService.openDialog({
                         title: errorTitle,
                         message: this.errorMessage,
                     });
                 }
-                this._pxbSecurityService.onUserNotAuthenticated();
-                this._pxbSecurityService.setLoading(false);
+                this._bluiSecurityService.onUserNotAuthenticated();
+                this._bluiSecurityService.setLoading(false);
             });
     }
 
     focusPasswordField(): void {
-        this.pxbFormsService.advanceToNextField(this.passwordFieldComponent.passwordInputElement);
+        this.bluiFormsService.advanceToNextField(this.passwordFieldComponent.passwordInputElement);
     }
 
     toggleRememberMe(): void {
         const rememberMe = this.rememberMe;
-        this._pxbSecurityService.updateSecurityState({ rememberMeDetails: { rememberMe } });
+        this._bluiSecurityService.updateSecurityState({ rememberMeDetails: { rememberMe } });
     }
 
     navigateToDefaultRoute(): void {
@@ -170,11 +170,11 @@ export class PxbLoginComponent implements OnInit, AfterViewInit {
     }
 
     changeLanguage(languageCode: AuthTranslationLanguageCode): void {
-        this.pxbAuthConfig.languageCode = languageCode;
+        this.bluiAuthConfig.languageCode = languageCode;
     }
 
-    translate(): PxbAuthTranslations {
-        return this.pxbAuthConfig.getTranslations();
+    translate(): BluiAuthTranslations {
+        return this.bluiAuthConfig.getTranslations();
     }
 
     clearInputErrorMessage(): void {

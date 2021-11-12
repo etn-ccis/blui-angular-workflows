@@ -1,21 +1,21 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { PxbCreateAccountStepsModule } from '../steps.module';
+import { BluiCreateAccountStepsModule } from '../steps.module';
 import { RouterTestingModule } from '@angular/router/testing';
 import { By } from '@angular/platform-browser';
-import { PxbProvideEmailComponent } from './provide-email.component';
+import { BluiProvideEmailComponent } from './provide-email.component';
 
-describe('PxbProvideEmailComponent', () => {
-    let component: PxbProvideEmailComponent;
-    let fixture: ComponentFixture<PxbProvideEmailComponent>;
+describe('BluiProvideEmailComponent', () => {
+    let component: BluiProvideEmailComponent;
+    let fixture: ComponentFixture<BluiProvideEmailComponent>;
 
     beforeEach(() => {
         void TestBed.configureTestingModule({
-            imports: [PxbCreateAccountStepsModule, RouterTestingModule],
+            imports: [BluiCreateAccountStepsModule, RouterTestingModule],
         }).compileComponents();
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(PxbProvideEmailComponent);
+        fixture = TestBed.createComponent(BluiProvideEmailComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
@@ -25,7 +25,7 @@ describe('PxbProvideEmailComponent', () => {
     });
 
     it('should render "Create an Account" in the title', () => {
-        const titleEl = fixture.debugElement.query(By.css('.pxb-auth-title'));
+        const titleEl = fixture.debugElement.query(By.css('.blui-auth-title'));
         void expect(titleEl.nativeElement.innerHTML).toBe('Create an Account');
     });
 });

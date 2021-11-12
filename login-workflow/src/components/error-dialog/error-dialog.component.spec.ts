@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { PxbCommonComponentsModule } from '../auth-common.module';
-import { PxbAuthErrorDialogComponent } from './error-dialog.component';
+import { BluiCommonComponentsModule } from '../auth-common.module';
+import { BluiAuthErrorDialogComponent } from './error-dialog.component';
 
-describe('PxbAuthErrorDialogComponent', () => {
-    let component: PxbAuthErrorDialogComponent;
-    let fixture: ComponentFixture<PxbAuthErrorDialogComponent>;
+describe('BluiAuthErrorDialogComponent', () => {
+    let component: BluiAuthErrorDialogComponent;
+    let fixture: ComponentFixture<BluiAuthErrorDialogComponent>;
 
     beforeEach(() => {
         void TestBed.configureTestingModule({
-            imports: [PxbCommonComponentsModule, RouterTestingModule],
+            imports: [BluiCommonComponentsModule, RouterTestingModule],
             providers: [
                 { provide: MAT_DIALOG_DATA, useValue: {} },
                 { provide: MatDialogRef, useValue: {} },
@@ -19,7 +19,7 @@ describe('PxbAuthErrorDialogComponent', () => {
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(PxbAuthErrorDialogComponent);
+        fixture = TestBed.createComponent(BluiAuthErrorDialogComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

@@ -1,25 +1,25 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { PxbCreateAccountInviteComponent } from './create-account-invite.component';
+import { BluiCreateAccountInviteComponent } from './create-account-invite.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { PxbAuthModule } from '../../auth.module';
-import { PxbRegisterUIService } from '../../services/api';
+import { BluiAuthModule } from '../../auth.module';
+import { BluiRegisterUIService } from '../../services/api';
 
-describe('PxbCreateAccountInviteComponent', () => {
-    let component: PxbCreateAccountInviteComponent;
-    let fixture: ComponentFixture<PxbCreateAccountInviteComponent>;
-    let registerService: PxbRegisterUIService;
+describe('BluiCreateAccountInviteComponent', () => {
+    let component: BluiCreateAccountInviteComponent;
+    let fixture: ComponentFixture<BluiCreateAccountInviteComponent>;
+    let registerService: BluiRegisterUIService;
 
     beforeEach(() => {
         void TestBed.configureTestingModule({
-            imports: [PxbAuthModule, RouterTestingModule, ReactiveFormsModule, FormsModule],
+            imports: [BluiAuthModule, RouterTestingModule, ReactiveFormsModule, FormsModule],
         }).compileComponents();
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(PxbCreateAccountInviteComponent);
+        fixture = TestBed.createComponent(BluiCreateAccountInviteComponent);
         component = fixture.componentInstance;
-        registerService = TestBed.inject(PxbRegisterUIService);
+        registerService = TestBed.inject(BluiRegisterUIService);
     });
 
     it('should create', () => {

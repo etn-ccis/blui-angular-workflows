@@ -1,5 +1,17 @@
 # Change Log
 
+## v2.4.0 (Not yet published)
+
+### Changed
+
+-   Changed package namespace from `@pxblue` to `@brightlayer-ui`.
+
+## Package Migration Notice
+
+Previous versions listed after this indicator refer to our deprecated `@pxblue` packages.
+
+---
+
 ## v2.4.0 (September 28, 2021)
 
 ### Added 
@@ -33,7 +45,7 @@
 ### Added
 
 -   Added additional `pageTitle` and `pageInstructions` props onto `AccountDetails` for more customization during account registration.
--   Added `registrationSuccessScreen` prop to `<pxb-create-account>` & `<pxb-create-account-invite>` component for success screen customization.
+-   Added `registrationSuccessScreen` prop to `<blui-create-account>` & `<blui-create-account-invite>` component for success screen customization.
 -   Added `authGuardRedirectRoute` prop to `PxbAuthConfig`.
 
 ### Changed

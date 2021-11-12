@@ -1,20 +1,20 @@
-<div class="pxb-login-header">
+<div class="blui-login-header">
     <div #header>
-        <ng-content select="[pxb-login-header]"></ng-content>
+        <ng-content select="[blui-login-header]"></ng-content>
     </div>
     <div *ngIf="isEmpty(headerEl)">DEFAULT HEADER</div>
 </div>
 
 <button
-    *ngIf="pxbAuthConfig.allowDebugMode"
+    *ngIf="bluiAuthConfig.allowDebugMode"
     mat-raised-button
-    class="pxb-login-debug-button"
+    class="blui-login-debug-button"
     color="primary"
     (click)="toggleDebugMode()"
     [innerHTML]="translate().LOGIN.ENABLE_DEBUG_MODE"
 ></button>
 
-<div *ngIf="debugMode" class="pxb-login-debug-message">
+<div *ngIf="debugMode" class="blui-login-debug-message">
     <div class="mat-title" [innerHTML]="translate().LOGIN.DEBUG_MODE"></div>
 </div>
 
@@ -26,8 +26,8 @@
 <mat-form-field *ngIf="debugMode">
     <mat-label>Language</mat-label>
     <mat-select
-        #pxbLanguageSelect
-        (ngModelChange)="changeLanguage(pxbLanguageSelect.value)"
+        #bluiLanguageSelect
+        (ngModelChange)="changeLanguage(bluiLanguageSelect.value)"
         [(ngModel)]="selectedLanguage"
     >
         <mat-option value="EN">English</mat-option>
@@ -37,36 +37,36 @@
     </mat-select>
 </mat-form-field>
 
-<mat-card *ngIf="errorMessage && showCardError && position === 'top'" class="mat-elevation-z0 pxb-login-box-error">
+<mat-card *ngIf="errorMessage && showCardError && position === 'top'" class="mat-elevation-z0 blui-login-box-error">
     <ng-template [ngTemplateOutlet]="cardError"></ng-template>
 </mat-card>
 <form>
-    <pxb-email-field
+    <blui-email-field
         [manualErrorMessage]="showFormErr ? errorMessage : ''"
         [customEmailValidator]="customEmailValidator"
         [rememberLoginEmail]="true"
         (enter)="focusPasswordField()"
         (edit)="clearInputErrorMessage()"
-    ></pxb-email-field>
-    <pxb-password-field
+    ></blui-email-field>
+    <blui-password-field
         [manualErrorMessage]="showFormErr ? errorMessage : ''"
         [style.marginBottom.px]="24"
         (edit)="clearInputErrorMessage()"
         (enter)="hasValidFormEntries() ? login() : ''"
-    ></pxb-password-field>
+    ></blui-password-field>
 </form>
 
 <mat-card
     *ngIf="errorMessage && showCardError && position === 'bottom'"
-    class="mat-elevation-z0 pxb-login-box-error pxb-login-box-error-bottom"
+    class="mat-elevation-z0 blui-login-box-error blui-login-box-error-bottom"
 >
     <ng-template [ngTemplateOutlet]="cardError"></ng-template>
 </mat-card>
 
-<div class="pxb-login-remember-me-login-wrapper">
+<div class="blui-login-remember-me-login-wrapper">
     <mat-checkbox
-        *ngIf="pxbAuthConfig.showRememberMe"
-        class="pxb-login-remember-me-checkbox"
+        *ngIf="bluiAuthConfig.showRememberMe"
+        class="blui-login-remember-me-checkbox"
         [(ngModel)]="rememberMe"
         (change)="toggleRememberMe()"
         >{{ translate().LOGIN.REMEMBER_ME }}</mat-checkbox
@@ -74,8 +74,8 @@
     <button
         mat-flat-button
         color="primary"
-        class="pxb-login-button"
-        [class.pxb-login-button-full-width]="!pxbAuthConfig.showRememberMe"
+        class="blui-login-button"
+        [class.blui-login-button-full-width]="!bluiAuthConfig.showRememberMe"
         (click)="login()"
         [disabled]="isLoading || !hasValidFormEntries()"
     >
@@ -83,31 +83,31 @@
     </button>
 </div>
 
-<ng-content select="[pxb-login-actions]"></ng-content>
+<ng-content select="[blui-login-actions]"></ng-content>
 
 <div
-    *ngIf="debugMode && pxbAuthConfig.showResetPassword"
+    *ngIf="debugMode && bluiAuthConfig.showResetPassword"
     color="primary"
-    class="pxb-auth-link mat-body-2"
-    id="pxb-reset-password-link"
+    class="blui-auth-link mat-body-2"
+    id="blui-reset-password-link"
     (click)="testForgotPasswordEmail()"
 >
     {{ translate().LOGIN.FORGOT_PASSWORD_LINK }}
 </div>
 <div
-    *ngIf="debugMode && pxbAuthConfig.showCreateAccountViaInvite"
+    *ngIf="debugMode && bluiAuthConfig.showCreateAccountViaInvite"
     color="primary"
-    class="pxb-auth-link mat-body-2"
-    id="pxb-create-account-invite-link"
+    class="blui-auth-link mat-body-2"
+    id="blui-create-account-invite-link"
     (click)="testInviteRegister()"
 >
     {{ translate().LOGIN.TEST_INVITE_LINK }}
 </div>
 <div
-    *ngIf="pxbAuthConfig.showForgotPassword"
+    *ngIf="bluiAuthConfig.showForgotPassword"
     color="primary"
-    class="pxb-auth-link mat-body-2"
-    id="pxb-forgot-password-link"
+    class="blui-auth-link mat-body-2"
+    id="blui-forgot-password-link"
     (click)="forgotPassword()"
     style="margin-bottom: 32px"
 >
@@ -115,7 +115,7 @@
 </div>
 
 <div
-    *ngIf="debugMode || pxbAuthConfig.showCreateAccount || pxbAuthConfig.showContactSupport"
+    *ngIf="debugMode || bluiAuthConfig.showCreateAccount || bluiAuthConfig.showContactSupport"
     color="primary"
     class="mat-body-2"
     style="text-align: center;"
@@ -124,9 +124,9 @@
 </div>
 
 <div
-    *ngIf="pxbAuthConfig.showCreateAccount"
-    class="pxb-auth-link mat-body-2"
-    id="pxb-create-account-link"
+    *ngIf="bluiAuthConfig.showCreateAccount"
+    class="blui-auth-link mat-body-2"
+    id="blui-create-account-link"
     style="margin-bottom: 32px"
     (click)="createAccount()"
 >
@@ -134,19 +134,19 @@
 </div>
 
 <div
-    *ngIf="pxbAuthConfig.showContactSupport"
-    class="pxb-auth-link mat-body-2"
+    *ngIf="bluiAuthConfig.showContactSupport"
+    class="blui-auth-link mat-body-2"
     (click)="contactSupport()"
     style="margin-bottom: 32px"
 >
     {{ translate().LOGIN.CONTACT_SUPPORT }}
 </div>
 
-<pxb-spacer></pxb-spacer>
+<blui-spacer></blui-spacer>
 
-<div class="pxb-login-footer">
+<div class="blui-login-footer">
     <div #footer>
-        <ng-content select="[pxb-login-footer]"></ng-content>
+        <ng-content select="[blui-login-footer]"></ng-content>
     </div>
     <div *ngIf="isEmpty(footerEl)">DEFAULT FOOTER</div>
 </div>

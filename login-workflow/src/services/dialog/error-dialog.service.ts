@@ -1,6 +1,6 @@
 import { MatDialogRef } from '@angular/material/dialog';
 
-export type IPxbAuthErrorDialogService = {
+export type IBluiAuthErrorDialogService = {
     openDialog(data: ErrorDialogData): MatDialogRef<any>;
 };
 

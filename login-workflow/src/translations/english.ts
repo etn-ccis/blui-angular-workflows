@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
-import { PxbAuthTranslations } from './auth-translations';
+import { BluiAuthTranslations } from './auth-translations';
 
-export const pxbAuthEnglishTranslations: PxbAuthTranslations = {
+export const bluiAuthEnglishTranslations: BluiAuthTranslations = {
     GENERAL: {
         BACK_BUTTON: 'Back',
         OKAY_BUTTON: 'Okay',
@@ -46,10 +46,10 @@ export const pxbAuthEnglishTranslations: PxbAuthTranslations = {
         PHONE_NUMBER: undefined,
         EMAIL: undefined,
         EMERGENCY_SUPPORT_DESCRIPTION: (phone: string): string =>
-            `For technical support, please call <a class="pxb-auth-link" href="tel:${phone}">${phone}</a>.`,
+            `For technical support, please call <a class="blui-auth-link" href="tel:${phone}">${phone}</a>.`,
         EMERGENCY_SUPPORT_TITLE: 'Emergency Support',
         GENERAL_SUPPORT_DESCRIPTION: (email: string): string =>
-            `For questions, feedback, or support please email us at <a class="pxb-auth-link" href="mailto:${email}">${email}</a>.`,
+            `For questions, feedback, or support please email us at <a class="blui-auth-link" href="mailto:${email}">${email}</a>.`,
         GENERAL_SUPPORT_TITLE: 'General Questions',
     },
     PASSWORD_CRITERIA: {
@@ -66,7 +66,7 @@ export const pxbAuthEnglishTranslations: PxbAuthTranslations = {
             'If this email has an account with Eaton, you will receive a response within <strong>one business day.</strong>',
         PHONE_NUMBER: undefined,
         CONTACT_SUPPORT_BY_PHONE: (phone: string): string =>
-            `For urgent account issues, please call <a class="pxb-auth-link" href="tel:${phone}">${phone}</a>.`,
+            `For urgent account issues, please call <a class="blui-auth-link" href="tel:${phone}">${phone}</a>.`,
         SUCCESS_TITLE: 'Email Sent',
         SUCCESS_DESCRIPTION: (email: string): string =>
             `A link to reset your password has been sent to <strong>${email}</strong>`,

@@ -1,34 +1,34 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { PxbLoginComponent } from './login.component';
+import { BluiLoginComponent } from './login.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import { PxbAuthModule } from '../../auth.module';
+import { BluiAuthModule } from '../../auth.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
-import { PxbAuthSecurityService } from '../../services/state/auth-security.service';
-import { PxbAuthUIService } from '../../services/api';
-import { PxbAuthConfig } from '../../services/config/auth-config';
+import { BluiAuthSecurityService } from '../../services/state/auth-security.service';
+import { BluiAuthUIService } from '../../services/api';
+import { BluiAuthConfig } from '../../services/config/auth-config';
 
 describe('LoginComponent', () => {
-    let component: PxbLoginComponent;
+    let component: BluiLoginComponent;
     let router: Router;
-    let authConfig: PxbAuthConfig;
-    let securityService: PxbAuthSecurityService;
-    let uiActionService: PxbAuthUIService;
-    let fixture: ComponentFixture<PxbLoginComponent>;
+    let authConfig: BluiAuthConfig;
+    let securityService: BluiAuthSecurityService;
+    let uiActionService: BluiAuthUIService;
+    let fixture: ComponentFixture<BluiLoginComponent>;
 
     beforeEach(() => {
         void TestBed.configureTestingModule({
-            imports: [PxbAuthModule, RouterTestingModule, NoopAnimationsModule],
+            imports: [BluiAuthModule, RouterTestingModule, NoopAnimationsModule],
         }).compileComponents();
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(PxbLoginComponent);
+        fixture = TestBed.createComponent(BluiLoginComponent);
         component = fixture.componentInstance;
         router = TestBed.inject(Router);
-        securityService = TestBed.inject(PxbAuthSecurityService);
-        uiActionService = TestBed.inject(PxbAuthUIService);
-        authConfig = TestBed.inject(PxbAuthConfig);
+        securityService = TestBed.inject(BluiAuthSecurityService);
+        uiActionService = TestBed.inject(BluiAuthUIService);
+        authConfig = TestBed.inject(BluiAuthConfig);
     });
 
     it('should create', () => {
@@ -58,7 +58,7 @@ describe('LoginComponent', () => {
         component.debugMode = false;
         authConfig.allowDebugMode = true;
         fixture.detectChanges();
-        const debugEl = fixture.nativeElement.querySelector('.pxb-login-debug-button');
+        const debugEl = fixture.nativeElement.querySelector('.blui-login-debug-button');
         debugEl.click();
         void expect(component.debugMode).toBe(true);
     });
@@ -67,7 +67,7 @@ describe('LoginComponent', () => {
         component.debugMode = true;
         fixture.detectChanges();
         const navSpy = spyOn(router, 'navigate');
-        const forgotPasswordLink = fixture.nativeElement.querySelector('#pxb-forgot-password-link');
+        const forgotPasswordLink = fixture.nativeElement.querySelector('#blui-forgot-password-link');
         forgotPasswordLink.click();
         void expect(navSpy).toHaveBeenCalledWith(['auth/forgot-password']);
     });
@@ -76,7 +76,7 @@ describe('LoginComponent', () => {
         component.debugMode = true;
         fixture.detectChanges();
         const navSpy = spyOn(router, 'navigate');
-        const createAccountLink = fixture.nativeElement.querySelector('#pxb-create-account-invite-link');
+        const createAccountLink = fixture.nativeElement.querySelector('#blui-create-account-invite-link');
         createAccountLink.click();
         void expect(navSpy).toHaveBeenCalledWith(['auth/register/invite'], {
             queryParams: {
@@ -89,7 +89,7 @@ describe('LoginComponent', () => {
         component.debugMode = true;
         fixture.detectChanges();
         const navSpy = spyOn(router, 'navigate');
-        const createAccountLink = fixture.nativeElement.querySelector('#pxb-create-account-link');
+        const createAccountLink = fixture.nativeElement.querySelector('#blui-create-account-link');
         createAccountLink.click();
         void expect(navSpy).toHaveBeenCalledWith(['auth/register/create-account']);
     });
@@ -98,7 +98,7 @@ describe('LoginComponent', () => {
         component.debugMode = true;
         fixture.detectChanges();
         const navSpy = spyOn(router, 'navigate');
-        const resetLink = fixture.nativeElement.querySelector('#pxb-reset-password-link');
+        const resetLink = fixture.nativeElement.querySelector('#blui-reset-password-link');
         resetLink.click();
         void expect(navSpy).toHaveBeenCalledWith(['auth/reset-password'], {
             queryParams: {

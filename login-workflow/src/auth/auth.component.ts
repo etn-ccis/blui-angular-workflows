@@ -1,32 +1,32 @@
 import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit, TemplateRef } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { PxbAuthConfig } from '../services/config/auth-config';
+import { BluiAuthConfig } from '../services/config/auth-config';
 import { matchesRoute } from '../util/matcher';
-import { PxbAuthUIService } from '../services/api';
-import { PxbAuthSecurityService, SecurityContext } from '../services/state/auth-security.service';
-import { PxbCreateAccountInviteComponent } from '../pages/create-account-invite/create-account-invite.component';
-import { PxbCreateAccountComponent } from '../pages/create-account/create-account.component';
-import { PxbLoginComponent } from '../pages/login/login.component';
-import { PxbForgotPasswordComponent } from '../pages/forgot-password/forgot-password.component';
-import { PxbContactSupportComponent } from '../pages/contact-support/contact-support.component';
-import { PxbResetPasswordComponent } from '../pages/reset-password/reset-password.component';
+import { BluiAuthUIService } from '../services/api';
+import { BluiAuthSecurityService, SecurityContext } from '../services/state/auth-security.service';
+import { BluiCreateAccountInviteComponent } from '../pages/create-account-invite/create-account-invite.component';
+import { BluiCreateAccountComponent } from '../pages/create-account/create-account.component';
+import { BluiLoginComponent } from '../pages/login/login.component';
+import { BluiForgotPasswordComponent } from '../pages/forgot-password/forgot-password.component';
+import { BluiContactSupportComponent } from '../pages/contact-support/contact-support.component';
+import { BluiResetPasswordComponent } from '../pages/reset-password/reset-password.component';
 import { Subscription } from 'rxjs';
 
 @Component({
-    selector: 'pxb-auth',
+    selector: 'blui-auth',
     templateUrl: './auth.component.html',
     styleUrls: ['./auth.component.scss'],
     host: {
-        class: 'pxb-auth',
+        class: 'blui-auth',
     },
 })
-export class PxbAuthComponent implements OnInit, OnDestroy {
-    @Input() createAccountInviteRef: TemplateRef<PxbCreateAccountInviteComponent>;
-    @Input() createAccountRef: TemplateRef<PxbCreateAccountComponent>;
-    @Input() loginRef: TemplateRef<PxbLoginComponent>;
-    @Input() forgotPasswordRef: TemplateRef<PxbForgotPasswordComponent>;
-    @Input() resetPasswordRef: TemplateRef<PxbResetPasswordComponent>;
-    @Input() contactSupportRef: TemplateRef<PxbContactSupportComponent>;
+export class BluiAuthComponent implements OnInit, OnDestroy {
+    @Input() createAccountInviteRef: TemplateRef<BluiCreateAccountInviteComponent>;
+    @Input() createAccountRef: TemplateRef<BluiCreateAccountComponent>;
+    @Input() loginRef: TemplateRef<BluiLoginComponent>;
+    @Input() forgotPasswordRef: TemplateRef<BluiForgotPasswordComponent>;
+    @Input() resetPasswordRef: TemplateRef<BluiResetPasswordComponent>;
+    @Input() contactSupportRef: TemplateRef<BluiContactSupportComponent>;
 
     projectImage: string;
     backgroundImage: string;
@@ -47,10 +47,10 @@ export class PxbAuthComponent implements OnInit, OnDestroy {
 
     constructor(
         private readonly _router: Router,
-        private readonly _pxbAuthConfig: PxbAuthConfig,
-        private readonly _pxbAuthUIService: PxbAuthUIService,
+        private readonly _bluiAuthConfig: BluiAuthConfig,
+        private readonly _bluiAuthUIService: BluiAuthUIService,
         private readonly _changeDetectorRef: ChangeDetectorRef,
-        private readonly _pxbSecurityService: PxbAuthSecurityService
+        private readonly _bluiSecurityService: BluiAuthSecurityService
     ) {
         this._listenForAuthLoadingStateChanges();
         this._listenForAuthRouteChanges();
@@ -58,8 +58,8 @@ export class PxbAuthComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.initiateSecurity();
-        this.projectImage = this._pxbAuthConfig.projectImage;
-        this.backgroundImage = this._pxbAuthConfig.backgroundImage;
+        this.projectImage = this._bluiAuthConfig.projectImage;
+        this.backgroundImage = this._bluiAuthConfig.backgroundImage;
     }
 
     ngOnDestroy(): void {
@@ -68,7 +68,7 @@ export class PxbAuthComponent implements OnInit, OnDestroy {
     }
 
     initiateSecurity(): void {
-        void this._pxbAuthUIService.initiateSecurity().then(() => {
+        void this._bluiAuthUIService.initiateSecurity().then(() => {
             this.isSecurityInitiated = true;
             this._changeDetectorRef.detectChanges();
         });
@@ -76,7 +76,7 @@ export class PxbAuthComponent implements OnInit, OnDestroy {
 
     // This will listen for auth state loading changes and toggles the shared overlay loading screen.
     private _listenForAuthLoadingStateChanges(): void {
-        this.stateListener = this._pxbSecurityService
+        this.stateListener = this._bluiSecurityService
             .securityStateChanges()
             .subscribe((securityContext: SecurityContext) => {
                 this.isLoading = securityContext.isLoading;
@@ -85,7 +85,7 @@ export class PxbAuthComponent implements OnInit, OnDestroy {
             });
     }
 
-    // Observes route changes and determines which PXB Auth page to show via route name.
+    // Observes route changes and determines which Blui Auth page to show via route name.
     private _listenForAuthRouteChanges(): void {
         this.routeListener = this._router.events.subscribe((route) => {
             if (route instanceof NavigationEnd) {

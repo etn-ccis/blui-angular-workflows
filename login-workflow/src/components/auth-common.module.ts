@@ -14,8 +14,8 @@ import { EmailFieldComponent } from './email-field/email-field.component';
 import { LoadingOverlayComponent } from './loading-overlay/loading-overlay.component';
 import { PasswordStrengthCheckComponent } from './password-strength-checker/password-strength-checker.component';
 import { PasswordFieldComponent } from './password-field/password-field.component';
-import { PxbAuthErrorDialogComponent } from './error-dialog/error-dialog.component';
-import { PxbPasswordStrengthCheckerComponent } from './password-strength-checker/pxb-password-strength-checker.component';
+import { BluiAuthErrorDialogComponent } from './error-dialog/error-dialog.component';
+import { BluiPasswordStrengthCheckerComponent } from './password-strength-checker/blui-password-strength-checker.component';
 
 @NgModule({
     declarations: [
@@ -23,10 +23,10 @@ import { PxbPasswordStrengthCheckerComponent } from './password-strength-checker
         LoadingOverlayComponent,
         PasswordFieldComponent,
         PasswordStrengthCheckComponent,
-        PxbAuthErrorDialogComponent,
-        PxbPasswordStrengthCheckerComponent,
+        BluiAuthErrorDialogComponent,
+        BluiPasswordStrengthCheckerComponent,
     ],
-    entryComponents: [PxbAuthErrorDialogComponent],
+    entryComponents: [BluiAuthErrorDialogComponent],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
@@ -44,8 +44,8 @@ import { PxbPasswordStrengthCheckerComponent } from './password-strength-checker
         LoadingOverlayComponent,
         PasswordFieldComponent,
         PasswordStrengthCheckComponent,
-        PxbAuthErrorDialogComponent,
-        PxbPasswordStrengthCheckerComponent,
+        BluiAuthErrorDialogComponent,
+        BluiPasswordStrengthCheckerComponent,
     ],
 })
-export class PxbCommonComponentsModule {}
+export class BluiCommonComponentsModule {}

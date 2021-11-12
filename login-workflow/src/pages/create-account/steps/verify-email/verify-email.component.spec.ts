@@ -1,24 +1,24 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { PxbCreateAccountStepsModule } from '../steps.module';
+import { BluiCreateAccountStepsModule } from '../steps.module';
 import { RouterTestingModule } from '@angular/router/testing';
 import { By } from '@angular/platform-browser';
-import { PxbVerifyEmailComponent } from './verify-email.component';
+import { BluiVerifyEmailComponent } from './verify-email.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import { PxbRegisterUIService } from '../../../../services/api';
+import { BluiRegisterUIService } from '../../../../services/api';
 
-describe('PxbVerifyEmailComponent', () => {
-    let component: PxbVerifyEmailComponent;
-    let fixture: ComponentFixture<PxbVerifyEmailComponent>;
-    let registerService: PxbRegisterUIService;
+describe('BluiVerifyEmailComponent', () => {
+    let component: BluiVerifyEmailComponent;
+    let fixture: ComponentFixture<BluiVerifyEmailComponent>;
+    let registerService: BluiRegisterUIService;
 
     beforeEach(() => {
         void TestBed.configureTestingModule({
-            imports: [PxbCreateAccountStepsModule, MatDialogModule, RouterTestingModule],
+            imports: [BluiCreateAccountStepsModule, MatDialogModule, RouterTestingModule],
         }).compileComponents();
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(PxbVerifyEmailComponent);
+        fixture = TestBed.createComponent(BluiVerifyEmailComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
@@ -28,7 +28,7 @@ describe('PxbVerifyEmailComponent', () => {
     });
 
     it('should render "Verify Email" in the title', () => {
-        const titleEl = fixture.debugElement.query(By.css('.pxb-auth-title'));
+        const titleEl = fixture.debugElement.query(By.css('.blui-auth-title'));
         void expect(titleEl.nativeElement.innerHTML).toBe('Verify Email');
     });
 
@@ -41,7 +41,7 @@ describe('PxbVerifyEmailComponent', () => {
     });
 
     it('should send verification email on button click', () => {
-        registerService = TestBed.inject(PxbRegisterUIService);
+        registerService = TestBed.inject(BluiRegisterUIService);
         const verificationEmailSpy = spyOn(registerService, 'requestRegistrationCode').and.returnValue(
             Promise.resolve()
         );

@@ -1,5 +1,5 @@
 /*
- * Public API Surface of PXB Auth Workflow
+ * Public API Surface of BLUI Auth Workflow
  */
 
 export * from './auth.module';

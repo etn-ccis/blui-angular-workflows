@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { AbstractControl, ValidatorFn } from '@angular/forms';
 import {
-    PxbAuthSecurityService,
+    BluiAuthSecurityService,
     SecurityContext,
-    PxbAuthConfig,
-    PxbAuthUIService,
-} from '@pxblue/angular-auth-workflow';
+    BluiAuthConfig,
+    BluiAuthUIService,
+} from '@brightlayer-ui/angular-auth-workflow';
 import { LocalStorageService } from './services/localStorage.service';
 
 @Component({
@@ -14,30 +14,30 @@ import { LocalStorageService } from './services/localStorage.service';
 })
 export class AppComponent {
     constructor(
-        private readonly pxbAuthUIService: PxbAuthUIService,
-        private readonly pxbSecurityService: PxbAuthSecurityService,
-        private readonly pxbAuthConfig: PxbAuthConfig,
+        private readonly bluiAuthUIService: BluiAuthUIService,
+        private readonly bluiSecurityService: BluiAuthSecurityService,
+        private readonly bluiAuthConfig: BluiAuthConfig,
         private readonly localStorageService: LocalStorageService
     ) {
-        this._configurePxbAuthModule();
+        this._configureBluiAuthModule();
         this._listenForAuthStateChanges();
     }
 
-    private _configurePxbAuthModule(): void {
-        void this.pxbAuthUIService.initiateSecurity();
-        this.pxbAuthConfig.projectImage = 'assets/images/eaton_stacked_logo.png';
-        this.pxbAuthConfig.backgroundImage = 'assets/images/background.svg';
-        this.pxbAuthConfig.allowDebugMode = true;
-        this.pxbAuthConfig.languageCode = 'EN';
-        this.pxbSecurityService.inferOnAuthenticatedRoute('');
-        this.pxbAuthConfig.customEmailValidator = this._getCustomEmailValidator();
-        this.pxbAuthConfig.customPasswordRequirements = [
+    private _configureBluiAuthModule(): void {
+        void this.bluiAuthUIService.initiateSecurity();
+        this.bluiAuthConfig.projectImage = 'assets/images/eaton_stacked_logo.png';
+        this.bluiAuthConfig.backgroundImage = 'assets/images/background.svg';
+        this.bluiAuthConfig.allowDebugMode = true;
+        this.bluiAuthConfig.languageCode = 'EN';
+        this.bluiSecurityService.inferOnAuthenticatedRoute('');
+        this.bluiAuthConfig.customEmailValidator = this._getCustomEmailValidator();
+        this.bluiAuthConfig.customPasswordRequirements = [
             {
                 regex: /^((?!password).)*$/,
                 description: 'Does not contain "password"',
             },
         ];
-        this.pxbAuthConfig.customFirstNameRequirements = {
+        this.bluiAuthConfig.customFirstNameRequirements = {
             maxLength: 30,
         };
     }
@@ -46,7 +46,7 @@ export class AppComponent {
         return (control: AbstractControl): { [key: string]: any } | null => {
             const forbidden = /test/i.test(control.value);
             return forbidden
-                ? { PXB_LOGIN_VALIDATOR_ERROR_NAME: { message: 'This is a custom error, provided by end user' } }
+                ? { Blui_LOGIN_VALIDATOR_ERROR_NAME: { message: 'This is a custom error, provided by end user' } }
                 : null;
         };
     }
@@ -54,7 +54,7 @@ export class AppComponent {
     // When a user transitions between being logged in / logged out, update session information.
     // This demo app stores session information in localStorage, this is just as a proof-of-concept.
     private _listenForAuthStateChanges(): void {
-        this.pxbSecurityService.securityStateChanges().subscribe((state: SecurityContext) => {
+        this.bluiSecurityService.securityStateChanges().subscribe((state: SecurityContext) => {
             const email = state.rememberMeDetails.email;
             const rememberMe = state.rememberMeDetails.rememberMe;
             const isAuth = state.isAuthenticatedUser;

@@ -1,36 +1,36 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 
-import { PxbAuthConfig } from '../../../../services/config/auth-config';
-import { PxbFormsService } from '../../../../services/forms/forms.service';
-import { PasswordRequirement } from '../../../../components/password-strength-checker/pxb-password-strength-checker.component';
-import { PxbAuthTranslations } from '../../../../translations/auth-translations';
+import { BluiAuthConfig } from '../../../../services/config/auth-config';
+import { BluiFormsService } from '../../../../services/forms/forms.service';
+import { PasswordRequirement } from '../../../../components/password-strength-checker/blui-password-strength-checker.component';
+import { BluiAuthTranslations } from '../../../../translations/auth-translations';
 import { PasswordFieldComponent } from '../../../../components/password-field/password-field.component';
 
 @Component({
-    selector: 'pxb-create-account-create-password-step',
+    selector: 'blui-create-account-create-password-step',
     template: `
-        <div class="mat-title pxb-auth-title" [innerHTML]="translate.CREATE_ACCOUNT.CREATE_PASSWORD.TITLE"></div>
+        <div class="mat-title blui-auth-title" [innerHTML]="translate.CREATE_ACCOUNT.CREATE_PASSWORD.TITLE"></div>
         <p
             class="mat-body-1"
             style="margin-bottom: 24px;"
             [innerHTML]="translate.CREATE_ACCOUNT.CREATE_PASSWORD.INSTRUCTIONS"
         ></p>
-        <mat-divider class="pxb-auth-divider" style="margin-top: 16px; margin-bottom: 32px;"></mat-divider>
-        <div class="pxb-auth-full-height">
+        <mat-divider class="blui-auth-divider" style="margin-top: 16px; margin-bottom: 32px;"></mat-divider>
+        <div class="blui-auth-full-height">
             <form>
-                <pxb-password-field
+                <blui-password-field
                     #passwordField
                     [rememberPassword]="true"
                     (enter)="focusConfirmPassword()"
-                ></pxb-password-field>
-                <pxb-password-strength-checker
+                ></blui-password-field>
+                <blui-password-strength-checker
                     [(meetsRequirements)]="passesStrengthCheck"
                     [formValue]="passwordFormControl?.value"
                     [requirements]="passwordRequirements"
                 >
-                </pxb-password-strength-checker>
-                <pxb-password-field
+                </blui-password-strength-checker>
+                <blui-password-field
                     #confirmPasswordField
                     [rememberPassword]="true"
                     [label]="translate.GENERAL.CONFIRM_PASSWORD_FORM_LABEL"
@@ -39,12 +39,12 @@ import { PasswordFieldComponent } from '../../../../components/password-field/pa
                     (edit)="updatePassword($event)"
                     (enter)="advance.emit()"
                 >
-                </pxb-password-field>
+                </blui-password-field>
             </form>
         </div>
     `,
 })
-export class PxbCreatePasswordComponent implements OnInit {
+export class BluiCreatePasswordComponent implements OnInit {
     @Input() password: string;
     @Input() passwordMeetsRequirements: boolean;
 
@@ -62,18 +62,18 @@ export class PxbCreatePasswordComponent implements OnInit {
     confirmPasswordFormControl: FormControl;
 
     passwordRequirements: PasswordRequirement[];
-    translate: PxbAuthTranslations;
+    translate: BluiAuthTranslations;
 
     constructor(
         private readonly _ref: ChangeDetectorRef,
         private readonly _formBuilder: FormBuilder,
-        private readonly _pxbAuthConfig: PxbAuthConfig,
-        private readonly _pxbFormsService: PxbFormsService
+        private readonly _bluiAuthConfig: BluiAuthConfig,
+        private readonly _bluiFormsService: BluiFormsService
     ) {}
 
     ngOnInit(): void {
-        this.translate = this._pxbAuthConfig.getTranslations();
-        this.passwordRequirements = this._pxbAuthConfig.getPasswordRequirements();
+        this.translate = this._bluiAuthConfig.getTranslations();
+        this.passwordRequirements = this._bluiAuthConfig.getPasswordRequirements();
     }
 
     ngAfterViewInit(): void {
@@ -94,6 +94,6 @@ export class PxbCreatePasswordComponent implements OnInit {
     }
 
     focusConfirmPassword(): void {
-        this._pxbFormsService.advanceToNextField(this.confirmPasswordFieldComponent.passwordInputElement);
+        this._bluiFormsService.advanceToNextField(this.confirmPasswordFieldComponent.passwordInputElement);
     }
 }
