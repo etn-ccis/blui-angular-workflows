@@ -93,7 +93,7 @@ export class BluiResetPasswordComponent implements OnInit {
     }
 
     focusConfirmPassword(): void {
-        this.BluiFormsService.advanceToNextField(this.confirmPasswordFieldComponent.passwordInputElement);
+        this.bluiFormsService.advanceToNextField(this.confirmPasswordFieldComponent.passwordInputElement);
     }
 
     resetPassword(): void {
