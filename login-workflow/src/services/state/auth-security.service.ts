@@ -77,7 +77,7 @@ export class BluiAuthSecurityService {
     };
 
     // Whenever the application loads for the first time, we may want to direct the user to their original destination, before they were redirected to the login screen.
-    constructor(private readonly _router: Router, private readonly _BluiAuthConfig: BluiAuthConfig) {}
+    constructor(private readonly _router: Router, private readonly _bluiAuthConfig: BluiAuthConfig) {}
 
     /* Call this method to parse the on-load URL to identify which page to redirect to when the user is authenticated.
        If `defaultHomeRoute` is provided, then this route will be used when unable to identify the default redirect route via URL.

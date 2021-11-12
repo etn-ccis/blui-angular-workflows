@@ -46,7 +46,7 @@ export class BluiResetPasswordComponent implements OnInit {
         private readonly _bluiSecurityService: BluiAuthSecurityService,
         private readonly _bluiErrorDialogService: BluiResetPasswordErrorDialogService,
         private readonly _changeDetectorRef: ChangeDetectorRef,
-        public BluiFormsService: BluiFormsService
+        public bluiFormsService: BluiFormsService
     ) {
         this._bluiSecurityService.securityStateChanges().subscribe((state: SecurityContext) => {
             this.isLoading = state.isLoading;

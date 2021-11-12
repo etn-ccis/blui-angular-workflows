@@ -56,13 +56,13 @@ export class PasswordFieldComponent implements OnInit {
     matcher = new CrossFieldErrorMatcher();
 
     constructor(
-        private readonly _BluiAuthConfig: BluiAuthConfig,
-        private readonly _BluiSecurityService: BluiAuthSecurityService
+        private readonly _bluiAuthConfig: BluiAuthConfig,
+        private readonly _bluiSecurityService: BluiAuthSecurityService
     ) {}
 
     ngOnInit(): void {
         const rememberedPassword = this.rememberPassword
-            ? this._BluiSecurityService.getSecurityState().registrationPassword
+            ? this._bluiSecurityService.getSecurityState().registrationPassword
             : '';
         this.passwordFormControl = new FormControl(rememberedPassword ? rememberedPassword : '', [
             this._passwordsMatchValidator(),
@@ -88,7 +88,7 @@ export class PasswordFieldComponent implements OnInit {
     }
 
     translate(): BluiAuthTranslations {
-        return this._BluiAuthConfig.getTranslations();
+        return this._bluiAuthConfig.getTranslations();
     }
 
     togglePasswordVisibility(): void {

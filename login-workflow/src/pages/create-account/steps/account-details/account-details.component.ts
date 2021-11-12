@@ -35,7 +35,7 @@ import { BluiAuthTranslations } from '../../../../translations/auth-translations
                                 [formControl]="firstNameFormControl"
                                 required
                                 (ngModelChange)="emitIfValid(); firstNameChange.emit(firstNameFormControl.value)"
-                                (keyup.enter)="BluiFormsService.advanceToNextField(lastNameInputElement)"
+                                (keyup.enter)="bluiFormsService.advanceToNextField(lastNameInputElement)"
                             />
                             <mat-error
                                 *ngIf="firstNameFormControl.hasError('required')"
@@ -99,16 +99,16 @@ export class BluiAccountDetailsComponent implements OnInit {
 
     translate: BluiAuthTranslations;
 
-    constructor(public BluiFormsService: BluiFormsService, private readonly _BluiAuthConfig: BluiAuthConfig) {}
+    constructor(public bluiFormsService: BluiFormsService, private readonly _bluiAuthConfig: BluiAuthConfig) {}
 
     ngOnInit(): void {
-        this.translate = this._BluiAuthConfig.getTranslations();
+        this.translate = this._bluiAuthConfig.getTranslations();
         if (this.showDefaultAccountDetails) {
             this.firstNameFormControl = new FormControl(this.firstName, Validators.required);
             this.lastNameFormControl = new FormControl(this.lastName, Validators.required);
         }
-        this.firstNameMaxLength = this._BluiAuthConfig.customFirstNameRequirements?.maxLength;
-        this.lastNameMaxLength = this._BluiAuthConfig.customLastNameRequirements?.maxLength;
+        this.firstNameMaxLength = this._bluiAuthConfig.customFirstNameRequirements?.maxLength;
+        this.lastNameMaxLength = this._bluiAuthConfig.customLastNameRequirements?.maxLength;
     }
 
     /* If we are using the default account details, we need to provide the input validation required for the 'NEXT' button. */
