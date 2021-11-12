@@ -1,14 +1,14 @@
 # Custom Account Details
-The `@pxblue/angular-auth-workflow` allows for custom account detail fields to be added during a user's self-registration. To add custom form fields to the self registration pages, follow the steps below:
+The `@brightlayer-ui/angular-auth-workflow` allows for custom account detail fields to be added during a user's self-registration. To add custom form fields to the self registration pages, follow the steps below:
 
-### Create a custom `<pxb-create-account>` component.
+### Create a custom `<blui-create-account>` component.
 
 ```angular2
 <ng-template #createAccountPage>
-    <pxb-create-account [accountDetails]="accountDetails"></pxb-create-account>
+    <blui-create-account [accountDetails]="accountDetails"></blui-create-account>
 </ng-template>
 
-<pxb-auth [createAccountRef]="createAccountPage"></pxb-auth>
+<blui-auth [createAccountRef]="createAccountPage"></blui-auth>
 ``` 
 
 ### Add your custom form content as a `<ng-template>`
@@ -42,7 +42,7 @@ Each `accountDetails` represents a new page in the self-registration process.
 
 
 ```
-import { AccountDetails } from '@pxblue/angular-auth-workflow';
+import { AccountDetails } from '@brightlayer-ui/angular-auth-workflow';
 
 
 // What to Render
