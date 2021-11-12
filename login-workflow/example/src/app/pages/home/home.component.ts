@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { BluiChangePasswordDialogService, AUTH_ROUTES, BluiAuthSecurityService } from '@brightlayer-ui/angular-auth-workflow';
+import {
+    BluiChangePasswordDialogService,
+    AUTH_ROUTES,
+    BluiAuthSecurityService,
+} from '@brightlayer-ui/angular-auth-workflow';
 
 @Component({
     selector: 'app-home',

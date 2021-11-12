@@ -44,7 +44,7 @@ export class AuthUIService implements IBluiAuthUIService {
                 if (password.toLowerCase() === 'fail') {
                     return reject({
                         mode: ['dialog', 'message-box'],
-                        message: 'Sample Error Message'
+                        message: 'Sample Error Message',
                     } as LoginErrorData);
                 }
                 return resolve();

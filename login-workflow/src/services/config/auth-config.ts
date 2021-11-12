@@ -3,7 +3,7 @@ import { ValidatorFn } from '@angular/forms';
 import { AuthTranslationLanguageCode, BluiAuthTranslations } from '../../translations/auth-translations';
 import { bluiAuthEnglishTranslations } from '../../translations/english';
 import { bluiAuthFrenchTranslations } from '../../translations/french';
-import {  bluiAuthSpanishTranslations } from '../../translations/spanish';
+import { bluiAuthSpanishTranslations } from '../../translations/spanish';
 import { bluiAuthChineseTranslations } from '../../translations/chinese';
 
 export const BLUI_LOGIN_VALIDATOR_ERROR_NAME = 'BLUI_LOGIN_VALIDATOR_ERROR_NAME';

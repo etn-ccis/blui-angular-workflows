@@ -72,7 +72,6 @@ import { PreAuthComponent } from './pages/pre-auth/pre-auth.component';
             provide: BluiLoginErrorDialogService,
             useClass: LoginErrorDialogService,
         }, */
-
     ],
     entryComponents: [LoginErrorDialogComponent],
     bootstrap: [AppComponent],
