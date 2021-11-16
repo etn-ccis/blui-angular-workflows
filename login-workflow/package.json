@@ -1,7 +1,7 @@
 {
   "name": "@brightlayer-ui/angular-auth-workflow",
   "description": "Re-usable workflow components for Authentication and Registration within Eaton applications.",
-  "version": "2.4.0-beta.0",
+  "version": "2.4.0",
   "scripts": {
     "ng": "ng",
     "watch": "ng build -c demo",
@@ -12,7 +12,7 @@
     "prettier": "prettier \"src/**/**.{ts,js,json,css,scss,html}\" --write",
     "prettier:check": "prettier \"src/**/**.{ts,js,json,css,scss,html}\" --check",
     "publish:package": "cd dist && set npm_config_yes=true && npx -p @brightlayer-ui/publish blui-publish",
-    "tag:package": "npx -p @brightlayer-ui/tag blui-tag -blui-angular-auth-workflow",
+    "tag:package": "npx -p @brightlayer-ui/tag blui-tag -s -blui-angular-auth-workflow",
     "install:dependencies": "yarn && cd example && yarn",
     "link:workflow": "bash ./scripts/linkWorkflow.sh",
     "start:example": "yarn install:dependencies && yarn link:workflow && cd example && yarn start",
