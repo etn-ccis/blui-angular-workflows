@@ -30,7 +30,7 @@ export class RegisterUIService implements IBluiRegisterUIService {
                 ) {
                     return reject();
                 }
-                if (registrationCode.toUpperCase() === 'PXWHITE') {
+                if (registrationCode.toUpperCase() === 'BRIGHTLAYER_CLOUD') {
                     return resolve(true);
                 }
                 return resolve(false);

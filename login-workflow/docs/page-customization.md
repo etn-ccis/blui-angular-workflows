@@ -126,8 +126,8 @@ A user has received an email invite to create an account; this workflow can be s
 
 <div style="overflow: auto;">
 
-|  ng-content                                 | Description                                                                 |
-| ------------------------------------------- | --------------------------------------------------------------------------- |
+|  ng-content                                  | Description                                                                 |
+| -------------------------------------------- | --------------------------------------------------------------------------- |
 | `blui-registration-link-error-title`         | Error state title seen when the registration link is invalid                | 
 | `blui-registration-link-error-description`   | Error state description seen when the registration link is invalid          | 
 
@@ -140,8 +140,8 @@ The Contact Support page contains information for users who need help accessing/
 
 <div style="overflow: auto;">
 
-|  ng-content                   | Description                                                                 |
-| ----------------------------- | --------------------------------------------------------------------------- |
+|  ng-content                    | Description                                                                 |
+| ------------------------------ | --------------------------------------------------------------------------- |
 | `blui-icon`                    | Icon at top of the page                                                     | 
 | `blui-instructions`            | Instructions overrides for page body                                        | 
 

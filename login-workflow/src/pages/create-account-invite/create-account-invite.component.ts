@@ -32,7 +32,7 @@ export class BluiCreateAccountInviteComponent implements OnInit, OnDestroy {
 
     isLoading: boolean;
     isValidRegistrationLink: boolean;
-    isPXWhiteAccount: boolean;
+    isBrightlayerCloudAccount: boolean;
 
     // EULA Page
     userAcceptsEula: boolean;
@@ -83,7 +83,7 @@ export class BluiCreateAccountInviteComponent implements OnInit, OnDestroy {
             .then((registrationComplete) => {
                 this._bluiSecurityService.setLoading(false);
                 this.isValidRegistrationLink = true;
-                this.isPXWhiteAccount = registrationComplete;
+                this.isBrightlayerCloudAccount = registrationComplete;
             })
             .catch((data: ErrorDialogData) => {
                 this._bluiErrorDialogService.openDialog(data);

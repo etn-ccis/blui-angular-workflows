@@ -1,4 +1,4 @@
-<ng-container *ngIf="!isPXWhiteAccount">
+<ng-container *ngIf="!isBrightlayerCloudAccount">
     <blui-create-account-eula-step
         *ngIf="registrationUtils.getCurrentPage() === 0"
         [(userAcceptsEula)]="userAcceptsEula"
@@ -94,7 +94,7 @@
     </ng-container>
 </ng-container>
 
-<ng-container *ngIf="isPXWhiteAccount">
+<ng-container *ngIf="isBrightlayerCloudAccount">
     <blui-create-account-account-existing-step
         [email]="email"
         [registrationSuccessScreen]="existingAccountSuccessScreen"
