@@ -1,21 +1,21 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { PxbCreateAccountStepsModule } from '../steps.module';
+import { BluiCreateAccountStepsModule } from '../steps.module';
 import { RouterTestingModule } from '@angular/router/testing';
 import { By } from '@angular/platform-browser';
-import { PxbCreatePasswordComponent } from './create-password.component';
+import { BluiCreatePasswordComponent } from './create-password.component';
 
-describe('PxbCreatePasswordComponent', () => {
-    let component: PxbCreatePasswordComponent;
-    let fixture: ComponentFixture<PxbCreatePasswordComponent>;
+describe('BluiCreatePasswordComponent', () => {
+    let component: BluiCreatePasswordComponent;
+    let fixture: ComponentFixture<BluiCreatePasswordComponent>;
 
     beforeEach(() => {
         void TestBed.configureTestingModule({
-            imports: [PxbCreateAccountStepsModule, RouterTestingModule],
+            imports: [BluiCreateAccountStepsModule, RouterTestingModule],
         }).compileComponents();
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(PxbCreatePasswordComponent);
+        fixture = TestBed.createComponent(BluiCreatePasswordComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
@@ -25,7 +25,7 @@ describe('PxbCreatePasswordComponent', () => {
     });
 
     it('should render "Create Password" in the title', () => {
-        const titleEl = fixture.debugElement.query(By.css('.pxb-auth-title'));
+        const titleEl = fixture.debugElement.query(By.css('.blui-auth-title'));
         void expect(titleEl.nativeElement.innerHTML).toBe('Create Password');
     });
 

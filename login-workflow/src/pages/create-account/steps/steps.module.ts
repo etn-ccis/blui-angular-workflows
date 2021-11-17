@@ -10,26 +10,26 @@ import { MatIconModule } from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
-import { EmptyStateModule } from '@pxblue/angular-components';
+import { EmptyStateModule } from '@brightlayer-ui/angular-components';
 
-import { PxbCommonComponentsModule } from '../../../components/auth-common.module';
-import { PxbAccountCreatedComponent } from './account-created/account-created.component';
-import { PxbAccountDetailsComponent } from './account-details/account-details.component';
-import { PxbCreatePasswordComponent } from './create-password/create-password.component';
-import { PxbEulaComponent } from './eula/eula.component';
-import { PxbProvideEmailComponent } from './provide-email/provide-email.component';
-import { PxbVerifyEmailComponent } from './verify-email/verify-email.component';
-import { PxbExistingAccountComponent } from './existing-account/existing-account.component';
+import { BluiCommonComponentsModule } from '../../../components/auth-common.module';
+import { BluiAccountCreatedComponent } from './account-created/account-created.component';
+import { BluiAccountDetailsComponent } from './account-details/account-details.component';
+import { BluiCreatePasswordComponent } from './create-password/create-password.component';
+import { BluiEulaComponent } from './eula/eula.component';
+import { BluiProvideEmailComponent } from './provide-email/provide-email.component';
+import { BluiVerifyEmailComponent } from './verify-email/verify-email.component';
+import { BluiExistingAccountComponent } from './existing-account/existing-account.component';
 
 @NgModule({
     declarations: [
-        PxbAccountCreatedComponent,
-        PxbAccountDetailsComponent,
-        PxbCreatePasswordComponent,
-        PxbEulaComponent,
-        PxbProvideEmailComponent,
-        PxbVerifyEmailComponent,
-        PxbExistingAccountComponent,
+        BluiAccountCreatedComponent,
+        BluiAccountDetailsComponent,
+        BluiCreatePasswordComponent,
+        BluiEulaComponent,
+        BluiProvideEmailComponent,
+        BluiVerifyEmailComponent,
+        BluiExistingAccountComponent,
     ],
     imports: [
         BrowserModule,
@@ -43,17 +43,17 @@ import { PxbExistingAccountComponent } from './existing-account/existing-account
         MatFormFieldModule,
         MatInputModule,
         MatIconModule,
-        PxbCommonComponentsModule,
+        BluiCommonComponentsModule,
         ReactiveFormsModule,
     ],
     exports: [
-        PxbAccountCreatedComponent,
-        PxbAccountDetailsComponent,
-        PxbCreatePasswordComponent,
-        PxbEulaComponent,
-        PxbProvideEmailComponent,
-        PxbVerifyEmailComponent,
-        PxbExistingAccountComponent,
+        BluiAccountCreatedComponent,
+        BluiAccountDetailsComponent,
+        BluiCreatePasswordComponent,
+        BluiEulaComponent,
+        BluiProvideEmailComponent,
+        BluiVerifyEmailComponent,
+        BluiExistingAccountComponent,
     ],
 })
-export class PxbCreateAccountStepsModule {}
+export class BluiCreateAccountStepsModule {}

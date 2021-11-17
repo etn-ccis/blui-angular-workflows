@@ -2,13 +2,13 @@ import { Component, ElementRef, Input, OnDestroy, OnInit, TemplateRef, ViewChild
 import { Router } from '@angular/router';
 
 import { AUTH_ROUTES } from '../../auth/auth.routes';
-import { PxbRegisterUIService } from '../../services/api';
-import { PxbAuthSecurityService, SecurityContext } from '../../services/state/auth-security.service';
-import { PxbCreateAccountInviteErrorDialogService } from '../../services/dialog/create-account-invite-error-dialog.service';
+import { BluiRegisterUIService } from '../../services/api';
+import { BluiAuthSecurityService, SecurityContext } from '../../services/state/auth-security.service';
+import { BluiCreateAccountInviteErrorDialogService } from '../../services/dialog/create-account-invite-error-dialog.service';
 import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
 import { Subscription } from 'rxjs';
-import { PxbAuthConfig } from '../../services/config/auth-config';
-import { PxbAuthTranslations } from '../../translations/auth-translations';
+import { BluiAuthConfig } from '../../services/config/auth-config';
+import { BluiAuthTranslations } from '../../translations/auth-translations';
 
 import { CreateAccountService } from '../create-account/create-account.service';
 import { AccountDetails } from '../create-account/create-account.component';
@@ -18,11 +18,11 @@ import { RegistrationSuccessScreenContext } from '../create-account/steps/accoun
 const ACCOUNT_DETAILS_STARTING_PAGE = 2;
 
 @Component({
-    selector: 'pxb-create-account-invite',
+    selector: 'blui-create-account-invite',
     templateUrl: './create-account-invite.component.html',
     styleUrls: ['./create-account-invite.component.scss'],
 })
-export class PxbCreateAccountInviteComponent implements OnInit, OnDestroy {
+export class BluiCreateAccountInviteComponent implements OnInit, OnDestroy {
     @Input() accountDetails: AccountDetails[] = [];
     @Input() registrationSuccessScreen: TemplateRef<any>;
     @Input() existingAccountSuccessScreen: TemplateRef<any>;
@@ -32,7 +32,7 @@ export class PxbCreateAccountInviteComponent implements OnInit, OnDestroy {
 
     isLoading: boolean;
     isValidRegistrationLink: boolean;
-    isPXWhiteAccount: boolean;
+    isBrightlayerCloudAccount: boolean;
 
     // EULA Page
     userAcceptsEula: boolean;
@@ -49,24 +49,24 @@ export class PxbCreateAccountInviteComponent implements OnInit, OnDestroy {
     stateListener: Subscription;
     registrationUtils: CreateAccountService;
     isEmpty = (el: ElementRef): boolean => isEmptyView(el);
-    translate: PxbAuthTranslations;
+    translate: BluiAuthTranslations;
 
     registrationSuccessScreenContext: RegistrationSuccessScreenContext;
 
     constructor(
         private readonly _router: Router,
-        private readonly _pxbAuthConfig: PxbAuthConfig,
-        private readonly _pxbRegisterService: PxbRegisterUIService,
-        private readonly _pxbSecurityService: PxbAuthSecurityService,
-        private readonly _pxbErrorDialogService: PxbCreateAccountInviteErrorDialogService
+        private readonly _bluiAuthConfig: BluiAuthConfig,
+        private readonly _bluiRegisterService: BluiRegisterUIService,
+        private readonly _bluiSecurityService: BluiAuthSecurityService,
+        private readonly _bluiErrorDialogService: BluiCreateAccountInviteErrorDialogService
     ) {
-        this.stateListener = this._pxbSecurityService.securityStateChanges().subscribe((state: SecurityContext) => {
+        this.stateListener = this._bluiSecurityService.securityStateChanges().subscribe((state: SecurityContext) => {
             this.isLoading = state.isLoading;
         });
     }
 
     ngOnInit(): void {
-        this.translate = this._pxbAuthConfig.getTranslations();
+        this.translate = this._bluiAuthConfig.getTranslations();
         this.validateRegistrationLink();
         this.registrationUtils = new CreateAccountService(ACCOUNT_DETAILS_STARTING_PAGE, this.accountDetails);
     }
@@ -76,29 +76,29 @@ export class PxbCreateAccountInviteComponent implements OnInit, OnDestroy {
     }
 
     validateRegistrationLink(): void {
-        this._pxbSecurityService.setLoadingMessage('Validating registration link...');
-        this._pxbSecurityService.setLoading(true);
-        this._pxbRegisterService
+        this._bluiSecurityService.setLoadingMessage('Validating registration link...');
+        this._bluiSecurityService.setLoading(true);
+        this._bluiRegisterService
             .validateUserRegistrationRequest()
             .then((registrationComplete) => {
-                this._pxbSecurityService.setLoading(false);
+                this._bluiSecurityService.setLoading(false);
                 this.isValidRegistrationLink = true;
-                this.isPXWhiteAccount = registrationComplete;
+                this.isBrightlayerCloudAccount = registrationComplete;
             })
             .catch((data: ErrorDialogData) => {
-                this._pxbErrorDialogService.openDialog(data);
-                this._pxbSecurityService.setLoading(false);
+                this._bluiErrorDialogService.openDialog(data);
+                this._bluiSecurityService.setLoading(false);
                 this.isValidRegistrationLink = false;
             });
     }
 
     registerAccount(): void {
-        this._pxbSecurityService.setLoading(true);
+        this._bluiSecurityService.setLoading(true);
         const customForms = this.registrationUtils.getAccountDetailsCustomValues();
-        this._pxbRegisterService
+        this._bluiRegisterService
             .completeRegistration(this.firstName, this.lastName, customForms, this.password)
             .then(() => {
-                this._pxbSecurityService.setLoading(false);
+                this._bluiSecurityService.setLoading(false);
                 this.registrationSuccessScreenContext = {
                     email: undefined,
                     firstName: this.firstName,
@@ -107,13 +107,13 @@ export class PxbCreateAccountInviteComponent implements OnInit, OnDestroy {
                 for (const key of customForms.keys()) {
                     this.registrationSuccessScreenContext[key] = customForms.get(key).value;
                 }
-                this._pxbSecurityService.updateSecurityState({ registrationPassword: '' });
+                this._bluiSecurityService.updateSecurityState({ registrationPassword: '' });
                 this.registrationUtils.clearAccountDetails();
                 this.registrationUtils.nextStep();
             })
             .catch((data: ErrorDialogData) => {
-                this._pxbSecurityService.setLoading(false);
-                this._pxbErrorDialogService.openDialog(data);
+                this._bluiSecurityService.setLoading(false);
+                this._bluiErrorDialogService.openDialog(data);
             });
     }
 
@@ -146,7 +146,7 @@ export class PxbCreateAccountInviteComponent implements OnInit, OnDestroy {
                 : this.registrationUtils.nextStep();
         }
         if (this.registrationUtils.getCurrentPage() === 1) {
-            this._pxbSecurityService.updateSecurityState({ registrationPassword: this.password });
+            this._bluiSecurityService.updateSecurityState({ registrationPassword: this.password });
         }
         return this.registrationUtils.nextStep();
     }
@@ -160,7 +160,7 @@ export class PxbCreateAccountInviteComponent implements OnInit, OnDestroy {
     }
 
     navigateToLogin(): void {
-        this._pxbSecurityService.updateSecurityState({ registrationPassword: '' });
+        this._bluiSecurityService.updateSecurityState({ registrationPassword: '' });
         this.registrationUtils.clearAccountDetails();
         void this._router.navigate([`${AUTH_ROUTES.AUTH_WORKFLOW}/${AUTH_ROUTES.LOGIN}`]);
     }

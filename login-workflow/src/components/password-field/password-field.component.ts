@@ -1,12 +1,12 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { AbstractControl, FormControl, ValidationErrors, ValidatorFn } from '@angular/forms';
-import { PxbAuthConfig } from '../../services/config/auth-config';
-import { PxbAuthTranslations } from '../../translations/auth-translations';
-import { PxbAuthSecurityService } from '../../services/state/auth-security.service';
+import { BluiAuthConfig } from '../../services/config/auth-config';
+import { BluiAuthTranslations } from '../../translations/auth-translations';
+import { BluiAuthSecurityService } from '../../services/state/auth-security.service';
 import { CrossFieldErrorMatcher } from '../../util/matcher';
 
 @Component({
-    selector: 'pxb-password-field',
+    selector: 'blui-password-field',
     styles: [
         `
             mat-form-field {
@@ -19,7 +19,7 @@ import { CrossFieldErrorMatcher } from '../../util/matcher';
             <mat-label>{{ label || translate().GENERAL.PASSWORD_FORM_LABEL }}</mat-label>
             <input
                 matInput
-                #pxbPasswordField
+                #bluiPasswordField
                 name="password"
                 autocomplete="off"
                 (ngModelChange)="edit.emit(passwordFormControl.value)"
@@ -49,20 +49,20 @@ export class PasswordFieldComponent implements OnInit {
     @Output() passwordsMatchChange: EventEmitter<boolean> = new EventEmitter<boolean>();
     @Output() enter: EventEmitter<void> = new EventEmitter<void>();
     @Output() edit: EventEmitter<string> = new EventEmitter<string>();
-    @ViewChild('pxbPasswordField') passwordInputElement: ElementRef;
+    @ViewChild('bluiPasswordField') passwordInputElement: ElementRef;
 
     isPasswordVisible = false;
     passwordFormControl: FormControl;
     matcher = new CrossFieldErrorMatcher();
 
     constructor(
-        private readonly _pxbAuthConfig: PxbAuthConfig,
-        private readonly _pxbSecurityService: PxbAuthSecurityService
+        private readonly _bluiAuthConfig: BluiAuthConfig,
+        private readonly _bluiSecurityService: BluiAuthSecurityService
     ) {}
 
     ngOnInit(): void {
         const rememberedPassword = this.rememberPassword
-            ? this._pxbSecurityService.getSecurityState().registrationPassword
+            ? this._bluiSecurityService.getSecurityState().registrationPassword
             : '';
         this.passwordFormControl = new FormControl(rememberedPassword ? rememberedPassword : '', [
             this._passwordsMatchValidator(),
@@ -87,8 +87,8 @@ export class PasswordFieldComponent implements OnInit {
         };
     }
 
-    translate(): PxbAuthTranslations {
-        return this._pxbAuthConfig.getTranslations();
+    translate(): BluiAuthTranslations {
+        return this._bluiAuthConfig.getTranslations();
     }
 
     togglePasswordVisibility(): void {

@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
-import { PxbAuthTranslations } from './auth-translations';
+import { BluiAuthTranslations } from './auth-translations';
 
-export const pxbAuthSpanishTranslations: PxbAuthTranslations = {
+export const bluiAuthSpanishTranslations: BluiAuthTranslations = {
     GENERAL: {
         BACK_BUTTON: 'Atrás',
         OKAY_BUTTON: 'Okey',
@@ -46,10 +46,10 @@ export const pxbAuthSpanishTranslations: PxbAuthTranslations = {
         PHONE_NUMBER: undefined,
         EMAIL: undefined,
         EMERGENCY_SUPPORT_DESCRIPTION: (phone: string): string =>
-            `Para obtener asistencia técnica, llame a <a class="pxb-auth-link" href="tel:${phone}">${phone}</a>.`,
+            `Para obtener asistencia técnica, llame a <a class="blui-auth-link" href="tel:${phone}">${phone}</a>.`,
         EMERGENCY_SUPPORT_TITLE: 'Soporte de emergencia',
         GENERAL_SUPPORT_DESCRIPTION: (email: string): string =>
-            `Si tiene preguntas, comentarios o necesita asistencia, envíenos un correo electrónico a <a class="pxb-auth-link" href="mailto:${email}">${email}</a>.`,
+            `Si tiene preguntas, comentarios o necesita asistencia, envíenos un correo electrónico a <a class="blui-auth-link" href="mailto:${email}">${email}</a>.`,
         GENERAL_SUPPORT_TITLE: 'Preguntas generales',
     },
     PASSWORD_CRITERIA: {
@@ -66,7 +66,7 @@ export const pxbAuthSpanishTranslations: PxbAuthTranslations = {
             'Si este correo electrónico tiene una cuenta con Eaton, recibirá una respuesta dentro de <strong> un día hábil </strong>',
         PHONE_NUMBER: undefined,
         CONTACT_SUPPORT_BY_PHONE: (phone: string): string =>
-            `Para problemas urgentes con la cuenta, llame al <a class="pxb-auth-link" href="tel:${phone}">${phone}</a>.`,
+            `Para problemas urgentes con la cuenta, llame al <a class="blui-auth-link" href="tel:${phone}">${phone}</a>.`,
         SUCCESS_TITLE: 'Email enviado',
         SUCCESS_DESCRIPTION: (email: string): string =>
             `Se ha enviado un enlace para restablecer su contraseña a <strong>${email}</strong>`,

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { NavigationStart, Router } from '@angular/router';
-import { PxbAuthConfig } from '../../services/config/auth-config';
+import { BluiAuthConfig } from '../../services/config/auth-config';
 import { AUTH_ROUTES } from '../../auth/auth.routes';
 import { matchesRoute } from '../../util/matcher';
 
@@ -59,7 +59,7 @@ export type RememberMeData = {
 @Injectable({
     providedIn: 'root',
 })
-export class PxbAuthSecurityService {
+export class BluiAuthSecurityService {
     private readonly securityStateObs = new Subject<SecurityContext>();
     private isFirstRouteCaptured = false;
     private securityState: SecurityContext = {
@@ -77,7 +77,7 @@ export class PxbAuthSecurityService {
     };
 
     // Whenever the application loads for the first time, we may want to direct the user to their original destination, before they were redirected to the login screen.
-    constructor(private readonly _router: Router, private readonly _pxbAuthConfig: PxbAuthConfig) {}
+    constructor(private readonly _router: Router, private readonly _bluiAuthConfig: BluiAuthConfig) {}
 
     /* Call this method to parse the on-load URL to identify which page to redirect to when the user is authenticated.
        If `defaultHomeRoute` is provided, then this route will be used when unable to identify the default redirect route via URL.

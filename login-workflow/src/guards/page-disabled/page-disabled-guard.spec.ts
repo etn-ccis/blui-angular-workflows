@@ -1,9 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { PxbAuthPageDisabledGuard } from './page-disabled-guard';
+import { BluiAuthPageDisabledGuard } from './page-disabled-guard';
 
-describe('PxbAuthPageDisabledGuard', () => {
-    let service: PxbAuthPageDisabledGuard;
+describe('BluiAuthPageDisabledGuard', () => {
+    let service: BluiAuthPageDisabledGuard;
 
     beforeEach(() => {
         void TestBed.configureTestingModule({
@@ -13,7 +13,7 @@ describe('PxbAuthPageDisabledGuard', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({});
-        service = TestBed.inject(PxbAuthPageDisabledGuard);
+        service = TestBed.inject(BluiAuthPageDisabledGuard);
     });
 
     it('should be created', () => {

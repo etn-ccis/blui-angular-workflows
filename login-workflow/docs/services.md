@@ -4,16 +4,16 @@ After setup, you can now use the services listed below to customize the auth mod
 
 At a high-level, the services available are:
 
-* `PxbAuthConfig` - Used to customize general auth-workflow settings.
-* `PxbAuthSecurityService` - Used to access auth-state.
-* `PxbAuthUIService` - Custom API calls for logging a user in and maintaining an existing account. 
-* `PxbRegisterUIService` - Custom API calls for registering a new user.
-* `PxbChangePasswordDialogService` - Used to configure the Change Password dialog.
+* `BluiAuthConfig` - Used to customize general auth-workflow settings.
+* `BluiAuthSecurityService` - Used to access auth-state.
+* `BluiAuthUIService` - Custom API calls for logging a user in and maintaining an existing account. 
+* `BluiRegisterUIService` - Custom API calls for registering a new user.
+* `BluiChangePasswordDialogService` - Used to configure the Change Password dialog.
 
 
-## PxbAuthConfig
+## BluiAuthConfig
 
-`PxbAuthConfig` a configuration service; it is used to enable/disable settings in the auth workflow. These properties are typically set only once and do not change. Some UI configuration properties are also passed in.
+`BluiAuthConfig` a configuration service; it is used to enable/disable settings in the auth workflow. These properties are typically set only once and do not change. Some UI configuration properties are also passed in.
 
 > This object must be configured on application load (app.component.ts) for the `show[Page]` properties to take effect.  
 
@@ -21,13 +21,13 @@ At a high-level, the services available are:
 
 ```
 // app.component.ts
-import { PxbAuthConfig } from '@pxblue/angular-auth-workflow';
+import { BluiAuthConfig } from '@brightlayer-ui/angular-auth-workflow';
 
-constructor(pxbAuthConfig: PxbAuthConfig) {
-    pxbAuthConfig.projectImage = 'assets/images/eaton_stacked_logo.png';
-    pxbAuthConfig.backgroundImage = 'assets/images/background.svg';
-    pxbAuthConfig.allowDebugMode = true;
-    pxbAuthConfig.showSelfRegistration = false;
+constructor(BluiAuthConfig: BluiAuthConfig) {
+    BluiAuthConfig.projectImage = 'assets/images/eaton_stacked_logo.png';
+    BluiAuthConfig.backgroundImage = 'assets/images/background.svg';
+    BluiAuthConfig.allowDebugMode = true;
+    BluiAuthConfig.showSelfRegistration = false;
 }
 ```
 
@@ -37,7 +37,7 @@ constructor(pxbAuthConfig: PxbAuthConfig) {
     -   When true, presents a debug button on the login screen to allow access to deep link-based screens/flows
     -   Default: false
 -   **authGuardRedirectRoute** (optional) _`string`_
-    -   Whenever the PxbAuthGuard blocks navigation to an auth-protected page, navigate to this route.
+    -   Whenever the BluiAuthGuard blocks navigation to an auth-protected page, navigate to this route.
     -   Default: undefined
 -   **backgroundImage** (optional): _`string`_
     -   Background image to be used within the auth workflow
@@ -59,7 +59,7 @@ constructor(pxbAuthConfig: PxbAuthConfig) {
 -   **customPasswordRequirements** (optional): _`PasswordRequirement[]`_
     -   Array of custom password requirements. 
     -   Default: `[]`
--   **customTranslations** (optional): _`PxbAuthTranslations`_
+-   **customTranslations** (optional): _`BluiAuthTranslations`_
     -   Custom translation file used for supporting additional languages. This property overrides the `languageCode`. 
     -   Default: `undefined`
 -   **defaultPasswordRequirements** (optional): _`{characterLimit: boolean, uppercaseLetter: boolean, lowercaseLetter: boolean, requireNumber: boolean, specialCharacter: boolean }`_
@@ -95,20 +95,20 @@ constructor(pxbAuthConfig: PxbAuthConfig) {
     -   Default: true
     
 
-## PxbAuthSecurityService
+## BluiAuthSecurityService
 
-`PxbAuthSecurityService` stores user authentication state and updates as a user logs in/out. 
+`BluiAuthSecurityService` stores user authentication state and updates as a user logs in/out. 
 Pages within the workflow use this service to check if a user is authenticated, check if an API call is happening, etc. 
 
 ### Usage
 
 ```ts
-import { PxbAuthSecurityService, AUTH_ROUTE } from '@pxblue/angular-auth-workflow';
+import { BluiAuthSecurityService, AUTH_ROUTE } from '@brightlayer-ui/angular-auth-workflow';
 
-constructor(private readonly _pxbSecurityService: PxbAuthSecurityService) {}
+constructor(private readonly _BluiSecurityService: BluiAuthSecurityService) {}
 
 logout(): void {
-   this._pxbSecurityService.updateSecurityState({ isAuthenticatedUser: false });
+   this._BluiSecurityService.updateSecurityState({ isAuthenticatedUser: false });
    void this._router.navigate([AUTH_ROUTE]);
 }
 ```
@@ -146,9 +146,9 @@ logout(): void {
     -   Whether the user has logged in or is otherwise authenticated.
     
 
-## PxbAuthUIService
+## BluiAuthUIService
 
-`PxbAuthUIService` contains methods that are intended to call APIs to perform auth-related actions.  A mock `PxbAuthUIService` is provided in the examples folder to provide a placeholder for API calls.
+`BluiAuthUIService` contains methods that are intended to call APIs to perform auth-related actions.  A mock `BluiAuthUIService` is provided in the examples folder to provide a placeholder for API calls.
 
 ### Usage
 
@@ -156,12 +156,12 @@ You will need to provide your own service implementation with real API calls.
 
 ```
 // app.module.ts
-import { PxbAuthUIService } from '@pxblue/angular-auth-workflow';
+import { BluiAuthUIService } from '@brightlayer-ui/angular-auth-workflow';
 import { AuthUIService } from 'services/auth-ui.service';
 
 providers: [
     {
-        provide: PxbAuthUIService,
+        provide: BluiAuthUIService,
         useClass: AuthUIService,
     }
 ]
@@ -223,9 +223,9 @@ providers: [
 
     -   The user has tapped on an email with a password reset link, which they received after requesting help for forgetting their password. This API call validates the reset link is legitimate and the app should allow a user to enter a new password. 
 
-## PxbRegisterUIService
+## BluiRegisterUIService
 
-`PxbAuthUIService` contains methods that are intended to call APIs to perform registration-related actions. A mock `PxbRegistrerUIService` is provided in the examples folder to provide a placeholder for API calls.
+`BluiAuthUIService` contains methods that are intended to call APIs to perform registration-related actions. A mock `BluiRegistrerUIService` is provided in the examples folder to provide a placeholder for API calls.
 
 ### Usage
 
@@ -233,12 +233,12 @@ You will need to provide your own service implementation with real API calls.
 
 ```
 // app.module.ts
-import { PxbRegisterUIService } from '@pxblue/angular-auth-workflow';
+import { BluiRegisterUIService } from '@brightlayer-ui/angular-auth-workflow';
 import { RegisterUIService } from 'services/register-ui.service';
 
 providers: [
     {
-        provide: PxbRegisterUIService,
+        provide: BluiRegisterUIService,
         useClass: RegisterUIService,
     }
 ]
@@ -294,7 +294,7 @@ providers: [
 
 
     
-## PxbChangePasswordDialogService
+## BluiChangePasswordDialogService
 
 The Change Password page is the only page in the auth workflow that is accessible via a dialog box and not an angular route. 
 When a password is changed, the dialog box will be dismissed automatically. To show the Change Password dialog, see the usage below. 
@@ -302,11 +302,11 @@ When a password is changed, the dialog box will be dismissed automatically. To s
 ### Usage
 
 ```
-import { PxbChangePasswordDialogService } from '@pxblue/angular-auth-workflow';
+import { BluiChangePasswordDialogService } from '@brightlayer-ui/angular-auth-workflow';
 
-constructor(public readonly _pxbChangePasswordService: PxbChangePasswordDialogService) {}
+constructor(public readonly _BluiChangePasswordService: BluiChangePasswordDialogService) {}
 
 openDialog() {
-    this._pxbChangePasswordService.openDialog();
+    this._BluiChangePasswordService.openDialog();
 }
 ```

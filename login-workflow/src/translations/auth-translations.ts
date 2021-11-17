@@ -1,4 +1,4 @@
-export type PxbAuthTranslations = {
+export type BluiAuthTranslations = {
     GENERAL: {
         BACK_BUTTON: string;
         OKAY_BUTTON: string;
@@ -31,7 +31,7 @@ export type PxbAuthTranslations = {
         INSTRUCTIONS: string;
         RESPONSE_TIME_TEXT: string;
         PHONE_NUMBER: string;
-        CONTACT_SUPPORT_BY_PHONE: (phone: string) => string; // Uses FORGOT_PASSWORD.PHONE_NUMBER or PxbConfig
+        CONTACT_SUPPORT_BY_PHONE: (phone: string) => string; // Uses FORGOT_PASSWORD.PHONE_NUMBER or BluiConfig
         SUCCESS_TITLE: string;
         SUCCESS_DESCRIPTION: (email: string) => string;
     };
@@ -56,9 +56,9 @@ export type PxbAuthTranslations = {
         TITLE: string;
         PHONE_NUMBER: string;
         EMAIL: string;
-        EMERGENCY_SUPPORT_DESCRIPTION: (phone: string) => string; // Uses CONTACT_SUPPORT.PHONE_NUMBER or PxbConfig
+        EMERGENCY_SUPPORT_DESCRIPTION: (phone: string) => string; // Uses CONTACT_SUPPORT.PHONE_NUMBER or BluiConfig
         EMERGENCY_SUPPORT_TITLE: string;
-        GENERAL_SUPPORT_DESCRIPTION: (email: string) => string; // Uses CONTACT_SUPPORT.EMAIL or PxbConfig
+        GENERAL_SUPPORT_DESCRIPTION: (email: string) => string; // Uses CONTACT_SUPPORT.EMAIL or BluiConfig
         GENERAL_SUPPORT_TITLE: string;
     };
     CREATE_ACCOUNT: {
@@ -119,9 +119,9 @@ type DeepPartial<T> = {
     [P in keyof T]?: DeepPartial<T[P]>;
 };
 
-export type PxbAuthTranslationsOverride = DeepPartial<PxbAuthTranslations>;
+export type BluiAuthTranslationsOverride = DeepPartial<BluiAuthTranslations>;
 
-export function mergeAuthTranslations(original: PxbAuthTranslations, overrides: PxbAuthTranslationsOverride): void {
+export function mergeAuthTranslations(original: BluiAuthTranslations, overrides: BluiAuthTranslationsOverride): void {
     Object.assign(original.GENERAL, overrides.GENERAL);
     Object.assign(original.CONTACT_SUPPORT, overrides.CONTACT_SUPPORT);
     Object.assign(original.CHANGE_PASSWORD, overrides.CHANGE_PASSWORD);

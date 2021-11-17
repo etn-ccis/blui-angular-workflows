@@ -78,7 +78,7 @@ jobs:
             echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
             echo "//registry.yarnpkg.com/:_authToken=$NPM_TOKEN" >> ~/.npmrc
       - run:
-          name: Publish @pxblue/angular-auth-workflow
+          name: Publish @brightlayer-ui/angular-auth-workflow
           command:  |
             cd login-workflow && yarn publish:package -b $CIRCLE_BRANCH
 
@@ -90,7 +90,7 @@ jobs:
       - checkout
       - gh/setup
       - run:
-          name: Tag @pxblue/angular-auth-workflow
+          name: Tag @brightlayer-ui/angular-auth-workflow
           command:  |
             cd login-workflow && yarn tag:package -b $CIRCLE_BRANCH
 workflows:

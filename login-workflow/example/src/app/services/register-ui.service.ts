@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { Injectable } from '@angular/core';
-import { IPxbRegisterUIService, PxbAuthSecurityService, PxbAuthConfig } from '@pxblue/angular-auth-workflow';
+import { IBluiRegisterUIService, BluiAuthSecurityService, BluiAuthConfig } from '@brightlayer-ui/angular-auth-workflow';
 import { SAMPLE_EULA } from '../constants/sampleEula';
 import { FormControl } from '@angular/forms';
 
@@ -9,10 +9,10 @@ const TIMEOUT_MS = 1500;
 @Injectable({
     providedIn: 'root',
 })
-export class RegisterUIService implements IPxbRegisterUIService {
+export class RegisterUIService implements IBluiRegisterUIService {
     constructor(
-        private readonly _pxbSecurityService: PxbAuthSecurityService,
-        private readonly _pxbAuthConfig: PxbAuthConfig
+        private readonly _bluiSecurityService: BluiAuthSecurityService,
+        private readonly _bluiAuthConfig: BluiAuthConfig
     ) {}
 
     validateUserRegistrationRequest(code?: string): Promise<boolean> {
@@ -30,7 +30,7 @@ export class RegisterUIService implements IPxbRegisterUIService {
                 ) {
                     return reject();
                 }
-                if (registrationCode.toUpperCase() === 'PXWHITE') {
+                if (registrationCode.toUpperCase() === 'BRIGHTLAYER_CLOUD') {
                     return resolve(true);
                 }
                 return resolve(false);
@@ -51,7 +51,7 @@ export class RegisterUIService implements IPxbRegisterUIService {
                     return reject();
                 } else {
                     const eula = SAMPLE_EULA;
-                    this._pxbAuthConfig.eula = eula; // This prevents future EULA load requests.
+                    this._bluiAuthConfig.eula = eula; // This prevents future EULA load requests.
                     return resolve(eula);
                 }
             }, TIMEOUT_MS);
@@ -97,7 +97,7 @@ export class RegisterUIService implements IPxbRegisterUIService {
                 if (firstName && firstName.toUpperCase() === 'FAIL') {
                     return reject();
                 }
-                this._pxbSecurityService.updateSecurityState({ email: 'sample-email@test.com' });
+                this._bluiSecurityService.updateSecurityState({ email: 'sample-email@test.com' });
                 return resolve();
             }, TIMEOUT_MS);
         });

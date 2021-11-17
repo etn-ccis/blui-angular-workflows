@@ -1,28 +1,28 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { PxbCreateAccountStepsModule } from '../steps.module';
+import { BluiCreateAccountStepsModule } from '../steps.module';
 import { RouterTestingModule } from '@angular/router/testing';
 import { By } from '@angular/platform-browser';
-import { PxbEulaComponent } from './eula.component';
-import { PxbAuthConfig } from '../../../../services/config/auth-config';
-import { PxbRegisterUIService } from '../../../../services/api';
+import { BluiEulaComponent } from './eula.component';
+import { BluiAuthConfig } from '../../../../services/config/auth-config';
+import { BluiRegisterUIService } from '../../../../services/api';
 
-describe('PxbEulaComponent', () => {
-    let component: PxbEulaComponent;
-    let authConfig: PxbAuthConfig;
-    let registerService: PxbRegisterUIService;
-    let fixture: ComponentFixture<PxbEulaComponent>;
+describe('BluiEulaComponent', () => {
+    let component: BluiEulaComponent;
+    let authConfig: BluiAuthConfig;
+    let registerService: BluiRegisterUIService;
+    let fixture: ComponentFixture<BluiEulaComponent>;
 
     beforeEach(() => {
         void TestBed.configureTestingModule({
-            imports: [PxbCreateAccountStepsModule, RouterTestingModule],
+            imports: [BluiCreateAccountStepsModule, RouterTestingModule],
         }).compileComponents();
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(PxbEulaComponent);
+        fixture = TestBed.createComponent(BluiEulaComponent);
         component = fixture.componentInstance;
-        authConfig = TestBed.inject(PxbAuthConfig);
-        registerService = TestBed.inject(PxbRegisterUIService);
+        authConfig = TestBed.inject(BluiAuthConfig);
+        registerService = TestBed.inject(BluiRegisterUIService);
     });
 
     it('should create', () => {
@@ -54,7 +54,7 @@ describe('PxbEulaComponent', () => {
     it('should render "License Agreement" in the title', () => {
         spyOn(component, 'getEULA').and.stub();
         fixture.detectChanges();
-        const titleEl = fixture.debugElement.query(By.css('.pxb-auth-title'));
+        const titleEl = fixture.debugElement.query(By.css('.blui-auth-title'));
         void expect(titleEl.nativeElement.innerHTML).toBe('License Agreement');
     });
 

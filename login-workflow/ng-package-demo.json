@@ -1,5 +1,5 @@
 {
-  "dest": "example/node_modules/@pxblue/angular-auth-workflow",
+  "dest": "example/node_modules/@brightlayer-ui/angular-auth-workflow",
   "lib": {
     "entryFile": "src/index.ts"
   }

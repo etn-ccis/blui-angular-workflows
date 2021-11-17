@@ -1,53 +1,53 @@
 <!-- Error State -->
 <ng-container *ngIf="!isValidRegistrationLink && !isLoading">
-    <div class="mat-title pxb-auth-title" [innerHTML]="translate.CREATE_ACCOUNT.EULA.TITLE"></div>
-    <div class="pxb-create-account-invite-content-error-state">
-        <pxb-empty-state>
-            <div pxb-title>
+    <div class="mat-title blui-auth-title" [innerHTML]="translate.CREATE_ACCOUNT.EULA.TITLE"></div>
+    <div class="blui-create-account-invite-content-error-state">
+        <blui-empty-state>
+            <div blui-title>
                 <div #registrationLinkErrorTitleVC>
-                    <ng-content select="[pxb-registration-link-error-title]"></ng-content>
+                    <ng-content select="[blui-registration-link-error-title]"></ng-content>
                 </div>
                 <div
                     *ngIf="isEmpty(registrationLinkErrorTitleEl)"
                     [innerHTML]="translate.CREATE_ACCOUNT.REGISTRATION_LINK.INVALID_TITLE"
                 ></div>
             </div>
-            <div pxb-description>
+            <div blui-description>
                 <div #registrationLinkErrorDescVC>
-                    <ng-content select="[pxb-registration-link-error-description]"></ng-content>
+                    <ng-content select="[blui-registration-link-error-description]"></ng-content>
                 </div>
                 <div
                     *ngIf="isEmpty(registrationLinkErrorDescEl)"
                     [innerHTML]="translate.CREATE_ACCOUNT.REGISTRATION_LINK.INVALID_DESCRIPTION"
                 ></div>
             </div>
-            <mat-icon pxb-empty-icon color="warn">error</mat-icon>
-        </pxb-empty-state>
+            <mat-icon blui-empty-icon color="warn">error</mat-icon>
+        </blui-empty-state>
     </div>
-    <mat-divider class="pxb-auth-divider pxb-auth-action-button-divider"></mat-divider>
-    <div class="pxb-auth-action-button-container">
+    <mat-divider class="blui-auth-divider blui-auth-action-button-divider"></mat-divider>
+    <div class="blui-auth-action-button-container">
         <button mat-flat-button color="primary" (click)="navigateToLogin()" [style.width.%]="100">
             {{ translate.GENERAL.OKAY_BUTTON }}
         </button>
     </div>
 </ng-container>
 
-<ng-container *ngIf="isValidRegistrationLink && !isPXWhiteAccount">
-    <pxb-create-account-eula-step
+<ng-container *ngIf="isValidRegistrationLink && !isBrightlayerCloudAccount">
+    <blui-create-account-eula-step
         *ngIf="registrationUtils.getCurrentPage() === 0 && isValidRegistrationLink"
         [(userAcceptsEula)]="userAcceptsEula"
-    ></pxb-create-account-eula-step>
+    ></blui-create-account-eula-step>
 
-    <pxb-create-account-create-password-step
+    <blui-create-account-create-password-step
         *ngIf="registrationUtils.getCurrentPage() === 1"
         [(password)]="password"
         [(passwordMeetsRequirements)]="passwordMeetsRequirements"
         (advance)="attemptContinue()"
     >
-    </pxb-create-account-create-password-step>
+    </blui-create-account-create-password-step>
 
     <!-- Page 1 -->
-    <pxb-create-account-account-details-step
+    <blui-create-account-account-details-step
         *ngIf="registrationUtils.isFirstAccountDetailsPage()"
         [showDefaultAccountDetails]="true"
         [(firstName)]="firstName"
@@ -58,38 +58,38 @@
         (advance)="attemptContinue()"
     >
         <template
-            pxb-account-details
+            blui-account-details
             [ngTemplateOutlet]="registrationUtils.getCustomAccountDetailsTemplate()"
         ></template>
-    </pxb-create-account-account-details-step>
+    </blui-create-account-account-details-step>
 
     <!-- Custom Account Details Pages -->
-    <pxb-create-account-account-details-step
+    <blui-create-account-account-details-step
         *ngIf="registrationUtils.isCustomAccountsDetailsPage()"
         [pageTitle]="registrationUtils.getCustomAccountDetailsTitle()"
         [pageInstructions]="registrationUtils.getCustomAccountDetailsInstructions()"
     >
         <template
-            pxb-account-details
+            blui-account-details
             [ngTemplateOutlet]="registrationUtils.getCustomAccountDetailsTemplate()"
         ></template>
-    </pxb-create-account-account-details-step>
+    </blui-create-account-account-details-step>
 
-    <pxb-create-account-account-created-step
+    <blui-create-account-account-created-step
         *ngIf="registrationUtils.showAccountCreatedPage()"
         [userName]="getUserName()"
         [registrationSuccessScreen]="registrationSuccessScreen"
         [registrationSuccessScreenContext]="registrationSuccessScreenContext"
-    ></pxb-create-account-account-created-step>
+    ></blui-create-account-account-created-step>
 
     <ng-container *ngIf="!registrationUtils.showAccountCreatedPage()">
-        <mat-divider class="pxb-auth-divider pxb-auth-action-button-divider"></mat-divider>
-        <div class="pxb-auth-action-button-container">
-            <pxb-mobile-stepper
+        <mat-divider class="blui-auth-divider blui-auth-action-button-divider"></mat-divider>
+        <div class="blui-auth-action-button-container">
+            <blui-mobile-stepper
                 [steps]="registrationUtils.getNumberOfSteps()"
                 [activeStep]="registrationUtils.getCurrentPage()"
             >
-                <button pxb-back-button mat-stroked-button color="primary" style="width: 100px;" (click)="goBack()">
+                <button blui-back-button mat-stroked-button color="primary" style="width: 100px;" (click)="goBack()">
                     <ng-container *ngIf="registrationUtils.getCurrentPage() === 0">
                         {{ translate.GENERAL.CANCEL_BUTTON }}
                     </ng-container>
@@ -98,7 +98,7 @@
                     </ng-container>
                 </button>
                 <button
-                    pxb-next-button
+                    blui-next-button
                     mat-flat-button
                     color="primary"
                     style="width: 100px;"
@@ -107,12 +107,12 @@
                 >
                     {{ translate.GENERAL.NEXT_BUTTON }}
                 </button>
-            </pxb-mobile-stepper>
+            </blui-mobile-stepper>
         </div>
     </ng-container>
 </ng-container>
 
-<ng-container *ngIf="isValidRegistrationLink && isPXWhiteAccount">
-    <pxb-create-account-account-existing-step [registrationSuccessScreen]="existingAccountSuccessScreen">
-    </pxb-create-account-account-existing-step>
+<ng-container *ngIf="isValidRegistrationLink && isBrightlayerCloudAccount">
+    <blui-create-account-account-existing-step [registrationSuccessScreen]="existingAccountSuccessScreen">
+    </blui-create-account-account-existing-step>
 </ng-container>

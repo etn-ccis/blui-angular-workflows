@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AUTH_ROUTES, PxbAuthSecurityService, SecurityContext } from '@pxblue/angular-auth-workflow';
+import { AUTH_ROUTES, BluiAuthSecurityService, SecurityContext } from '@brightlayer-ui/angular-auth-workflow';
 
 @Component({
     selector: 'app-pre-auth',
@@ -16,7 +16,7 @@ export class PreAuthComponent {
     isAuth = false;
     routes = AUTH_ROUTES;
 
-    constructor(public router: Router, public pxbSecurityService: PxbAuthSecurityService) {
+    constructor(public router: Router, public bluiSecurityService: BluiAuthSecurityService) {
         this._listenForAuthStateChanges();
     }
 
@@ -36,7 +36,7 @@ export class PreAuthComponent {
     }
 
     private _listenForAuthStateChanges(): void {
-        this.pxbSecurityService.securityStateChanges().subscribe((state: SecurityContext) => {
+        this.bluiSecurityService.securityStateChanges().subscribe((state: SecurityContext) => {
             this.isAuth = state.isAuthenticatedUser;
         });
     }

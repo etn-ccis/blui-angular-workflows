@@ -1,24 +1,24 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { PxbAuthModule } from '../../auth.module';
+import { BluiAuthModule } from '../../auth.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { PxbResetPasswordComponent } from './reset-password.component';
-import { PxbAuthUIService } from '../../services/api/auth-ui/auth-ui.service';
+import { BluiResetPasswordComponent } from './reset-password.component';
+import { BluiAuthUIService } from '../../services/api/auth-ui/auth-ui.service';
 
-describe('PxbResetPasswordComponent', () => {
-    let component: PxbResetPasswordComponent;
-    let fixture: ComponentFixture<PxbResetPasswordComponent>;
+describe('BluiResetPasswordComponent', () => {
+    let component: BluiResetPasswordComponent;
+    let fixture: ComponentFixture<BluiResetPasswordComponent>;
 
     beforeEach(() => {
         void TestBed.configureTestingModule({
-            imports: [PxbAuthModule, RouterTestingModule, NoopAnimationsModule],
+            imports: [BluiAuthModule, RouterTestingModule, NoopAnimationsModule],
         }).compileComponents();
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(PxbResetPasswordComponent);
+        fixture = TestBed.createComponent(BluiResetPasswordComponent);
         component = fixture.componentInstance;
-        const uiService = TestBed.inject(PxbAuthUIService);
+        const uiService = TestBed.inject(BluiAuthUIService);
         spyOn(uiService, 'verifyResetCode').and.returnValue(Promise.resolve());
         fixture.detectChanges();
     });

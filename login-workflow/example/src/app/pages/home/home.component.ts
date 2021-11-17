@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { PxbChangePasswordDialogService, AUTH_ROUTES, PxbAuthSecurityService } from '@pxblue/angular-auth-workflow';
+import {
+    BluiChangePasswordDialogService,
+    AUTH_ROUTES,
+    BluiAuthSecurityService,
+} from '@brightlayer-ui/angular-auth-workflow';
 
 @Component({
     selector: 'app-home',
@@ -10,18 +14,18 @@ import { PxbChangePasswordDialogService, AUTH_ROUTES, PxbAuthSecurityService } f
 export class HomeComponent {
     constructor(
         private readonly _router: Router,
-        private readonly _pxbSecurityService: PxbAuthSecurityService,
-        public pxbSecurityService: PxbAuthSecurityService,
-        public readonly _pxbChangePasswordService: PxbChangePasswordDialogService
+        private readonly _bluiSecurityService: BluiAuthSecurityService,
+        public bluiSecurityService: BluiAuthSecurityService,
+        public readonly _bluiChangePasswordService: BluiChangePasswordDialogService
     ) {}
 
     openDialog() {
-        this._pxbChangePasswordService.openDialog();
+        this._bluiChangePasswordService.openDialog();
     }
 
     logout(): void {
         console.log('Logging a user out of the app.');
-        this._pxbSecurityService.updateSecurityState({ isAuthenticatedUser: false });
+        this._bluiSecurityService.updateSecurityState({ isAuthenticatedUser: false });
         void this._router.navigate([AUTH_ROUTES.AUTH_WORKFLOW]);
     }
 }

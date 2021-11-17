@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
-    template: '<pxb-change-password></pxb-change-password>',
+    template: '<blui-change-password></blui-change-password>',
 })
-export class PxbChangePasswordDialogComponent {
-    constructor(public dialogRef: MatDialogRef<PxbChangePasswordDialogComponent>) {}
+export class BluiChangePasswordDialogComponent {
+    constructor(public dialogRef: MatDialogRef<BluiChangePasswordDialogComponent>) {}
 
     cancel(): void {
         this.dialogRef.close('cancel');

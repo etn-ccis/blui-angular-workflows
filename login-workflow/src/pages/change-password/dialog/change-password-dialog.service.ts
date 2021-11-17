@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { PxbChangePasswordDialogComponent } from './change-password-dialog.component';
+import { BluiChangePasswordDialogComponent } from './change-password-dialog.component';
 
 @Injectable({
     providedIn: 'root',
 })
-export class PxbChangePasswordDialogService {
+export class BluiChangePasswordDialogService {
     constructor(public dialog: MatDialog) {}
 
-    openDialog(): MatDialogRef<PxbChangePasswordDialogComponent> {
-        return this.dialog.open(PxbChangePasswordDialogComponent, {
+    openDialog(): MatDialogRef<BluiChangePasswordDialogComponent> {
+        return this.dialog.open(BluiChangePasswordDialogComponent, {
             width: '444px',
             height: '710px',
             disableClose: true,
-            panelClass: 'pxb-change-password-dialog',
+            panelClass: 'blui-change-password-dialog',
         });
     }
 

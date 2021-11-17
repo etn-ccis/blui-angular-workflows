@@ -1,15 +1,15 @@
-import { pxbAuthSpanishTranslations } from './spanish';
-import { pxbAuthChineseTranslations } from './chinese';
-import { pxbAuthFrenchTranslations } from './french';
-import { pxbAuthEnglishTranslations } from './english';
+import { bluiAuthSpanishTranslations } from './spanish';
+import { bluiAuthChineseTranslations } from './chinese';
+import { bluiAuthFrenchTranslations } from './french';
+import { bluiAuthEnglishTranslations } from './english';
 
 describe('Translations', () => {
     it('should test all translation functions', () => {
         const translationsArr = [
-            pxbAuthSpanishTranslations,
-            pxbAuthChineseTranslations,
-            pxbAuthFrenchTranslations,
-            pxbAuthEnglishTranslations,
+            bluiAuthSpanishTranslations,
+            bluiAuthChineseTranslations,
+            bluiAuthFrenchTranslations,
+            bluiAuthEnglishTranslations,
         ];
 
         for (const translation of translationsArr) {

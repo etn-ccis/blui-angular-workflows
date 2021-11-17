@@ -1,25 +1,25 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 
-import { PxbAuthSecurityService } from '../../../../services/state/auth-security.service';
-import { PxbCreateAccountErrorDialogService } from '../../../../services/dialog/create-account-error-dialog.service';
-import { PxbRegisterUIService } from '../../../../services/api';
+import { BluiAuthSecurityService } from '../../../../services/state/auth-security.service';
+import { BluiCreateAccountErrorDialogService } from '../../../../services/dialog/create-account-error-dialog.service';
+import { BluiRegisterUIService } from '../../../../services/api';
 import { ErrorDialogData } from '../../../../services/dialog/error-dialog.service';
-import { PxbAuthConfig } from './../../../../services/config/auth-config';
+import { BluiAuthConfig } from './../../../../services/config/auth-config';
 
-import { PxbAuthTranslations } from '../../../../translations/auth-translations';
+import { BluiAuthTranslations } from '../../../../translations/auth-translations';
 
 @Component({
-    selector: 'pxb-create-account-verify-email-step',
+    selector: 'blui-create-account-verify-email-step',
     template: `
-        <div class="mat-title pxb-auth-title" [innerHTML]="translate.CREATE_ACCOUNT.VERIFY_EMAIL.TITLE"></div>
+        <div class="mat-title blui-auth-title" [innerHTML]="translate.CREATE_ACCOUNT.VERIFY_EMAIL.TITLE"></div>
         <p
             class="mat-body-1"
             style="margin-bottom: 24px;"
             [innerHTML]="translate.CREATE_ACCOUNT.VERIFY_EMAIL.INSTRUCTIONS"
         ></p>
-        <mat-divider class="pxb-auth-divider" style="margin-top: 16px; margin-bottom: 32px;"></mat-divider>
-        <div class="pxb-auth-full-height">
+        <mat-divider class="blui-auth-divider" style="margin-top: 16px; margin-bottom: 32px;"></mat-divider>
+        <div class="blui-auth-full-height">
             <form>
                 <mat-form-field appearance="fill" style="width: 100%;">
                     <mat-label>{{ translate.CREATE_ACCOUNT.VERIFY_EMAIL.CODE_FORM_LABEL }}</mat-label>
@@ -50,7 +50,7 @@ import { PxbAuthTranslations } from '../../../../translations/auth-translations'
         </div>
     `,
 })
-export class PxbVerifyEmailComponent {
+export class BluiVerifyEmailComponent {
     @Input() verificationCode: string;
     @Input() email: string;
 
@@ -58,30 +58,30 @@ export class PxbVerifyEmailComponent {
     @Output() advance: EventEmitter<void> = new EventEmitter<void>();
 
     verificationCodeFormControl: FormControl;
-    translate: PxbAuthTranslations;
+    translate: BluiAuthTranslations;
 
     constructor(
-        private readonly _pxbAuthConfig: PxbAuthConfig,
-        private readonly _pxbRegisterService: PxbRegisterUIService,
-        private readonly _pxbSecurityService: PxbAuthSecurityService,
-        private readonly _pxbErrorDialogService: PxbCreateAccountErrorDialogService
+        private readonly _bluiAuthConfig: BluiAuthConfig,
+        private readonly _bluiRegisterService: BluiRegisterUIService,
+        private readonly _bluiSecurityService: BluiAuthSecurityService,
+        private readonly _bluiErrorDialogService: BluiCreateAccountErrorDialogService
     ) {}
 
     ngOnInit(): void {
-        this.translate = this._pxbAuthConfig.getTranslations();
+        this.translate = this._bluiAuthConfig.getTranslations();
         this.verificationCodeFormControl = new FormControl(this.verificationCode, Validators.required);
     }
 
     sendVerificationEmail(): void {
-        this._pxbSecurityService.setLoading(true);
-        this._pxbRegisterService
+        this._bluiSecurityService.setLoading(true);
+        this._bluiRegisterService
             .requestRegistrationCode(this.email)
             .then(() => {
-                this._pxbSecurityService.setLoading(false);
+                this._bluiSecurityService.setLoading(false);
             })
             .catch((data: ErrorDialogData) => {
-                this._pxbErrorDialogService.openDialog(data);
-                this._pxbSecurityService.setLoading(false);
+                this._bluiErrorDialogService.openDialog(data);
+                this._bluiSecurityService.setLoading(false);
             });
     }
 

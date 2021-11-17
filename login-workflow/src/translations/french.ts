@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
-import { PxbAuthTranslations } from './auth-translations';
+import { BluiAuthTranslations } from './auth-translations';
 
-export const pxbAuthFrenchTranslations: PxbAuthTranslations = {
+export const bluiAuthFrenchTranslations: BluiAuthTranslations = {
     GENERAL: {
         BACK_BUTTON: 'Retour',
         OKAY_BUTTON: `D'accord`,
@@ -46,10 +46,10 @@ export const pxbAuthFrenchTranslations: PxbAuthTranslations = {
         PHONE_NUMBER: undefined,
         EMAIL: undefined,
         EMERGENCY_SUPPORT_DESCRIPTION: (phone: string): string =>
-            `Pour une assistance technique, veuillez appeler <a class="pxb-auth-link" href="tel:${phone}">${phone}</a>.`,
+            `Pour une assistance technique, veuillez appeler <a class="blui-auth-link" href="tel:${phone}">${phone}</a>.`,
         EMERGENCY_SUPPORT_TITLE: `Assistance d'urgence`,
         GENERAL_SUPPORT_DESCRIPTION: (email: string): string =>
-            `Pour les questions, commentaires ou assistance par e-mail, veuillez nous envoyer un e-mail à <a class="pxb-auth-link" href="mailto:${email}">${email}</a>.`,
+            `Pour les questions, commentaires ou assistance par e-mail, veuillez nous envoyer un e-mail à <a class="blui-auth-link" href="mailto:${email}">${email}</a>.`,
         GENERAL_SUPPORT_TITLE: 'Questions générales',
     },
     PASSWORD_CRITERIA: {
@@ -66,7 +66,7 @@ export const pxbAuthFrenchTranslations: PxbAuthTranslations = {
             'Si ce courrier électronique a un compte chez Eaton, vous recevrez une réponse sous <strong>un jour ouvrable</strong>',
         PHONE_NUMBER: undefined,
         CONTACT_SUPPORT_BY_PHONE: (phone: string): string =>
-            `Pour les problèmes de compte urgents, veuillez appeler le <a class="pxb-auth-link" href="tel:${phone}">${phone}</a>.`,
+            `Pour les problèmes de compte urgents, veuillez appeler le <a class="blui-auth-link" href="tel:${phone}">${phone}</a>.`,
         SUCCESS_TITLE: 'Email envoyé',
         SUCCESS_DESCRIPTION: (email: string): string =>
             `Un lien pour réinitialiser votre mot de passe a été envoyé à <strong>${email}</strong>`,

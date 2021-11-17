@@ -1,29 +1,29 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { PxbAuthComponent } from './auth.component';
-import { PxbAuthModule } from '../auth.module';
-import { PxbAuthUIService } from '../services/api/auth-ui/auth-ui.service';
-import { PxbAuthSecurityService } from '../services/state/auth-security.service';
+import { BluiAuthComponent } from './auth.component';
+import { BluiAuthModule } from '../auth.module';
+import { BluiAuthUIService } from '../services/api/auth-ui/auth-ui.service';
+import { BluiAuthSecurityService } from '../services/state/auth-security.service';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AUTH_ROUTES } from './auth.routes';
 import { getAuthSubRoutes } from './auth.routing';
 
-describe('PxbAuthComponent', () => {
-    let component: PxbAuthComponent;
-    let fixture: ComponentFixture<PxbAuthComponent>;
-    let securityService: PxbAuthSecurityService;
+describe('BluiAuthComponent', () => {
+    let component: BluiAuthComponent;
+    let fixture: ComponentFixture<BluiAuthComponent>;
+    let securityService: BluiAuthSecurityService;
     let router: Router;
     const authWorkflowRoutes = getAuthSubRoutes();
 
     beforeEach(() => {
         void TestBed.configureTestingModule({
             imports: [
-                PxbAuthModule,
+                BluiAuthModule,
                 RouterTestingModule.withRoutes([
                     {
                         path: AUTH_ROUTES.AUTH_WORKFLOW,
-                        component: PxbAuthComponent,
+                        component: BluiAuthComponent,
                         children: authWorkflowRoutes,
                     },
                 ]),
@@ -32,10 +32,10 @@ describe('PxbAuthComponent', () => {
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(PxbAuthComponent);
+        fixture = TestBed.createComponent(BluiAuthComponent);
         component = fixture.componentInstance;
-        const uiService = TestBed.inject(PxbAuthUIService);
-        securityService = TestBed.inject(PxbAuthSecurityService);
+        const uiService = TestBed.inject(BluiAuthUIService);
+        securityService = TestBed.inject(BluiAuthSecurityService);
         router = TestBed.inject(Router);
         spyOn(uiService, 'initiateSecurity').and.returnValue(Promise.resolve());
         fixture.detectChanges();
@@ -58,13 +58,13 @@ describe('PxbAuthComponent', () => {
         component.showLogin = true;
         component.isSecurityInitiated = true;
         fixture.detectChanges();
-        let loginPage = fixture.debugElement.query(By.css('.pxb-auth-login'));
+        let loginPage = fixture.debugElement.query(By.css('.blui-auth-login'));
         void expect(loginPage).toBeTruthy();
 
         await router.navigate([`${AUTH_ROUTES.AUTH_WORKFLOW}/${AUTH_ROUTES.CONTACT_SUPPORT}`]).then(() => {
             fixture.detectChanges();
-            loginPage = fixture.debugElement.query(By.css('.pxb-auth-login'));
-            const contactSupportPage = fixture.debugElement.query(By.css('.pxb-auth-contact-support'));
+            loginPage = fixture.debugElement.query(By.css('.blui-auth-login'));
+            const contactSupportPage = fixture.debugElement.query(By.css('.blui-auth-contact-support'));
 
             void expect(loginPage).toBeFalsy();
             void expect(contactSupportPage).toBeTruthy();
