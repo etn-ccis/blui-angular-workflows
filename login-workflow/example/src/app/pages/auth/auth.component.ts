@@ -91,7 +91,7 @@ import { Router } from '@angular/router';
                 </div>
                 <div style="margin: 0 24px">
                     <div *ngIf="!firstName" class="mat-display-1" style="margin-bottom: 24px">
-                        Welcome, PX White User!
+                        Welcome, Brightlayer Cloud User!
                     </div>
                     <div class="mat-h4">Your registration has been completed successfully.</div>
                     <div class="mat-h4">Please click continue to log in.</div>

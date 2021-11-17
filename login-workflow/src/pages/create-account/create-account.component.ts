@@ -37,7 +37,7 @@ export class BluiCreateAccountComponent implements OnDestroy {
 
     isLoading = true;
     isValidVerificationCode = true;
-    isPXWhiteAccount: boolean;
+    isBrightlayerCloudAccount: boolean;
 
     // Provide Email Page
     email: string;
@@ -92,7 +92,7 @@ export class BluiCreateAccountComponent implements OnDestroy {
             .then((registrationComplete) => {
                 this._bluiSecurityService.setLoading(false);
                 this.registrationUtils.nextStep();
-                this.isPXWhiteAccount = registrationComplete;
+                this.isBrightlayerCloudAccount = registrationComplete;
             })
             .catch((data: ErrorDialogData) => {
                 this._bluiErrorDialogService.openDialog(data);
