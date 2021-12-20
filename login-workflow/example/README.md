@@ -2,7 +2,7 @@
 
 This project demonstrates how to use the [@brightlayer-ui/angular-auth-workflow](https://www.npmjs.com/package/@brightlayer-ui/angular-auth-workflow). It includes a sample Home screen with buttons to log out and change password. If the user is not authenticated, he/she will be presented with the authentication workflow with screens for Log In, Forgot Password, Support, and Registration.
 
-This project also demonstrates how to provide mock API service implementations for `PxbAuthUIService` and `PxbRegisterUIService`.  These service calls should be replaced with API calls instead of resolving with mocked responses. 
+This project also demonstrates how to provide mock API service implementations for `BluiAuthUIService` and `BluiRegisterUIService`.  These service calls should be replaced with API calls instead of resolving with mocked responses. 
 
 Whenever a user is logged in, this app stores session information in local storage.  The 'Remember Me' toggle state is also stored in local storage, so that user credentials can be pre-populated when a user logs out.
 
