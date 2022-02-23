@@ -14,7 +14,7 @@
     "publish:package": "cd dist && set npm_config_yes=true && npx -p @brightlayer-ui/publish blui-publish",
     "tag:package": "npx -p @brightlayer-ui/tag blui-tag -s -blui-angular-auth-workflow",
     "install:dependencies": "yarn && cd example && yarn",
-    "start:example": "cd example && yarn start:lib",
+    "start:example": "yarn copy-to-example && cd example && yarn start:lib",
     "coverage": "yarn test --no-watch --code-coverage",
     "copy-to-example": "cp -r src/. example/src/lib/"
   },

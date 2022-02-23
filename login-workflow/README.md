@@ -56,7 +56,7 @@ yarn watch
 
 In a new terminal, run: 
 ```shell
-cd example && yarn start
+cd example && yarn start:lib
 ```
 ## Browser Support
 
