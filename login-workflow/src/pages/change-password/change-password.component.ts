@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BluiAuthUIService } from '../../services/api';
@@ -6,7 +6,6 @@ import { BluiAuthSecurityService } from '../../services/state/auth-security.serv
 import { AUTH_ROUTES } from '../../auth/auth.routes';
 import { BluiAuthConfig } from '../../services/config/auth-config';
 import { PasswordRequirement } from '../../components/password-strength-checker/blui-password-strength-checker.component';
-import { BluiChangePasswordDialogService } from './dialog/change-password-dialog.service';
 import { BluiChangePasswordErrorDialogService } from '../../services/dialog/change-password-error-dialog.service';
 import { ErrorDialogData } from '../../services/dialog/error-dialog.service';
 import { BluiFormsService } from '../../services/forms/forms.service';
@@ -39,6 +38,8 @@ export class BluiChangePasswordComponent implements OnInit, AfterViewInit {
 
     translate: BluiAuthTranslations;
 
+    @Output() close: EventEmitter<void> = new EventEmitter();
+
     constructor(
         private readonly _router: Router,
         private readonly _formBuilder: FormBuilder,
@@ -47,7 +48,6 @@ export class BluiChangePasswordComponent implements OnInit, AfterViewInit {
         private readonly _bluiAuthUIService: BluiAuthUIService,
         private readonly _changeDetectorRef: ChangeDetectorRef,
         private readonly _bluiSecurityService: BluiAuthSecurityService,
-        private readonly _bluiChangePasswordDialogService: BluiChangePasswordDialogService,
         private readonly _bluiChangePasswordErrorDialogService: BluiChangePasswordErrorDialogService
     ) {}
 
@@ -64,7 +64,7 @@ export class BluiChangePasswordComponent implements OnInit, AfterViewInit {
     }
 
     closeDialog(): void {
-        this._bluiChangePasswordDialogService.closeDialog();
+        this.close.emit();
     }
 
     done(): void {

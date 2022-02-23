@@ -1,10 +1,6 @@
 {
   "dest": "./dist",
   "lib": {
-    "entryFile": "src/index.ts",
-    "umdModuleIds": {
-      "@brightlayer-ui/angular-components": "angularComponents",
-      "@brightlayer-ui/colors": "Colors"
-    }
+    "entryFile": "src/index.ts"
   }
 }
