@@ -3,19 +3,14 @@
     "extends": "./tsconfig.json",
     "compilerOptions": {
         "types": [
-            "jasmine",
             "node"
         ]
     },
     "files": [
-        "src/test.ts",
+        "src/main.ts",
         "src/polyfills.ts"
     ],
     "include": [
-        "src/app/**/*.spec.ts",
-        "src/app/**/*.d.ts"
-    ],
-    "exclude": [
-        "src/lib"
+        "src/**/*.d.ts"
     ]
 }

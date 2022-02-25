@@ -60,7 +60,6 @@ import { MatSelectModule } from '@angular/material/select';
         BluiCreateAccountInviteModule,
         BluiCommonComponentsModule,
     ],
-    entryComponents: [BluiChangePasswordDialogComponent],
     exports: [
         BluiAuthComponent,
         BluiLoginComponent,

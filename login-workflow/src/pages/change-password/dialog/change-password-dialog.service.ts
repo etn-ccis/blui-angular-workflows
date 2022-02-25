@@ -11,7 +11,6 @@ export class BluiChangePasswordDialogService {
     openDialog(): MatDialogRef<BluiChangePasswordDialogComponent> {
         return this.dialog.open(BluiChangePasswordDialogComponent, {
             width: '444px',
-            height: '710px',
             disableClose: true,
             panelClass: 'blui-change-password-dialog',
         });

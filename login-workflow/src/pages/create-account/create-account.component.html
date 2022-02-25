@@ -71,7 +71,7 @@
                 [steps]="registrationUtils.getNumberOfSteps()"
                 [activeStep]="registrationUtils.getCurrentPage()"
             >
-                <button blui-back-button mat-stroked-button color="primary" style="width: 100px;" (click)="goBack()">
+                <button blui-back-button mat-stroked-button color="primary" style="width: 100px" (click)="goBack()">
                     <ng-container *ngIf="registrationUtils.getCurrentPage() === 0">
                         {{ translate.GENERAL.CANCEL_BUTTON }}
                     </ng-container>
@@ -83,7 +83,7 @@
                     blui-next-button
                     mat-flat-button
                     color="primary"
-                    style="width: 100px;"
+                    style="width: 100px"
                     [disabled]="!canContinue()"
                     (click)="goNext()"
                 >
