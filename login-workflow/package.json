@@ -7,6 +7,7 @@
     "watch": "ng build -c demo",
     "build": "ng build",
     "test": "ng test",
+    "test:ci": "ng test --watch false",
     "lint": "eslint \"src/**/**.ts\"",
     "lint:fix": "eslint \"src/**/**.ts\" --fix",
     "prettier": "prettier \"src/**/**.{ts,js,json,css,scss,html}\" --write",
@@ -16,7 +17,9 @@
     "install:dependencies": "yarn && cd example && yarn",
     "link:workflow": "bash ./scripts/linkWorkflow.sh",
     "start:example": "yarn install:dependencies && yarn link:workflow && cd example && yarn start",
-    "coverage": "yarn test --no-watch --code-coverage"
+    "coverage": "yarn test --no-watch --code-coverage",
+    "generate:licenses": "npm-license-crawler -onlyDirectDependencies -json LICENSES.json",
+    "precommit": "yarn prettier && yarn lint && yarn test:ci && yarn build && yarn generate:licenses"
   },
   "prettier": "@brightlayer-ui/prettier-config",
   "private": false,
@@ -83,6 +86,7 @@
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.6.0",
     "ng-packagr": "^11.0.3",
+    "npm-license-crawler": "^0.2.1",
     "prettier": "^1.19.1",
     "rxjs": "^6.5.4",
     "ts-node": "~8.6.2",
