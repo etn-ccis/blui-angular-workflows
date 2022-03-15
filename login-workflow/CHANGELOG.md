@@ -1,6 +1,6 @@
 # Change Log
 
-## v3.0.0 (Not yet published)
+## v3.0.0 (March 15, 2022)
 
 ### Changed
 
