@@ -9,16 +9,12 @@
       "prefix": "blui",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "tsconfig.lib.json",
             "project": "ng-package.json"
           },
           "configurations": {
-            "demo": {
-              "project": "ng-package-demo.json",
-              "watch": true
-            },
             "production": {
               "tsConfig": "tsconfig.lib.json"
             }

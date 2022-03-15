@@ -147,7 +147,7 @@ import { Router } from '@angular/router';
                         />
 
                         <mat-error *ngIf="phoneNumberFormControl.hasError('required')">
-                            Code is <strong>required</strong>
+                            Phone number is <strong>required</strong>
                         </mat-error>
                     </mat-form-field>
                 </div>

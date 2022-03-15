@@ -1,5 +1,11 @@
 # Change Log
 
+## v3.0.0 (March 15, 2022)
+
+### Changed
+
+-   Updated to Angular 13 for building the library.
+
 ## v2.4.0 (November 16, 2021)
 
 ### Changed

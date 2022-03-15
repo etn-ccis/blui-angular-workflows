@@ -35,7 +35,27 @@
                         "scripts": []
                     },
                     "configurations": {
+                        "defaultConfiguration": "npm",
+                        "npm": {
+                            "tsConfig": "tsconfig.npm.json",
+                            "buildOptimizer": false,
+                            "optimization": false,
+                            "vendorChunk": true,
+                            "extractLicenses": false,
+                            "sourceMap": true,
+                            "namedChunks": true
+                        },
+                        "lib": {
+                            "tsConfig": "tsconfig.lib.json",
+                            "buildOptimizer": false,
+                            "optimization": false,
+                            "vendorChunk": true,
+                            "extractLicenses": false,
+                            "sourceMap": true,
+                            "namedChunks": true
+                        },
                         "production": {
+                            "tsConfig": "tsconfig.npm.json",
                             "fileReplacements": [
                                 {
                                     "replace": "src/environments/environment.ts",
@@ -62,25 +82,23 @@
                                     "maximumError": "10kb"
                                 }
                             ]
-                        },
-                        "es5": {
-                            "tsConfig": "./tsconfig.es5.json"
                         }
                     }
                 },
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
-                    "options": {
-                        "browserTarget": "example:build"
-                    },
                     "configurations": {
+                        "lib": {
+                            "browserTarget": "example:build:lib"
+                        },
                         "production": {
                             "browserTarget": "example:build:production"
                         },
-                        "es5": {
-                            "browserTarget": "example:build:es5"
+                        "npm": {
+                            "browserTarget": "example:build:npm"
                         }
-                    }
+                    },
+                    "defaultConfiguration": "npm"
                 },
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",

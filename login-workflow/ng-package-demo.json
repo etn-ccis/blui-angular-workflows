@@ -1,6 +1,0 @@
-{
-  "dest": "example/node_modules/@brightlayer-ui/angular-auth-workflow",
-  "lib": {
-    "entryFile": "src/index.ts"
-  }
-}
