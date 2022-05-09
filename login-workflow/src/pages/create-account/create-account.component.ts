@@ -85,6 +85,20 @@ export class BluiCreateAccountComponent implements OnDestroy {
         this.stateListener.unsubscribe();
     }
 
+    sendVerificationEmail(): void {
+        this._bluiSecurityService.setLoading(true);
+        this._bluiRegisterService
+            .requestRegistrationCode(this.email)
+            .then(() => {
+                this._bluiSecurityService.setLoading(false);
+                this.registrationUtils.nextStep();
+            })
+            .catch((data: ErrorDialogData) => {
+                this._bluiErrorDialogService.openDialog(data);
+                this._bluiSecurityService.setLoading(false);
+            });
+    }
+
     validateVerificationCode(): void {
         this._bluiSecurityService.setLoading(true);
         this._bluiRegisterService
@@ -164,6 +178,9 @@ export class BluiCreateAccountComponent implements OnDestroy {
             return this.registrationUtils.isLastAccountDetailsPage()
                 ? this.registerAccount()
                 : this.registrationUtils.nextStep();
+        }
+        if (this.registrationUtils.getCurrentPage() === 1) {
+            return this.sendVerificationEmail();
         }
         if (this.registrationUtils.getCurrentPage() === 2) {
             return this.validateVerificationCode();
