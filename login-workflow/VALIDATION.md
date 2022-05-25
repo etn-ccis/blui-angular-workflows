@@ -13,8 +13,10 @@
 11. User can toggle the french translation.
 12. User can toggle the chinese translation.
 13. Correct console output appears when creating an account.
-14. Correct console output appears when requesting a reset password email.
-15. Correct console output 
+14. Correct console output appears when logging in.
+15. Correct console output when creating an account via invite.
+15. Correct console output when changing password.
+16. Correct console output appears when requesting a reset password email.
 
 ### Unit Test Count
 67 
