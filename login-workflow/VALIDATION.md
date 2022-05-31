@@ -31,6 +31,8 @@
 #### Change Password
 1. Correct console output appears when requesting a reset password email.
 2. Correct console output appears when changing password via reset email.
+3. After a user changes their password, they are logged out of the application.
+
 
 #### Misc.
 1. User can cancel/close any sub-task (forgot password, forgot password email, invite register and create account).
