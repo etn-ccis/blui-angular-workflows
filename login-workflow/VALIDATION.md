@@ -13,9 +13,10 @@
 1. User cannot create an account until they enter a valid email.
 2. User cannot create an account until they accept the EULA.
 3. User cannot create an account until they enter First & Last Name.
-4. Information is retained so that users can step backwards while creating an account.
-5. Correct console output appears when creating an account.
-6. Correct console output when creating an account via invite.
+4. Information is retained so that users can step backwards while creating an account. 
+5. Correct console output appears when validating a user-registration code.
+6. Correct console output appears when creating an account.
+7. Correct console output appears when creating an account via invite.
 
 #### Translations
 
@@ -23,10 +24,10 @@
 2. User can toggle the french translation.
 3. User can toggle the chinese translation.
 
-### Change Password
+#### Change Password
 
 1. Correct console output appears when requesting a reset password email.
-2. Correct console output when changing password via reset email.
+2. Correct console output appears when changing password via reset email.
 
 #### Misc.
 1. User can cancel/close any sub-task (forgot password, forgot password email, invite register and create account).
