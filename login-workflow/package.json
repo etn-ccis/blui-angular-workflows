@@ -27,14 +27,16 @@
     "type": "git",
     "url": "git+https://github.com/brightlayer-ui/angular-workflows.git"
   },
-    "watch": {
-        "copy-to-example": {
-            "patterns": ["src"],
-            "extensions": "ts,html,scss",
-            "quiet": false,
-            "runOnChangeOnly": false
-        }
-    },
+  "watch": {
+    "copy-to-example": {
+      "patterns": [
+        "src"
+      ],
+      "extensions": "ts,html,scss",
+      "quiet": false,
+      "runOnChangeOnly": false
+    }
+  },
   "keywords": [
     "angular",
     "workflow",
@@ -85,6 +87,7 @@
     "codelyzer": "~5.2.1",
     "eslint": "^8.7.0",
     "eslint-config-prettier": "^8.3.0",
+    "firebase-tools": "^11.0.1",
     "jasmine-core": "~3.9.0",
     "jasmine-spec-reporter": "~6.0.0",
     "karma": "^6.3.4",
