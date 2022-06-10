@@ -35,16 +35,7 @@
                         "scripts": []
                     },
                     "configurations": {
-                        "defaultConfiguration": "npm",
-                        "npm": {
-                            "tsConfig": "tsconfig.npm.json",
-                            "buildOptimizer": false,
-                            "optimization": false,
-                            "vendorChunk": true,
-                            "extractLicenses": false,
-                            "sourceMap": true,
-                            "namedChunks": true
-                        },
+                        "defaultConfiguration": "lib",
                         "lib": {
                             "tsConfig": "tsconfig.lib.json",
                             "buildOptimizer": false,
@@ -55,33 +46,26 @@
                             "namedChunks": true
                         },
                         "production": {
-                            "tsConfig": "tsconfig.npm.json",
+                            "tsConfig": "tsconfig.lib.json",
+                            "budgets": [
+                                {
+                                    "type": "initial",
+                                    "maximumWarning": "1mb",
+                                    "maximumError": "2mb"
+                                },
+                                {
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "2kb",
+                                    "maximumError": "4kb"
+                                }
+                            ],
                             "fileReplacements": [
                                 {
                                     "replace": "src/environments/environment.ts",
                                     "with": "src/environments/environment.prod.ts"
                                 }
                             ],
-                            "optimization": true,
-                            "outputHashing": "all",
-                            "sourceMap": false,
-                            "extractCss": true,
-                            "namedChunks": false,
-                            "extractLicenses": true,
-                            "vendorChunk": false,
-                            "buildOptimizer": true,
-                            "budgets": [
-                                {
-                                    "type": "initial",
-                                    "maximumWarning": "2mb",
-                                    "maximumError": "5mb"
-                                },
-                                {
-                                    "type": "anyComponentStyle",
-                                    "maximumWarning": "6kb",
-                                    "maximumError": "10kb"
-                                }
-                            ]
+                            "outputHashing": "all"
                         }
                     }
                 },
@@ -93,12 +77,9 @@
                         },
                         "production": {
                             "browserTarget": "example:build:production"
-                        },
-                        "npm": {
-                            "browserTarget": "example:build:npm"
                         }
                     },
-                    "defaultConfiguration": "npm"
+                    "defaultConfiguration": "lib"
                 },
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
