@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "./dist",
+    "public": "angular-workflows/login-workflow/dist",
     "ignore": [
       "firebase.json",
       "**/.*",
