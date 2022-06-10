@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "login-worflow/dist",
+    "public": "login-workflow/dist",
     "ignore": [
       "firebase.json",
       "**/.*",
