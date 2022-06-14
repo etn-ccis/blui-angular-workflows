@@ -3,9 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start:lib": "ng serve --configuration lib",
-    "start:npm": "ng serve --configuration npm",
-    "build": "ng build",
+    "start:lib": "ng serve --c lib",
+    "build": "ng build --c production",
     "test": "ng test",
     "lint": "eslint \"src/app/**/**.ts\"",
     "e2e": "ng e2e",

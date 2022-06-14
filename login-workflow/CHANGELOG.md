@@ -1,5 +1,12 @@
 # Change Log
 
+## v3.0.1 (June 13, 2022)
+
+### Fixed
+
+-   Fixed bug in create-account workflow where `requestRegistrationCode` was not invoked before reaching the "Verify Email" screen ([#132](https://github.com/brightlayer-ui/angular-workflows/issues/132)).
+
+
 ## v3.0.0 (March 15, 2022)
 
 ### Changed
