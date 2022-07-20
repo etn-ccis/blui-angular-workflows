@@ -1,5 +1,11 @@
 # Change Log
 
+## v3.0.2 (Not published yet)
+
+### Fixed
+
+-   Fixed some minor Chinese translations issue ([#150](https://github.com/brightlayer-ui/angular-workflows/pull/150)).
+
 ## v3.0.1 (June 13, 2022)
 
 ### Fixed
