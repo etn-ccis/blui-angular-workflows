@@ -14,7 +14,7 @@ export const bluiAuthChineseTranslations: BluiAuthTranslations = {
         CONFIRM_PASSWORD_FORM_LABEL: '确认密码',
         EMAIL_FORM_LABEL: '邮箱地址',
         EMAIL_INVALID_ERROR: '请输入有效的电子邮件地址',
-        IS_REQUIRED_ERROR: (field: string): string => `${field} 是必须的`,
+        IS_REQUIRED_ERROR: (field: string): string => `${field}为必填项`,
         LOGIN_BUTTON: '登录',
     },
     LOGIN: {
@@ -74,14 +74,14 @@ export const bluiAuthChineseTranslations: BluiAuthTranslations = {
         RESET_LINK_ERROR_TITLE: '错误！',
         RESET_LINK_ERROR_DESCRIPTION: '验证您的重置码时出错。',
         SUCCESS_TITLE: '您的密码已成功重置。',
-        SUCCESS_DESCRIPTION: '您的密码已成功更新！为了确保您帐户的安全，您将需要使用更新后的凭据登录到该应用程序。',
+        SUCCESS_DESCRIPTION: '您的密码已成功更新！为了确保您账号的安全，您将需要使用更新后的凭据登录到该应用程序。',
     },
 
     CREATE_ACCOUNT: {
         REGISTRATION_LINK: {
             VALIDATING: '证实',
             INVALID_TITLE: '错误！',
-            INVALID_DESCRIPTION: '注册帐户时出错。',
+            INVALID_DESCRIPTION: '注册账号时出错。',
         },
         ENTER_EMAIL: {
             TITLE: '创建账号',
@@ -109,23 +109,23 @@ export const bluiAuthChineseTranslations: BluiAuthTranslations = {
             FIRST_NAME_FORM_LABEL: '名',
             INSTRUCTIONS: '请输入下列个人信息来完成账号注册。',
             LAST_NAME_FORM_LABEL: '姓',
-            TITLE: '帐户详细资料',
+            TITLE: '账号详细资料',
         },
         ACCOUNT_CREATED: {
-            TITLE: '帐户已创建',
-            WELCOME_MESSAGE_TITLE: (username: string): string => `欢迎, ${username}`,
+            TITLE: '账号已创建',
+            WELCOME_MESSAGE_TITLE: (username: string): string => `欢迎，${username}`,
             WELCOME_MESSAGE_DESCRIPTION: (email: string): string => {
-                const firstSentence = email ? `您的帐户已通过电子邮件成功创建 ${email}。` : `您的帐户已经创建成功。`;
-                return `${firstSentence} 您的帐户已被添加到组织中。按下面的继续完成。`;
+                const firstSentence = email ? `您的账号已通过电子邮件${email}成功创建。` : `您的账号已经创建成功。`;
+                return `${firstSentence} 您的账号已被添加到组织中。请按下面的“继续”按钮完成。`;
             },
             CONTINUE_BUTTON: '继续',
         },
         ACCOUNT_EXISTING: {
-            TITLE: '帐户已创建',
+            TITLE: '账号已创建',
             WELCOME_MESSAGE_TITLE: '欢迎',
             WELCOME_MESSAGE_DESCRIPTION: (email: string): string => {
-                const firstSentence = email ? `您的帐户已通过电子邮件成功创建 ${email}。` : `您的帐户已经创建成功。`;
-                return `${firstSentence} 请使用您的Eaton帐户电子邮件和密码登录。`;
+                const firstSentence = email ? `您的账号已通过电子邮件${email}成功创建。` : `您的账号已经创建成功。`;
+                return `${firstSentence} 请使用您的伊顿账号电子邮件和密码登录。`;
             },
         },
     },
