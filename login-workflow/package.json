@@ -55,7 +55,7 @@
   },
   "peerDependencies": {
     "@brightlayer-ui/angular-components": ">=7.0.0",
-    "@brightlayer-ui/colors": "^3.0.1"
+    "@brightlayer-ui/colors": "^3.1.1"
   },
   "dependencies": {
     "tslib": "^2.0.0"
