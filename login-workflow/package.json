@@ -76,7 +76,7 @@
     "@angular/router": "^13.0.0",
     "@brightlayer-ui/angular-components": "7.0.0-beta.2",
     "@brightlayer-ui/colors": "^3.0.1",
-    "@brightlayer-ui/eslint-config": "^3.0.0",
+    "@brightlayer-ui/eslint-config": "^3.0.1",
     "@brightlayer-ui/prettier-config": "^1.0.3",
     "@types/jasmine": "~3.9.0",
     "@types/jasminewd2": "~2.0.10",
