@@ -70,10 +70,11 @@
                     }
                 },
                 "serve": {
-                    "builder": "@angular-devkit/build-angular:dev-server",
+                    "builder": "ngx-build-plus:dev-server",
                     "configurations": {
                         "lib": {
-                            "browserTarget": "example:build:lib"
+                            "browserTarget": "example:build:lib",
+                            "extraWebpackConfig": "./cypress/coverage.webpack.js"
                         },
                         "production": {
                             "browserTarget": "example:build:production"
