@@ -2146,7 +2146,7 @@
   dependencies:
     tslib "^2.0.0"
 
-"@brightlayer-ui/angular-themes@^7.0.1":
+"@brightlayer-ui/angular-themes@^7.0.0":
   version "7.0.1"
   resolved "https://registry.yarnpkg.com/@brightlayer-ui/angular-themes/-/angular-themes-7.0.1.tgz#df7e76c1417a0a723e8c7da14a5e5979aaa29867"
   integrity sha512-vsDQvcCeifhDkQ04w5CZqxrfFW4T0yfnxDTq3KMk4PRjQq/zNqhbPu8qxWr5ukx2crMiH2Br0wu9aHibIvoMtQ==
