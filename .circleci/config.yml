@@ -157,19 +157,19 @@ workflows:
       - cypress_tests:
           requires:
             - build_login_workflow
-          # filters:
-          #   branches:
-          #     only:
-          #       - master
-          #       - dev
+          filters:
+            branches:
+              only:
+                - master
+                - dev
       - coverage_report:
                 requires:
                     - build_login_workflow
                     - cypress_tests
-                # filters:
-                #     branches:
-                #         only:
-                #             - master
+                filters:
+                    branches:
+                        only:
+                            - master
       - publish_login_workflow:
           requires:
             - build_login_workflow
