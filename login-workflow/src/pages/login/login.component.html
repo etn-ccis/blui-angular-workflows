@@ -23,8 +23,8 @@
     <div class="mat-body-2" style="font-weight: 400">{{ errorMessage }}</div>
 </ng-template>
 
-<mat-form-field *ngIf="debugMode">
-    <mat-label>Language</mat-label>
+<mat-form-field *ngIf="debugMode" id="bluiLanguageSelect">
+    <mat-label>Language </mat-label>
     <mat-select
         #bluiLanguageSelect
         (ngModelChange)="changeLanguage(bluiLanguageSelect.value)"

@@ -4,7 +4,8 @@ import { IBluiRegisterUIService, BluiAuthSecurityService, BluiAuthConfig } from 
 import { SAMPLE_EULA } from '../constants/sampleEula';
 import { FormControl } from '@angular/forms';
 
-export const randomFailure = () => Math.random() < 0.25;
+// commented out because this randomFailure causing cypress to fail
+// export const randomFailure = () => Math.random() < 0.25;
 const TIMEOUT_MS = 1500;
 @Injectable({
     providedIn: 'root',
@@ -46,9 +47,9 @@ export class RegisterUIService implements IBluiRegisterUIService {
             setTimeout(() => {
                 if (registrationCode && registrationCode.toUpperCase() === 'EULA_FAIL') {
                     return reject();
-                }
-                if (randomFailure()) {
-                    return reject();
+                // }
+                // if (randomFailure()) {
+                //     return reject();
                 } else {
                     const eula = SAMPLE_EULA;
                     this._bluiAuthConfig.eula = eula; // This prevents future EULA load requests.

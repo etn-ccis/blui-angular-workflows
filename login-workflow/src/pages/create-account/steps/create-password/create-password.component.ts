@@ -21,6 +21,7 @@ import { PasswordFieldComponent } from '../../../../components/password-field/pa
             <form>
                 <blui-password-field
                     #passwordField
+                    id="blui-password"
                     [rememberPassword]="true"
                     (enter)="focusConfirmPassword()"
                 ></blui-password-field>
@@ -32,6 +33,7 @@ import { PasswordFieldComponent } from '../../../../components/password-field/pa
                 </blui-password-strength-checker>
                 <blui-password-field
                     #confirmPasswordField
+                    id="blui-confirm-password"
                     [rememberPassword]="true"
                     [label]="translate.GENERAL.CONFIRM_PASSWORD_FORM_LABEL"
                     [shouldMatch]="passwordFormControl"
