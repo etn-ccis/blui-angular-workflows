@@ -8,12 +8,12 @@ describe('invite register account details', () => {
 
     it('should display workflow in french', () => {
         cy.contains('DEBUG').click();
-        cy.get('#bluiLanguageSelect').click();
+        cy.get('#blui-language-select').click();
         cy.contains('French').click();
         cy.contains('Tester le registre').click();
         cy.get('.blui-auth-create-account-invite').should('contain', 'Accord de licence');
-        cy.get('#eula-container').scrollTo('bottom')
-        cy.get('#eula-checkbox').click();
+        cy.get('#blui-eula-container').scrollTo('bottom')
+        cy.get('#blui-eula-checkbox').click();
         cy.contains('Prochain').click();
         cy.get('.blui-auth-create-account-invite').should('contain', 'Créer un Mot de Passe');
         cy.get('#blui-password').click().type('Test321!');

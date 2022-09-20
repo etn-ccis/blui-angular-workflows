@@ -25,9 +25,9 @@ describe('change password actions', () => {
         cy.contains('Log In').click();
         cy.contains('Change Password').should('be.enabled').click();
         cy.get('[ng-reflect-label="Current Password"]').click().type('Test321!');
-        cy.get('#visibilityIcon').first().click();
+        cy.get('#blui-visibility-icon').first().click();
         cy.get('#blui-password').invoke('prop', 'type').should('contain', 'text');
-        cy.get('#visibilityIcon').first().click();
+        cy.get('#blui-visibility-icon').first().click();
         cy.get('#blui-password').invoke('prop', 'type').should('contain', 'password');
     });
 

@@ -10,7 +10,7 @@ describe('reset password actions', () => {
         cy.get('.blui-auth-reset-password').should('contain', 'Reset Password');
         cy.get('#blui-password').invoke('prop', 'type').should('contain', 'password');
         cy.get('#blui-password').click().type('Test321!');
-        cy.get('#visibilityIcon').first().click();
+        cy.get('#blui-visibility-icon').first().click();
         cy.get('#blui-password').invoke('prop', 'type').should('contain', 'text');
         cy.get('#blui-confirm-password').click().type('Test321!');
         cy.contains('Okay').should('be.enabled').click();

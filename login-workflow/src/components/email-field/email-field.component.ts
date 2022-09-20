@@ -38,7 +38,7 @@ import { AuthErrorStateMatcher } from '../../util/matcher';
                 (keyup.enter)="enter.emit()"
             />
             <mat-error
-                id="email-helper-text"
+                id="blui-email-helper-text"
                 *ngIf="
                     !manualErrorMessage &&
                     isEmailFormDirty() &&

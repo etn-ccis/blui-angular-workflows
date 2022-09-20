@@ -14,8 +14,8 @@ describe('invite register EULA', () => {
 
     it('should allow user to accept EULA agreement', () => {
         cy.wait(5000)
-        cy.get('#eula-container').scrollTo('bottom')
-        cy.get('#eula-checkbox').click();
+        cy.get('#blui-eula-container').scrollTo('bottom')
+        cy.get('#blui-eula-checkbox').click();
         cy.contains('Next').should('be.enabled').click();
     });
 

@@ -8,8 +8,8 @@ describe('invite register successful registration', () => {
 
     it('should display log in when successful invite reg completes', () => {
         cy.wait(5000)
-        cy.get('#eula-container').scrollTo('bottom')
-        cy.get('#eula-checkbox').click();
+        cy.get('#blui-eula-container').scrollTo('bottom')
+        cy.get('#blui-eula-checkbox').click();
         cy.contains('Next').should('be.enabled').click();
         cy.contains('Create Password');
         cy.get('#blui-password').click().type('Test321!');

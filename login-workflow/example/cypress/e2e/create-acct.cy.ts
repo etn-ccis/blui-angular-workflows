@@ -8,16 +8,16 @@ describe('self register create account', () => {
 
     it('should display create account modal', () => {
         cy.contains('Create Account').click();
-        cy.get('#eula-container').scrollTo('bottom')
-        cy.get('#eula-checkbox').click();
+        cy.get('#blui-eula-container').scrollTo('bottom')
+        cy.get('#blui-eula-checkbox').click();
         cy.contains('Next').should('be.enabled').click();
         cy.contains('Create an Account');
     });
 
     it('should allow user to submit create account', () => {
         cy.contains('Create Account').click();
-        cy.get('#eula-container').scrollTo('bottom')
-        cy.get('#eula-checkbox').click();
+        cy.get('#blui-eula-container').scrollTo('bottom')
+        cy.get('#blui-eula-checkbox').click();
         cy.contains('Next').should('be.enabled').click();
         cy.get('#blui-email').click().type('user@here.com');
         cy.contains('Next').should('be.enabled').click();

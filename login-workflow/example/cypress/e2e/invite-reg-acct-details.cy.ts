@@ -8,8 +8,8 @@ describe('invite register account details', () => {
 
     it('should display account details modal', () => {
         cy.wait(5000)
-        cy.get('#eula-container').scrollTo('bottom')
-        cy.get('#eula-checkbox').click();
+        cy.get('#blui-eula-container').scrollTo('bottom')
+        cy.get('#blui-eula-checkbox').click();
         // .find('input').click({force:true}); does not work
         cy.contains('Next').should('be.enabled').click();
         cy.contains('Create Password');
@@ -21,8 +21,8 @@ describe('invite register account details', () => {
 
     it('should allow user to submit account details', () => {
         cy.wait(5000)
-        cy.get('#eula-container').scrollTo('bottom')
-        cy.get('#eula-checkbox').click();
+        cy.get('#blui-eula-container').scrollTo('bottom')
+        cy.get('#blui-eula-checkbox').click();
         cy.contains('Next').should('be.enabled').click();
         cy.contains('Create Password');
         cy.get('#blui-password').click().type('Test321!');
@@ -42,8 +42,8 @@ describe('invite register account details', () => {
 
     it('should not allow user to submit invalid account details', () => {
         cy.wait(5000)
-        cy.get('#eula-container').scrollTo('bottom')
-        cy.get('#eula-checkbox').click();
+        cy.get('#blui-eula-container').scrollTo('bottom')
+        cy.get('#blui-eula-checkbox').click();
         cy.contains('Next').should('be.enabled').click();
         cy.contains('Create Password');
         cy.get('#blui-password').click().type('Test321!');

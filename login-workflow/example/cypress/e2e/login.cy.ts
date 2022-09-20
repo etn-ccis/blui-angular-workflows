@@ -16,15 +16,15 @@ describe('login authentication actions', () => {
   it('should display enter a valid email', () => {
       cy.get('#blui-email').click().type('test.com');
       cy.get('#blui-password').click();
-      cy.get('#email-helper-text').should('contain', 'Please enter a valid email');
+      cy.get('#blui-email-helper-text').should('contain', 'Please enter a valid email');
       cy.contains('Log In').should('be.disabled');
   });
 
   it('should toggle password visibility on-off', () => {
       cy.get('#blui-password').click().type('Test321!');
-      cy.get('#visibilityIcon').click();
+      cy.get('#blui-visibility-icon').click();
       cy.get('#blui-password').invoke('prop', 'type').should('contain', 'text');
-      cy.get('#visibilityIcon').click();
+      cy.get('#blui-visibility-icon').click();
       cy.get('#blui-password').invoke('prop', 'type').should('contain', 'password');
   });
 
