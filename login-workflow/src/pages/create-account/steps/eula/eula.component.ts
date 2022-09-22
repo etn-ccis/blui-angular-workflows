@@ -24,6 +24,7 @@ import { BluiAuthTranslations } from '../../../../translations/auth-translations
             #eulaVC
             *ngIf="eula"
             class="blui-auth-full-height"
+            id="blui-eula-container"
             style="overflow: auto"
             (scroll)="checkScrollDistance($event)"
             [innerHTML]="sanitizer.sanitize(1, eula)"
@@ -39,6 +40,7 @@ import { BluiAuthTranslations } from '../../../../translations/auth-translations
         </blui-empty-state>
         <div *ngIf="eula" class="blui-eula-confirm-agreement">
             <mat-checkbox
+                id="blui-eula-checkbox"
                 class="blui-eula-checkbox"
                 [disabled]="!userScrolledBottom"
                 [(ngModel)]="userAcceptsEula"

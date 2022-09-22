@@ -19,6 +19,7 @@ import { CrossFieldErrorMatcher } from '../../util/matcher';
             <mat-label>{{ label || translate().GENERAL.PASSWORD_FORM_LABEL }}</mat-label>
             <input
                 matInput
+                id="blui-password"
                 #bluiPasswordField
                 name="password"
                 autocomplete="off"
@@ -28,7 +29,13 @@ import { CrossFieldErrorMatcher } from '../../util/matcher';
                 [errorStateMatcher]="matcher"
                 (keydown.enter)="enter.emit()"
             />
-            <button type="button" mat-icon-button matSuffix (click)="togglePasswordVisibility()">
+            <button
+                id="blui-visibility-icon"
+                type="button"
+                mat-icon-button
+                matSuffix
+                (click)="togglePasswordVisibility()"
+            >
                 <mat-icon>{{ isPasswordVisible ? 'visibility' : 'visibility_off' }}</mat-icon>
             </button>
             <mat-error

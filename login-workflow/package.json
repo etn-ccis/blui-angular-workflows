@@ -19,7 +19,9 @@
     "coverage": "yarn test --no-watch --code-coverage",
     "copy-to-example": "cp -r src/. example/src/lib/",
     "generate:licenses": "npm-license-crawler -onlyDirectDependencies -json LICENSES.json",
-    "precommit": "yarn prettier && yarn lint && yarn test:ci && yarn build && yarn generate:licenses"
+    "precommit": "yarn prettier && yarn lint && yarn test:ci && yarn build && yarn generate:licenses",
+    "cy:stage": "yarn && cd example && yarn && cd .. && yarn copy-to-example",
+    "cytest": "cd example && yarn start-server-and-test start:lib http://localhost:4200 cy:run"
   },
   "prettier": "@brightlayer-ui/prettier-config",
   "private": false,
