@@ -1,4 +1,5 @@
-@import '@brightlayer-ui/colors/palette';
+@use '@brightlayer-ui/colors/palette' as blui;
+
 .blui-login-debug-button {
     position: absolute;
     top: 24px;
@@ -8,7 +9,7 @@
 .blui-login-debug-message {
     padding: 8px;
     margin-bottom: 16px;
-    background-color: map-get($blui-yellow, 500);
+    background-color: map-get(blui.$blui-yellow, 500);
     text-align: center;
 }
 
@@ -56,8 +57,8 @@ mat-form-field {
 }
 
 .blui-login-box-error {
-    background-color: map-get($blui-red, 500);
-    color: map-get($blui-white, 50);
+    background-color: map-get(blui.$blui-red, 500);
+    color: map-get(blui.$blui-white, 50);
     margin-bottom: 16px;
     &.blui-login-box-error-bottom {
         margin-top: 24px;

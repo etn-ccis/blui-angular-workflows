@@ -50,7 +50,6 @@
         "@typescript-eslint/eslint-plugin": "^5.42.1",
         "@typescript-eslint/parser": "^5.42.1",
         "@cypress/code-coverage": "^3.10.0",
-        "codelyzer": "^6.0.2",
         "cypress": "^10.9.0",
         "cypress-localstorage-commands": "^2.2.1",
         "eslint": "^8.27.0",
