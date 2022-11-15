@@ -1,4 +1,6 @@
 .blui-contact-support-chat-bubble-icon {
-    font-size: 70px;
-    margin-left: -45px;
+    $size: 70px;
+    font-size: $size;
+    height: $size;
+    width: $size;
 }
