@@ -15,7 +15,7 @@ import { CrossFieldErrorMatcher } from '../../util/matcher';
         `,
     ],
     template: `
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="fill" blui-input>
             <mat-label>{{ label || translate().GENERAL.PASSWORD_FORM_LABEL }}</mat-label>
             <input
                 matInput
