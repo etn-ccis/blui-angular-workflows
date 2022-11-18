@@ -5,7 +5,6 @@
 ### Changed
 
 - Updated to Angular 14 for building the library.
-- 
 ### Fixed
 
 -   Fixed duplicate IDs on the Change Password Page ([#178](https://github.com/brightlayer-ui/angular-workflows/issues/178)).
