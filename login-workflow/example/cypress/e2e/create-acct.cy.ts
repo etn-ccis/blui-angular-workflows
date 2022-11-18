@@ -24,8 +24,8 @@ describe('self register create account', () => {
         cy.get('.blui-auth-create-account').should('contain', 'Verify Email');
         cy.get('#verification').click().type('1234');
         cy.contains('Next').should('be.enabled').click();
-        cy.get('#blui-password').click().type('Test321!');
-        cy.get('#blui-confirm-password').click().type('Test321!');
+        cy.get('#blui-password .blui-password').click().type('Test321!');
+        cy.get('#blui-confirm-password .blui-password').click().type('Test321!');
         cy.contains('Next').should('be.enabled').click();
         cy.get('#blui-first').click().type('fName');
         cy.get('#blui-last').click().type('lName');

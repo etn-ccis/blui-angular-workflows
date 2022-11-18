@@ -12,7 +12,7 @@ describe('auth guard routes', () => {
     it('should display guarded route as authenticated', () => {
         cy.visit('http://localhost:4200/auth/login');
         cy.get('#blui-email').type('user@here.com');
-        cy.get('#blui-password').type('Test321!');
+        cy.get('.blui-password').type('Test321!');
         cy.contains('Log In').should('be.enabled').click();
         cy.wait(3000);
         cy.visit('http://localhost:4200/pre-auth');
@@ -28,7 +28,7 @@ describe('auth guard routes', () => {
     it('should display home page if authenticated', () => {
         cy.visit('http://localhost:4200/auth/login');
         cy.get('#blui-email').type('user@here.com');
-        cy.get('#blui-password').type('Test321!');
+        cy.get('.blui-password').type('Test321!');
         cy.contains('Log In').should('be.enabled').click();
         cy.wait(3000);
         cy.visit('http://localhost:4200/pre-auth');
@@ -45,7 +45,7 @@ describe('auth guard routes', () => {
     it('should display guarded route as authenticated', () => {
         cy.visit('http://localhost:4200/auth/login');
         cy.get('#blui-email').type('user@here.com');
-        cy.get('#blui-password').type('Test321!');
+        cy.get('.blui-password').type('Test321!');
         cy.contains('Log In').should('be.enabled').click();
         cy.wait(3000);
         cy.visit('http://localhost:4200/dashboard');

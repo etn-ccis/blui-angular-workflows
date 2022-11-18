@@ -19,7 +19,7 @@ import { CrossFieldErrorMatcher } from '../../util/matcher';
             <mat-label>{{ label || translate().GENERAL.PASSWORD_FORM_LABEL }}</mat-label>
             <input
                 matInput
-                id="blui-password"
+                class="blui-password"
                 #bluiPasswordField
                 name="password"
                 autocomplete="off"
@@ -30,7 +30,7 @@ import { CrossFieldErrorMatcher } from '../../util/matcher';
                 (keydown.enter)="enter.emit()"
             />
             <button
-                id="blui-visibility-icon"
+                class="blui-visibility-icon"
                 type="button"
                 mat-icon-button
                 matSuffix
@@ -47,7 +47,7 @@ import { CrossFieldErrorMatcher } from '../../util/matcher';
     `,
 })
 export class PasswordFieldComponent implements OnInit {
-    @Input() rememberPassword: false;
+    @Input() rememberPassword: boolean;
     @Input() label: string;
     @Input() shouldMatch: FormControl;
     @Input() passwordsMatch: boolean;

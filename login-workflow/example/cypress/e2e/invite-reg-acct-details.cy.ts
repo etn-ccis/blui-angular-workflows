@@ -13,8 +13,8 @@ describe('invite register account details', () => {
         // .find('input').click({force:true}); does not work
         cy.contains('Next').should('be.enabled').click();
         cy.contains('Create Password');
-        cy.get('#blui-password').click().type('Test321!');
-        cy.get('#blui-confirm-password').click().type('Test321!');
+        cy.get('#blui-password .blui-password').click().type('Test321!');
+        cy.get('#blui-confirm-password .blui-password').click().type('Test321!');
         cy.contains('Next').should('be.enabled').click();
         cy.contains('Account Details');
     });
@@ -25,8 +25,8 @@ describe('invite register account details', () => {
         cy.get('#blui-eula-checkbox').click();
         cy.contains('Next').should('be.enabled').click();
         cy.contains('Create Password');
-        cy.get('#blui-password').click().type('Test321!');
-        cy.get('#blui-confirm-password').click().type('Test321!');
+        cy.get('#blui-password .blui-password').click().type('Test321!');
+        cy.get('#blui-confirm-password .blui-password').click().type('Test321!');
         cy.contains('Next').should('be.enabled').click();
         cy.get('#blui-first').click().type('fName');
         cy.get('#blui-last').click().type('lName');
@@ -46,8 +46,8 @@ describe('invite register account details', () => {
         cy.get('#blui-eula-checkbox').click();
         cy.contains('Next').should('be.enabled').click();
         cy.contains('Create Password');
-        cy.get('#blui-password').click().type('Test321!');
-        cy.get('#blui-confirm-password').click().type('Test321!');
+        cy.get('#blui-password .blui-password').click().type('Test321!');
+        cy.get('#blui-confirm-password .blui-password').click().type('Test321!');
         cy.contains('Next').should('be.enabled').click();
         cy.get('#blui-first').click().type('fName');
         cy.contains('Next').should('be.disabled');
