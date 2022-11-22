@@ -1201,10 +1201,10 @@
     "@babel/helper-validator-identifier" "^7.19.1"
     to-fast-properties "^2.0.0"
 
-"@brightlayer-ui/angular-components@^8.0.0-beta.0":
-  version "8.0.0-beta.0"
-  resolved "https://registry.yarnpkg.com/@brightlayer-ui/angular-components/-/angular-components-8.0.0-beta.0.tgz#2c5b730327298ebfe5a99abba4c28f26151d0a47"
-  integrity sha512-dOb3xS0yHAvhgltS8t8rzNrs2pgP4s9pggZpahmr7LbWmBGFTyyu37Lo6hpXzy3WEqmHe8qDx9XD4IiEqyPwpw==
+"@brightlayer-ui/angular-components@^8.0.0":
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/@brightlayer-ui/angular-components/-/angular-components-8.0.0.tgz#f9c2aaad4cb334a6c432c46ffa930f6df1d06953"
+  integrity sha512-yt4IvsaEvKkho9n+MStbYJYWosMkb5rP0e/GEUrh6+/D3M5IzAfYcgCv1rkh0pta76UJtQ18ktDv0uoO8oVxCg==
   dependencies:
     tslib "^2.3.0"
 

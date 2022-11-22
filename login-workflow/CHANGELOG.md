@@ -1,19 +1,17 @@
 # Change Log
 
-## v4.0.0 (Not yet published)
+## v4.0.0 (November 22, 2022)
 
 ### Changed
 
-- Updated to Angular 14 for building the library.
+-   Updated to Angular 14 for building the library.
+
 ### Fixed
 
 -   Fixed duplicate IDs on the Change Password Page ([#178](https://github.com/brightlayer-ui/angular-workflows/issues/178)).
-
-## v3.0.2 (Not published yet)
+-   Fixed some minor Chinese translations issue ([#150](https://github.com/brightlayer-ui/angular-workflows/pull/150)).
 
 ### Fixed
-
--   Fixed some minor Chinese translations issue ([#150](https://github.com/brightlayer-ui/angular-workflows/pull/150)).
 
 ## v3.0.1 (June 13, 2022)
 
