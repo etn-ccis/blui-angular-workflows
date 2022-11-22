@@ -1,7 +1,7 @@
 {
   "name": "@brightlayer-ui/angular-auth-workflow",
   "description": "Re-usable workflow components for Authentication and Registration within Eaton applications.",
-  "version": "4.0.0-beta.1",
+  "version": "4.0.0",
   "scripts": {
     "ng": "ng",
     "watch": "npm-watch",
@@ -76,7 +76,7 @@
     "@angular/platform-browser": "^14.0.0",
     "@angular/platform-browser-dynamic": "^14.0.0",
     "@angular/router": "^14.0.0",
-    "@brightlayer-ui/angular-components": "^8.0.0-beta.0",
+    "@brightlayer-ui/angular-components": "^8.0.0",
     "@brightlayer-ui/colors": "^3.0.1",
     "@brightlayer-ui/eslint-config": "^3.0.1",
     "@brightlayer-ui/prettier-config": "^1.0.3",
