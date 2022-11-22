@@ -11,8 +11,6 @@
 -   Fixed duplicate IDs on the Change Password Page ([#178](https://github.com/brightlayer-ui/angular-workflows/issues/178)).
 -   Fixed some minor Chinese translations issue ([#150](https://github.com/brightlayer-ui/angular-workflows/pull/150)).
 
-### Fixed
-
 ## v3.0.1 (June 13, 2022)
 
 ### Fixed
