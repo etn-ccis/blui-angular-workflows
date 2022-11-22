@@ -126,7 +126,7 @@ import { Router } from '@angular/router';
         <ng-template #accountDetailsPage1>
             <form>
                 <div style="display: flex;">
-                    <mat-form-field appearance="fill" [style.maxWidth.px]="170">
+                    <mat-form-field appearance="fill" [style.maxWidth.px]="170" id="countryCode">
                         <mat-label>Country Code</mat-label>
                         <mat-select [formControl]="countryFormControl" required>
                             <mat-option *ngFor="let country of countries" [value]="country.value">
@@ -140,6 +140,7 @@ import { Router } from '@angular/router';
                     <mat-form-field appearance="fill" [style.marginLeft.px]="16">
                         <mat-label>Phone Number</mat-label>
                         <input
+                            id="phoneNumber"
                             matInput
                             required
                             [formControl]="phoneNumberFormControl"
@@ -156,7 +157,7 @@ import { Router } from '@angular/router';
 
         <ng-template #accountDetailsPage2>
             <form>
-                <mat-form-field appearance="fill">
+                <mat-form-field appearance="fill" id="company-name">
                     <mat-label>Company</mat-label>
                     <input matInput [formControl]="companyFormControl" placeholder="Where do you work?" required />
                     <mat-error *ngIf="companyFormControl.hasError('required')">
@@ -165,7 +166,7 @@ import { Router } from '@angular/router';
                 </mat-form-field>
             </form>
             <form>
-                <mat-form-field appearance="fill">
+                <mat-form-field appearance="fill" id="job-title">
                     <mat-label>Job Title</mat-label>
                     <input
                         matInput

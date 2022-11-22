@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-    codecov: codecov/codecov@1.1.3
+    codecov: codecov/codecov@3.2.2
     gh: circleci/github-cli@1.0.3
     browser-tools: circleci/browser-tools@1.2.4
 jobs:
@@ -50,6 +50,58 @@ jobs:
           paths:
             - login-workflow/dist
             - login-workflow/coverage
+  cypress_tests:
+    working_directory: ~/login-workflow/example
+    parallelism: 2
+    docker:
+        - image: cimg/node:14.19.0-browsers
+    resource_class: large
+    steps:
+        - checkout
+        - restore_cache:
+            keys:
+                - v2-dependencies-{{ checksum "login-workflow/yarn.lock" }}
+        - restore_cache:
+            keys:
+                - v2-dependencies-{{ checksum "login-workflow/example/yarn.lock" }}
+        - run:
+            name: Install Dependencies
+            command: |
+              cd login-workflow
+              yarn install --frozen-lockfile
+        - run:
+            name: Install Dependencies
+            command: |
+              cd login-workflow/example
+              yarn install --frozen-lockfile
+        - save_cache:
+            name: Save Cache
+            paths:
+                - ~/.cache
+                - node_modules
+            key: v2-dependencies-{{ checksum "login-workflow/yarn.lock" }}
+        - save_cache:
+            name: Save Cache
+            paths:
+                - ~/.cache
+                - node_modules
+            key: v2-dependencies-{{ checksum "login-workflow/example/yarn.lock" }}
+        - run:
+            name: Stage login workflow
+            command: |
+                cd login-workflow
+                yarn cy:stage
+        - run:
+            name: Cypress E2E Tests
+            command: |
+                cd login-workflow
+                yarn cytest
+        - store_artifacts:
+              path: cypress/screenshots
+        - persist_to_workspace:
+              root: .
+              paths:
+                - login-workflow/cypress-coverage
   coverage_report:
         working_directory: ~/angular-workflows
         docker:
@@ -60,8 +112,13 @@ jobs:
             - attach_workspace:
                 at: .
             - codecov/upload:
-                file: './login-workflow/coverage/lcov.info'
-                token: 13fcc7d2-66b8-4d91-91a2-4415ba9b8129
+                file: './login-workflow/coverage/angular-workflows/clover.xml'
+                flags: unit_tests
+                token: CODECOV_TOKEN
+            - codecov/upload:
+                file: './login-workflow/cypress-coverage/clover.xml'
+                flags: unit_tests
+                token: CODECOV_TOKEN
 
   publish_login_workflow:
     docker:
@@ -97,9 +154,18 @@ workflows:
   angular_workflows:
     jobs:
       - build_login_workflow
+      - cypress_tests:
+          requires:
+            - build_login_workflow
+          filters:
+            branches:
+              only:
+                - master
+                - dev
       - coverage_report:
                 requires:
                     - build_login_workflow
+                    - cypress_tests
                 filters:
                     branches:
                         only:

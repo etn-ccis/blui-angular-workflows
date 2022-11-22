@@ -40,3 +40,5 @@
 ### Unit Test Count
 67
 
+### Automated Test Count
+37

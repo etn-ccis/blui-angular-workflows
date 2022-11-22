@@ -1,11 +1,21 @@
 # Change Log
 
+## v4.0.0 (November 22, 2022)
+
+### Changed
+
+-   Updated to Angular 14 for building the library.
+
+### Fixed
+
+-   Fixed duplicate IDs on the Change Password Page ([#178](https://github.com/brightlayer-ui/angular-workflows/issues/178)).
+-   Fixed some minor Chinese translations issue ([#150](https://github.com/brightlayer-ui/angular-workflows/pull/150)).
+
 ## v3.0.1 (June 13, 2022)
 
 ### Fixed
 
 -   Fixed bug in create-account workflow where `requestRegistrationCode` was not invoked before reaching the "Verify Email" screen ([#132](https://github.com/brightlayer-ui/angular-workflows/issues/132)).
-
 
 ## v3.0.0 (March 15, 2022)
 

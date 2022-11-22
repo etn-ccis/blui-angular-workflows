@@ -1,4 +1,4 @@
-@import '~@brightlayer-ui/colors/palette';
+@use '@brightlayer-ui/colors/palette' as blui;
 
 .blui-auth-loading-overlay {
     position: fixed;
@@ -6,7 +6,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: map-get($blui-black, 500);
+    background: map-get(blui.$blui-black, 500);
     z-index: 3;
     opacity: 0.2;
 }

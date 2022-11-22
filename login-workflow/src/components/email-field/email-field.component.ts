@@ -22,7 +22,7 @@ import { AuthErrorStateMatcher } from '../../util/matcher';
         `,
     ],
     template: `
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="fill" blui-input>
             <mat-label>{{ translate().GENERAL.EMAIL_FORM_LABEL }}</mat-label>
             <input
                 id="blui-email"
@@ -38,6 +38,7 @@ import { AuthErrorStateMatcher } from '../../util/matcher';
                 (keyup.enter)="enter.emit()"
             />
             <mat-error
+                id="blui-email-helper-text"
                 *ngIf="
                     !manualErrorMessage &&
                     isEmailFormDirty() &&
