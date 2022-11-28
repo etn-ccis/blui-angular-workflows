@@ -52,7 +52,7 @@
         "@cypress/code-coverage": "^3.10.0",
         "cypress": "^10.9.0",
         "cypress-localstorage-commands": "^2.2.1",
-        "eslint": "^8.27.0",
+        "eslint": "^8.28.0",
         "eslint-config-prettier": "^8.5.0",
         "istanbul-instrumenter-loader": "^3.0.1",
         "jasmine-core": "~4.5.0",
