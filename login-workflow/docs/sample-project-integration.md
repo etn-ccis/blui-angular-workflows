@@ -4,7 +4,7 @@ If you don't have an existing Angular project and would like an example as a sta
 
 #### Setup
 
-Clone or download the package [repository](https://github.com/brightlayer-ui/angular-workflows) and then copy the `/login-workflow/example` folder to a new location. Navigate into this folder and run `yarn` to install the required dependencies.
+Clone or download the package [repository](https://github.com/etn-ccis/blui-angular-workflows) and then copy the `/login-workflow/example` folder to a new location. Navigate into this folder and run `yarn` to install the required dependencies.
 
 > If you are using npm as your package manager, you can delete the yarn.lock file and run `npm install` instead. This will generate a new lock file.
 
@@ -16,7 +16,7 @@ You will probably want to call your project something other than 'example'. Rena
 
 #### Configure BluiAuthConfig
 
-Open the `AuthComponent` component file (`app/pages/auth/auth.component.ts`) and adjust the configuration options of the `BluiAuthConfig` as necessary for your project (refer to the [Readme](https://github.com/brightlayer-ui/angular-workflows/tree/master/login-workflow/README.md)). As a suggestion, you may want to swap out the example image with a product logo for your project.
+Open the `AuthComponent` component file (`app/pages/auth/auth.component.ts`) and adjust the configuration options of the `BluiAuthConfig` as necessary for your project (refer to the [Readme](https://github.com/etn-ccis/blui-angular-workflows/tree/master/login-workflow/README.md)). As a suggestion, you may want to swap out the example image with a product logo for your project.
 
 
 #### Implement BluiAuthUIService and BluiRegisterUIService

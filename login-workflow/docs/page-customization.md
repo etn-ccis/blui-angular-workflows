@@ -4,7 +4,7 @@ Each page within the `@brightlayer-ui/angular-auth-workflow` can be customized w
  
 ## Text and HTML Overrides
 
-Each text element within the auth workflow has the ability to be overwritten.  These text-configuration files can be located [here](https://github.com/brightlayer-ui/angular-workflows/tree/master/login-workflow/src/translations).  
+Each text element within the auth workflow has the ability to be overwritten.  These text-configuration files can be located [here](https://github.com/etn-ccis/blui-angular-workflows/tree/master/login-workflow/src/translations).  
 
 The example below shows how to edit the English config file: 
 
@@ -63,7 +63,7 @@ This component accepts @Inputs for individual page customizations.
 The Login page is used to log in to an application; it is also a gateway to other pages, such as Contact Support or Forgot Password.
 
 
-![Login](https://raw.githubusercontent.com/brightlayer-ui/angular-workflows/master/login-workflow/media/login.png) 
+![Login](https://raw.githubusercontent.com/etn-ccis/blui-angular-workflows/master/login-workflow/media/login.png) 
 
 <div style="overflow: auto;">
 
@@ -93,7 +93,7 @@ The Create Account page is used for self-registration via a link on the Login Pa
 5. Enter Account Details
 6. Confirm Account Created
 
-For a more detailed explanation of how to add custom account details, check out our [custom-account-details docs](https://github.com/brightlayer-ui/angular-workflows/tree/master/login-workflow/docs/custom-account-details.md).
+For a more detailed explanation of how to add custom account details, check out our [custom-account-details docs](https://github.com/etn-ccis/blui-angular-workflows/tree/master/login-workflow/docs/custom-account-details.md).
 
 <div style="overflow: auto;">
 
@@ -136,7 +136,7 @@ A user has received an email invite to create an account; this workflow can be s
 ## Contact Support
 The Contact Support page contains information for users who need help accessing/using the application.  
 
-![Contact Support](https://raw.githubusercontent.com/brightlayer-ui/angular-workflows/master/login-workflow/media/contact-support.png) 
+![Contact Support](https://raw.githubusercontent.com/etn-ccis/blui-angular-workflows/master/login-workflow/media/contact-support.png) 
 
 <div style="overflow: auto;">
 
@@ -150,7 +150,7 @@ The Contact Support page contains information for users who need help accessing/
 ## Change Password
 The Change Password dialog allows authenticated users to change their password. Since this is a dialog, the `BluiChangePasswordDialogService` is used for text customizations. 
 
-![Change Password](https://raw.githubusercontent.com/brightlayer-ui/angular-workflows/master/login-workflow/media/change-password.png) 
+![Change Password](https://raw.githubusercontent.com/etn-ccis/blui-angular-workflows/master/login-workflow/media/change-password.png) 
 
 ### Usage 
 
@@ -165,7 +165,7 @@ constructor(BluiChangePasswordService: BluiChangePasswordDialogService) {
 ## Reset Password
 The Reset Password page is normally access via email and contains forms used to change a user's password.
    
-![Reset Password](https://raw.githubusercontent.com/brightlayer-ui/angular-workflows/master/login-workflow/media/reset-password.png) 
+![Reset Password](https://raw.githubusercontent.com/etn-ccis/blui-angular-workflows/master/login-workflow/media/reset-password.png) 
 
 <div style="overflow: auto;">
 
@@ -179,7 +179,7 @@ The Reset Password page is normally access via email and contains forms used to 
 ## Forgot Password
 The Forgot Password page allows a user to request a reset password email. 
 
-![Forgot Password](https://raw.githubusercontent.com/brightlayer-ui/angular-workflows/master/login-workflow/media/forgot-password.png) 
+![Forgot Password](https://raw.githubusercontent.com/etn-ccis/blui-angular-workflows/master/login-workflow/media/forgot-password.png) 
     
 <div style="overflow: auto;">
 
