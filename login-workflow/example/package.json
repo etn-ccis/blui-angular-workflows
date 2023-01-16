@@ -53,7 +53,7 @@
         "cypress": "^10.9.0",
         "cypress-localstorage-commands": "^2.2.2",
         "eslint": "^8.28.0",
-        "eslint-config-prettier": "^8.5.0",
+        "eslint-config-prettier": "^8.6.0",
         "istanbul-instrumenter-loader": "^3.0.1",
         "jasmine-core": "~4.5.0",
         "jasmine-spec-reporter": "~6.0.0",
