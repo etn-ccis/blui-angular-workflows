@@ -1,5 +1,6 @@
-# Angular Auth Workflow 
-![npm (scoped)](https://img.shields.io/npm/v/@brightlayer-ui/angular-auth-workflow) [![codecov](https://codecov.io/gh/etn-ccis/blui-angular-workflows/branch/master/graph/badge.svg?token=QVN32QVDG3)](https://codecov.io/gh/etn-ccis/blui-angular-workflows)
+# Angular Auth Workflow
+
+[![](https://img.shields.io/circleci/project/github/etn-ccis/blui-angular-workflows/master.svg?style=flat)](https://circleci.com/gh/etn-ccis/blui-angular-workflows/tree/master) ![npm (scoped)](https://img.shields.io/npm/v/@brightlayer-ui/angular-auth-workflow) [![codecov](https://codecov.io/gh/etn-ccis/blui-angular-workflows/branch/master/graph/badge.svg?token=QVN32QVDG3)](https://codecov.io/gh/etn-ccis/blui-angular-workflows)
 
 The Angular Auth Workflow package provides a consistent [authentication and registration experience](https://brightlayer-ui.github.io/patterns/user-auth) across Eaton web applications using Angular. 
 
