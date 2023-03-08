@@ -32,7 +32,7 @@
         "@brightlayer-ui/angular-themes": "^8.0.0",
         "@brightlayer-ui/colors": "^3.1.1",
         "@brightlayer-ui/icons": "^1.10.0",
-        "@brightlayer-ui/icons-svg": "^1.11.0",
+        "@brightlayer-ui/icons-svg": "^1.12.0",
         "rxjs": "~6.6.0",
         "tslib": "^2.5.0",
         "zone.js": "~0.11.8"
