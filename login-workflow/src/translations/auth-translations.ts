@@ -82,6 +82,7 @@ export type BluiAuthTranslations = {
             TITLE: string;
             INSTRUCTIONS: string;
             CODE_FORM_LABEL: string;
+            RESEND_LABEL: string;
             RESEND_BUTTON: string;
         };
         CREATE_PASSWORD: {
