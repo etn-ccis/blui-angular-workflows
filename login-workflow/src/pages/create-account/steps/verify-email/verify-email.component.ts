@@ -40,13 +40,12 @@ import { BluiAuthTranslations } from '../../../../translations/auth-translations
                     </mat-error>
                 </mat-form-field>
             </form>
-            <div style="display: flex"><div class="mat-body-2"> {{ translate.CREATE_ACCOUNT.VERIFY_EMAIL.RESEND_LABEL }} </div> 
+            <div style="display: flex; flex-direction: row;"><div class="mat-body-1">{{ translate.CREATE_ACCOUNT.VERIFY_EMAIL.RESEND_LABEL }}</div> 
             <div
                 color="primary"
-                class="blui-auth-link mat-body-2"
+                class="blui-auth-link mat-body-1"
                 (click)="sendVerificationEmail()"
-            > 
-            {{ translate.CREATE_ACCOUNT.VERIFY_EMAIL.RESEND_BUTTON }} 
+            >&nbsp;<u>{{ translate.CREATE_ACCOUNT.VERIFY_EMAIL.RESEND_BUTTON }}</u>
             </div>
         </div>
     `,
