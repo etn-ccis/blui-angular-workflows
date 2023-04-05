@@ -1,11 +1,5 @@
 # Change Log
 
-## v4.0.1 (Unreleased)
-
-### Fixed
-
--   Fixed Use waves SVG image for dark theme issue ([#94](https://github.com/etn-ccis/blui-angular-workflows/issues/94)).
-
 ## v4.0.0 (November 22, 2022)
 
 ### Changed
