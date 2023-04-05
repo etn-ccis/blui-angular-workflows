@@ -104,7 +104,8 @@ export const bluiAuthEnglishTranslations: BluiAuthTranslations = {
             INSTRUCTIONS:
                 'A verification code has been sent to the email address you provided. Click the link or enter the code below to continue. This code is valid for 30 minutes.',
             CODE_FORM_LABEL: 'Verification Code',
-            RESEND_BUTTON: 'Resend Verification Email',
+            RESEND_LABEL: "Didn't receive email?",
+            RESEND_BUTTON: 'Send Again',
         },
         CREATE_PASSWORD: {
             INSTRUCTIONS:
