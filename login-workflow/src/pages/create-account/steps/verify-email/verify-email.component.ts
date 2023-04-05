@@ -43,7 +43,8 @@ import { BluiAuthTranslations } from '../../../../translations/auth-translations
             <div style="display: flex; flex-direction: row;"><div class="mat-body-1">{{ translate.CREATE_ACCOUNT.VERIFY_EMAIL.RESEND_LABEL }}</div> 
             <div
                 color="primary"
-                class="blui-auth-link mat-body-1"
+                class="blui-auth-link mat-subheading-1"
+                style="line-height: inherit;"
                 (click)="sendVerificationEmail()"
             >&nbsp;<u>{{ translate.CREATE_ACCOUNT.VERIFY_EMAIL.RESEND_BUTTON }}</u>
             </div>
