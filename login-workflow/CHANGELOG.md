@@ -1,5 +1,11 @@
 # Change Log
 
+## v4.0.1 (Unreleased)
+
+### Fixed
+
+-   Fixed Publishing Happens before Tests Finish in the circleci config file ([#202](https://github.com/etn-ccis/blui-angular-workflows/issues/202)).
+
 ## v4.0.0 (November 22, 2022)
 
 ### Changed
