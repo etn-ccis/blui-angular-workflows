@@ -37,7 +37,7 @@ import { Router } from '@angular/router';
         <ng-template #registrationSuccessScreen let-firstName="firstName">
             <!-- Remove this ng-template to restore the default success screen. -->
             <div style="margin: -32px -24px 0 -24px; display: flex; flex-direction: column; flex: 1 1 0">
-                <img src="assets/images/waves.svg" style="width: 100%; margin-bottom: 8px;" />
+                <img src="assets/images/wave.svg" style="width: 100%; margin-bottom: 8px;" />
                 <div style="text-align: center">
                     <mat-icon
                         style="
@@ -74,7 +74,7 @@ import { Router } from '@angular/router';
         <ng-template #accountAlreadyExistsSuccessScreen let-firstName="firstName">
             <!-- Remove this ng-template to restore the default success screen. -->
             <div style="margin: -32px -24px 0 -24px; display: flex; flex-direction: column; flex: 1 1 0">
-                <img src="assets/images/waves.svg" style="width: 100%; margin-bottom: 8px;" />
+                <img src="assets/images/wave.svg" style="width: 100%; margin-bottom: 8px;" />
                 <div style="text-align: center">
                     <mat-icon
                         style="

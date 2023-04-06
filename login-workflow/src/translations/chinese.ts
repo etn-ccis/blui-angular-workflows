@@ -99,7 +99,8 @@ export const bluiAuthChineseTranslations: BluiAuthTranslations = {
             INSTRUCTIONS:
                 '已向您的邮箱中发送了一封验证邮件。请点击邮件中的链接，或者在此输入邮件中的验证码。验证邮件在30分钟内有效。',
             CODE_FORM_LABEL: '验证码',
-            RESEND_BUTTON: '重新发送验证邮件',
+            RESEND_LABEL: '没有收到电子邮件？',
+            RESEND_BUTTON: '重新发送',
         },
         CREATE_PASSWORD: {
             INSTRUCTIONS: '请输入您的新密码。请确保您的新密码符合以下列出的密码复杂度要求。',
