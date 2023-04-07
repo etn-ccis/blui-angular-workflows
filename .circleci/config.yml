@@ -161,7 +161,7 @@ workflows:
                             - master
       - publish_login_workflow:
           requires:
-            - build_login_workflow
+            - cypress_tests
           filters:
             branches:
               only:
