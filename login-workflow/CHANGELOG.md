@@ -2,6 +2,12 @@
 
 ## v4.0.0 (November 22, 2022)
 
+### Fixed
+
+-   Fixed Email input should have a consistant invalid email error message in the login page ([#99](https://github.com/etn-ccis/blui-angular-workflows/issues/99)).
+
+## v4.0.0 (November 22, 2022)
+
 ### Changed
 
 -   Updated to Angular 14 for building the library.
