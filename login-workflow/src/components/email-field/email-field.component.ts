@@ -83,10 +83,7 @@ export class EmailFieldComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        const emailValidators = [
-            Validators.required,
-            Validators.pattern(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i),
-        ];
+        const emailValidators = [Validators.required, Validators.pattern(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i)];
         if (this.customEmailValidator || this._bluiAuthConfig.customEmailValidator) {
             emailValidators.push(this.customEmailValidator || this._bluiAuthConfig.customEmailValidator);
         }
