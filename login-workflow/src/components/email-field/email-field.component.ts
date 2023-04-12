@@ -42,7 +42,6 @@ import { AuthErrorStateMatcher } from '../../util/matcher';
                 *ngIf="
                     !manualErrorMessage &&
                     isEmailFormDirty() &&
-                    emailFormControl.hasError('email') &&
                     !emailFormControl.hasError('required') &&
                     !emailFormControl.hasError(customErrorName)
                 "
@@ -86,7 +85,6 @@ export class EmailFieldComponent implements OnInit {
     ngOnInit(): void {
         const emailValidators = [
             Validators.required,
-            Validators.email,
             Validators.pattern(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i),
         ];
         if (this.customEmailValidator || this._bluiAuthConfig.customEmailValidator) {
@@ -109,9 +107,7 @@ export class EmailFieldComponent implements OnInit {
     }
 
     isEmailFormDirty(): boolean {
-        return (
-            !this.idFieldActive && this.touchedIdField && (this.emailFormControl.dirty || this.emailFormControl.touched)
-        );
+        return this.touchedIdField && (this.emailFormControl.dirty || this.emailFormControl.touched);
     }
 
     translate(): BluiAuthTranslations {
