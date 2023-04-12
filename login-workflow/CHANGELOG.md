@@ -4,6 +4,7 @@
 
 ### Fixed
 
+-   Fixed Email input should have a consistant invalid email error message in the login page ([#99](https://github.com/etn-ccis/blui-angular-workflows/issues/99)).
 -   Fixed update resend code screen to match new design issue in the create account page ([#247](https://github.com/etn-ccis/blui-angular-workflows/issues/247)).
 
 ## v4.0.0 (November 22, 2022)
