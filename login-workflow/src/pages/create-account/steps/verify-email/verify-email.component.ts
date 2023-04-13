@@ -45,6 +45,7 @@ import { BluiAuthTranslations } from '../../../../translations/auth-translations
                 <div
                     color="primary"
                     class="blui-auth-link mat-subheading-1"
+                    id="blui-resend-button-link"
                     style="line-height: inherit;"
                     (click)="sendVerificationEmail()"
                 >
