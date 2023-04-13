@@ -45,7 +45,7 @@ describe('BluiVerifyEmailComponent', () => {
         const verificationEmailSpy = spyOn(registerService, 'requestRegistrationCode').and.returnValue(
             Promise.resolve()
         );
-        const button = fixture.nativeElement.querySelector('button');
+        const button = fixture.nativeElement.querySelector('#blui-resend-button-link');
         button.click();
         void expect(verificationEmailSpy).toHaveBeenCalled();
     });
