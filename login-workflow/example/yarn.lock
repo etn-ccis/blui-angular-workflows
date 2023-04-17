@@ -1208,17 +1208,17 @@
     "@babel/helper-validator-identifier" "^7.19.1"
     to-fast-properties "^2.0.0"
 
-"@brightlayer-ui/angular-components@^8.0.1":
-  version "8.0.1"
-  resolved "https://registry.yarnpkg.com/@brightlayer-ui/angular-components/-/angular-components-8.0.1.tgz#6a631e0907ba38ac0525b85c736e0667714a44cc"
-  integrity sha512-jvo/Z/YNSZm1QAGp7VdHdqvNnXOZaX/piSzVW352Cc3AIW8/oAHlFylvnoOxs4LIg1OMtx+nQiKYCEUkQgEwgA==
+"@brightlayer-ui/angular-components@^8.1.0":
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/@brightlayer-ui/angular-components/-/angular-components-8.1.0.tgz#b5ea65b1094147ec06b09060b60c3e0ed80b91aa"
+  integrity sha512-RCp28fDPGf/EnBiBkxaSXSjhl4bm8QZapvvzJJFxByYvTor+wubRv27gah+udkyM0ufzZ1e6myLQ7fqCEsMQSw==
   dependencies:
     tslib "^2.3.0"
 
-"@brightlayer-ui/angular-themes@^8.0.0":
-  version "8.0.0"
-  resolved "https://registry.yarnpkg.com/@brightlayer-ui/angular-themes/-/angular-themes-8.0.0.tgz#25d813b0efa0815b06e2c227c3115821e2b0edf8"
-  integrity sha512-BOemaG+VCHTQ+hAG+ubiFVaX7BGrhNezj1Ki4TA1Uo0rMqLsqmu+weYD0gUJb5y7iietWCXnCJ35el1v+H7AWA==
+"@brightlayer-ui/angular-themes@^8.1.0":
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/@brightlayer-ui/angular-themes/-/angular-themes-8.1.0.tgz#1d930636dcb099cb596424572e6f8b0009db937a"
+  integrity sha512-P9EODD2VAq0+e8WG+k5JQdPBrCS/VKu/kpiLbPqR7it+zMnyV5RUU9vFJQ5j6+9WKhd28DNK/CR5QyktXjq7KQ==
   dependencies:
     "@brightlayer-ui/colors" "^3.0.0"
     "@fontsource/open-sans" "^4.1.0"
