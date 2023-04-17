@@ -137,18 +137,7 @@ jobs:
           name: Publish @brightlayer-ui/angular-auth-workflow
           command:  |
             cd login-workflow && yarn publish:package -b $CIRCLE_BRANCH
-
-  tag_login_workflow:
-    docker:
-      - image: cimg/node:14.19.0-browsers
-
-    steps:
-      - checkout
-      - gh/setup
-      - run:
-          name: Tag @brightlayer-ui/angular-auth-workflow
-          command:  |
-            cd login-workflow && yarn tag:package -b $CIRCLE_BRANCH
+            
 workflows:
   version: 2
   angular_workflows:
@@ -172,16 +161,9 @@ workflows:
                             - master
       - publish_login_workflow:
           requires:
-            - build_login_workflow
+            - cypress_tests
           filters:
             branches:
               only:
                 - master
                 - dev
-      - tag_login_workflow:
-          requires:
-            - publish_login_workflow
-          filters:
-            branches:
-              only:
-                - master

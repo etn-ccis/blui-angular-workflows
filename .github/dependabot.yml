@@ -1,21 +1,23 @@
 version: 2
 updates:
-  - package-ecosystem: "npm"
-    directory: "/login-workflow"
-    schedule:
-      interval: "weekly"
-      day: "monday"
-    open-pull-requests-limit: 1
-    target-branch: "dev"
-    labels:
-      - "external-dependency"
-      
-  - package-ecosystem: "npm"
-    directory: "/login-workflow/example"
-    schedule:
-      interval: "weekly"
-      day: "monday"
-    open-pull-requests-limit: 1
-    target-branch: "dev"
-    labels:
-      - "external-dependency"      
+    - package-ecosystem: 'npm'
+      directory: '/login-workflow'
+      schedule:
+          interval: 'monthly'
+          day: 'monday'
+      open-pull-requests-limit: 1
+      target-branch: 'dev'
+      labels:
+          - 'external-dependency'
+          - 'brightlayer-ui'
+
+    - package-ecosystem: 'npm'
+      directory: '/login-workflow/example'
+      schedule:
+          interval: 'monthly'
+          day: 'monday'
+      open-pull-requests-limit: 1
+      target-branch: 'dev'
+      labels:
+          - 'external-dependency'
+          - 'brightlayer-ui'

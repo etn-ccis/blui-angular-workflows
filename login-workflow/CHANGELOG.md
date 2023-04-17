@@ -1,5 +1,12 @@
 # Change Log
 
+## v4.0.1 (April 17, 2023)
+
+### Fixed
+
+-   Fixed Email input should have a consistant invalid email error message in the login page ([#99](https://github.com/etn-ccis/blui-angular-workflows/issues/99)).
+-   Fixed update resend code screen to match new design issue in the create account page ([#247](https://github.com/etn-ccis/blui-angular-workflows/issues/247)).
+
 ## v4.0.0 (November 22, 2022)
 
 ### Changed
@@ -8,14 +15,14 @@
 
 ### Fixed
 
--   Fixed duplicate IDs on the Change Password Page ([#178](https://github.com/brightlayer-ui/angular-workflows/issues/178)).
--   Fixed some minor Chinese translations issue ([#150](https://github.com/brightlayer-ui/angular-workflows/pull/150)).
+-   Fixed duplicate IDs on the Change Password Page ([#178](https://github.com/etn-ccis/blui-angular-workflows/issues/178)).
+-   Fixed some minor Chinese translations issue ([#150](https://github.com/etn-ccis/blui-angular-workflows/pull/150)).
 
 ## v3.0.1 (June 13, 2022)
 
 ### Fixed
 
--   Fixed bug in create-account workflow where `requestRegistrationCode` was not invoked before reaching the "Verify Email" screen ([#132](https://github.com/brightlayer-ui/angular-workflows/issues/132)).
+-   Fixed bug in create-account workflow where `requestRegistrationCode` was not invoked before reaching the "Verify Email" screen ([#132](https://github.com/etn-ccis/blui-angular-workflows/issues/132)).
 
 ## v3.0.0 (March 15, 2022)
 
