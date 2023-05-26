@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatFormField } from '@angular/material/form-field';
+import { MatLegacyFormField as MatFormField } from '@angular/material/legacy-form-field';
 import { FormControl, ValidatorFn } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
