@@ -1,6 +1,6 @@
 import { AccountDetails } from './create-account.component';
 import { TemplateRef } from '@angular/core';
-import { MatFormField } from '@angular/material/form-field';
+import { MatLegacyFormField as MatFormField } from '@angular/material/legacy-form-field';
 import { FormControl } from '@angular/forms';
 
 export class CreateAccountService {
