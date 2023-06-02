@@ -17,7 +17,7 @@ import { BluiAuthTranslations } from '../../../../translations/auth-translations
         <div class="blui-auth-full-height">
             <p
                 class="mat-body-1"
-                style="margin-bottom: 24px;"
+                style="margin-bottom: 24px;margin-top: 0px"
                 [innerHTML]="pageInstructions || translate.CREATE_ACCOUNT.ACCOUNT_DETAILS.INSTRUCTIONS"
             ></p>
             <mat-divider class="blui-auth-divider" style="margin-top: 16px; margin-bottom: 32px;"></mat-divider>

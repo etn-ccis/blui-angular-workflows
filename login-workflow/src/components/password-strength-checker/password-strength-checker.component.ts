@@ -5,7 +5,7 @@ import { Component, Input } from '@angular/core';
     template: `
         <mat-list-item class="blui-auth-password-check">
             <mat-icon class="check-icon" [color]="success ? 'primary' : undefined">{{ icon }}</mat-icon>
-            <span class="validation-message mat-subheading-1" [class.success]="success">
+            <span class="validation-message blui-subtitle-1" [class.success]="success">
                 {{ validationMessage }}
             </span>
         </mat-list-item>
