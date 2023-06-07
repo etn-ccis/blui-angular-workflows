@@ -13,7 +13,7 @@ import { PasswordFieldComponent } from '../../../../components/password-field/pa
         <div class="mat-title blui-auth-title" [innerHTML]="translate.CREATE_ACCOUNT.CREATE_PASSWORD.TITLE"></div>
         <p
             class="mat-body-1"
-            style="margin-bottom: 24px;margin-top: 0px"
+            style="margin-bottom: 24px; margin-top: 0px"
             [innerHTML]="translate.CREATE_ACCOUNT.CREATE_PASSWORD.INSTRUCTIONS"
         ></p>
         <mat-divider class="blui-auth-divider" style="margin-top: 16px; margin-bottom: 32px;"></mat-divider>
