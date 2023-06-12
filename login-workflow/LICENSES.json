@@ -5,7 +5,7 @@
         "licenseUrl": "https://github.com/angular/flex-layout",
         "parents": "example"
     },
-    "@brightlayer-ui/angular-themes@9.0.0-alpha.5": {
+    "@brightlayer-ui/angular-themes@9.0.0-alpha.7": {
         "licenses": "BSD-3-Clause",
         "repository": "https://github.com/etn-ccis/blui-angular-themes",
         "licenseUrl": "https://github.com/etn-ccis/blui-angular-themes/raw/master/LICENSE",
