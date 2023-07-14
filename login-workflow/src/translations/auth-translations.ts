@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 export type BluiAuthTranslations = {
     GENERAL: {
         BACK_BUTTON: string;
