@@ -1,4 +1,4 @@
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
 
 export type IBluiAuthErrorDialogService = {
     openDialog(data: ErrorDialogData): MatDialogRef<any>;

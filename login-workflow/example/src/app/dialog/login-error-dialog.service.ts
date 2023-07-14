@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
 import { LoginErrorDialogComponent } from './login-error-dialog.component';
 import { IBluiAuthErrorDialogService } from '@brightlayer-ui/angular-auth-workflow';
 

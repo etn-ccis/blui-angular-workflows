@@ -16,10 +16,14 @@
     <div *ngIf="isEmpty(instructionsEl)">
         <p
             class="mat-body-1"
-            style="margin-bottom: 8px"
+            style="margin-bottom: 8px; margin-top: 0px"
             [innerHTML]="translate.CONTACT_SUPPORT.GENERAL_SUPPORT_TITLE"
         ></p>
-        <p class="mat-body-1" style="margin-bottom: 32px" [innerHTML]="getGeneralSupportDescription()"></p>
+        <p
+            class="mat-body-1"
+            style="margin-bottom: 32px; margin-top: 0px"
+            [innerHTML]="getGeneralSupportDescription()"
+        ></p>
         <p
             class="mat-body-1"
             style="margin-bottom: 8px"

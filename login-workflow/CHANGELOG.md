@@ -1,5 +1,11 @@
 # Change Log
 
+## v5.0.0 (July 14, 2023)
+
+### Changed
+
+-   Updated to Angular 15 for building the library.
+
 ## v4.0.1 (April 17, 2023)
 
 ### Fixed

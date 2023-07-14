@@ -9,20 +9,20 @@ import {
     BluiRegisterUIService,
     BluiLoginErrorDialogService,
 } from '@brightlayer-ui/angular-auth-workflow';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatCardModule } from '@angular/material/card';
+import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';
+import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
+import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthComponent } from './pages/auth/auth.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthUIService } from './services/auth-ui.service';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
+import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/legacy-dialog';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { LoginErrorDialogComponent } from './dialog/login-error-dialog.component';
 import { RegisterUIService } from './services/register-ui.service';
 import { LoginErrorDialogService } from './dialog/login-error-dialog.service';
-import { MatSelectModule } from '@angular/material/select';
+import { MatLegacySelectModule as MatSelectModule } from '@angular/material/legacy-select';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
