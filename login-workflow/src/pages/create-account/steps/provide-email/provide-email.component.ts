@@ -12,7 +12,7 @@ import { EmailFieldComponent } from '../../../../components/email-field/email-fi
         <div class="mat-title blui-auth-title" [innerHTML]="translate.CREATE_ACCOUNT.ENTER_EMAIL.TITLE"></div>
         <p
             class="mat-body-1"
-            style="margin-bottom: 24px;"
+            style="margin-bottom: 24px; margin-top: 0px"
             [innerHTML]="translate.CREATE_ACCOUNT.ENTER_EMAIL.INSTRUCTIONS"
         ></p>
         <mat-divider class="blui-auth-divider" style="margin-top: 16px; margin-bottom: 32px;"></mat-divider>

@@ -73,8 +73,7 @@
                     "builder": "ngx-build-plus:dev-server",
                     "configurations": {
                         "lib": {
-                            "browserTarget": "example:build:lib",
-                            "extraWebpackConfig": "./cypress/coverage.webpack.js"
+                            "browserTarget": "example:build:lib"
                         },
                         "production": {
                             "browserTarget": "example:build:production"

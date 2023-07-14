@@ -3,7 +3,7 @@ import { BluiCreateAccountStepsModule } from '../steps.module';
 import { RouterTestingModule } from '@angular/router/testing';
 import { By } from '@angular/platform-browser';
 import { BluiVerifyEmailComponent } from './verify-email.component';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/legacy-dialog';
 import { BluiRegisterUIService } from '../../../../services/api';
 
 describe('BluiVerifyEmailComponent', () => {
