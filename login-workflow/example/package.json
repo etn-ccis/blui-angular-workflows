@@ -46,7 +46,7 @@
     "@brightlayer-ui/prettier-config": "^1.0.3",
     "@types/jasmine": "~3.9.0",
     "@types/jasminewd2": "~2.0.10",
-    "@types/node": "^18.11.10",
+    "@types/node": "^20.8.0",
     "@typescript-eslint/eslint-plugin": "^5.49.0",
     "@typescript-eslint/parser": "^5.42.1",
     "@cypress/code-coverage": "^3.10.4",
