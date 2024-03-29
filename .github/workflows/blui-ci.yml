@@ -56,7 +56,7 @@ jobs:
         cache-dependency-path: login-workflow
     - run: yarn --frozen-lockfile
       working-directory: login-workflow
-    - run: yarn test --no-watch --code-coverage
+    - run: yarn coverage
       working-directory: login-workflow
     - name: Upload to Codecov
       uses: codecov/codecov-action@v3

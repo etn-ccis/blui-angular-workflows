@@ -16,7 +16,7 @@
     "tag:package": "npx -p @brightlayer-ui/tag blui-tag -s -blui-angular-auth-workflow",
     "install:dependencies": "yarn && cd example && yarn",
     "start:example": "yarn copy-to-example && cd example && yarn && yarn start:lib",
-    "coverage": "yarn test --no-watch --code-coverage",
+    "coverage": "ng test --browsers=ChromeHeadless --no-watch --code-coverage",
     "copy-to-example": "cp -r src/. example/src/lib/",
     "generate:licenses": "npm-license-crawler -onlyDirectDependencies -json LICENSES.json",
     "precommit": "yarn prettier && yarn lint && yarn test:ci && yarn build && yarn generate:licenses",
