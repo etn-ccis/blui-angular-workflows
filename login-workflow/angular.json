@@ -32,5 +32,8 @@
       }
     }
   },
-  "defaultProject": "angular-auth-workflow"
+  "defaultProject": "angular-auth-workflow",
+  "cli": {
+    "analytics": false
+  }
 }
