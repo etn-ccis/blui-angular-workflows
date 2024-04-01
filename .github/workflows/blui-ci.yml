@@ -67,48 +67,51 @@ jobs:
         name: codecov-report
         verbose: true
 
-  # cypress-run:
-  #   runs-on: ubuntu-latest
-  #   strategy:
-  #     matrix:
-  #       node-version: [18.x]
-  #   needs: build_login_workflow
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v4
-  #     - name: Use Node.js ${{ matrix.node-version }}
-  #       uses: actions/setup-node@v4
-  #       with:
-  #         node-version: ${{ matrix.node-version }}
-  #         cache: 'yarn'
+  cypress-run:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x]
+    needs: build_login_workflow
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'yarn'
+          cache-dependency-path: login-workflow
+      - run: yarn cy:stage
+        working-directory: login-workflow
       
-  #     - name: Cypress install
-  #       uses: cypress-io/github-action@v6
-  #       with:
-  #         runTests: false
+      - name: Cypress install
+        uses: cypress-io/github-action@v6
+        with:
+          runTests: false
       
-  #     - name: Download the build folder
-  #       uses: actions/download-artifact@v3
-  #       with:
-  #         name: dist
-  #         path: login-workflow/dist
+      # - name: Download the build folder
+      #   uses: actions/download-artifact@v3
+      #   with:
+      #     name: dist
+      #     path: login-workflow/dist
       
-  #     - name: Cypress run
-  #       uses: cypress-io/github-action@v6
-  #       with:
-  #         start: yarn start:cytest && yarn cy:run
-  #         wait-on: ${{ matrix.node-version == 18 && 'http://[::1]:4200' || 'http://localhost:4200' }}
-  #         wait-on-timeout: 300
-  #         browser: chrome
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        with:
+          start: yarn start:cytest && yarn cy:run
+          wait-on: ${{ matrix.node-version == 18 && 'http://[::1]:4200' || 'http://localhost:4200' }}
+          wait-on-timeout: 300
+          browser: chrome
       
-  #     - name: Upload coverage to Codecov
-  #       uses: codecov/codecov-action@v3
-  #       with:
-  #         directory: cypress-coverage
-  #         files: clover.xml
-  #         flags: uitests
-  #         name: codecov-report
-  #         verbose: true
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          directory: cypress-coverage
+          files: clover.xml
+          flags: uitests
+          name: codecov-report
+          verbose: true
 
   build_login_workflow:
     runs-on: ubuntu-latest
