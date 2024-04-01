@@ -72,7 +72,6 @@ jobs:
     strategy:
       matrix:
         node-version: [18.x]
-    needs: build_login_workflow
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -101,6 +100,7 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           start: yarn start:cytest && yarn cy:run
+          working-directory: login-workflow/example
           wait-on: ${{ matrix.node-version == 18 && 'http://[::1]:4200' || 'http://localhost:4200' }}
           wait-on-timeout: 300
           browser: chrome
@@ -143,7 +143,7 @@ jobs:
   publish_login_workflow:
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'push' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/dev') }}
-    needs: [prettier_lint, unit_test, build_login_workflow]
+    needs: [prettier_lint, unit_test, cypress-run, build_login_workflow]
     strategy:
       matrix:
         node-version: [18.x]
