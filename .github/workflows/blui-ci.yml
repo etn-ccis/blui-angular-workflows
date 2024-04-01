@@ -89,6 +89,7 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           runTests: false
+          working-directory: login-workflow/example
       
       # - name: Download the build folder
       #   uses: actions/download-artifact@v3
