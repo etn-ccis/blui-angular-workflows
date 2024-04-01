@@ -71,7 +71,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [16.x]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -99,9 +99,9 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
-          start: npm start:cytest
+          start: yarn start:cytest && yarn cy:run
           working-directory: login-workflow/example
-          wait-on: ${{ matrix.node-version == 18 && 'http://[::1]:4200' || 'http://localhost:4200' }}
+          wait-on: ${{ matrix.node-version == 16 && 'http://[::1]:4200' || 'http://localhost:4200' }}
           wait-on-timeout: 300
           browser: chrome
       
