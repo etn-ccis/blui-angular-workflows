@@ -13,7 +13,7 @@
     "prettier:check": "prettier \"src/app/**/**.{ts,js,json,css,scss,html}\" --check",
     "cy:run": "cypress run --config video=false",
     "cypress:open": "cypress open",
-    "cytest": "start-server-and-test start http://localhost:4200 cy:run"
+    "cytest": "yarn start-server-and-test start:lib http://localhost:4200 cy:run --config video=false"
   },
   "private": true,
   "dependencies": {
@@ -50,7 +50,7 @@
     "@typescript-eslint/eslint-plugin": "^5.49.0",
     "@typescript-eslint/parser": "^5.42.1",
     "@cypress/code-coverage": "^3.10.4",
-    "cypress": "^10.9.0",
+    "cypress": "^13.0.0",
     "cypress-localstorage-commands": "^2.2.2",
     "eslint": "^8.28.0",
     "eslint-config-prettier": "^8.6.0",
