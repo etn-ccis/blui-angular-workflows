@@ -99,7 +99,7 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
-          start: yarn cytest
+          start: npm start
           working-directory: login-workflow/example
           wait-on: ${{ matrix.node-version == 18 && 'http://[::1]:4200' || 'http://localhost:4200' }}
           wait-on-timeout: 300
