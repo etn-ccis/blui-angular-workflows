@@ -90,12 +90,6 @@ jobs:
           runTests: false
           working-directory: login-workflow/example
       
-      # - name: Download the build folder
-      #   uses: actions/download-artifact@v3
-      #   with:
-      #     name: dist
-      #     path: login-workflow/dist
-      
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
