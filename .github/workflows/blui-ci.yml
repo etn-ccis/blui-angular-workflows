@@ -102,7 +102,7 @@ jobs:
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
         with:
-          directory: ./login-workflow/cypress-coverage
+          directory: ./login-workflow/cypress-coverage/
           files: clover.xml
           flags: uitests
           name: codecov-report
@@ -158,3 +158,4 @@ jobs:
           cache-dependency-path: login-workflow
       - run: yarn --frozen-lockfile
       - run: yarn publish:package -b ${{env.BRANCH}}
+        working-directory: login-workflow
