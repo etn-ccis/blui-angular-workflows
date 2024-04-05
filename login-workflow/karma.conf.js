@@ -17,7 +17,7 @@ module.exports = function (config) {
       },
       coverageIstanbulReporter: {
           dir: require('path').join(__dirname, './coverage/angular-workflows'),
-          reports: ['html', 'clover', 'text-summary'],
+          reports: ['html', 'clover', 'text-summary', 'cobertura'],
           fixWebpackSourcePaths: true,
       },
       reporters: ['progress', 'kjhtml', 'coverage-istanbul'],

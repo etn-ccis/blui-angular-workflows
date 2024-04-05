@@ -62,8 +62,7 @@ jobs:
       uses: codecov/codecov-action@v3
       with:
         directory: ./login-workflow/coverage/
-        files: clover.xml
-        flags: unittests
+        files: cobertura-coverage.xml
         name: codecov-report
         verbose: true
 
@@ -104,7 +103,6 @@ jobs:
         with:
           directory: ./login-workflow/cypress-coverage/
           files: clover.xml
-          flags: uitests
           name: codecov-report
           verbose: true
 
