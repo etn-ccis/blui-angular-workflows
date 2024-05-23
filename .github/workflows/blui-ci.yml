@@ -61,6 +61,7 @@ jobs:
     - name: Upload to Codecov
       uses: codecov/codecov-action@v3
       with:
+        token: ${{ secrets.CODECOV_TOKEN }}
         directory: ./login-workflow/coverage/
         files: cobertura-coverage.xml
         name: codecov-report
@@ -101,6 +102,7 @@ jobs:
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
         with:
+          token: ${{ secrets.CODECOV_TOKEN }}
           directory: ./login-workflow/cypress-coverage/
           files: clover.xml
           name: codecov-report
