@@ -21,7 +21,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [20.x]
 
     steps:
     - name: Checkout
@@ -44,7 +44,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [20.x]
 
     steps:
     - uses: actions/checkout@v4
@@ -71,7 +71,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [20.x]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -95,7 +95,7 @@ jobs:
         with:
           start: yarn cytest
           working-directory: login-workflow/example
-          wait-on: ${{ matrix.node-version == 18 && 'http://[::1]:4200' || 'http://localhost:4200' }}
+          wait-on: ${{ matrix.node-version == 20 && 'http://[::1]:4200' || 'http://localhost:4200' }}
           wait-on-timeout: 300
           browser: chrome
       
@@ -113,7 +113,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [20.x]
 
     steps:
     - uses: actions/checkout@v4
@@ -140,7 +140,7 @@ jobs:
     needs: [prettier_lint, unit_test, cypress-run, build_login_workflow]
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [20.x]
     env:
       NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       BRANCH: ${{ github.ref == 'refs/heads/master' && 'master' || 'dev' }}
