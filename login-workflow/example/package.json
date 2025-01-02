@@ -44,7 +44,7 @@
     "@angular-devkit/build-angular": "^15.2.8",
     "@brightlayer-ui/eslint-config": "^3.0.0",
     "@brightlayer-ui/prettier-config": "^1.0.3",
-    "@types/jasmine": "~3.9.0",
+    "@types/jasmine": "~5.1.5",
     "@types/jasminewd2": "~2.0.13",
     "@types/node": "^18.11.10",
     "@typescript-eslint/eslint-plugin": "^5.49.0",
