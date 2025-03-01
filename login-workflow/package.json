@@ -82,7 +82,7 @@
     "@brightlayer-ui/prettier-config": "^1.0.3",
     "@types/jasmine": "~5.1.4",
     "@types/jasminewd2": "~2.0.10",
-    "@types/node": "^18.8.3",
+    "@types/node": "^22.13.8",
     "@typescript-eslint/eslint-plugin": "^5.42.1",
     "@typescript-eslint/parser": "^5.42.1",
     "eslint": "^8.27.0",
