@@ -31,7 +31,7 @@
     "@brightlayer-ui/angular-components": "9.0.0",
     "@brightlayer-ui/angular-themes": "9.0.2",
     "@brightlayer-ui/colors": "^3.1.1",
-    "@brightlayer-ui/icons": "^2.1.0",
+    "@brightlayer-ui/icons": "^2.3.0",
     "@brightlayer-ui/icons-svg": "^1.14.0",
     "rxjs": "~7.8.2",
     "tslib": "^2.6.2",
