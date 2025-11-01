@@ -4886,10 +4886,10 @@ custom-event@~1.0.0:
   resolved "https://registry.yarnpkg.com/custom-event/-/custom-event-1.0.1.tgz#5d02a46850adf1b4a317946a3928fccb5bfd0425"
   integrity sha512-GAj5FOq0Hd+RsCGVJxZuKaIDXDf3h6GQoNEjFgbLLI/trgtavwUbSnZ5pVfg27DVCaWjIohryS0JFwIJyT2cMg==
 
-cypress-localstorage-commands@^2.2.2:
-  version "2.2.3"
-  resolved "https://registry.yarnpkg.com/cypress-localstorage-commands/-/cypress-localstorage-commands-2.2.3.tgz#ef5b736226b8316b7d948e30bc4b94a157cfa025"
-  integrity sha512-EUEaHzbstw9AsEheIqr+RyXuxIzUS64nBBwl+Q4/mSdzfXpfcaV1nrHF+6H9zbTuFVTc+oWu6eC1l8aSjiWW6w==
+cypress-localstorage-commands@^2.2.8:
+  version "2.2.8"
+  resolved "https://registry.yarnpkg.com/cypress-localstorage-commands/-/cypress-localstorage-commands-2.2.8.tgz#e76c7b22fe9af32e137a205bda7e227aabaf2508"
+  integrity sha512-nqZ+SwNniT138lTWIhU4MjeKbn/81fwNY5AcxXQLgxyCThh2dyiHLhG1ybWQFKu21XaO2M1rL2gJdXl0qVp5Ew==
 
 cypress@^13.0.0:
   version "13.7.1"
